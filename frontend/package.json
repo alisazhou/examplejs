@@ -1,0 +1,55 @@
+{
+  "name": "examplejs",
+  "version": "0.0.0",
+  "description": "how to setup a react webapp on pythonanywhere",
+  "main": "bundled.js",
+  "scripts": {
+    "test": "jest",
+    "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js | uglifyjs > ../static/bundled.js && sass src/main.scss ../static/bundled.css",
+    "js": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js -o ../static/bundled.js",
+    "css": "sass --watch src/main.scss:../static/bundled.css"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react*",
+      "<rootDir>/node_modules/fbjs",
+      "<rootDir>/node_modules/babel*",
+      "<rootDir>/node_modules/core-js",
+      "<rootDir>/node_modules/dom-helpers",
+      "<rootDir>/node_modules/uncontrollable",
+      "<rootDir>/node_modules/ramda"
+    ],
+    "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js",
+    "testPathDirs": [
+      "<rootDir>/src"
+    ],
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6",
+      "jsx"
+    ]
+  },
+  "author": "conrad",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "babel-core": "^6.1.21",
+    "babel-jest": "*",
+    "babel-preset-es2015": "~6.1.18",
+    "babel-preset-react": "~6.1.18",
+    "babelify": "~7.2.0",
+    "browserify": "^12.0.1",
+    "jest-cli": "^0.8.0",
+    "ramda": "^0.18.0",
+    "react": "~0.14.2",
+    "react-addons-test-utils": "~0.14.0",
+    "react-bootstrap": "~0.27.3",
+    "react-dom": "~0.14.2",
+    "uglifyjs": "^2.4.10"
+  }
+}
