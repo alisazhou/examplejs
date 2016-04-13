@@ -1,10 +1,11 @@
-import pytest
-@pytest.mark.skip()
-def test_front_page_loads(browser):
-    browser.goto('/')
-    assert 'sexy page' in browser.body_text
-
+## import pytest
 import requests
-def test_can_have_js_test(live_server):
+
+def test_static_files_are_served(live_server):
     response = requests.get(live_server.url + '/static/tests/testy.js')
     assert response.status_code == 200
+
+def test_index_page_executes_react_script_correctly(browser):
+    browser.goto('/')
+    assert 'Loading...' not in browser.body_text
+    assert '' in browser.body_text
