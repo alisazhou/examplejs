@@ -1,0 +1,26 @@
+
+.sticky-layout {
+    // so that footer will not have blank space on the left
+    // also so that there is no black space at the top
+    margin: 0;
+    height: 100%;
+
+    @at-root #{&}--body {
+        // note: dont need to do calc again here
+        @include size(100% (100 - $navbar-height));
+        @include calc(max-height, '100% - #{$navbar-min-height}');
+        background: $base-background-color;
+        overflow: auto;
+        @include no-spacing()
+    }
+    @at-root #{&}--footer {
+        @include size(100% $navbar-height);
+        min-height: $navbar-min-height;
+        position: fixed;
+        bottom: 0;
+        background: $navbar-color;
+        color: $navbar-font-color;
+        z-index: 999;
+        border: 0 none red;
+    }
+}

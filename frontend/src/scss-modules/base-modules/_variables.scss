@@ -1,0 +1,71 @@
+// Typography
+$root-font-size: 4vh;
+
+// for discussion of using lists etc
+// http://blackfalcon.roughdraft.io/a8e151dd85bb1631897b-how-to-better-make-use-of-variables-in-your-sass
+// http://www.sitepoint.com/sass-multiple-arguments-lists-or-arglist/
+// Colors
+$colors: (
+  blue: #477dca,
+  hard-black: #333,
+  soft-black: #555,
+  medium-gray: #999,
+  light-gray: #ddd,
+  bright-green: #65F3B3,
+  bright-blue: #14BCC8,
+);
+
+$base-font: (
+  family: ("garamond", helvetica),
+  color: map-get($colors, soft-black), // http://typeplate.com/ see part 1.3 color
+  size: 1rem,
+  height: 1.5,
+  spacing: 1.5 * 1rem,  // size * line height
+);
+
+$heading-font: (
+  family: ("overlock", map-get($base-font, family...)),
+  color: map-get($colors, hard-black),
+  // font-size changes for diff headings: modular-scale(1);
+  height: 1.2,
+);
+
+// bourbon settings for modular-scale (used in headings fontsize)
+$modular-scale-ratio: $golden;
+$modular-scale-base: map-get($base-font, size);
+
+// Other Sizes
+$base-border-radius: 3px;
+$small-spacing: map-get($base-font, spacing) / 2;
+$base-z-index: 0;
+
+// Font Colors
+$action-color: map-get($colors, blue);
+
+// Border
+$base-border-color: map-get($colors, light-gray);
+$base-border: 20px dotted $base-border-color;
+
+// Background Colors
+$base-background-color: map-get($colors, light-gray);
+$secondary-background-color: tint($base-border-color, 75%);
+
+// Forms
+$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;
+
+
+// Layout
+$navbar-color: map-get($colors, soft-black);
+$navbar-font-color: map-get($colors, light-gray);
+$navbar-height: 5vh;
+$navbar-min-height: map-get($base-font, spacing) + 0.4rem; //buttons
+
+// neat debug stuff
+// $visual-grid: true;
+// $visual-grid-color: #faa;
+// $visual-grid-index: front;

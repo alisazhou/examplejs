@@ -1,0 +1,16 @@
+// Modules and Variables
+// Sass code that doesn't cause Sass to actually output CSS.
+// Things like mixin declarations, functions, and variables.
+// base gets all these utility modules
+@import "scss-modules/base";
+
+// Partials- the actual code. each file here will do a single
+// import base to get access to my entire Sass environment
+// (ie. the variables and the modules)
+@import "components/sticky-layout/sticky-layout";
+// @import "components/sticky-footer/sticky-footer";
+@import "scss-modules/typography";
+
+// Third-party stuff not to be modified
+// eg: bootstrap? which just acts on its own dom stuff
+// and doesn't need to be imported in your scss

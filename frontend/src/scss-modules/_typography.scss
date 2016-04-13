@@ -1,0 +1,53 @@
+html {
+  font-size: $root-font-size;
+}
+
+body {
+  font-family: map-get($base-font, family...);  // expanding the list
+  color: map-get($base-font, color);
+  font-size: map-get($base-font, size);
+  line-height: map-get($base-font, height);
+  font-feature-settings: "kern", "liga", "pnum";
+  word-wrap: break-word;
+}
+
+// loop through h1, h2, h3
+@for $ii from 1 through 3 {
+  h#{$ii} {
+    font-family: map-get($heading-font, family...);
+    color: map-get($heading-font, color);
+    font-size: modular-scale(3 - $ii);
+    line-height: map-get($heading-font, height);
+    margin: 0 0 $small-spacing;
+  }
+}
+
+p {
+  margin: 0 0 $small-spacing;
+}
+
+a {
+  color: $action-color;
+  text-decoration: none;
+  transition: color $base-duration $base-timing;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: shade($action-color, 25%);
+  }
+}
+
+hr {
+  border-bottom: $base-border;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: map-get($base-font, spacing) 0;
+}
+
+img,
+picture {
+  margin: 0;
+  max-width: 100%;
+}

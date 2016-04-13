@@ -1,0 +1,30 @@
+// all 5 formats * 4 combos of italics/bold
+// for the fonts can be downloaded from
+// https://google-webfonts-helper.herokuapp.com/fonts/eb-garamond?subsets=latin
+
+@include font-face(
+    garamond,   // you can make up a name here
+    "./fonts/eb-garamond-v7-latin-regular"   // relative to bundle.css
+);
+
+
+@include font-face(
+    overlock,
+    "./fonts/overlock-v5-latin-regular",
+    normal
+);
+@include font-face(
+    overlock,
+    "./fonts/overlock-v5-latin-700",
+    bold
+);
+@include font-face(
+    overlock,
+    "./fonts/overlock-v5-latin-italic",
+    normal, italic
+);
+@include font-face(
+    overlock,
+    "./fonts/overlock-v5-latin-700italic",
+    bold, italics
+);
