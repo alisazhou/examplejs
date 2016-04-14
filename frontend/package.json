@@ -12,12 +12,13 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-    ],
+    "unmockedModulePathPatterns": [],
     "testPathDirs": [
       "<rootDir>/src"
     ],
-    "testDirectoryName": ["components"],
+    "testDirectoryName": [
+      "components"
+    ],
     "testFileExtensions": [
       "spec.js"
     ],
@@ -47,6 +48,7 @@
     "jest-cli": "^11.0.0",
     "ramda": "^0.21.0",
     "react": "^15.0.1",
+    "react-addons-shallow-compare": "^15.0.1",
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.1",
     "uglifyjs": "^2.4.10"

@@ -1,19 +1,20 @@
 import React from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
+
 import IntroPage from '../intro-page/IntroPage.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
 import Footer from '../footer/Footer.jsx';
 
-/*
-const pages = {
-  intro: introPage,
-  contact: contactPage,
-};
-*/
 
 class StickyLayout extends React.Component {
   constructor (props) {
     super(props);
     this.state = {currentPage: 'intro'};
+  }
+
+  // pure render
+  shouldComponentUpdate (nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   }
 
   changePageFunctor (page) {
