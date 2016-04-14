@@ -7,8 +7,8 @@ import TestUtils from 'react-addons-test-utils';
 
 jest.dontMock('./StickyLayout.jsx');
 const StickyLayout = require('./StickyLayout.jsx').default;
-jest.dontMock('./StickyBody.jsx');
-const StickyBody = require('./StickyBody.jsx').default;
+jest.dontMock('../intro-page/IntroPage.jsx');
+const IntroPage = require('../intro-page/IntroPage.jsx').default;
 jest.dontMock('./StickyFooter.jsx');
 const StickyFooter = require('./StickyFooter.jsx').default;
 
@@ -29,9 +29,9 @@ describe('StickyLayout react component', () => {
         expect(firstChild.type).toBe('div');
         expect(firstChild.props.className).toEqual('sticky-layout--body');
       });
-      it('contains a visible StickyBody', () => {
+      it('contains a visible IntroPage', () => {
         const childOfChild = React.Children.only(firstChild.props.children);
-        expect(childOfChild.type).toEqual(StickyBody);
+        expect(childOfChild.type).toEqual(IntroPage);
         expect(childOfChild.props.visible).toEqual(true);
         // expect(onlyChild).toEqual(<StickyBody/>);
       });

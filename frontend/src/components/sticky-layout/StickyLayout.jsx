@@ -1,5 +1,5 @@
 import React from 'react';
-import StickyBody from './StickyBody.jsx';
+import IntroPage from '../intro-page/IntroPage.jsx';
 import StickyFooter from './StickyFooter.jsx';
 
 /*
@@ -19,7 +19,7 @@ class StickyLayout extends React.Component {
     return (
       <div>
         <div className='sticky-layout--body'>
-          <StickyBody
+          <IntroPage
             visible={this.state.currentPage === 'intro'}/>
         </div>
         <StickyFooter/>

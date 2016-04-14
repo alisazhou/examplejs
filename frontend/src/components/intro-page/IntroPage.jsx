@@ -1,12 +1,12 @@
 import React from 'react';
 
-class StickyBody extends React.Component {
+class IntroPage extends React.Component {
   constructor (props) {super(props);}
   render () {
-    return <div className='sticky-layout--body'>
+    return <div>
       <p>Hi there</p>
     </div>;
   }
 }
 
-export default StickyBody;
+export default IntroPage;

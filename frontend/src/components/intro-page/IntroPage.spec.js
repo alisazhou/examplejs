@@ -5,17 +5,14 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 // import R from 'ramda';
 
-jest.dontMock('./StickyBody.jsx');
-const StickyBody = require('./StickyBody.jsx').default;
+jest.dontMock('./IntroPage.jsx');
+const IntroPage = require('./IntroPage.jsx').default;
 
 describe('StickyBody react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<StickyBody/>);
+  shallowRenderer.render(<IntroPage/>);
   const result = shallowRenderer.getRenderOutput();
   it('renders to a div', () => {
     expect(result.type).toBe('div');
-  });
-  it('renders with correct css classes', () => {
-    expect(result.props.className).toEqual('sticky-layout--body');
   });
 });
