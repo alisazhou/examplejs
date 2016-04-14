@@ -2,9 +2,9 @@ import React from 'react';
 // import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 
-import StickyBody from './components/sticky-layout/sticky-body.jsx';
+import StickyLayout from './components/sticky-layout/sticky-layout.jsx';
 
 ReactDOM.render(
-  <StickyBody/>,
-  document.getElementsByClassName('sticky-layout--body')[0]
+  <StickyLayout/>,
+  document.getElementById('reactApp')
 );

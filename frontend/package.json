@@ -4,7 +4,8 @@
   "description": "how to setup a react webapp on pythonanywhere",
   "main": "bundled.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --noStackTrace",
+    "retest": "jest --no-cache --bail",
     "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js | uglifyjs > ../static/bundled.js && sass src/main.scss ../static/bundled.css",
     "js": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js -o ../static/bundled.js",
     "css": "sass --watch src/main.scss:../static/bundled.css"
@@ -12,20 +13,13 @@
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react*",
-      "<rootDir>/node_modules/fbjs",
-      "<rootDir>/node_modules/babel*",
-      "<rootDir>/node_modules/core-js",
-      "<rootDir>/node_modules/dom-helpers",
-      "<rootDir>/node_modules/uncontrollable",
-      "<rootDir>/node_modules/ramda"
     ],
     "testPathDirs": [
       "<rootDir>/src"
     ],
+    "testDirectoryName": ["components"],
     "testFileExtensions": [
-      "es6",
-      "js"
+      "spec.js"
     ],
     "moduleFileExtensions": [
       "js",

@@ -3,7 +3,9 @@ import React from 'react';
 class StickyBody extends React.Component {
   constructor (props) {super(props);}
   render () {
-    return <p>Hi there</p>;
+    return <div className='sticky-layout--body'>
+      <p>Hi there</p>
+    </div>;
   }
 }
 
