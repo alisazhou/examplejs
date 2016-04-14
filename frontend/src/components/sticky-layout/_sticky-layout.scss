@@ -5,15 +5,21 @@
     margin: 0;
     height: 100%;
 
-    @at-root #{&}--body {
+    &--body {
         // note: dont need to do calc again here
         @include size(100% (100 - $navbar-height));
         @include calc(max-height, '100% - #{$navbar-min-height}');
         background: $base-background-color;
         overflow: auto;
-        @include no-spacing()
+        @include no-spacing();
+
+        .hidden {
+            visibility:hidden;
+        }
+
     }
-    @at-root #{&}--footer {
+
+    &--footer {
         @include size(100% $navbar-height);
         min-height: $navbar-min-height;
         position: fixed;
@@ -23,4 +29,5 @@
         z-index: 999;
         border: 0 none red;
     }
+
 }

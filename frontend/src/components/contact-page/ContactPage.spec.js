@@ -1,18 +1,29 @@
 /*eslint-env jest */
 
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
-// import R from 'ramda';
 
 jest.dontMock('./ContactPage.jsx');
 const ContactPage = require('./ContactPage.jsx').default;
 
-describe('StickyBody react component', () => {
-  const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<ContactPage/>);
-  const result = shallowRenderer.getRenderOutput();
-  it('renders to a div', () => {
+describe('ContactPage react component', () => {
+  it('has a default visible property', () => {
+    const renderedWithDefault = TestUtils.renderIntoDocument(<ContactPage/>);
+    expect(renderedWithDefault.props.visible).toBe(true);
+    const renderedWithoutDefault = TestUtils.renderIntoDocument(<ContactPage visible={false}/>);
+    expect(renderedWithoutDefault.props.visible).toBe(false);
+  });
+  it('renders to a div with the correct css class depending on visible property', () => {
+    const shallowRenderer = TestUtils.createRenderer();
+
+    shallowRenderer.render(<ContactPage visible={true}/>);
+    let result = shallowRenderer.getRenderOutput();
+
     expect(result.type).toBe('div');
+    expect(result.props.className).toEqual('');
+
+    shallowRenderer.render(<ContactPage visible={false}/>);
+    result = shallowRenderer.getRenderOutput();
+    expect(result.props.className).toEqual('hidden');
   });
 });
