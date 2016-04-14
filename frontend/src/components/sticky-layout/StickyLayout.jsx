@@ -1,6 +1,6 @@
 import React from 'react';
-import StickyBody from './sticky-body.jsx';
-import StickyFooter from './sticky-footer.jsx';
+import StickyBody from './StickyBody.jsx';
+import StickyFooter from './StickyFooter.jsx';
 
 /*
 const pages = {

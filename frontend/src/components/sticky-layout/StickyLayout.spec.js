@@ -5,12 +5,12 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 // import R from 'ramda';
 
-jest.dontMock('./sticky-layout.jsx');
-const StickyLayout = require('./sticky-layout.jsx').default;
-jest.dontMock('./sticky-body.jsx');
-const StickyBody = require('./sticky-body.jsx').default;
-jest.dontMock('./sticky-footer.jsx');
-const StickyFooter = require('./sticky-footer.jsx').default;
+jest.dontMock('./StickyLayout.jsx');
+const StickyLayout = require('./StickyLayout.jsx').default;
+jest.dontMock('./StickyBody.jsx');
+const StickyBody = require('./StickyBody.jsx').default;
+jest.dontMock('./StickyFooter.jsx');
+const StickyFooter = require('./StickyFooter.jsx').default;
 
 describe('StickyLayout react component', () => {
   describe('shallow rendering tests', () => {
@@ -29,11 +29,10 @@ describe('StickyLayout react component', () => {
         expect(firstChild.type).toBe('div');
         expect(firstChild.props.className).toEqual('sticky-layout--body');
       });
-      it('contains a single StickyBody', () => {
-        // use React.Children to check it is only child
-        const onlyChild = React.Children.only(firstChild.props.children);
-        expect(onlyChild.type).toEqual(StickyBody);
-        expect(onlyChild.props.visible).toEqual(true);
+      it('contains a visible StickyBody', () => {
+        const childOfChild = React.Children.only(firstChild.props.children);
+        expect(childOfChild.type).toEqual(StickyBody);
+        expect(childOfChild.props.visible).toEqual(true);
         // expect(onlyChild).toEqual(<StickyBody/>);
       });
     });

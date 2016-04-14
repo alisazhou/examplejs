@@ -5,8 +5,8 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 // import R from 'ramda';
 
-jest.dontMock('./sticky-body.jsx');
-const StickyBody = require('./sticky-body.jsx').default;
+jest.dontMock('./StickyBody.jsx');
+const StickyBody = require('./StickyBody.jsx').default;
 
 describe('StickyBody react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
