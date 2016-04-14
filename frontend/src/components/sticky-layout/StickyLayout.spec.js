@@ -11,8 +11,8 @@ jest.dontMock('../intro-page/IntroPage.jsx');
 const IntroPage = require('../intro-page/IntroPage.jsx').default;
 jest.dontMock('../contact-page/ContactPage.jsx');
 const ContactPage = require('../contact-page/ContactPage.jsx').default;
-jest.dontMock('./StickyFooter.jsx');
-const StickyFooter = require('./StickyFooter.jsx').default;
+jest.dontMock('../footer/Footer.jsx');
+const Footer = require('../footer/Footer.jsx').default;
 
 describe('StickyLayout react component', () => {
   describe('shallow rendering tests', () => {
@@ -44,9 +44,15 @@ describe('StickyLayout react component', () => {
     });
 
     describe('the second child', () => {
-      it('is a StickyFooter', () => {
-        const secondChild = result.props.children[1];
-        expect(secondChild.type).toEqual(StickyFooter);
+      const secondChild = result.props.children[1];
+      it('is a div with correct css classes', () => {
+        expect(secondChild.type).toBe('div');
+        expect(secondChild.props.className).toEqual('sticky-layout--footer');
+      });
+      it('contains a single Footer', () => {
+        const footer = React.Children.only(secondChild.props.children);
+        expect(footer.type).toEqual(Footer);
+        expect(footer.props.changeToContactPage).toBeDefined();
       });
     });
   });

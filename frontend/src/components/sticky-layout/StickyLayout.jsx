@@ -1,7 +1,7 @@
 import React from 'react';
 import IntroPage from '../intro-page/IntroPage.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
-import StickyFooter from './StickyFooter.jsx';
+import Footer from '../footer/Footer.jsx';
 
 /*
 const pages = {
@@ -16,6 +16,13 @@ class StickyLayout extends React.Component {
     this.state = {currentPage: 'intro'};
   }
 
+  changePageFunctor (page) {
+    function changePage () {
+      this.setState({currentPage: page});
+    }
+    return changePage.bind(this);
+  }
+
   render () {
     return (
       <div>
@@ -25,7 +32,9 @@ class StickyLayout extends React.Component {
           <ContactPage
             visible={this.state.currentPage === 'contact'}/>
         </div>
-        <StickyFooter/>
+        <div className='sticky-layout--footer'>
+          <Footer changeToContactPage={this.changePageFunctor('contact')}/>
+        </div>
       </div>
     );
   }
