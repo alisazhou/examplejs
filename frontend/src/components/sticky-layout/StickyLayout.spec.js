@@ -9,6 +9,8 @@ jest.dontMock('./StickyLayout.jsx');
 const StickyLayout = require('./StickyLayout.jsx').default;
 jest.dontMock('../intro-page/IntroPage.jsx');
 const IntroPage = require('../intro-page/IntroPage.jsx').default;
+jest.dontMock('../contact-page/ContactPage.jsx');
+const ContactPage = require('../contact-page/ContactPage.jsx').default;
 jest.dontMock('./StickyFooter.jsx');
 const StickyFooter = require('./StickyFooter.jsx').default;
 
@@ -30,10 +32,14 @@ describe('StickyLayout react component', () => {
         expect(firstChild.props.className).toEqual('sticky-layout--body');
       });
       it('contains a visible IntroPage', () => {
-        const childOfChild = React.Children.only(firstChild.props.children);
-        expect(childOfChild.type).toEqual(IntroPage);
-        expect(childOfChild.props.visible).toEqual(true);
-        // expect(onlyChild).toEqual(<StickyBody/>);
+        const introPage = firstChild.props.children[0];
+        expect(introPage.type).toEqual(IntroPage);
+        expect(introPage.props.visible).toEqual(true);
+      });
+      it('contains an invisible ContactPage', () => {
+        const contactPage = firstChild.props.children[1];
+        expect(contactPage.type).toEqual(ContactPage);
+        expect(contactPage.props.visible).toEqual(false);
       });
     });
 
