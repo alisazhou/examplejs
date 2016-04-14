@@ -4,7 +4,7 @@
   "description": "how to setup a react webapp on pythonanywhere",
   "main": "bundled.js",
   "scripts": {
-    "test": "jest --noStackTrace",
+    "test": "jest --noStackTrace --watch",
     "retest": "jest --no-cache --bail",
     "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js | uglifyjs > ../static/bundled.js && sass src/main.scss ../static/bundled.css",
     "js": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js -o ../static/bundled.js",

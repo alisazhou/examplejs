@@ -12,13 +12,15 @@ const pages = {
 class StickyLayout extends React.Component {
   constructor (props) {
     super(props);
- //   this.state = {currentBody: pages[0]};
+    this.state = {currentPage: 'intro'};
   }
+
   render () {
     return (
       <div>
         <div className='sticky-layout--body'>
-          <StickyBody/>
+          <StickyBody
+            visible={this.state.currentPage === 'intro'}/>
         </div>
         <StickyFooter/>
       </div>
