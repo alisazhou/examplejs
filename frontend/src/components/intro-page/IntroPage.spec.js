@@ -15,4 +15,7 @@ describe('StickyBody react component', () => {
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
+  it('was composed with PageWrapper', () => {
+    expect(IntroPage.wrappedByPageWrapper).toBe(true);
+  });
 });

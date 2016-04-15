@@ -7,6 +7,9 @@ jest.dontMock('./ContactPage.jsx');
 const ContactPage = require('./ContactPage.jsx').default;
 
 describe('ContactPage react component', () => {
+  it('was composed with PageWrapper', () => {
+    expect(ContactPage.wrappedByPageWrapper).toBe(true);
+  });
   it('has a default visible property', () => {
     const renderedWithDefault = TestUtils.renderIntoDocument(<ContactPage/>);
     expect(renderedWithDefault.props.visible).toBe(true);

@@ -1,11 +1,11 @@
 import React from 'react';
 
+import wrapPage from '../page-wrapper/PageWrapper.jsx';
+
 class ContactPage extends React.Component {
   render () {
     return (
-      <div className={ this.props.visible ? '' : 'hidden' }>
-        <p>Contact Us: +852 12345678</p>
-      </div>
+      <p>Contact Us: +852 12345678</p>
     );
   }
 }
@@ -16,4 +16,4 @@ ContactPage.defaultProps = {
   visible: true,
 };
 
-export default ContactPage;
+export default wrapPage(ContactPage);
