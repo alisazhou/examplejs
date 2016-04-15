@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest --watch=all --noStackTrace",
     "retest": "jest --no-cache --bail",
-    "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js | uglifyjs > ../static/bundled.js && sass src/main.scss | uglifycss > ../static/bundled.css",
-    "js": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.js -o ../static/bundled.js",
+    "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.jsx | uglifyjs > ../static/bundled.js && sass src/main.scss | uglifycss > ../static/bundled.css",
+    "js": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.jsx -o ../static/bundled.js",
     "css": "sass --watch src/main.scss:../static/bundled.css"
   },
   "jest": {
