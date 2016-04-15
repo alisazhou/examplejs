@@ -15,6 +15,7 @@
 
         .hidden {
             visibility:hidden;
+            height: 0;
         }
 
     }
@@ -28,6 +29,10 @@
         color: $navbar-font-color;
         z-index: 999;
         border: 0 none red;
+
+        div {
+            display: inline;
+        }
     }
 
 }

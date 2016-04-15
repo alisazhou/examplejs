@@ -49,10 +49,11 @@ describe('StickyLayout react component', () => {
         expect(secondChild.type).toBe('div');
         expect(secondChild.props.className).toEqual('sticky-layout--footer');
       });
-      it('contains a single Footer', () => {
+      it('contains a single Footer with the necessary props', () => {
         const footer = React.Children.only(secondChild.props.children);
         expect(footer.type).toEqual(Footer);
         expect(footer.props.changeToContactPage).toBeDefined();
+        expect(footer.props.changeToIntroPage).toBeDefined();
       });
     });
   });

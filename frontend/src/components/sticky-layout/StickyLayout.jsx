@@ -34,7 +34,10 @@ class StickyLayout extends React.Component {
             visible={this.state.currentPage === 'contact'}/>
         </div>
         <div className='sticky-layout--footer'>
-          <Footer changeToContactPage={this.changePageFunctor('contact')}/>
+          <Footer
+            changeToContactPage={this.changePageFunctor('contact')}
+            changeToIntroPage={this.changePageFunctor('intro')}
+          />
         </div>
       </div>
     );
