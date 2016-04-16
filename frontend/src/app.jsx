@@ -2,7 +2,7 @@ import React from 'react';
 // import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 
-import { createStore, combineReducers } from 'redux';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import StickyLayout from './components/sticky-layout/StickyLayout.jsx';

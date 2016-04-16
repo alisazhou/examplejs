@@ -1,47 +1,43 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+import { connect } from 'react-redux';
 
 import IntroPage from '../intro-page/IntroPage.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
 import Footer from '../footer/Footer.jsx';
 
+const pageMapping = {
+  'intro': IntroPage,
+  'contact': ContactPage,
+};
 
 class StickyLayout extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {currentPage: 'intro'};
-  }
-
   // pure render
   shouldComponentUpdate (nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
   }
 
-  changePageFunctor (page) {
-    function changePage () {
-      this.setState({currentPage: page});
-    }
-    return changePage.bind(this);
-  }
-
   render () {
-    return (
-      <div>
-        <div className='sticky-layout--body'>
-          <IntroPage
-            visible={this.state.currentPage === 'intro'}/>
-          <ContactPage
-            visible={this.state.currentPage === 'contact'}/>
-        </div>
-        <div className='sticky-layout--footer'>
-          <Footer
-            changeToContactPage={this.changePageFunctor('contact')}
-            changeToIntroPage={this.changePageFunctor('intro')}
-          />
-        </div>
+    const CurrentPage = pageMapping[this.props.currentPage];
+    return (<div>
+      <div className='sticky-layout--body'>
+        <CurrentPage/>
       </div>
-    );
+      <div className='sticky-layout--footer'>
+        <Footer/>
+      </div>
+    </div>);
   }
 }
 
-export default StickyLayout;
+StickyLayout.propTypes = {
+  currentPage: React.PropTypes.string.isRequired,
+};
+
+const initialState = { currentPage: 'intro' };
+function mapStateToProps (state = initialState) {
+  return { currentPage: state.currentPage };
+}
+const mapDispatchToProps = () => {};
+export default connect(mapStateToProps, mapDispatchToProps)(StickyLayout);
+export { pageMapping, StickyLayout };
