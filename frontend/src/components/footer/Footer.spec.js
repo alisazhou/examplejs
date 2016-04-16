@@ -6,37 +6,45 @@ import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
 jest.dontMock('./Footer.jsx');
-const Footer = require('./Footer.jsx').default;
+const footerModule = require('./Footer.jsx');
+const Footer = footerModule.Footer;
 
 describe('Footer react component', () => {
-  let mockChangeToContact = jasmine.createSpy('mockChangeToContact');
-  let mockChangeToIntro = jasmine.createSpy('mockChangeToIntro');
-  const renderedFooter = TestUtils.renderIntoDocument(
-    <Footer changeToContactPage={mockChangeToContact} changeToIntroPage={mockChangeToIntro}/>
-  );
-  const links = TestUtils.scryRenderedDOMComponentsWithTag(renderedFooter, 'a');
-
-  it('has a contact us link with the correct callback', () => {
-    const contactLinks = R.filter(
-      link => link.text.indexOf('Contact Us') > -1,
-      links
+  let mockChangePage, links;
+  beforeEach(() => {
+    // recreate the spy for each test
+    mockChangePage = jasmine.createSpy('mockChangePage');
+    const renderedFooter = TestUtils.renderIntoDocument(
+      <Footer changePage={mockChangePage}/>
     );
-    expect(contactLinks.length).toEqual(1);
-    TestUtils.Simulate.click(contactLinks[0]);
-    expect(mockChangeToContact).toHaveBeenCalled();
+    links = TestUtils.scryRenderedDOMComponentsWithTag(renderedFooter, 'a');
   });
+
   it('has a return to main page link with the correct callback', () => {
     const introLinks = R.filter(
       link => link.text.indexOf('Main Page') > -1,
       links
     );
     expect(introLinks.length).toEqual(1);
+    expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(introLinks[0]);
-    expect(mockChangeToIntro).toHaveBeenCalled();
+    expect(mockChangePage).toHaveBeenCalled();
+    expect(mockChangePage).toHaveBeenCalled();
+  });
+  it('has a contact us link with the correct callback', () => {
+    const contactLinks = R.filter(
+      link => link.text.indexOf('Contact Us') > -1,
+      links
+    );
+    expect(contactLinks.length).toEqual(1);
+    expect(mockChangePage).not.toHaveBeenCalled();
+    TestUtils.Simulate.click(contactLinks[0]);
+    expect(mockChangePage).toHaveBeenCalled();
+    expect(mockChangePage).toHaveBeenCalled();
   });
 
   it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'changeToContactPage', 'changeToIntroPage' ];
+    const expectedPropTypes = [ 'changePage' ];
     R.forEach(
       prop => expect(R.has(prop)(Footer.propTypes)).toBe(true),
       expectedPropTypes
