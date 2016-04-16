@@ -38,6 +38,6 @@ const initialState = { currentPage: 'intro' };
 function mapStateToProps (state = initialState) {
   return { currentPage: state.currentPage };
 }
-const mapDispatchToProps = () => {};
+const mapDispatchToProps = () => {return {};};
 export default connect(mapStateToProps, mapDispatchToProps)(StickyLayout);
 export { pageMapping, StickyLayout };
