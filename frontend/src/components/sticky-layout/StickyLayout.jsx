@@ -34,8 +34,7 @@ StickyLayout.propTypes = {
   currentPage: React.PropTypes.string.isRequired,
 };
 
-const initialState = { currentPage: 'intro' };
-function mapStateToProps (state = initialState) {
+function mapStateToProps (state) {
   return { currentPage: state.currentPage };
 }
 const mapDispatchToProps = () => {return {};};

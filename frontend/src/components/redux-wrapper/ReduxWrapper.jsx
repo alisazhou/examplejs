@@ -1,17 +1,10 @@
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-// const rootReducer = (state, action) => state;
-const rootReducer = (state, action) => {
-  if (action.type === 'GO_TO_PAGE') {
-    return Object.assign({}, state, {
-      currentPage: action.toPage,
-    });
-  }
+import currentPage from '../sticky-layout/currentPageReducer.js'
 
-  return state;
-};
+const rootReducer = combineReducers({ currentPage });
 export let store = createStore(rootReducer);
 
 export default function wrapComponent (Component) {
