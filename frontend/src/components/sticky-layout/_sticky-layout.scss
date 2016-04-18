@@ -12,12 +12,6 @@
         background: $base-background-color;
         overflow: auto;
         @include no-spacing();
-
-        .hidden {
-            visibility:hidden;
-            height: 0;
-        }
-
     }
 
     &--footer {

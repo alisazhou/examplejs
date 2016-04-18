@@ -19,14 +19,16 @@ class StickyLayout extends React.Component {
 
   render () {
     const CurrentPage = pageMapping[this.props.currentPage];
-    return (<div>
-      <div className='sticky-layout--body'>
-        <CurrentPage/>
+    return (
+      <div>
+        <div className='sticky-layout--body'>
+          <CurrentPage/>
+        </div>
+        <div className='sticky-layout--footer'>
+          <Footer/>
+        </div>
       </div>
-      <div className='sticky-layout--footer'>
-        <Footer/>
-      </div>
-    </div>);
+    );
   }
 }
 

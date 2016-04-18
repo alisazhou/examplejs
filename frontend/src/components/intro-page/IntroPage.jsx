@@ -1,8 +1,5 @@
 import React from 'react';
 
-import wrapPage from '../page-wrapper/PageWrapper.jsx';
-
-
 class IntroPage extends React.Component {
   render () {
     return <div>
@@ -11,4 +8,4 @@ class IntroPage extends React.Component {
   }
 }
 
-export default wrapPage(IntroPage);
+export default IntroPage;

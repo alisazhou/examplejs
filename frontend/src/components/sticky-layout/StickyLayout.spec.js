@@ -25,14 +25,18 @@ describe('StickyLayout react component', () => {
 
   describe('the first child', () => {
     const firstChild = result.props.children[0];
-    it('is a div with correct css classes', () => {
+    it('is a div', () => {
       expect(firstChild.type).toBe('div');
+    });
+    it('has the correct css classes', () => {
       expect(firstChild.props.className).toEqual('sticky-layout--body');
     });
-    it('has a child that corresponds to pageMapping', () => {
+    it('has a single child', () => {
+      React.Children.only(firstChild.props.children);
+    });
+    it('has a child with wrappee type corresponds to pageMap', () => {
       let childOfChild = React.Children.only(firstChild.props.children);
       expect(childOfChild.type).toBe('heading');
-
       pageMapping.random2 = 'body';
       // chg the prop to get it to re-render
       shallowRenderer.render(<StickyLayout currentPage='random2'/>);
