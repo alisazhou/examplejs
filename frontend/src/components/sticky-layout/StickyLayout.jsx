@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 
 import IntroPage from '../intro-page/IntroPage.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
+import ReservationPage from '../reservation-page/ReservationPage.jsx';
 import Footer from '../footer/Footer.jsx';
 
 const pageMapping = {
   'intro': IntroPage,
   'contact': ContactPage,
+  'book': ReservationPage,
 };
 
 class StickyLayout extends React.Component {
