@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import R from 'ramda';
+
+import { goToPageActionCreator } from '../sticky-layout/goToPageAction.js';
 
 class Footer extends React.Component {
   clickThroughTo (targetPage) {
@@ -28,9 +31,8 @@ Footer.propTypes = {
 
 const mapStateToProps = () => {return {};};
 
-const goToPageActionCreator = value => ({type: 'GO_TO_PAGE', toPage: value});
 const mapDispatchToProps = dispatch => ({
-  changePage: targetPage => {dispatch(goToPageActionCreator(targetPage));},
+  changePage: R.pipe(goToPageActionCreator, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Footer);
