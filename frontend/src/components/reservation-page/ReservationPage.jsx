@@ -5,6 +5,8 @@ class ReservationPage extends React.Component {
     return (
       <div>
         <p>Customize your Reservation Details</p>
+        Address: <input name='address'/>
+        <input type='button' value='next'/>
       </div>
     );
   }
