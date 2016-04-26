@@ -2,11 +2,12 @@
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import R from 'ramda';
 
 jest.dontMock('./ReservationPage.jsx');
 const reservationPageModule = require('./ReservationPage.jsx');
 const ReservationPage = reservationPageModule.ReservationPage;
+jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
+const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
 
 describe('ReservationPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -16,14 +17,10 @@ describe('ReservationPage react component', () => {
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
-  it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'changePage' ];
-    R.forEach(
-      prop => expect(R.has(prop)(ReservationPage.propTypes)).toBe(true),
-      expectedPropTypes
-    );
+  it('extends BaseChangePageComponent', () => {
+    expect(new ReservationPage).toEqual(jasmine.any(BaseChangePageComponent));
   });
-  it('is wrapped by a redux connect', () => {
+  it('is wrapped by a baseConnect', () => {
     expect(reservationPageModule.default).not.toBe(ReservationPage);
     expect(reservationPageModule.default.WrappedComponent).toBe(ReservationPage);
     expect(reservationPageModule.default.displayName).toBe('Connect(ReservationPage)');

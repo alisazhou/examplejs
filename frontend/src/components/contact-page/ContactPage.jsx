@@ -9,8 +9,5 @@ class ContactPage extends React.Component {
     );
   }
 }
-ContactPage.propTypes = {
-  visible: React.PropTypes.bool,
-};
 
 export default ContactPage;

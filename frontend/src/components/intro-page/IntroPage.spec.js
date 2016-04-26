@@ -7,6 +7,8 @@ import R from 'ramda';
 jest.dontMock('./IntroPage.jsx');
 const introPageModule = require('./IntroPage.jsx');
 const IntroPage = require('./IntroPage.jsx').IntroPage;
+jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
+const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
 
 describe('StickyBody react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -17,15 +19,10 @@ describe('StickyBody react component', () => {
     expect(result.type).toBe('div');
   });
 
-  it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'changePage' ];
-    R.forEach(
-      prop => expect(R.has(prop)(IntroPage.propTypes)).toBe(true),
-      expectedPropTypes
-    );
+  it('extends BaseChangePageComponent', () => {
+    expect(new IntroPage).toEqual(jasmine.any(BaseChangePageComponent));
   });
-
-  it('is wrapped by a redux connect', () => {
+  it('is wrapped by a baseConnect', () => {
     expect(introPageModule.default).not.toBe(IntroPage);
     expect(introPageModule.default.WrappedComponent).toBe(IntroPage);
     expect(introPageModule.default.displayName).toBe('Connect(IntroPage)');

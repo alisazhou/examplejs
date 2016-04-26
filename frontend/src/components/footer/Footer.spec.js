@@ -8,6 +8,8 @@ import R from 'ramda';
 jest.dontMock('./Footer.jsx');
 const footerModule = require('./Footer.jsx');
 const Footer = footerModule.Footer;
+jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
+const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
 
 describe('Footer react component', () => {
   let mockChangePage, links;
@@ -43,15 +45,11 @@ describe('Footer react component', () => {
     expect(mockChangePage).toHaveBeenCalledWith('contact');
   });
 
-  it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'changePage' ];
-    R.forEach(
-      prop => expect(R.has(prop)(Footer.propTypes)).toBe(true),
-      expectedPropTypes
-    );
+  it('extends BaseChangePageComponent', () => {
+    expect(new Footer).toEqual(jasmine.any(BaseChangePageComponent));
   });
 
-  it('is wrapped by a redux connect', () => {
+  it('is wrapped by a baseConnect', () => {
     expect(footerModule.default).not.toBe(Footer);
     expect(footerModule.default.WrappedComponent).toBe(Footer);
     expect(footerModule.default.displayName).toBe('Connect(Footer)');

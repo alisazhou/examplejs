@@ -1,15 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import R from 'ramda';
-import { goToPageActionCreator } from '../sticky-layout/goToPageAction.js';
+import { BaseChangePageComponent, baseConnect } from '../sticky-layout/BaseChangePageComponent.jsx';
 
-class ReservationPage extends React.Component {
-  clickThroughTo (targetPage) {
-    return e => {
-      e.preventDefault();  // don't append # at end of url
-      this.props.changePage(targetPage);
-    };
-  }
+class ReservationPage extends BaseChangePageComponent {
   render () {
     return (
       <div>
@@ -20,15 +12,6 @@ class ReservationPage extends React.Component {
     );
   }
 }
-ReservationPage.propTypes = {
-  changePage: React.PropTypes.func.isRequired,
-};
 
-
-const mapStateToProps = () => {return {};};
-const mapDispatchToProps = dispatch => ({
-  changePage: R.pipe(goToPageActionCreator, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReservationPage);
+export default baseConnect(ReservationPage);
 export { ReservationPage };

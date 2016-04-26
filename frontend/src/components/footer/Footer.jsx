@@ -1,16 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import R from 'ramda';
+import { BaseChangePageComponent, baseConnect } from '../sticky-layout/BaseChangePageComponent.jsx';
 
-import { goToPageActionCreator } from '../sticky-layout/goToPageAction.js';
-
-class Footer extends React.Component {
-  clickThroughTo (targetPage) {
-    return e => {
-      e.preventDefault();  // don't append # at end of url
-      this.props.changePage(targetPage);
-    };
-  }
+class Footer extends BaseChangePageComponent {
   render () {
     return (
       <div>
@@ -25,15 +16,5 @@ class Footer extends React.Component {
   }
 }
 
-Footer.propTypes = {
-  changePage: React.PropTypes.func.isRequired,
-};
-
-const mapStateToProps = () => {return {};};
-
-const mapDispatchToProps = dispatch => ({
-  changePage: R.pipe(goToPageActionCreator, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default baseConnect(Footer);
 export { Footer };
