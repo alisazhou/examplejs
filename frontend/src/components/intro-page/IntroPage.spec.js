@@ -11,10 +11,16 @@ jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
 const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
 
 describe('StickyBody react component', () => {
+  let mockChangePage = jasmine.createSpy('mockChangePage');
   const shallowRenderer = TestUtils.createRenderer();
-  const mockChangePage = jasmine.createSpy('mockChangePage');
   shallowRenderer.render(<IntroPage changePage={mockChangePage}/>);
   const result = shallowRenderer.getRenderOutput();
+
+  beforeEach(() => {
+    // recreate the spy for each test
+    mockChangePage = jasmine.createSpy('mockChangePage');
+  });
+
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
@@ -37,15 +43,18 @@ describe('StickyBody react component', () => {
       expect(bookButton).toBeDefined();
     });
 
-    // use deeper rendering
-    const mockChangePage = jasmine.createSpy('mockChangePage');
-    const renderedIntroPage = TestUtils.renderIntoDocument(
-      <IntroPage changePage={mockChangePage}/>
-    );
-    const renderedBookButton = TestUtils.findRenderedDOMComponentWithTag(
-      renderedIntroPage, 'button'
-    );
-    TestUtils.Simulate.click(renderedBookButton);
+    let renderedBookButton;
+    beforeEach(() => {
+      // use deeper rendering
+      const renderedIntroPage = TestUtils.renderIntoDocument(
+        <IntroPage changePage={mockChangePage}/>
+      );
+      renderedBookButton = TestUtils.findRenderedDOMComponentWithTag(
+        renderedIntroPage, 'button'
+      );
+      // using a new mock each time, so need to click again each time
+      TestUtils.Simulate.click(renderedBookButton);
+    });
     it('has the correct callback function', () => {
       expect(mockChangePage).toHaveBeenCalled();
     });

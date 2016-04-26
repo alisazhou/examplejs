@@ -10,10 +10,16 @@ jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
 const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
 
 describe('ReservationPage react component', () => {
+  let mockChangePage = jasmine.createSpy('mockChangePage');
   const shallowRenderer = TestUtils.createRenderer();
-  const mockChangePage = jasmine.createSpy('mockChangePage');
   shallowRenderer.render(<ReservationPage changePage={mockChangePage}/>);
   const result = shallowRenderer.getRenderOutput();
+
+  beforeEach(() => {
+    // recreate the spy for each test
+    mockChangePage = jasmine.createSpy('mockChangePage');
+  });
+
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
@@ -27,18 +33,17 @@ describe('ReservationPage react component', () => {
   });
 
   it('has a button input with the correct callback', () => {
-    const mockChangePage2 = jasmine.createSpy('mockChangePage');
     const renderedPage = TestUtils.renderIntoDocument(
-      <ReservationPage changePage={mockChangePage2}/>
+      <ReservationPage changePage={mockChangePage}/>
     );
     const buttonInput = TestUtils.findAllInRenderedTree(
       renderedPage,
       component => (component.tagName === 'INPUT') && (component.value === 'next')
     );
     expect(buttonInput.length).toEqual(1);
-    expect(mockChangePage2).not.toHaveBeenCalled();
+    expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(buttonInput[0]);
-    expect(mockChangePage2).toHaveBeenCalled();
-    expect(mockChangePage2).toHaveBeenCalledWith('choice');
+    expect(mockChangePage).toHaveBeenCalled();
+    expect(mockChangePage).toHaveBeenCalledWith('choice');
   });
 });
