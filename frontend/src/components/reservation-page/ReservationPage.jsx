@@ -1,5 +1,6 @@
 import React from 'react';
 import { BaseChangePageComponent, baseConnect } from '../sticky-layout/BaseChangePageComponent.jsx';
+import { CHOICE } from '../sticky-layout/StickyLayout.jsx';
 
 class ReservationPage extends BaseChangePageComponent {
   render () {
@@ -7,7 +8,7 @@ class ReservationPage extends BaseChangePageComponent {
       <div>
         <p>Customize your Reservation Details</p>
         Address: <input name='address'/>
-        <input type='button' value='next' onClick={ this.clickThroughTo('choice') }/>
+        <input type='button' value='next' onClick={ this.clickThroughTo(CHOICE) }/>
       </div>
     );
   }

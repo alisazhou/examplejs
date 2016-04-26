@@ -14,7 +14,7 @@ const Footer = require('../footer/Footer.jsx').default;
 describe('StickyLayout react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   // add to pageMapping so that React.createElement does not complain about not receiving an element/component
-  pageMapping.randomPagey = 'heading';
+  pageMapping.set('randomPagey', 'heading');
   shallowRenderer.render(<StickyLayout currentPage='randomPagey'/>);
   const result = shallowRenderer.getRenderOutput();
 
@@ -37,7 +37,7 @@ describe('StickyLayout react component', () => {
     it('has a child with wrappee type corresponds to pageMap', () => {
       let childOfChild = React.Children.only(firstChild.props.children);
       expect(childOfChild.type).toBe('heading');
-      pageMapping.random2 = 'body';
+      pageMapping.set('random2', 'body');
       // chg the prop to get it to re-render
       shallowRenderer.render(<StickyLayout currentPage='random2'/>);
       childOfChild = React.Children.only(shallowRenderer.getRenderOutput().props.children[0].props.children);

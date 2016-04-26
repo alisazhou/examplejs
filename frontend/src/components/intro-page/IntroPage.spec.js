@@ -9,6 +9,8 @@ const introPageModule = require('./IntroPage.jsx');
 const IntroPage = require('./IntroPage.jsx').IntroPage;
 jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
 const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
+jest.dontMock('../sticky-layout/StickyLayout.jsx');
+const BOOK = require('../sticky-layout/StickyLayout.jsx').BOOK;
 
 describe('StickyBody react component', () => {
   let mockChangePage = jasmine.createSpy('mockChangePage');
@@ -62,7 +64,7 @@ describe('StickyBody react component', () => {
       expect(mockChangePage.calls.count()).toBe(1);
     });
     it('passes the correct params', () => {
-      expect(mockChangePage).toHaveBeenCalledWith('book');
+      expect(mockChangePage).toHaveBeenCalledWith(BOOK);
     });
   });
 });

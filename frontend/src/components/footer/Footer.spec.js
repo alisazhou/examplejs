@@ -10,6 +10,8 @@ const footerModule = require('./Footer.jsx');
 const Footer = footerModule.Footer;
 jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
 const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
+jest.dontMock('../sticky-layout/StickyLayout.jsx');
+const stickyLayoutModule = require('../sticky-layout/StickyLayout.jsx');
 
 describe('Footer react component', () => {
   let mockChangePage, links;
@@ -31,7 +33,7 @@ describe('Footer react component', () => {
     expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(introLinks[0]);
     expect(mockChangePage).toHaveBeenCalled();
-    expect(mockChangePage).toHaveBeenCalledWith('intro');
+    expect(mockChangePage).toHaveBeenCalledWith(stickyLayoutModule.INTRO);
   });
   it('has a contact us link with the correct callback', () => {
     const contactLinks = R.filter(
@@ -42,7 +44,7 @@ describe('Footer react component', () => {
     expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(contactLinks[0]);
     expect(mockChangePage).toHaveBeenCalled();
-    expect(mockChangePage).toHaveBeenCalledWith('contact');
+    expect(mockChangePage).toHaveBeenCalledWith(stickyLayoutModule.CONTACT);
   });
 
   it('extends BaseChangePageComponent', () => {

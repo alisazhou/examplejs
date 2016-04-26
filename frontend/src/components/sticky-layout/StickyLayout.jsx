@@ -5,13 +5,24 @@ import { connect } from 'react-redux';
 import IntroPage from '../intro-page/IntroPage.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
 import ReservationPage from '../reservation-page/ReservationPage.jsx';
+import AvailabilityPage from '../availability-page/AvailabilityPage.jsx';
 import Footer from '../footer/Footer.jsx';
 
-const pageMapping = {
-  'intro': IntroPage,
-  'contact': ContactPage,
-  'book': ReservationPage,
-};
+
+// other files that need to click through to pages will  import these constants
+// to make sure that there are no mispellings etc
+const INTRO = 'intro-y';
+const CONTACT = 'contact-y';
+const BOOK = 'book-y';
+const CHOICE = 'choice-y';
+
+const pageMapping = new Map([
+  [ INTRO, IntroPage ],
+  [ CONTACT, ContactPage ],
+  [ BOOK, ReservationPage ],
+  [ CHOICE, AvailabilityPage ],
+]);
+
 
 class StickyLayout extends React.Component {
   // pure render
@@ -20,7 +31,7 @@ class StickyLayout extends React.Component {
   }
 
   render () {
-    const CurrentPage = pageMapping[this.props.currentPage];
+    const CurrentPage = pageMapping.get(this.props.currentPage);
     return (
       <div>
         <div className='sticky-layout--body'>
@@ -43,4 +54,4 @@ function mapStateToProps (state) {
 }
 const mapDispatchToProps = () => {return {};};
 export default connect(mapStateToProps, mapDispatchToProps)(StickyLayout);
-export { pageMapping, StickyLayout };
+export { pageMapping, StickyLayout, INTRO, CONTACT, BOOK, CHOICE };
