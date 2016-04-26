@@ -65,14 +65,9 @@ describe('StickyLayout react component', () => {
     );
   });
 
-  it('is wrapped by a redux smart container', () => {
+  it('is wrapped by a redux connect', () => {
     expect(stickyLayoutModule.default).not.toBe(StickyLayout);
     expect(stickyLayoutModule.default.WrappedComponent).toBe(StickyLayout);
+    expect(stickyLayoutModule.default.displayName).toBe('Connect(StickyLayout)');
   });
-});
-
-describe('StickyLayout redux container', () => {
-  describe('reducer', () => {});
-  describe('additional state props', () => {});
-  describe('additional dispatch props', () => {});
 });

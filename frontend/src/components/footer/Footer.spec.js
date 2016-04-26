@@ -50,4 +50,10 @@ describe('Footer react component', () => {
       expectedPropTypes
     );
   });
+
+  it('is wrapped by a redux connect', () => {
+    expect(footerModule.default).not.toBe(Footer);
+    expect(footerModule.default.WrappedComponent).toBe(Footer);
+    expect(footerModule.default.displayName).toBe('Connect(Footer)');
+  });
 });

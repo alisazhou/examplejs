@@ -5,7 +5,8 @@ import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
 jest.dontMock('./ReservationPage.jsx');
-const ReservationPage = require('./ReservationPage.jsx').default;
+const reservationPageModule = require('./ReservationPage.jsx');
+const ReservationPage = reservationPageModule.ReservationPage;
 
 describe('ReservationPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -22,12 +23,17 @@ describe('ReservationPage react component', () => {
       expectedPropTypes
     );
   });
+  it('is wrapped by a redux connect', () => {
+    expect(reservationPageModule.default).not.toBe(ReservationPage);
+    expect(reservationPageModule.default.WrappedComponent).toBe(ReservationPage);
+    expect(reservationPageModule.default.displayName).toBe('Connect(ReservationPage)');
+  });
+
   it('has a button input with the correct callback', () => {
     const mockChangePage2 = jasmine.createSpy('mockChangePage');
     const renderedPage = TestUtils.renderIntoDocument(
       <ReservationPage changePage={mockChangePage2}/>
     );
-    // links = TestUtils.scryRenderedDOMComponentsWithTag(renderedFooter, 'a');
     const buttonInput = TestUtils.findAllInRenderedTree(
       renderedPage,
       component => (component.tagName === 'INPUT') && (component.value === 'next')

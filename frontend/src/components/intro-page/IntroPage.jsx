@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
-import setupRedux from '../redux-wrapper/ReduxWrapper.jsx';
 import { goToPageActionCreator } from '../sticky-layout/goToPageAction.js';
 
 class IntroPage extends React.Component {
@@ -29,5 +28,5 @@ const mapDispatchToProps = dispatch => ({
   changePage: R.pipe(goToPageActionCreator, dispatch),
 });
 
-export default setupRedux(connect(mapStateToProps, mapDispatchToProps)(IntroPage));
+export default connect(mapStateToProps, mapDispatchToProps)(IntroPage);
 export { IntroPage };

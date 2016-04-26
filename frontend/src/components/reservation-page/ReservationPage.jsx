@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import R from 'ramda';
+import { goToPageActionCreator } from '../sticky-layout/goToPageAction.js';
 
 class ReservationPage extends React.Component {
   clickThroughTo (targetPage) {
@@ -21,4 +24,11 @@ ReservationPage.propTypes = {
   changePage: React.PropTypes.func.isRequired,
 };
 
-export default ReservationPage;
+
+const mapStateToProps = () => {return {};};
+const mapDispatchToProps = dispatch => ({
+  changePage: R.pipe(goToPageActionCreator, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReservationPage);
+export { ReservationPage };

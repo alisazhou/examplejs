@@ -25,8 +25,10 @@ describe('StickyBody react component', () => {
     );
   });
 
-  it('is wrapped with setupRedux', () => {
-    expect(introPageModule.default.hasReduxStoreCreated).toBe(true);
+  it('is wrapped by a redux connect', () => {
+    expect(introPageModule.default).not.toBe(IntroPage);
+    expect(introPageModule.default.WrappedComponent).toBe(IntroPage);
+    expect(introPageModule.default.displayName).toBe('Connect(IntroPage)');
   });
 
   describe('with a book now button child', () => {
