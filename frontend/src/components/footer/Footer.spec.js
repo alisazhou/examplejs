@@ -29,7 +29,7 @@ describe('Footer react component', () => {
     expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(introLinks[0]);
     expect(mockChangePage).toHaveBeenCalled();
-    expect(mockChangePage).toHaveBeenCalled();
+    expect(mockChangePage).toHaveBeenCalledWith('intro');
   });
   it('has a contact us link with the correct callback', () => {
     const contactLinks = R.filter(
@@ -40,7 +40,7 @@ describe('Footer react component', () => {
     expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(contactLinks[0]);
     expect(mockChangePage).toHaveBeenCalled();
-    expect(mockChangePage).toHaveBeenCalled();
+    expect(mockChangePage).toHaveBeenCalledWith('contact');
   });
 
   it('has the correct propTypes', () => {

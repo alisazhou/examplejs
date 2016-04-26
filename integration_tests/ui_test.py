@@ -25,6 +25,6 @@ def test_make_reservations(browser):
     browser.find_element_by_css_selector('input[type="button"]').click()
 
     # see availability
-    # assert 'Reservation Details' not in browser.body_text
-    # assert 'Choose' in browser.body_text
+    assert 'Reservation Details' not in browser.body_text
+    assert 'Choose' in browser.body_text
     # select details based on availability
