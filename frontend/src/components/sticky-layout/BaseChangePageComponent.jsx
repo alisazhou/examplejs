@@ -16,7 +16,7 @@ BaseChangePageComponent.propTypes = {
   changePage: React.PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => {return {};};
+const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
   changePage: R.pipe(goToPageActionCreator, dispatch),
 });
