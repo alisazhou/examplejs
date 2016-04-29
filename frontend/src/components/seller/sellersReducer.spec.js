@@ -1,9 +1,9 @@
 /*eslint-env jest,jasmine */
 
-jest.dontMock('./peopleReducer.js');
-const reducer = require('./peopleReducer.js').default;
+jest.dontMock('./sellersReducer.js');
+const reducer = require('./sellersReducer.js').default;
 
-describe('redux state: people', () => {
+describe('redux state: sellers', () => {
   describe('reducer', () => {
     it('should return correct initial state', () => {
       expect(reducer(undefined, {})).toEqual([
@@ -12,7 +12,7 @@ describe('redux state: people', () => {
         { name: 'conrad' },
       ]);
     });
-    xit('should handle FETCH_PEOPLE_REQUEST actions', () => {
+    xit('should handle FETCH_SELLERS_REQUEST actions', () => {
     });
   });
 });

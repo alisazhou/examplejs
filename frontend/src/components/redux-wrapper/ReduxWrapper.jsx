@@ -3,9 +3,9 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
 import currentPage from '../sticky-layout/currentPageReducer.js';
-import people from '../availability-page/peopleReducer.js';
+import sellers from '../seller/sellersReducer.js';
 
-const rootReducer = combineReducers({ currentPage, people });
+const rootReducer = combineReducers({ currentPage, sellers });
 export let store = createStore(rootReducer);
 
 export default function wrapComponent (Component) {

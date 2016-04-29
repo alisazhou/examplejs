@@ -7,6 +7,8 @@ import R from 'ramda';
 jest.dontMock('./AvailabilityPage.jsx');
 const availabilityPageModule = require('./AvailabilityPage.jsx');
 const AvailabilityPage = availabilityPageModule.AvailabilityPage;
+jest.dontMock('../seller/Seller.jsx');
+const Seller = require('../seller/Seller.jsx').default;
 jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
 const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
 jest.dontMock('../redux-wrapper/ReduxWrapper.jsx');
@@ -14,10 +16,10 @@ const store = require('../redux-wrapper/ReduxWrapper.jsx').store;
 
 describe('AvailabilityPage react component', () => {
   let mockChangePage = jasmine.createSpy('mockChangePage');
-  let mockPeople = [];
+  let mockSellers = [];
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
-    <AvailabilityPage changePage={mockChangePage} people={mockPeople}/>
+    <AvailabilityPage changePage={mockChangePage} sellers={mockSellers}/>
   );
   const result = shallowRenderer.getRenderOutput();
 
@@ -38,7 +40,7 @@ describe('AvailabilityPage react component', () => {
     });
     const expectedPropTypes = [
       ...R.keys(BaseChangePageComponent.propTypes),
-      'people',
+      'sellers',
     ];
     R.forEach(
       prop => it(`has propType: ${prop}`, () => {
@@ -48,6 +50,20 @@ describe('AvailabilityPage react component', () => {
     );
   });
 
+  describe('deep render', () => {
+    const twoSellers = [ {'name': 'john'}, {'name': 'doe'} ] ;
+    const renderedPage = TestUtils.renderIntoDocument(
+      <AvailabilityPage changePage={mockChangePage} sellers={twoSellers}/>
+    );
+    it('renders list of props.sellers components', () => {
+      const SellerComponents = TestUtils.scryRenderedComponentsWithType(
+        renderedPage, Seller
+      );
+      expect(SellerComponents.length).toBe(2);
+      expect(SellerComponents[0].props.name).toBe('john');
+      expect(SellerComponents[1].props.name).toBe('doe');
+    });
+  });
 
   xit('has a button input with the correct callback', () => {
     const renderedPage = TestUtils.renderIntoDocument(
@@ -71,8 +87,8 @@ describe('AvailabilityPage Smart Component', () => {
     expect(availabilityPageModule.default.WrappedComponent).toBe(AvailabilityPage);
     expect(availabilityPageModule.default.displayName).toBe('Connect(AvailabilityPage)');
   });
-  it('has a different mapStateToProps giving people prop', () => {
-    // react will poop a warning that we need to see if there is no people prop
+  it('has a different mapStateToProps giving sellers prop', () => {
+    // react will poop a warning that we need to see if there is no sellers prop
     TestUtils.renderIntoDocument(
       <availabilityPageModule.default store={store}/>
     );

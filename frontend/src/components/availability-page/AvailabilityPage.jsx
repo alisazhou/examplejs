@@ -1,12 +1,18 @@
 import React from 'react';
+import R from 'ramda';
 import { connect } from 'react-redux';
 import { BaseChangePageComponent, baseMapDispatchToProps } from '../sticky-layout/BaseChangePageComponent.jsx';
+import Seller from '../seller/Seller.jsx';
 
 class AvailabilityPage extends BaseChangePageComponent {
   render () {
     return (
       <div>
         <p>Choose your peeps:</p>
+        {R.map(
+          seller => <Seller {...seller}/>,
+          this.props.sellers
+        )}
       </div>
     );
   }
@@ -14,11 +20,11 @@ class AvailabilityPage extends BaseChangePageComponent {
 
 AvailabilityPage.propTypes = R.merge(
   BaseChangePageComponent.propTypes,
-  {people: React.PropTypes.array.isRequired}
+  {sellers: React.PropTypes.array.isRequired}
 );
 
 const mapStateToProps = state => {
-  return { people: state.people };
+  return { sellers: state.sellers };
 
 };
 export default connect(mapStateToProps, baseMapDispatchToProps)(AvailabilityPage);
