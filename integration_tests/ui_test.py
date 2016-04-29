@@ -1,4 +1,3 @@
-import pytest
 
 def test_can_go_to_different_pages(browser):
     browser.goto('/')
@@ -27,4 +26,14 @@ def test_make_reservations(browser):
     # see availability
     assert 'Reservation Details' not in browser.body_text
     assert 'Choose' in browser.body_text
+    # see available sellers
+    assert 'vincent' in browser.body_text
+
+    # the next button is disabled- no sellers selcted yet
+    # click on it- it changes color
+    # now the next button is enabled
+
+    # click next
+    # browser.find_element_by_css_selector('input[type="button"]').click()
+
     # select details based on availability
