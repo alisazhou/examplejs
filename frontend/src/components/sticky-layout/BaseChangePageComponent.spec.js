@@ -7,7 +7,6 @@ import R from 'ramda';
 jest.dontMock('./BaseChangePageComponent.jsx');
 const baseModule = require('./BaseChangePageComponent.jsx');
 const BaseChangePageComponent = baseModule.BaseChangePageComponent;
-// const baseConnect = baseModule.baseConnect;
 
 describe('BaseChangePageComponent react component', () => {
   it('extends React.Component', () => {
@@ -22,10 +21,15 @@ describe('BaseChangePageComponent react component', () => {
   });
 
 });
-describe('baseConnect', () => {
-  it('has default mapStateToProps', () => {
-    // baseConnect();
+
+describe('BaseChangePageComponent module', () => {
+  it('exports baseMapStateToProps', () => {
+    expect(baseModule.baseMapStateToProps).toBeDefined();
   });
-  it('has default mapDispatchToProps', () => {
+  it('exports baseMapDispatchToProps', () => {
+    expect(baseModule.baseMapDispatchToProps).toBeDefined();
+  });
+  it('exports baseConnect', () => {
+    expect(baseModule.baseConnect).toBeDefined();
   });
 });

@@ -1,15 +1,26 @@
 import React from 'react';
-import { BaseChangePageComponent, baseConnect } from '../sticky-layout/BaseChangePageComponent.jsx';
+import { connect } from 'react-redux';
+import { BaseChangePageComponent, baseMapDispatchToProps } from '../sticky-layout/BaseChangePageComponent.jsx';
 
 class AvailabilityPage extends BaseChangePageComponent {
   render () {
     return (
       <div>
-        <p>Choose your peeps</p>
+        <p>Choose your peeps:</p>
       </div>
     );
   }
 }
 
-export default baseConnect(AvailabilityPage);
+AvailabilityPage.propTypes = R.merge(
+  BaseChangePageComponent.propTypes,
+  {people: React.PropTypes.array.isRequired}
+);
+
+const mapStateToProps = state => {
+  return { people: state.people };
+
+};
+export default connect(mapStateToProps, baseMapDispatchToProps)(AvailabilityPage);
 export { AvailabilityPage };
+

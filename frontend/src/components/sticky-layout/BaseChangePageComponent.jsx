@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import R from 'ramda';
 import { goToPageActionCreator } from '../sticky-layout/goToPageAction.js';
 
+// dumb component
 class BaseChangePageComponent extends React.Component {
   clickThroughTo (targetPage) {
     return e => {
@@ -16,11 +17,16 @@ BaseChangePageComponent.propTypes = {
   changePage: React.PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => ({});
-const mapDispatchToProps = dispatch => ({
+
+// smart redux stuff
+const baseMapStateToProps = null;
+const baseMapDispatchToProps = dispatch => ({
   changePage: R.pipe(goToPageActionCreator, dispatch),
 });
 
-const baseConnect = connect(mapStateToProps, mapDispatchToProps);
+const baseConnect = connect(baseMapStateToProps, baseMapDispatchToProps);
 
-export { BaseChangePageComponent, baseConnect };
+export {
+  BaseChangePageComponent, baseConnect,
+  baseMapStateToProps, baseMapDispatchToProps,
+};

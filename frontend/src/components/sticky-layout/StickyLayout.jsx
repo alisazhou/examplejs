@@ -52,6 +52,5 @@ StickyLayout.propTypes = {
 const mapStateToProps = state => ({
   currentPage: state.currentPage,
 });
-const mapDispatchToProps = () => ({});
-export default connect(mapStateToProps, mapDispatchToProps)(StickyLayout);
+export default connect(mapStateToProps, null)(StickyLayout);
 export { pageMapping, StickyLayout, INTRO, CONTACT, BOOK, CHOICE };
