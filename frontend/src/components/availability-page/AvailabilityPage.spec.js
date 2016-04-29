@@ -51,7 +51,10 @@ describe('AvailabilityPage react component', () => {
   });
 
   describe('deep render', () => {
-    const twoSellers = [ {'name': 'john'}, {'name': 'doe'} ] ;
+    const twoSellers = [
+      {key: 5, name: 'john'},
+      {key: 99, name: 'doe'},
+    ] ;
     const renderedPage = TestUtils.renderIntoDocument(
       <AvailabilityPage changePage={mockChangePage} sellers={twoSellers}/>
     );

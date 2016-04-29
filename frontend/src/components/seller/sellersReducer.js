@@ -1,8 +1,8 @@
 // in the sub-reducer, we get passed state.sellers as the state
 const initialState = [
-  { name: 'vincent' },
-  { name: 'derek' },
-  { name: 'conrad' },
+  { key: 0, name: 'vincent' },
+  { key: 1, name: 'derek' },
+  { key: 2, name: 'conrad' },
 ];
 
 const currentStateReducer = (state = initialState, action) => {
