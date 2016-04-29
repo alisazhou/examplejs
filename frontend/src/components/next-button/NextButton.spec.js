@@ -2,6 +2,7 @@
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 
 jest.dontMock('./NextButton.jsx');
 const nextButtonModule = require('./NextButton.jsx');
@@ -13,7 +14,9 @@ const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponen
 describe('NextButton react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   const mockChangePage = jasmine.createSpy('mockChangePage');
-  shallowRenderer.render(<NextButton changePage={mockChangePage}/>);
+  shallowRenderer.render(
+    <NextButton changePage={mockChangePage} toPage='random-page'/>
+  );
   const result = shallowRenderer.getRenderOutput();
 
   it('renders to an input', () => {
@@ -27,6 +30,20 @@ describe('NextButton react component', () => {
     expect(new NextButton).toEqual(jasmine.any(BaseChangePageComponent));
   });
 
+  it('does not trample over BaseChangePageComponent copy of propTypes', () => {
+    expect(NextButton.propTypes).not.toBe(BaseChangePageComponent.propTypes);
+  });
+
+  const expectedPropTypes = [
+    ...R.keys(BaseChangePageComponent.propTypes),
+    'toPage',
+  ];
+  R.forEach(
+    prop => it(`has propType: ${prop}`, () => {
+      expect(R.has(prop)(NextButton.propTypes)).toBe(true);
+    }),
+    expectedPropTypes
+  );
 });
 
 describe('NextButton Smart Component', () => {

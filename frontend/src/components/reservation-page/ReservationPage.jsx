@@ -1,18 +1,17 @@
 import React from 'react';
-import { BaseChangePageComponent, baseConnect } from '../sticky-layout/BaseChangePageComponent.jsx';
+import NextButton from '../next-button/NextButton.jsx';
 import { CHOICE } from '../sticky-layout/StickyLayout.jsx';
 
-class ReservationPage extends BaseChangePageComponent {
+class ReservationPage extends React.Component {
   render () {
     return (
       <div>
         <p>Customize your Reservation Details</p>
         Address: <input name='address'/>
-        <input type='button' value='next' onClick={ this.clickThroughTo(CHOICE) }/>
+        <NextButton toPage={CHOICE}/>
       </div>
     );
   }
 }
 
-export default baseConnect(ReservationPage);
-export { ReservationPage };
+export default ReservationPage;
