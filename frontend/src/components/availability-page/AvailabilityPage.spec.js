@@ -9,78 +9,44 @@ const availabilityPageModule = require('./AvailabilityPage.jsx');
 const AvailabilityPage = availabilityPageModule.AvailabilityPage;
 jest.dontMock('../seller/Seller.jsx');
 const Seller = require('../seller/Seller.jsx').default;
-jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
-const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
 jest.dontMock('../redux-wrapper/ReduxWrapper.jsx');
-const store = require('../redux-wrapper/ReduxWrapper.jsx').store;
+const wrapComponent = require('../redux-wrapper/ReduxWrapper.jsx').default;
+jest.dontMock('../next-button/NextButton.jsx');
+const NextButton = require('../next-button/NextButton.jsx').default;
+jest.dontMock('../sticky-layout/StickyLayout.jsx');
+const CHOICE = require('../sticky-layout/StickyLayout.jsx').CHOICE;
 
 describe('AvailabilityPage react component', () => {
-  let mockChangePage = jasmine.createSpy('mockChangePage');
-  let mockSellers = [];
+  let mockSellers = [ {key: 1, name: '1'}, {key: 2, name: '2'} ];
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
-    <AvailabilityPage changePage={mockChangePage} sellers={mockSellers}/>
+    <AvailabilityPage sellers={mockSellers}/>
   );
   const result = shallowRenderer.getRenderOutput();
 
   beforeEach(() => {
     // recreate the spy for each test
-    mockChangePage = jasmine.createSpy('mockChangePage');
   });
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
-  describe('extends BaseChangePageComponent', () => {
-    it('extends class', () => {
-      expect(new AvailabilityPage).toEqual(jasmine.any(BaseChangePageComponent));
-    });
-
-    it('does not trample over base copy of propTypes', () => {
-      expect(AvailabilityPage.propTypes).not.toBe(BaseChangePageComponent.propTypes);
-    });
-    const expectedPropTypes = [
-      ...R.keys(BaseChangePageComponent.propTypes),
-      'sellers',
-    ];
-    R.forEach(
-      prop => it(`has propType: ${prop}`, () => {
-        expect(R.has(prop)(AvailabilityPage.propTypes)).toBe(true);
-      }),
-      expectedPropTypes
-    );
+  it('has correct sellers propType', () => {
+    expect(R.has('sellers')(AvailabilityPage.propTypes)).toBe(true);
   });
-
-  describe('deep render', () => {
-    const twoSellers = [
-      {key: 5, name: 'john'},
-      {key: 99, name: 'doe'},
-    ] ;
-    const renderedPage = TestUtils.renderIntoDocument(
-      <AvailabilityPage changePage={mockChangePage} sellers={twoSellers}/>
-    );
-    it('renders list of props.sellers components', () => {
-      const SellerComponents = TestUtils.scryRenderedComponentsWithType(
-        renderedPage, Seller
-      );
-      expect(SellerComponents.length).toBe(2);
-      expect(SellerComponents[0].props.name).toBe('john');
-      expect(SellerComponents[1].props.name).toBe('doe');
-    });
+  it('has a heading thing', () => {
+    expect(result.props.children[0].type).toBe('p');
   });
-
-  xit('has a button input with the correct callback', () => {
-    const renderedPage = TestUtils.renderIntoDocument(
-      <AvailabilityPage changePage={mockChangePage}/>
-    );
-    const buttonInput = TestUtils.findAllInRenderedTree(
-      renderedPage,
-      component => (component.tagName === 'INPUT') && (component.value === 'next')
-    );
-    expect(buttonInput.length).toEqual(1);
-    expect(mockChangePage).not.toHaveBeenCalled();
-    TestUtils.Simulate.click(buttonInput[0]);
-    expect(mockChangePage).toHaveBeenCalled();
-    expect(mockChangePage).toHaveBeenCalledWith('choice');
+  it('has a list of sellers', () => {
+    const firstSeller = result.props.children[1][0]
+    const secondSeller = result.props.children[1][1]
+    expect(firstSeller.type).toBe(Seller);
+    expect(firstSeller.props.name).toBe('1');
+    expect(secondSeller.type).toBe(Seller);
+    expect(secondSeller.props.name).toBe('2');
+  });
+  it('has a NextButton component with the correct callback', () => {
+    expect(result.props.children[2].type).toBe(NextButton);
+    expect(result.props.children[2].props.toPage).toBe(CHOICE);
   });
 });
 
@@ -92,8 +58,9 @@ describe('AvailabilityPage Smart Component', () => {
   });
   it('has a different mapStateToProps giving sellers prop', () => {
     // react will poop a warning that we need to see if there is no sellers prop
+    const wrappedAvailabilityPage = wrapComponent(AvailabilityPage.default);
     TestUtils.renderIntoDocument(
-      <availabilityPageModule.default store={store}/>
+      <wrappedAvailabilityPage/>
     );
     // maybe to make this better in the future, do something like
     // spyOn(console, 'warn');
