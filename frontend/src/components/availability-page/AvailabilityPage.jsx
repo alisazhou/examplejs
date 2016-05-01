@@ -21,7 +21,9 @@ class AvailabilityPage extends React.Component {
   }
 }
 
-AvailabilityPage.propTypes = {sellers: React.PropTypes.array.isRequired};
+AvailabilityPage.propTypes = {
+  sellers: React.PropTypes.array.isRequired,
+};
 
 const mapStateToProps = state => {
   return { sellers: state.sellers };

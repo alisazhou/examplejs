@@ -3,7 +3,7 @@
 jest.dontMock('./currentSellerReducer.js');
 const reducer = require('./currentSellerReducer.js').default;
 jest.dontMock('./currentSellerActions.js');
-const SELECT_SELLER = require('./currentSellerActions.js').SELECT_SELLER;
+const selectSellerActionCreator = require('./currentSellerActions.js').selectSellerActionCreator;
 
 describe('redux state: currentSeller', () => {
   describe('reducer', () => {
@@ -13,7 +13,7 @@ describe('redux state: currentSeller', () => {
     it('should handle SELECT_SELLER actions', () => {
       expect(reducer(
         'random previous state',
-        {type: SELECT_SELLER, sellerId: 231}
+        selectSellerActionCreator(231)
       )).toEqual(231);
     });
   });

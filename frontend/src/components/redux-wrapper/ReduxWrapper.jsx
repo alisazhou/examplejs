@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 
 import currentPage from '../sticky-layout/currentPageReducer.js';
 import sellers from '../seller/sellersReducer.js';
+import currentSeller from '../seller/currentSellerReducer.js';
 
-const rootReducer = combineReducers({ currentPage, sellers });
+const rootReducer = combineReducers({ currentPage, sellers, currentSeller });
 export let store = createStore(rootReducer);
 
 export default function wrapComponent (Component) {

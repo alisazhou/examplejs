@@ -7,12 +7,15 @@ import R from 'ramda';
 jest.dontMock('./Seller.jsx');
 const sellerModule = require('./Seller.jsx');
 const Seller = sellerModule.Seller;
+jest.dontMock('../redux-wrapper/ReduxWrapper.jsx');
+const wrapRedux = require('../redux-wrapper/ReduxWrapper.jsx').default;
 
 describe('Seller react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   const mockSelectSeller = jasmine.createSpy('mockSelectSeller');
-  const sellerComponent = <Seller name='sunny' selectSeller={mockSelectSeller} id={23}/>;
-  shallowRenderer.render(sellerComponent);
+  shallowRenderer.render(
+    <Seller name='sunny' selectSeller={mockSelectSeller} id={23}/>
+  );
   const result = shallowRenderer.getRenderOutput();
 
   it('renders to a div', () => {
@@ -32,19 +35,9 @@ describe('Seller react component', () => {
     );
   });
   it('should call selectSeller if clicked', () => {
-    const mockBindedSelectSeller = jasmine.createSpy('boundSeller');
-    mockSelectSeller.and.returnValue(mockBindedSelectSeller);
-    // rerender with the new mockSeller
-    shallowRenderer.render(sellerComponent);
-    const result = shallowRenderer.getRenderOutput();
-
-    expect(mockSelectSeller).toHaveBeenCalled();
-    expect(mockSelectSeller).toHaveBeenCalledWith(23);
-    expect(mockBindedSelectSeller).not.toHaveBeenCalled();
+    expect(mockSelectSeller).not.toHaveBeenCalled();
     result.props.onClick();
-    expect(result.props.onClick).toBe(mockBindedSelectSeller);
-    expect(mockBindedSelectSeller).toHaveBeenCalled();
-    expect(mockBindedSelectSeller).toHaveBeenCalledWith();
+    expect(mockSelectSeller).toHaveBeenCalledWith(23);
   });
 });
 
@@ -53,5 +46,12 @@ describe('Seller Smart Component', () => {
     expect(sellerModule.default).not.toBe(Seller);
     expect(sellerModule.default.WrappedComponent).toBe(Seller);
     expect(sellerModule.default.displayName).toBe('Connect(Seller)');
+  });
+  it('adds a selectSeller prop', () => {
+    const SellerWithStore = wrapRedux(sellerModule.default);
+    // this will catch errors when coupled with required proptype (checked above)
+    TestUtils.renderIntoDocument(
+      <SellerWithStore name='sunny' id={23}/>
+    );
   });
 });

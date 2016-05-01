@@ -37,8 +37,8 @@ describe('AvailabilityPage react component', () => {
     expect(result.props.children[0].type).toBe('p');
   });
   it('has a list of sellers', () => {
-    const firstSeller = result.props.children[1][0]
-    const secondSeller = result.props.children[1][1]
+    const firstSeller = result.props.children[1][0];
+    const secondSeller = result.props.children[1][1];
     expect(firstSeller.type).toBe(Seller);
     expect(firstSeller.props.name).toBe('1');
     expect(secondSeller.type).toBe(Seller);
