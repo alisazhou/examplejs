@@ -1,4 +1,7 @@
 // in the sub-reducer, we get passed state.sellers as the state
+
+import { FETCH_SELLERS_REQUEST } from './sellersActions.js';
+
 const initialState = [
   { key: 0, name: 'vincent' },
   { key: 1, name: 'derek' },
@@ -7,14 +10,17 @@ const initialState = [
 
 const currentStateReducer = (state = initialState, action) => {
   switch (action.type) {
-  case 'FETCH_SELLERS_REQUEST':
-      // set flag that fetching is in process
+  case FETCH_SELLERS_REQUEST:
+    // set flag that fetching is in process
+    break;
   case 'FETCH_SELLERS_SUCCESS':
-      // unset flag that fetching is in process
-      // change the redux store by returning sellers as the new state
+    // unset flag that fetching is in process
+    // change the redux store by returning sellers as the new state
+    break;
   case 'FETCH_SELLERS_FAILURE':
-      // unset flag that fetching is in process
-      // display an error msg to user
+    // unset flag that fetching is in process
+    // display an error msg to user
+    break;
   default:
     break;
   }

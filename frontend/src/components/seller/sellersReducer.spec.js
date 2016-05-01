@@ -12,7 +12,5 @@ describe('redux state: sellers', () => {
         { key: 2, name: 'conrad' },
       ]);
     });
-    xit('should handle FETCH_SELLERS_REQUEST actions', () => {
-    });
   });
 });

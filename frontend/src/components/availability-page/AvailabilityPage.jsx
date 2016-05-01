@@ -25,8 +25,8 @@ AvailabilityPage.propTypes = {sellers: React.PropTypes.array.isRequired};
 
 const mapStateToProps = state => {
   return { sellers: state.sellers };
-
 };
+
 export default connect(mapStateToProps, null)(AvailabilityPage);
 export { AvailabilityPage };
 
