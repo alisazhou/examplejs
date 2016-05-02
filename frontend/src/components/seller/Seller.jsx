@@ -6,7 +6,9 @@ import { selectSellerActionCreator } from './currentSellerActions.js';
 class Seller extends React.Component {
   render () {
     return (
-      <div onClick={ () => this.props.selectSeller(this.props.id) }>
+      <div
+        className={ this.props.currentSellerId === this.props.id ? 'selected' : '' }
+        onClick={ () => this.props.selectSeller(this.props.id) }>
         {this.props.name}
       </div>
     );
@@ -17,11 +19,15 @@ Seller.propTypes = {
   name: React.PropTypes.string.isRequired,
   selectSeller: React.PropTypes.func.isRequired,
   id: React.PropTypes.number.isRequired,
+  currentSellerId: React.PropTypes.number.isRequired,
 };
 
+const mapStateToProps = state => (
+  { currentSellerId: state.currentSeller }
+);
 const mapDispatchToProps = dispatch => ({
   selectSeller: R.pipe(selectSellerActionCreator, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(Seller);
+export default connect(mapStateToProps, mapDispatchToProps)(Seller);
 export { Seller };
