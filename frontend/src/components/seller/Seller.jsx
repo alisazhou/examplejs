@@ -19,7 +19,12 @@ Seller.propTypes = {
   name: React.PropTypes.string.isRequired,
   selectSeller: React.PropTypes.func.isRequired,
   id: React.PropTypes.number.isRequired,
-  currentSellerId: React.PropTypes.number.isRequired,
+  currentSellerId: (props, propName, componentName) => {
+    if (props[propName] === null) {
+      return;
+    }
+    return React.PropTypes.number.isRequired(props, propName, componentName);
+  },
 };
 
 const mapStateToProps = state => (
