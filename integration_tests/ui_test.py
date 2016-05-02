@@ -29,14 +29,16 @@ def test_make_reservations(browser):
     # see available sellers
     assert 'vincent' in browser.body_text
 
-    # the next button is disabled- no sellers selcted yet
+    # the next button is disabled
     #
     #
+    # no sellers selcted yet
+    assert len(browser.find_elements_by_css_selector('div[class="seller--selected"]')) == 0
     # click on one seller
     seller_div = browser.find_element_by_xpath('//div[text()[contains(.,"vincent")]]')
     seller_div.click()
     # it changes color
-    assert 'selected' in seller_div.get_attribute("class")
+    assert 'seller--selected' in seller_div.get_attribute("class")
     # now the next button is enabled
 
     # click next

@@ -57,7 +57,7 @@ describe('Seller react component', () => {
       <Seller {...PROPS_FROM_PARENT} {...newProps}/>
     );
     const result = shallowRenderer.getRenderOutput();
-    expect(result.props.className).toBe('selected');
+    expect(result.props.className).toBe('seller--selected');
   });
   it('should not have selected css class if currentSeller state is not this component', () => {
     expect(result.props.className).toBe('');

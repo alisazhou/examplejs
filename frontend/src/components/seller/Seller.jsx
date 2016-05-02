@@ -7,7 +7,7 @@ class Seller extends React.Component {
   render () {
     return (
       <div
-        className={ this.props.currentSellerId === this.props.id ? 'selected' : '' }
+        className={ this.props.currentSellerId === this.props.id ? 'seller--selected' : '' }
         onClick={ () => this.props.selectSeller(this.props.id) }>
         {this.props.name}
       </div>
