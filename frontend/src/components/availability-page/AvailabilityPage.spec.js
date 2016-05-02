@@ -10,7 +10,7 @@ const AvailabilityPage = availabilityPageModule.AvailabilityPage;
 jest.dontMock('../seller/Seller.jsx');
 const Seller = require('../seller/Seller.jsx').default;
 jest.dontMock('../redux-wrapper/ReduxWrapper.jsx');
-const wrapComponent = require('../redux-wrapper/ReduxWrapper.jsx').default;
+const store = require('../redux-wrapper/ReduxWrapper.jsx').store;
 jest.dontMock('../next-button/NextButton.jsx');
 const NextButton = require('../next-button/NextButton.jsx').default;
 jest.dontMock('../sticky-layout/StickyLayout.jsx');
@@ -56,14 +56,13 @@ describe('AvailabilityPage Smart Component', () => {
     expect(availabilityPageModule.default.WrappedComponent).toBe(AvailabilityPage);
     expect(availabilityPageModule.default.displayName).toBe('Connect(AvailabilityPage)');
   });
-  it('has a different mapStateToProps giving sellers prop', () => {
-    // react will poop a warning that we need to see if there is no sellers prop
-    const wrappedAvailabilityPage = wrapComponent(AvailabilityPage.default);
-    TestUtils.renderIntoDocument(
-      <wrappedAvailabilityPage/>
+  it('has a mapStateToProps that gives sellers prop', () => {
+    const shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(
+      <availabilityPageModule.default store={store}/>
     );
-    // maybe to make this better in the future, do something like
-    // spyOn(console, 'warn');
-    // expect(console.warn.calls.count()).toBe(0);
+    const result = shallowRenderer.getRenderOutput();
+    expect(result.props.sellers).toBeDefined();
   });
+
 });
