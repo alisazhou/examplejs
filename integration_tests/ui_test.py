@@ -23,7 +23,7 @@ def test_reservations_page_asks_for_information(browser):
     # ask for name, tel, add, time, with appropriate labels
     name_attr_to_label = {}
     for node in all_inputs:
-        name_attr = node.name
+        name_attr = node.get_attribute("name")
         label = node.find_element_by_xpath('..').text
         name_attr_to_label[name_attr] = label
     expected = {

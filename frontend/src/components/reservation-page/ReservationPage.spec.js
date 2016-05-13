@@ -15,8 +15,9 @@ describe('ReservationPage react component', () => {
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
+
   it('has a NextButton component with the correct callback', () => {
-    expect(result.props.children[3].type).toBe(NextButton);
+    expect(result.props.children[5].type).toBe(NextButton);
     // expect(mockChangePage).toHaveBeenCalledWith(CHOICE);
   });
 });
