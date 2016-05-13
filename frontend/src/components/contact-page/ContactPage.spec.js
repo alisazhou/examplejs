@@ -3,8 +3,8 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 
-jest.dontMock('./ContactPage.jsx');
-const ContactPage = require('./ContactPage.jsx').default;
+jest.unmock('./ContactPage.jsx');
+import ContactPage from './ContactPage.jsx';
 
 describe('ContactPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();

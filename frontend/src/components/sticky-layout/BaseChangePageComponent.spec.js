@@ -4,9 +4,10 @@ import React from 'react';
 // import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
-jest.dontMock('./BaseChangePageComponent.jsx');
-const baseModule = require('./BaseChangePageComponent.jsx');
-const BaseChangePageComponent = baseModule.BaseChangePageComponent;
+jest.unmock('./BaseChangePageComponent.jsx');
+import {
+  BaseChangePageComponent, baseMapStateToProps, baseMapDispatchToProps, baseConnect,
+} from './BaseChangePageComponent.jsx';
 
 describe('BaseChangePageComponent react component', () => {
   it('extends React.Component', () => {
@@ -24,12 +25,12 @@ describe('BaseChangePageComponent react component', () => {
 
 describe('BaseChangePageComponent module', () => {
   it('exports baseMapStateToProps', () => {
-    expect(baseModule.baseMapStateToProps).toBeDefined();
+    expect(baseMapStateToProps).toBeDefined();
   });
   it('exports baseMapDispatchToProps', () => {
-    expect(baseModule.baseMapDispatchToProps).toBeDefined();
+    expect(baseMapDispatchToProps).toBeDefined();
   });
   it('exports baseConnect', () => {
-    expect(baseModule.baseConnect).toBeDefined();
+    expect(baseConnect).toBeDefined();
   });
 });

@@ -12,7 +12,15 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react/",
+      "<rootDir>/node_modules/react-dom/",
+      "<rootDir>/node_modules/react-addons-test-utils/",
+      "<rootDir>/node_modules/react-redux/",
+      "<rootDir>/node_modules/redux/",
+      "<rootDir>/node_modules/redux-logger/",
+      "<rootDir>/node_modules/ramda/"
+    ],
     "testPathDirs": [
       "<rootDir>/src"
     ],

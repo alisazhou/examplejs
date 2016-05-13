@@ -5,13 +5,11 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
-jest.dontMock('./Footer.jsx');
-const footerModule = require('./Footer.jsx');
-const Footer = footerModule.Footer;
-jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
-const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
-jest.dontMock('../sticky-layout/StickyLayout.jsx');
-const stickyLayoutModule = require('../sticky-layout/StickyLayout.jsx');
+jest.unmock('./Footer.jsx');
+import WrappedFooter, { Footer } from './Footer.jsx';
+jest.unmock('../sticky-layout/BaseChangePageComponent.jsx');
+import { BaseChangePageComponent } from '../sticky-layout/BaseChangePageComponent.jsx';
+import { INTRO, CONTACT } from '../sticky-layout/StickyLayout.jsx';
 
 describe('Footer react component', () => {
   let mockChangePage, links;
@@ -33,7 +31,7 @@ describe('Footer react component', () => {
     expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(introLinks[0]);
     expect(mockChangePage).toHaveBeenCalled();
-    expect(mockChangePage).toHaveBeenCalledWith(stickyLayoutModule.INTRO);
+    expect(mockChangePage).toHaveBeenCalledWith(INTRO);
   });
   it('has a contact us link with the correct callback', () => {
     const contactLinks = R.filter(
@@ -44,7 +42,7 @@ describe('Footer react component', () => {
     expect(mockChangePage).not.toHaveBeenCalled();
     TestUtils.Simulate.click(contactLinks[0]);
     expect(mockChangePage).toHaveBeenCalled();
-    expect(mockChangePage).toHaveBeenCalledWith(stickyLayoutModule.CONTACT);
+    expect(mockChangePage).toHaveBeenCalledWith(CONTACT);
   });
 
   it('extends BaseChangePageComponent', () => {
@@ -52,8 +50,8 @@ describe('Footer react component', () => {
   });
 
   it('is wrapped by a baseConnect', () => {
-    expect(footerModule.default).not.toBe(Footer);
-    expect(footerModule.default.WrappedComponent).toBe(Footer);
-    expect(footerModule.default.displayName).toBe('Connect(Footer)');
+    expect(WrappedFooter).not.toBe(Footer);
+    expect(WrappedFooter.WrappedComponent).toBe(Footer);
+    expect(WrappedFooter.displayName).toBe('Connect(Footer)');
   });
 });

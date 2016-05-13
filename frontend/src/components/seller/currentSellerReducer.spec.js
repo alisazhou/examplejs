@@ -1,9 +1,9 @@
 /*eslint-env jest,jasmine */
 
-jest.dontMock('./currentSellerReducer.js');
-const reducer = require('./currentSellerReducer.js').default;
-jest.dontMock('./currentSellerActions.js');
-const selectSellerActionCreator = require('./currentSellerActions.js').selectSellerActionCreator;
+jest.unmock('./currentSellerReducer.js');
+import reducer from './currentSellerReducer.js';
+jest.unmock('./currentSellerActions.js');
+import { selectSellerActionCreator } from './currentSellerActions.js';
 
 describe('redux state: currentSeller', () => {
   describe('reducer', () => {

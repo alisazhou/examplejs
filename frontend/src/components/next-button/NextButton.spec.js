@@ -4,12 +4,11 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
-jest.dontMock('./NextButton.jsx');
-const nextButtonModule = require('./NextButton.jsx');
-const NextButton = nextButtonModule.NextButton;
+jest.unmock('./NextButton.jsx');
+import WrappedButton, { NextButton } from './NextButton.jsx';
 
-jest.dontMock('../sticky-layout/BaseChangePageComponent.jsx');
-const BaseChangePageComponent = require('../sticky-layout/BaseChangePageComponent.jsx').BaseChangePageComponent;
+jest.unmock('../sticky-layout/BaseChangePageComponent.jsx');
+import { BaseChangePageComponent } from '../sticky-layout/BaseChangePageComponent.jsx';
 
 describe('NextButton react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -48,8 +47,8 @@ describe('NextButton react component', () => {
 
 describe('NextButton Smart Component', () => {
   it('is wrapped by a connect', () => {
-    expect(nextButtonModule.default).not.toBe(NextButton);
-    expect(nextButtonModule.default.WrappedComponent).toBe(NextButton);
-    expect(nextButtonModule.default.displayName).toBe('Connect(NextButton)');
+    expect(WrappedButton).not.toBe(NextButton);
+    expect(WrappedButton.WrappedComponent).toBe(NextButton);
+    expect(WrappedButton.displayName).toBe('Connect(NextButton)');
   });
 });

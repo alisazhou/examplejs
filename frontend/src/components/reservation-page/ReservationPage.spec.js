@@ -3,12 +3,9 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 
-jest.dontMock('./ReservationPage.jsx');
-const ReservationPage = require('./ReservationPage.jsx').default;
-jest.dontMock('../sticky-layout/StickyLayout.jsx');
-// const CHOICE = require('../sticky-layout/StickyLayout.jsx').CHOICE;
-jest.dontMock('../next-button/NextButton.jsx');
-const NextButton = require('../next-button/NextButton.jsx').default;
+jest.unmock('./ReservationPage.jsx');
+import ReservationPage from './ReservationPage.jsx';
+import NextButton from '../next-button/NextButton.jsx';
 
 describe('ReservationPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();

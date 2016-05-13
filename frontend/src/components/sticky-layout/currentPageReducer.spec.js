@@ -1,9 +1,8 @@
 /*eslint-env jest,jasmine */
 
-jest.dontMock('./currentPageReducer.js');
-const reducer = require('./currentPageReducer.js').default;
-jest.dontMock('../sticky-layout/StickyLayout.jsx');
-const INTRO = require('../sticky-layout/StickyLayout.jsx').INTRO;
+jest.unmock('./currentPageReducer.js');
+import reducer from './currentPageReducer.js';
+import { INTRO } from '../sticky-layout/StickyLayout.jsx';
 
 describe('redux state: currentPage', () => {
   describe('reducer', () => {

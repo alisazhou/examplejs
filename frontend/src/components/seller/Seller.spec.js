@@ -4,11 +4,14 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
-jest.dontMock('./Seller.jsx');
-const sellerModule = require('./Seller.jsx');
-const Seller = sellerModule.Seller;
-jest.dontMock('../redux-wrapper/ReduxWrapper.jsx');
-const store = require('../redux-wrapper/ReduxWrapper.jsx').store;
+jest.unmock('./Seller.jsx');
+import WrappedSeller, { Seller } from './Seller.jsx';
+
+jest.unmock('../seller/currentSellerReducer.js');
+jest.unmock('../seller/sellersReducer.js');
+jest.unmock('../sticky-layout/currentPageReducer.js');
+jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
+import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
 const PROPS_FROM_PARENT = {
@@ -67,13 +70,13 @@ describe('Seller react component', () => {
 describe('Seller Smart Component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
-    <sellerModule.default store={store} {...PROPS_FROM_PARENT}/>
+    <WrappedSeller store={store} {...PROPS_FROM_PARENT}/>
   );
   const result = shallowRenderer.getRenderOutput();
   it('is wrapped by a connect', () => {
-    expect(sellerModule.default).not.toBe(Seller);
-    expect(sellerModule.default.WrappedComponent).toBe(Seller);
-    expect(sellerModule.default.displayName).toBe('Connect(Seller)');
+    expect(WrappedSeller).not.toBe(Seller);
+    expect(WrappedSeller.WrappedComponent).toBe(Seller);
+    expect(WrappedSeller.displayName).toBe('Connect(Seller)');
   });
   it('adds a selectSeller prop', () => {
     expect(result.props.selectSeller).toBeDefined();

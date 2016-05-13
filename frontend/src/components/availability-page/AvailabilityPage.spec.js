@@ -4,17 +4,20 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
-jest.dontMock('./AvailabilityPage.jsx');
-const availabilityPageModule = require('./AvailabilityPage.jsx');
-const AvailabilityPage = availabilityPageModule.AvailabilityPage;
-jest.dontMock('../seller/Seller.jsx');
-const Seller = require('../seller/Seller.jsx').default;
-jest.dontMock('../redux-wrapper/ReduxWrapper.jsx');
-const store = require('../redux-wrapper/ReduxWrapper.jsx').store;
-jest.dontMock('../next-button/NextButton.jsx');
-const NextButton = require('../next-button/NextButton.jsx').default;
-jest.dontMock('../sticky-layout/StickyLayout.jsx');
-const CHOICE = require('../sticky-layout/StickyLayout.jsx').CHOICE;
+jest.unmock('./AvailabilityPage.jsx');
+import WrappedPage, { AvailabilityPage } from './AvailabilityPage.jsx';
+
+jest.unmock('../sticky-layout/currentPageReducer.js');
+import { CHOICE } from '../sticky-layout/StickyLayout.jsx';
+jest.unmock('../seller/sellersReducer.js');
+jest.unmock('../seller/currentSellerReducer.js');
+import Seller from '../seller/Seller.jsx';
+
+jest.unmock('../sticky-layout/BaseChangePageComponent');
+import NextButton from '../next-button/NextButton.jsx';
+
+jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
+import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 describe('AvailabilityPage react component', () => {
   let mockSellers = [ {key: 1, name: '1'}, {key: 2, name: '2'} ];
@@ -24,9 +27,6 @@ describe('AvailabilityPage react component', () => {
   );
   const result = shallowRenderer.getRenderOutput();
 
-  beforeEach(() => {
-    // recreate the spy for each test
-  });
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
@@ -52,14 +52,14 @@ describe('AvailabilityPage react component', () => {
 
 describe('AvailabilityPage Smart Component', () => {
   it('is wrapped by a connect', () => {
-    expect(availabilityPageModule.default).not.toBe(AvailabilityPage);
-    expect(availabilityPageModule.default.WrappedComponent).toBe(AvailabilityPage);
-    expect(availabilityPageModule.default.displayName).toBe('Connect(AvailabilityPage)');
+    expect(WrappedPage).not.toBe(AvailabilityPage);
+    expect(WrappedPage.WrappedComponent).toBe(AvailabilityPage);
+    expect(WrappedPage.displayName).toBe('Connect(AvailabilityPage)');
   });
   it('has a mapStateToProps that gives sellers prop', () => {
     const shallowRenderer = TestUtils.createRenderer();
     shallowRenderer.render(
-      <availabilityPageModule.default store={store}/>
+      <WrappedPage store={store}/>
     );
     const result = shallowRenderer.getRenderOutput();
     expect(result.props.sellers).toBeDefined();

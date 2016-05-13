@@ -2,14 +2,14 @@
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-
-jest.dontMock('./ReduxWrapper.jsx');
-const reduxWrapperModule = require('./ReduxWrapper.jsx');
-const wrapComponent = reduxWrapperModule.default;
-const store = reduxWrapperModule.store;
-
-jest.dontMock('react-redux');
 import { Provider } from 'react-redux';
+
+jest.unmock('../sticky-layout/currentPageReducer.js');
+jest.unmock('../seller/currentSellerReducer.js');
+jest.unmock('../seller/sellersReducer.js');
+jest.unmock('./ReduxWrapper.jsx');
+import wrapComponent, { store } from './ReduxWrapper.jsx';
+
 
 describe('A wrapped component', () => {
   class MockComponent extends React.Component {
