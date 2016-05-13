@@ -7,7 +7,34 @@ class ReservationPage extends React.Component {
     return (
       <div>
         <p>Customize your Reservation Details</p>
-        Address: <input name='address'/>
+        <label>Name:
+          <input
+            type='text'
+            name='name'
+            className='reservation_detail'
+          />
+        </label>
+        <label>Mobile:
+          <input
+            type='text'
+            name='tel'
+            className='reservation_detail'
+          />
+        </label>
+        <label>Address:
+          <input
+            type='text'
+            name='address'
+            className='reservation_detail'
+          />
+        </label>
+        <label>Preferred time:
+          <input
+            type='text'
+            name='time'
+            className='reservation_detail'
+          />
+        </label>
         <NextButton toPage={CHOICE}/>
       </div>
     );
