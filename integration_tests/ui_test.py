@@ -12,6 +12,29 @@ def test_can_go_to_different_pages(browser):
     assert 'Welcome' in browser.body_text
     assert '+852' not in browser.body_text
 
+
+def test_reservations_page_asks_for_information(browser):
+    browser.goto('/')
+    # click on button inside of intro page
+    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    # there are four input fields
+    all_inputs = browser.find_elements_by_class_name("reservation_detail")
+    assert len(all_inputs) == 4
+    # ask for name, tel, add, time, with appropriate labels
+    name_attr_to_label = {}
+    for node in all_inputs:
+        name_attr = node.name
+        label = node.find_element_by_xpath('..').text
+        name_attr_to_label[name_attr] = label
+    expected = {
+        "name": "Name:",
+        "tel": "Mobile:",
+        "address": "Address:",
+        "time": "Preferred time:",
+    }
+    assert name_attr_to_label == expected
+
+
 def test_make_reservations(browser):
     browser.goto('/')
     # click on button inside of intro page
@@ -20,6 +43,7 @@ def test_make_reservations(browser):
 
     # enter details
     browser.find_element_by_css_selector('input[name="address"]').send_keys('hi')
+
     # click next
     browser.find_element_by_css_selector('input[type="button"]').click()
 
