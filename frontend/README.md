@@ -9,3 +9,10 @@
     - nvm run build (or to break it apart, `nvm run js` and `nvm run css`)
     - nvm test
 
+
+### notes
+- Warning: React.createElement: type should not be null, undefined, boolean, or number. It should be a string (for DOM elements) or a ReactClass (for composite components).
+    - this is when certain subcomponents are not mocked. the basechangepagecomponent / other redux-y wrappers is the usual suspect
+    - be sure to clear cache etc after attempted fix
+    - there is a similar (but more clear) error where mocked reducers aren't initializing the current values/formats
+    - should really write a custom mock thingy for these
