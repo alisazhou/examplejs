@@ -6,8 +6,15 @@ import createLogger from 'redux-logger';
 import currentPage from '../sticky-layout/currentPageReducer.js';
 import sellers from '../seller/sellersReducer.js';
 import currentSeller from '../seller/currentSellerReducer.js';
+import { reducer as formReducer } from 'redux-form';
 
-const rootReducer = combineReducers({ currentPage, sellers, currentSeller });
+
+const rootReducer = combineReducers({
+  currentPage,
+  sellers,
+  currentSeller,
+  form: formReducer
+});
 const logger = createLogger();
 export let store = createStore(rootReducer, applyMiddleware(logger));
 
