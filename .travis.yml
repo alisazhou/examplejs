@@ -1,0 +1,14 @@
+language: python
+python: "3.5"
+
+install: 
+  - "rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 6"
+  - "cd frontend && nvm use 6 && npm install && npm run build"
+  - "pip install -r ../integration_tests/requirements.txt"
+script: 
+  - npm run retest
+  - cd ../integration_tests && py.test
+notifications:
+  email:
+    on_success: always # default: change
+    on_failure: always # default: always
