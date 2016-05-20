@@ -5,6 +5,8 @@ import TestUtils from 'react-addons-test-utils';
 
 jest.unmock('./ReservationPage.jsx');
 import ReservationPage from './ReservationPage.jsx';
+
+jest.unmock('../sticky-layout/BaseChangePageComponent.jsx');
 import NextButton from '../next-button/NextButton.jsx';
 
 describe('ReservationPage react component', () => {
