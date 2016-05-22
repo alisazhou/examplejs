@@ -3,7 +3,7 @@ import R from 'ramda';
 import { connect } from 'react-redux';
 
 import NextButton from '../next-button/NextButton.jsx';
-import { CHOICE } from '../sticky-layout/StickyLayout.jsx';
+import { CHOICE } from '../sticky-layout/pageMapping.js';
 import Seller from '../seller/Seller.jsx';
 
 class AvailabilityPage extends React.Component {

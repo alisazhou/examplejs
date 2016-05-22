@@ -8,7 +8,9 @@ jest.unmock('./IntroPage.jsx');
 import WrappedPage, { IntroPage } from './IntroPage.jsx';
 jest.unmock('../sticky-layout/BaseChangePageComponent.jsx');
 import { BaseChangePageComponent } from '../sticky-layout/BaseChangePageComponent.jsx';
-import { BOOK } from '../sticky-layout/StickyLayout.jsx';
+
+jest.unmock('../sticky-layout/pageMapping.js');
+import { BOOK } from '../sticky-layout/pageMapping.js';
 
 describe('StickyBody react component', () => {
   let mockChangePage = jasmine.createSpy('mockChangePage');

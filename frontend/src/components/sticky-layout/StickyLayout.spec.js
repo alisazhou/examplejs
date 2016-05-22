@@ -5,7 +5,10 @@ import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
 jest.unmock('./StickyLayout.jsx');
-import WrappedLayout, { StickyLayout, pageMapping } from './StickyLayout.jsx';
+import WrappedLayout, { StickyLayout } from './StickyLayout.jsx';
+
+jest.unmock('./pageMapping.js');
+import { pageMapping } from './pageMapping.js';
 
 jest.unmock('../sticky-layout/BaseChangePageComponent');
 import Footer from '../footer/Footer.jsx';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import NextButton from '../next-button/NextButton.jsx';
 import ReservationForm from './ReservationForm.jsx';
-import { CHOICE } from '../sticky-layout/StickyLayout.jsx';
+import { CHOICE } from '../sticky-layout/pageMapping.js';
 
 
 class ReservationPage extends React.Component {

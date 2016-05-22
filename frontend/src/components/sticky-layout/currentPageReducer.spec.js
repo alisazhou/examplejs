@@ -2,7 +2,7 @@
 
 jest.unmock('./currentPageReducer.js');
 import reducer from './currentPageReducer.js';
-import { INTRO } from '../sticky-layout/StickyLayout.jsx';
+import { INTRO } from '../sticky-layout/pageMapping.js';
 
 describe('redux state: currentPage', () => {
   describe('reducer', () => {

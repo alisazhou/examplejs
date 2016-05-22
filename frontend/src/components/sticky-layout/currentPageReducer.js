@@ -1,4 +1,4 @@
-import { INTRO } from '../sticky-layout/StickyLayout.jsx';
+import { INTRO } from '../sticky-layout/pageMapping.js';
 // in the sub-reducer, we get passed state.currentPage as the state
 const initialState = INTRO;
 

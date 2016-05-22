@@ -9,7 +9,8 @@ jest.unmock('./Footer.jsx');
 import WrappedFooter, { Footer } from './Footer.jsx';
 jest.unmock('../sticky-layout/BaseChangePageComponent.jsx');
 import { BaseChangePageComponent } from '../sticky-layout/BaseChangePageComponent.jsx';
-import { INTRO, CONTACT } from '../sticky-layout/StickyLayout.jsx';
+jest.unmock('../sticky-layout/pageMapping.js');
+import { INTRO, CONTACT } from '../sticky-layout/pageMapping.js';
 
 describe('Footer react component', () => {
   let mockChangePage, links;

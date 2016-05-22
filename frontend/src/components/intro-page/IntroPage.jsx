@@ -1,6 +1,6 @@
 import React from 'react';
 import { BaseChangePageComponent, baseConnect } from '../sticky-layout/BaseChangePageComponent.jsx';
-import { BOOK } from '../sticky-layout/StickyLayout.jsx';
+import { BOOK } from '../sticky-layout/pageMapping.js';
 
 
 class IntroPage extends BaseChangePageComponent {
