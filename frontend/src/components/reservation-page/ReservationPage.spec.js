@@ -2,6 +2,7 @@
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import '../../testHelpers.js';
 
 jest.unmock('./ReservationPage.jsx');
 import ReservationPage from './ReservationPage.jsx';
@@ -20,17 +21,11 @@ describe('ReservationPage react component', () => {
   });
 
   it('has a ReservationForm component', () => {
-    const findReservationForm = result.props.children.filter(
-      child => child.type === ReservationForm
-    );
-    expect(findReservationForm.length).toEqual(1);
+    expect(result).toHaveChild(ReservationForm);
   });
 
   it('has a NextButton component with the correct callback', () => {
-    const findNextButton = result.props.children.filter(
-      child => child.type === NextButton
-    );
-    expect(findNextButton.length).toEqual(1);
+    expect(result).toHaveChild(NextButton);
     // expect(mockChangePage).toHaveBeenCalledWith(CHOICE);
   });
 });

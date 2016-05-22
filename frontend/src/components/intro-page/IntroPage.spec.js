@@ -35,11 +35,11 @@ describe('StickyBody react component', () => {
   });
 
   describe('with a book now button child', () => {
-    const bookButton = R.find(
-      element => {return element.type === 'button';},
-      result.props.children
-    );
     it('exists', () => {
+      const bookButton = R.find(
+        element => {return element.type === 'button';},
+        result.props.children
+      );
       expect(bookButton).toBeDefined();
     });
 

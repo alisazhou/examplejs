@@ -4,6 +4,8 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
+import '../../testHelpers.js';
+
 jest.unmock('./AvailabilityPage.jsx');
 import WrappedPage, { AvailabilityPage } from './AvailabilityPage.jsx';
 
@@ -44,8 +46,10 @@ describe('AvailabilityPage react component', () => {
     expect(secondSeller.type).toBe(Seller);
     expect(secondSeller.props.name).toBe('2');
   });
+  it('has a NextButton component', () => {
+    expect(result).toHaveChild(NextButton);
+  });
   it('has a NextButton component with the correct callback', () => {
-    expect(result.props.children[2].type).toBe(NextButton);
     expect(result.props.children[2].props.toPage).toBe(CHOICE);
   });
 });
