@@ -16,3 +16,7 @@
     - be sure to clear cache etc after attempted fix
     - there is a similar (but more clear) error where mocked reducers aren't initializing the current values/formats
     - should really write a custom mock thingy for these
+- don't use --watch=all for test runs. it creates a billion random errors that is inconsitent with single runs.
+    - this has been taken out
+    - instead `rerun --ignore npm-debug.log "npm test"`
+        - that's a python module. install the requirements.txt
