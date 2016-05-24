@@ -9,3 +9,4 @@ bundled*
 db.sqlite3
 npm-debut.log
 npm-debug.log
+static
