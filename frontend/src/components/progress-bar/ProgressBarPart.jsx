@@ -6,7 +6,10 @@ import { baseConnect, BaseChangePageComponent } from '../sticky-layout/BaseChang
 class ProgressBarPart extends BaseChangePageComponent {
   render () {
     return (
-      <div onClick={ this.clickThroughTo(this.props.page) }>
+      <div
+        className='progressBar--part'
+        onClick={ this.clickThroughTo(this.props.page) }
+      >
         { this.props.page }
       </div>
     );

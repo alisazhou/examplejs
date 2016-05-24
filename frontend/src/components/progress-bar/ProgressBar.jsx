@@ -12,7 +12,7 @@ class ProgressBar extends React.Component {
     // if declared at module level (maybe some weird browserify thing)
     const progressStages = [ BOOK, CHOICE, CONFIRM ];
     return (
-      <div>
+      <div className='progressBar'>
         { R.map(
           stage => {
             return <ProgressBarPart key={stage} page={stage}/>;

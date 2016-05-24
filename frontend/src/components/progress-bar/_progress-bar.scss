@@ -1,0 +1,15 @@
+
+.progressBar {
+    background-color: map-get($colors, blue);
+
+    &--part {
+        display: inline;
+        border: 0.15rem solid map-get($colors, bright-green);
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        margin: 0.5rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+}
+
