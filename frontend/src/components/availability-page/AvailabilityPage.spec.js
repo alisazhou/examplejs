@@ -23,6 +23,9 @@ jest.unmock('../sticky-layout/currentPageReducer.js');
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
+jest.unmock('../progress-bar/ProgressBar.jsx');
+import ProgressBar from '../progress-bar/ProgressBar.jsx';
+
 describe('AvailabilityPage react component', () => {
   let mockSellers = [ {key: 1, name: '1'}, {key: 2, name: '2'} ];
   const shallowRenderer = TestUtils.createRenderer();
@@ -34,15 +37,18 @@ describe('AvailabilityPage react component', () => {
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
+  it('has a ProgressBar component', () => {
+    expect(result).toHaveChild(ProgressBar);
+  });
   it('has correct sellers propType', () => {
     expect(R.has('sellers')(AvailabilityPage.propTypes)).toBe(true);
   });
   it('has a heading thing', () => {
-    expect(result.props.children[0].type).toBe('p');
+    expect(result).toHaveChild('p');
   });
   it('has a list of sellers', () => {
-    const firstSeller = result.props.children[1][0];
-    const secondSeller = result.props.children[1][1];
+    const firstSeller = result.props.children[2][0];
+    const secondSeller = result.props.children[2][1];
     expect(firstSeller.type).toBe(Seller);
     expect(firstSeller.props.name).toBe('1');
     expect(secondSeller.type).toBe(Seller);
@@ -52,7 +58,7 @@ describe('AvailabilityPage react component', () => {
     expect(result).toHaveChild(NextButton);
   });
   it('has a NextButton component with the correct callback', () => {
-    expect(result.props.children[2].props.toPage).toBe(CHOICE);
+    expect(result.props.children[3].props.toPage).toBe(CHOICE);
   });
 });
 

@@ -4,13 +4,14 @@ import ReservationPage from '../reservation-page/ReservationPage.jsx';
 import AvailabilityPage from '../availability-page/AvailabilityPage.jsx';
 
 
-// other files that need to click through to pages will  import these constants
+// other files that need to click through to pages will import these constants
 // to make sure that there are no mispellings etc
+// right now this is also being used to display progresss bar headings
 const INTRO = 'intro-page';
 const CONTACT = 'contact-page';
-const BOOK = 'book-page';
-const CHOICE = 'choice-page';
-const CONFIRM = 'confirm-page';
+const BOOK = '1. Booking Details';
+const CHOICE = '2. Choose Available People';
+const CONFIRM = '3. Confirmation & Payment';
 
 const pageMapping = new Map([
   [ INTRO, IntroPage ],

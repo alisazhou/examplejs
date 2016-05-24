@@ -16,6 +16,7 @@ jest.unmock('../sticky-layout/pageMapping.js');
 import { CHOICE } from '../sticky-layout/pageMapping.js';
 
 import ReservationForm from './ReservationForm.jsx';
+import ProgressBar from '../progress-bar/ProgressBar.jsx';
 
 describe('ReservationPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -25,7 +26,9 @@ describe('ReservationPage react component', () => {
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
-
+  it('has a ProgressBar component', () => {
+    expect(result).toHaveChild(ProgressBar);
+  });
   it('has a ReservationForm component', () => {
     expect(result).toHaveChild(ReservationForm);
   });
