@@ -9,6 +9,7 @@ jest.unmock('./ReservationPage.jsx');
 import ReservationPage from './ReservationPage.jsx';
 
 jest.unmock('../sticky-layout/BaseChangePageComponent.jsx');
+jest.unmock('../next-button/NextButton.jsx');
 import NextButton from '../next-button/NextButton.jsx';
 
 jest.unmock('../sticky-layout/pageMapping.js');
