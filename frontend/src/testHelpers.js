@@ -11,7 +11,7 @@ const toHaveChildMatcher = () => ({
     );
     return {
       pass: childrenOfType.length === 1,
-      message: `Expected to have one child of type ${childType.name} but found ${childrenOfType.length}`,
+      message: `Expected to have one child but found ${childrenOfType.length}`,
     };
   },
 });
