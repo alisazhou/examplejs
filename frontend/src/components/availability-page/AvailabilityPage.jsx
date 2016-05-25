@@ -13,12 +13,10 @@ class AvailabilityPage extends React.Component {
       <div>
         <ProgressBar/>
         <p>Choose your peeps:</p>
-        <ul>
         {R.map(
           seller => <Seller key={seller.id} {...seller} />,
           this.props.sellers
         )}
-        </ul>
         <NextButton toPage={CHOICE}/>
       </div>
     );
@@ -26,10 +24,7 @@ class AvailabilityPage extends React.Component {
 }
 
 AvailabilityPage.propTypes = {
-  sellers: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired
-  }).isRequired).isRequired,
+  sellers: React.PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({ sellers: state.sellers });

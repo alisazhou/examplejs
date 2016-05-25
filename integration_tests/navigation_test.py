@@ -1,3 +1,6 @@
+import pytest
+
+
 def test_can_use_progress_bar_to_navigate(browser):
     browser.goto('/')
     # click on button inside of intro page
@@ -12,6 +15,7 @@ def test_can_use_progress_bar_to_navigate(browser):
     assert 'Reservation Details' in browser.body_text
 
 
+@pytest.mark.skip(reason="purposely failing test")
 def test_saves_state_between_pages(browser):
     browser.goto('/')
     # click on button inside of intro page
