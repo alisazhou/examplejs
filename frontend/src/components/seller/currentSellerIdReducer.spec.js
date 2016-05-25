@@ -8,7 +8,7 @@ import { selectSellerActionCreator } from './currentSellerActions.js';
 describe('redux state: currentSellerId', () => {
   describe('reducer', () => {
     it('should return correct initial state', () => {
-      expect(reducer(undefined, {})).toEqual(null);
+      expect(reducer(undefined, {})).toEqual(-1);
     });
     it('should handle SELECT_SELLER actions', () => {
       expect(reducer(

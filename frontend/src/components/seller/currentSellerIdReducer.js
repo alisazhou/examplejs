@@ -2,7 +2,7 @@
 
 import { SELECT_SELLER } from './currentSellerActions.js';
 
-const initialState = null;
+const initialState = -1;
 
 const currentStateReducer = (state = initialState, action) => {
   if (action.type === SELECT_SELLER) {
