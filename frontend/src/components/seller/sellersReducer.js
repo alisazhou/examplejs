@@ -3,9 +3,9 @@
 import { FETCH_SELLERS_REQUEST } from './sellersActions.js';
 
 const initialState = [
-  { key: 0, id: 3, name: 'vincent' },
-  { key: 1, id: 4, name: 'derek' },
-  { key: 2, id: 5, name: 'conrad' },
+  { id: 3, name: 'vincent' },
+  { id: 4, name: 'derek' },
+  { id: 5, name: 'conrad' },
 ];
 
 const currentStateReducer = (state = initialState, action) => {
