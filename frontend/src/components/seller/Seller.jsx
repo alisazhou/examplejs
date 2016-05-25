@@ -28,7 +28,7 @@ Seller.propTypes = {
 };
 
 const mapStateToProps = state => (
-  { currentSellerId: state.currentSeller }
+  { currentSellerId: state.currentSellerId }
 );
 const mapDispatchToProps = dispatch => ({
   selectSeller: R.pipe(selectSellerActionCreator, dispatch),

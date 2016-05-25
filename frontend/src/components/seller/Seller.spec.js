@@ -7,7 +7,7 @@ import R from 'ramda';
 jest.unmock('./Seller.jsx');
 import WrappedSeller, { Seller } from './Seller.jsx';
 
-jest.unmock('../seller/currentSellerReducer.js');
+jest.unmock('../seller/currentSellerIdReducer.js');
 jest.unmock('../seller/sellersReducer.js');
 jest.unmock('../sticky-layout/currentPageReducer.js');
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
@@ -51,7 +51,7 @@ describe('Seller react component', () => {
     result.props.onClick();
     expect(mockSelectSeller).toHaveBeenCalledWith(23);
   });
-  it('should have selected css class if currentSeller state is this component', () => {
+  it('should have selected css class if currentSellerId state is this component', () => {
     const newProps = R.merge(
       PROPS_FROM_REDUX,
       { currentSellerId: PROPS_FROM_PARENT.id }
@@ -62,7 +62,7 @@ describe('Seller react component', () => {
     const result = shallowRenderer.getRenderOutput();
     expect(result.props.className).toBe('seller--selected');
   });
-  it('should not have selected css class if currentSeller state is not this component', () => {
+  it('should not have selected css class if currentSellerId state is not this component', () => {
     expect(result.props.className).toBe('');
   });
 });

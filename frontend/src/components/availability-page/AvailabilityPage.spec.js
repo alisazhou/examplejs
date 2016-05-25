@@ -13,7 +13,7 @@ jest.unmock('../sticky-layout/pageMapping.js');
 import { CHOICE } from '../sticky-layout/pageMapping.js';
 
 jest.unmock('../seller/sellersReducer.js');
-jest.unmock('../seller/currentSellerReducer.js');
+jest.unmock('../seller/currentSellerIdReducer.js');
 import Seller from '../seller/Seller.jsx';
 
 jest.unmock('../sticky-layout/BaseChangePageComponent');

@@ -5,7 +5,7 @@ import TestUtils from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 
 jest.unmock('../sticky-layout/currentPageReducer.js');
-jest.unmock('../seller/currentSellerReducer.js');
+jest.unmock('../seller/currentSellerIdReducer.js');
 jest.unmock('../seller/sellersReducer.js');
 jest.unmock('./ReduxWrapper.jsx');
 import wrapComponent, { store } from './ReduxWrapper.jsx';
