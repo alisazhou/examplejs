@@ -11,7 +11,8 @@ def test_can_use_progress_bar_to_navigate(browser):
     browser.find_element_by_xpath('//div[text()="1. Booking Details"]').click()
     assert 'Reservation Details' in browser.body_text
 
-def test_saves_state_between_pages():
+
+def test_saves_state_between_pages(browser):
     browser.goto('/')
     # click on button inside of intro page
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
@@ -25,7 +26,7 @@ def test_saves_state_between_pages():
     assert 'test_name' not in browser.body_text
 
     # fill in reservation form
-    for field, value in user.items():
+    for field, value in booking.items():
         browser.find_element_by_name(field).send_keys(value)
     assert 'test_name' in browser.body_text
 
