@@ -14,7 +14,7 @@ class AvailabilityPage extends React.Component {
         <ProgressBar/>
         <p>Choose your peeps:</p>
         {R.map(
-          seller => <Seller {...seller}/>,
+          seller => <Seller key={seller.id} {...seller} />,
           this.props.sellers
         )}
         <NextButton toPage={CHOICE}/>
@@ -24,7 +24,7 @@ class AvailabilityPage extends React.Component {
 }
 
 AvailabilityPage.propTypes = {
-  sellers: React.PropTypes.array.isRequired,
+  sellers: React.PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({ sellers: state.sellers });
