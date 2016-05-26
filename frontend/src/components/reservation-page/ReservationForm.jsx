@@ -48,4 +48,5 @@ class ReservationForm extends React.Component {
 export default reduxForm({
   form: "reservationForm",
   fields, 
+  destroyOnUnmount: false,
 })(ReservationForm);

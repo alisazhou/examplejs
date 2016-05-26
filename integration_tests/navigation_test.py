@@ -15,7 +15,6 @@ def test_can_use_progress_bar_to_navigate(browser):
     assert 'Reservation Details' in browser.body_text
 
 
-@pytest.mark.skip(reason="purposely failing test")
 def test_saves_state_between_pages(browser):
     browser.goto('/')
     # click on button inside of intro page
@@ -27,14 +26,21 @@ def test_saves_state_between_pages(browser):
         "time": "test_time",
     }
     # no booking info displayed before filling in form
-    assert 'test_name' not in browser.body_text
+    for field_label in booking.keys():
+        field = browser.find_element_by_name(field_label)
+        field_text = field.get_attribute('value')
+        assert field_text == ''
 
     # fill in reservation form
-    for field, value in booking.items():
-        browser.find_element_by_name(field).send_keys(value)
-    assert 'test_name' in browser.body_text
+    for field_label, value in booking.items():
+        field = browser.find_element_by_name(field_label)
+        field.send_keys(value)
+        assert value in field.get_attribute('value')
 
-    # go to next page and back again, booking info is displayed
+    # go to next page and back again, booking info is preserved
     browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
     browser.find_element_by_xpath('//div[text()="1. Booking Details"]').click()
-    assert 'test_name' in browser.body_text
+    for field_label, value in booking.items():
+        field = browser.find_element_by_name(field_label)
+        field_text = field.get_attribute('value')
+        assert field_text == value
