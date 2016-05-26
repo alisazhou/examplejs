@@ -35,6 +35,32 @@ def test_reservations_page_asks_for_information(browser):
     assert name_attr_to_label == expected
 
 
+def test_seller_page_prompts_to_fill_reservation_form_if_empty(browser):
+    browser.goto('/')
+    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    # user is prompted for booking info if reservation form left unfilled
+    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
+    assert 'Please specify time and address' in browser.body_text
+
+
+def test_seller_page_displays_booking_if_reservation_form_filled(browser):
+    browser.goto('/')
+    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    # fill reservation form
+    booking = {
+        "name": "test_name",
+        "tel": "test_tel",
+        "address": "test_address",
+        "time": "test_time",
+    }
+    for name_attr, value in booking.items():
+        browser.find_element_by_name(name_attr).send_keys(value)
+    # booking summary displayed on seller page
+    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
+    assert "Time: test_time" in browser.body_text
+    assert "Address: test_address" in browser.body_text
+
+
 def test_make_reservations(browser):
     browser.goto('/')
     # click on button inside of intro page
