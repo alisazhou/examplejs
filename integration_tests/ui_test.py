@@ -62,10 +62,34 @@ def test_make_reservations(browser):
     seller_div = browser.find_element_by_xpath('//div[text()[contains(.,"vincent")]]')
     seller_div.click()
     # it changes color
-    assert 'seller--selected' in seller_div.get_attribute("class")
+    assert 'seller--selected' in seller_div.get_attribute('class')
     # now the next button is enabled
 
     # click next
     # browser.find_element_by_css_selector('input[type="button"]').click()
 
     # select details based on availability
+
+
+def test_can_make_payment(browser):
+    browser.goto('/')
+    # click on button inside of intro page
+    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+
+    # fill in information into form
+    #
+    #
+    # click next to go to availability page
+    browser.find_element_by_css_selector('input[type="button"]').click()
+    # click on one seller
+    seller_div = browser.find_element_by_xpath('//div[text()[contains(.,"vincent")]]')
+    # click next to go to payment confirmation page
+    browser.find_element_by_css_selector('input[type="button"]').click()
+
+    # see a paypal button
+    paypal_button = browser.find_element_by_css_selector('input[name="submit"]')
+    assert 'PayPal' in paypal_button.get_attribute('alt')
+    # click on it
+    paypal_button.click()
+    # we are redirected to paypal site
+    assert 'paypal.com' in browser.current_url

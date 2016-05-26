@@ -10,7 +10,7 @@ jest.unmock('./AvailabilityPage.jsx');
 import WrappedPage, { AvailabilityPage } from './AvailabilityPage.jsx';
 
 jest.unmock('../sticky-layout/pageMapping.js');
-import { CHOICE } from '../sticky-layout/pageMapping.js';
+import { CONFIRM } from '../sticky-layout/pageMapping.js';
 
 jest.unmock('../seller/sellersReducer.js');
 jest.unmock('../seller/currentSellerIdReducer.js');
@@ -58,7 +58,7 @@ describe('AvailabilityPage react component', () => {
     expect(result).toHaveChild(NextButton);
   });
   it('has a NextButton component with the correct callback', () => {
-    expect(result.props.children[3].props.toPage).toBe(CHOICE);
+    expect(result.props.children[3].props.toPage).toBe(CONFIRM);
   });
 });
 

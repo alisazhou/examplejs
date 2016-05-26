@@ -3,7 +3,7 @@ import R from 'ramda';
 import { connect } from 'react-redux';
 
 import NextButton from '../next-button/NextButton.jsx';
-import { CHOICE } from '../sticky-layout/pageMapping.js';
+import { CONFIRM } from '../sticky-layout/pageMapping.js';
 import Seller from '../seller/Seller.jsx';
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
 
@@ -17,14 +17,14 @@ class AvailabilityPage extends React.Component {
           seller => <Seller key={seller.id} {...seller} />,
           this.props.sellers
         )}
-        <NextButton toPage={CHOICE}/>
+        <NextButton toPage={CONFIRM}/>
       </div>
     );
   }
 }
 
 AvailabilityPage.propTypes = {
-  sellers: React.PropTypes.array.isRequired
+  sellers: React.PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({ sellers: state.sellers });

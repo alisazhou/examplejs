@@ -10,6 +10,7 @@ See individual folders for their READMEs
 **TO-DO**
 - webpack  
 - react-router
+- make mac firefox selenium use virtualdisplay
 
 **DOING**
 - _az_: connect ReservationForm to store  
