@@ -8,12 +8,15 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- webpack  
 - react-router
 - make mac firefox selenium use virtualdisplay
+- ReservationForm sync validation
 
 **DOING**
-- _az_: connect ReservationForm to store  
+- _az_: webpack  
+
 
 **DONE**
 - merge Seller key/id  
+- payment page
+- ReservationForm wired to store 
