@@ -26,6 +26,8 @@ import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 jest.unmock('../progress-bar/ProgressBar.jsx');
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
 
+jest.unmock('../reservation-summary/ReservationSummary.jsx');
+
 describe('AvailabilityPage react component', () => {
   let mockSellers = [ {key: 1, name: '1'}, {key: 2, name: '2'} ];
   const shallowRenderer = TestUtils.createRenderer();
@@ -47,8 +49,8 @@ describe('AvailabilityPage react component', () => {
     expect(result).toHaveChild('p');
   });
   it('has a list of sellers', () => {
-    const firstSeller = result.props.children[2][0];
-    const secondSeller = result.props.children[2][1];
+    const firstSeller = result.props.children[3][0];
+    const secondSeller = result.props.children[3][1];
     expect(firstSeller.type).toBe(Seller);
     expect(firstSeller.props.name).toBe('1');
     expect(secondSeller.type).toBe(Seller);
@@ -58,7 +60,7 @@ describe('AvailabilityPage react component', () => {
     expect(result).toHaveChild(NextButton);
   });
   it('has a NextButton component with the correct callback', () => {
-    expect(result.props.children[3].props.toPage).toBe(CONFIRM);
+    expect(result.props.children[4].props.toPage).toBe(CONFIRM);
   });
 });
 
