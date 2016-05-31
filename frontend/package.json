@@ -6,9 +6,7 @@
   "scripts": {
     "test": "jest --noStackTrace --no-cache",
     "retest": "jest --no-cache --bail",
-    "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.jsx | uglifyjs > ../static/bundled.js && sass src/main.scss | uglifycss > ../static/bundled.css",
-    "js": "browserify -t [ babelify --presets [ react es2015 ] ] src/app.jsx -o ../static/bundled.js",
-    "css": "sass --watch src/main.scss:../static/bundled.css"
+    "build": "webpack --config webpack.config.js --progress --profile --colors && sass src/main.scss | uglifycss > ../static/bundled.css"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
@@ -46,10 +44,11 @@
   "devDependencies": {
     "babel-core": "^6.9.0",
     "babel-jest": "^12.1.0",
+    "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.3.0",
-    "browserify": "^13.0.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "jest-cli": "^12.1.1",
     "ramda": "^0.21.0",
     "react": "^15.1.0",
@@ -60,7 +59,9 @@
     "redux": "^3.5.2",
     "redux-form": "^5.2.4",
     "redux-logger": "^2.6.1",
+    "sass-loader": "^3.2.0",
     "uglifycss": "0.0.20",
-    "uglifyjs": "^2.4.10"
+    "uglifyjs": "^2.4.10",
+    "webpack": "^1.13.1"
   }
 }
