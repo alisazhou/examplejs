@@ -9,7 +9,7 @@ install:
   - "cd frontend && nvm use 6 && npm install && npm run build"
   - "pip install -r ../integration_tests/requirements.txt"
 script: 
-  - set -e  && set -o pipefail && npm run retest | tee /dev/stderr | grep -v "Warning"
+  - set -e  && set -o pipefail && npm run test | tee /dev/stderr | grep -v "Warning"
   - cd ../integration_tests && py.test
 notifications:
   email:
