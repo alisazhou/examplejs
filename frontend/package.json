@@ -4,8 +4,8 @@
   "description": "how to setup a react webapp on pythonanywhere",
   "main": "bundled.js",
   "scripts": {
-    "test": "jest --noStackTrace --no-cache",
-    "retest": "jest --no-cache --bail",
+    "test": "jest --noStackTrace --no-cache --bail",
+    "retest": "jest --no-cache --watch=all",
     "build": "webpack --config webpack.config.js --progress --profile --colors && sass src/main.scss | uglifycss > ../static/bundled.css"
   },
   "jest": {
