@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --noStackTrace --no-cache --bail",
     "retest": "jest --no-cache --watch=all",
-    "build": "webpack --config webpack.config.js --progress --profile --colors && sass src/main.scss | uglifycss > ../static/bundled.css"
+    "build": "webpack --config webpack.config.js --progress --profile --colors && sass src/main.scss | uglifycss > ../static/bundled.css",
+    "lint": "eslint src"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
@@ -48,6 +49,8 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.3.0",
+    "eslint": "^2.11.1",
+    "eslint-plugin-react": "^5.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "jest-cli": "^12.1.1",
     "ramda": "^0.21.0",
