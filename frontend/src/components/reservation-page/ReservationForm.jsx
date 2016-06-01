@@ -7,14 +7,11 @@ class ReservationForm extends React.Component {
   render () {
     const {
       fields: {name, tel, address, time},
-      handleSubmit
+      handleSubmit,
     } = this.props;
-    const doSomething = (data) => {
-      console.log("dummy SUBMIT", data);
-    }
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form>
         <p>Customize your Reservation Details</p>
         <label>Name:
           <input
@@ -44,14 +41,21 @@ class ReservationForm extends React.Component {
             {...time}
           />
         </label>
-        <button type="submit" onClick={handleSubmit(doSomething)}>confirm</button>
+        <button type='submit' onClick={handleSubmit}>confirm</button>
       </form>
     );
   }
+}
+
+ReservationForm.propTypes = {
+  fields: React.PropTypes.object.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired,
 };
 
 export default reduxForm({
-  form: "reservationForm",
+  form: 'reservationForm',
   fields, 
   destroyOnUnmount: false,
 })(ReservationForm);
+
+export { ReservationForm };
