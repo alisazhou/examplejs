@@ -3,6 +3,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
+import { Link } from 'react-router';
 
 jest.unmock('./IntroPage.jsx');
 import WrappedPage, { IntroPage } from './IntroPage.jsx';
@@ -11,6 +12,7 @@ import { BaseChangePageComponent } from '../sticky-layout/BaseChangePageComponen
 
 jest.unmock('../sticky-layout/pageMapping.js');
 import { BOOK } from '../sticky-layout/pageMapping.js';
+
 
 describe('StickyBody react component', () => {
   let mockChangePage = jasmine.createSpy('mockChangePage');
@@ -25,6 +27,13 @@ describe('StickyBody react component', () => {
 
   it('renders to a div', () => {
     expect(result.type).toBe('div');
+  });
+
+  it('has two Link child components', () => {
+    const findLinks = result.props.children.filter(
+      child => child.type === Link
+    );
+    expect(findLinks.length).toEqual(2);
   });
 
   it('extends BaseChangePageComponent', () => {

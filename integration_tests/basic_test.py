@@ -8,4 +8,4 @@ def test_static_files_are_served(live_server):
 def test_index_page_executes_react_script_correctly(browser):
     browser.goto('/')
     assert 'Loading...' not in browser.body_text
-    assert 'Welcome' in browser.body_text
+    assert 'iChef' in browser.body_text

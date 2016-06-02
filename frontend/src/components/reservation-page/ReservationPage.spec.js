@@ -2,6 +2,7 @@
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+jest.unmock('../../testHelpers.js');
 import '../../testHelpers.js';
 import R from 'ramda';
 

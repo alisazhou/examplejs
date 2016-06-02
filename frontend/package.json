@@ -18,6 +18,7 @@
       "<rootDir>/node_modules/react-dom/",
       "<rootDir>/node_modules/react-addons-test-utils/",
       "<rootDir>/node_modules/react-redux/",
+      "<rootDir>/node_modules/react-router/",
       "<rootDir>/node_modules/redux/",
       "<rootDir>/node_modules/redux-form/",
       "<rootDir>/node_modules/redux-logger/",
