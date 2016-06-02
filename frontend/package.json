@@ -4,10 +4,12 @@
   "description": "how to setup a react webapp on pythonanywhere",
   "main": "bundled.js",
   "scripts": {
-    "test": "jest --noStackTrace --no-cache --bail",
-    "retest": "jest --no-cache --watch=all",
     "build": "webpack --config webpack.config.js --progress --profile --colors && sass src/main.scss | uglifycss > ../static/bundled.css",
-    "lint": "eslint src"
+    "css": "sass src/main.scss | uglifycss > ../static/bundled.css",
+    "js": "webpack --config webpack.config.js --progress --profile --colors --watch",
+    "lint": "eslint src",
+    "retest": "jest --no-cache --watch=all",
+    "test": "jest --noStackTrace --no-cache --bail"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
@@ -59,6 +61,7 @@
     "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
     "redux": "^3.5.2",
     "redux-form": "^5.2.4",
     "redux-logger": "^2.6.1",
