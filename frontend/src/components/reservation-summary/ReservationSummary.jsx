@@ -5,18 +5,25 @@ import { connect } from 'react-redux';
 export class ReservationSummary extends React.Component {
   render () {
     let message = 'Please specify time and address.';
-    if (this.props.form_data) {
-      const {time, address} = this.props.form_data;
-      const time_value = time ? time.value : null;
-      const address_value = address ? address.value : null;
-      if (time_value && address_value) {
-        message = `Time: ${time_value}, Address: ${address_value}`;
+    if (this.props.formData) {
+      const {time, address} = this.props.formData;
+      const timeValue = time ? time.value : null;
+      const addressValue = address ? address.value : null;
+      if (timeValue && addressValue) {
+        message = `Time: ${timeValue}, Address: ${addressValue}`;
       }
     }
     return <div><p>{message}</p></div>;
   }
 }
 
-const mapStateToProps = state => ({ form_data: state.form.reservationForm });
+ReservationSummary.propTypes = {
+  formData: React.PropTypes.shape({
+    time: React.PropTypes.object.isRequired,
+    address: React.PropTypes.object.isRequired,
+  }),
+};
+
+const mapStateToProps = state => ({ formData: state.form.reservationForm });
 
 export default connect(mapStateToProps)(ReservationSummary);

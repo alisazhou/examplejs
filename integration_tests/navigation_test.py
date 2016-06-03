@@ -35,6 +35,7 @@ def test_saves_state_between_pages(browser):
     for field_label, value in booking.items():
         field = browser.find_element_by_name(field_label)
         field.send_keys(value)
+        browser.implicitly_wait(1)
         assert value in field.get_attribute('value')
 
     # go to next page and back again, booking info is preserved
