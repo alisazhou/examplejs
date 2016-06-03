@@ -34,7 +34,9 @@ describe('A wrapped component', () => {
 
   it('has Route grandchild components', () => {
     const router = result.props.children;
-    const route = router.props.children;
-    expect(route.type).toBe(Route);
+    const findRoute = router.props.children.filter(
+      child => child.type === Route
+    );
+    expect(findRoute.length).not.toEqual(0);
   });
 });

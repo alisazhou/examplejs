@@ -10,6 +10,7 @@ import currentSellerId from '../seller/currentSellerIdReducer.js';
 import { reducer as form } from 'redux-form';
 
 import StickyLayout from '../sticky-layout/StickyLayout.jsx';
+import MenuDetails from '../menu-details/MenuDetails.jsx';
 
 
 const rootReducer = combineReducers({
@@ -34,6 +35,8 @@ export default class WrappedComponent extends React.Component {
       <Provider store={store}>
         <Router history={browserHistory} >
           <Route path='/' component={StickyLayout} />
+          <Route path='/menus/0' component={MenuDetails} />
+          <Route path='/menus/1' component={MenuDetails} />
         </Router>
       </Provider>
     );
