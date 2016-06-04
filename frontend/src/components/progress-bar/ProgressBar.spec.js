@@ -32,12 +32,12 @@ describe('ProgressBar react component', () => {
     );
   });
   it('has children with the correct page prop', () => {
-    const expectedPagePropValue = [ 
+    const expectedPagePropValue = [
       BOOK, CHOICE, CONFIRM,
     ];
     R.forEach(
-      ([ child, pageValue ]) => { 
-        expect(child.props.page).toBe(pageValue); 
+      ([ child, pageValue ]) => {
+        expect(child.props.page).toBe(pageValue);
       },
       R.zip(result.props.children, expectedPagePropValue)
     );

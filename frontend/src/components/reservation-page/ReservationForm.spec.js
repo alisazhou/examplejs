@@ -20,7 +20,7 @@ describe('ReservationForm react component', () => {
     <ReservationForm {...PROPS_FROM_REDUX_FORM}/>
   );
   const result = shallowRenderer.getRenderOutput();
-  
+
   it('renders to a form', () => {
     expect(result.type).toBe('form');
   });

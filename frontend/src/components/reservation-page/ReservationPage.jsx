@@ -10,7 +10,7 @@ class ReservationPage extends React.Component {
   handleSubmit (data) {
     console.log('SUBMITTED', data);
   }
-  
+
   render () {
     return (
       <div>

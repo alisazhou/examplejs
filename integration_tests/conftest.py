@@ -3,12 +3,12 @@ from contextlib import contextmanager
 import pytest
 
 from pyvirtualdisplay import Display
-from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
+from selenium import webdriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-class TestBrowser(FirefoxWebDriver):
+class TestBrowser(webdriver.PhantomJS):
     def __init__(self, host_address, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.host_address = host_address

@@ -21,7 +21,7 @@ describe('A wrapped component', () => {
   it('renders to a redux provider', () => {
     expect(result.type).toBe(Provider);
   });
-  
+
   it('renders provider with correct store prop', () => {
     expect(result.props.store).toBeDefined();
     expect(result.props.store).toBe(store);

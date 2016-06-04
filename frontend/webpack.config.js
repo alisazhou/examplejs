@@ -4,29 +4,29 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
-  entry: "./src/app.jsx",
+  entry: [ 'babel-polyfill', './src/app.jsx' ],
   output: {
-    path: "../static/", 
-    filename: "bundled.js",
-    sourceMapFilename: "bundled.map"
+    path: '../static/',
+    filename: 'bundled.js',
+    sourceMapFilename: 'bundled.map',
   },
-  devtool: "#source-map",
+  devtool: '#source-map',
   module: {
     resolve: {
-      extensions: [ '', 'js', 'jsx' ]
+      extensions: [ '', 'js', 'jsx' ],
     },
     loaders: [
       {
-          test: /\.jsx?$/,
-          loader: "babel-loader",
-          exclude: /node_modules/,
-          query: {
-              presets: ['es2015', 'react']
-          }
-      }
-    ]
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: [ 'es2015', 'react' ],
+        },
+      },
+    ],
   },
   plugins: [
     // new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
-  ]
+  ],
 };

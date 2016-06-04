@@ -54,7 +54,7 @@ ReservationForm.propTypes = {
 
 export default reduxForm({
   form: 'reservationForm',
-  fields, 
+  fields,
   destroyOnUnmount: false,
 })(ReservationForm);
 
