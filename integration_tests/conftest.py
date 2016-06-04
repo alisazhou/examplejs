@@ -4,7 +4,8 @@ import pytest
 
 from pyvirtualdisplay import Display
 from selenium import webdriver
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -39,6 +40,14 @@ class TestBrowser(webdriver.PhantomJS):
         wait = WebDriverWait(self, time_out)
         wait.until(
             expected_conditions.staleness_of(old_page)
+        )
+
+    def get_slow_loading_css_element(self, css_selector, timeout=10):
+        wait = WebDriverWait(self, timeout)
+        return wait.until(
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, css_selector)
+            )
         )
 
 

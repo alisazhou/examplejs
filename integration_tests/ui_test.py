@@ -113,7 +113,7 @@ def test_can_make_payment(browser):
     browser.find_element_by_css_selector('input[type="button"]').click()
 
     # see a paypal button
-    paypal_button = browser.find_element_by_css_selector('input[name="submit"]')
+    paypal_button = browser.get_slow_loading_css_element('input[name="submit"]')
     assert 'PayPal' in paypal_button.get_attribute('alt')
     # click on it
     paypal_button.click()
