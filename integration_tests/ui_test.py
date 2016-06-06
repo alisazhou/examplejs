@@ -1,6 +1,4 @@
-
 def test_can_go_to_different_pages(browser):
-    browser.goto('/')
     assert 'iChef' in browser.body_text
     assert '+852' not in browser.body_text
     # click on footer contact us link
@@ -14,7 +12,6 @@ def test_can_go_to_different_pages(browser):
 
 
 def test_reservations_page_asks_for_information(browser):
-    browser.goto('/')
     # click on button inside of intro page
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
     # there are four input fields
@@ -36,7 +33,6 @@ def test_reservations_page_asks_for_information(browser):
 
 
 def test_seller_page_prompts_to_fill_reservation_form_if_empty(browser):
-    browser.goto('/')
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
     # user is prompted for booking info if reservation form left unfilled
     browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
@@ -44,7 +40,6 @@ def test_seller_page_prompts_to_fill_reservation_form_if_empty(browser):
 
 
 def test_seller_page_displays_booking_if_reservation_form_filled(browser):
-    browser.goto('/')
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
     # fill reservation form
     booking = {
@@ -62,7 +57,6 @@ def test_seller_page_displays_booking_if_reservation_form_filled(browser):
 
 
 def test_make_reservations(browser):
-    browser.goto('/')
     # click on button inside of intro page
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
     assert 'Reservation Details' in browser.body_text
@@ -98,7 +92,6 @@ def test_make_reservations(browser):
 
 
 def test_can_make_payment(browser):
-    browser.goto('/')
     # click on button inside of intro page
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
 

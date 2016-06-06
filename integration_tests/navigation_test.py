@@ -2,7 +2,6 @@ import pytest
 
 
 def test_can_use_progress_bar_to_navigate(browser):
-    browser.goto('/')
     # click on button inside of intro page
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
 
@@ -16,7 +15,6 @@ def test_can_use_progress_bar_to_navigate(browser):
 
 
 def test_saves_state_between_pages(browser):
-    browser.goto('/')
     # click on button inside of intro page
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
     booking = {

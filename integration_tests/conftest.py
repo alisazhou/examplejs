@@ -13,6 +13,7 @@ class TestBrowser(webdriver.PhantomJS):
     def __init__(self, host_address, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.host_address = host_address
+        self.get(self.host_address + '/')
 
     @property
     def body_text(self):
@@ -25,7 +26,10 @@ class TestBrowser(webdriver.PhantomJS):
 
     def goto(self, url_path):
         # self.host_address does not have a ending/trailing "/"
-        return self.get(self.host_address + url_path)
+        self.get(self.host_address + url_path)
+
+    def click_link_id(self, link_id):
+        self.find_element_by_id(link_id).click()
 
     def login_admin(self):
         assert 'not logged in' in browser.body_text
