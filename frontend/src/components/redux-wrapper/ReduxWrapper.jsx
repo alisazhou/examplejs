@@ -35,8 +35,7 @@ export default class WrappedComponent extends React.Component {
       <Provider store={store}>
         <Router history={browserHistory} >
           <Route path='/' component={StickyLayout} />
-          <Route path='/menus/0' component={MenuDetails} />
-          <Route path='/menus/1' component={MenuDetails} />
+          <Route path='/menus/:menuId' component={MenuDetails} />
         </Router>
       </Provider>
     );
