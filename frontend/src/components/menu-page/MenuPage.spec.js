@@ -2,16 +2,16 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 
-jest.unmock('./MenuDetails.jsx');
-import MenuDetails from './MenuDetails.jsx';
+jest.unmock('./MenuPage.jsx');
+import MenuPage from './MenuPage.jsx';
 
 
-const PROPS_FROM_PARENT= {
+const PROPS_FROM_ROUTER = {
   params: { menuId: 1234 },
 };
-describe('MenuDetails react component', () => {
+describe('MenuPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<MenuDetails {...PROPS_FROM_PARENT} />);
+  shallowRenderer.render(<MenuPage {...PROPS_FROM_ROUTER} />);
   const result = shallowRenderer.getRenderOutput();
 
   it('renders to a div', () => {

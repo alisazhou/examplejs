@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-class MenuDetails extends React.Component {
+class MenuPage extends React.Component {
   render () {
     return (
       <div>Demo Menu {this.props.params.menuId}</div>
@@ -9,10 +9,10 @@ class MenuDetails extends React.Component {
   }
 }
 
-MenuDetails.propTypes = {
+MenuPage.propTypes = {
   params: React.PropTypes.shape({
     menuId: React.PropTypes.number.isRequired,
   }),
 };
 
-export default MenuDetails;
+export default MenuPage;
