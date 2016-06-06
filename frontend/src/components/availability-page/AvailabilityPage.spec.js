@@ -12,14 +12,11 @@ import WrappedPage, { AvailabilityPage } from './AvailabilityPage.jsx';
 jest.unmock('../sticky-layout/pageMapping.js');
 import { CONFIRM } from '../sticky-layout/pageMapping.js';
 
-jest.unmock('../seller/sellersReducer.js');
-jest.unmock('../seller/currentSellerIdReducer.js');
 import Seller from '../seller/Seller.jsx';
 
 jest.unmock('../sticky-layout/BaseChangePageComponent');
 import NextButton from '../next-button/NextButton.jsx';
 
-jest.unmock('../sticky-layout/currentPageReducer.js');
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
