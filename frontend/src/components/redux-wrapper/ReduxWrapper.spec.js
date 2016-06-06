@@ -6,10 +6,6 @@ import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
 
 jest.unmock('./ReduxWrapper.jsx');
-jest.unmock('../sticky-layout/currentPageReducer.js');
-jest.unmock('../seller/sellersReducer.js');
-jest.unmock('../seller/currentSellerIdReducer.js');
-
 import WrappedComponent, { store } from './ReduxWrapper.jsx';
 
 

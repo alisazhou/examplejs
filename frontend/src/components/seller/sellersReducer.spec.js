@@ -1,6 +1,5 @@
 /*eslint-env jest,jasmine */
 
-jest.unmock('./sellersReducer.js');
 import reducer from './sellersReducer.js';
 
 describe('redux state: sellers', () => {

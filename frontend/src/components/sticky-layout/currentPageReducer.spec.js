@@ -1,6 +1,5 @@
 /*eslint-env jest,jasmine */
 
-jest.unmock('./currentPageReducer.js');
 import reducer from './currentPageReducer.js';
 import { INTRO } from '../sticky-layout/pageMapping.js';
 
