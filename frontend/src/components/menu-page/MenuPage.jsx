@@ -1,18 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import R from 'ramda';
 
 
-class MenuPage extends React.Component {
+export class MenuPage extends React.Component {
   render () {
     return (
-      <div>Demo Menu {this.props.params.menuId}</div>
+      <div>{this.props.menu.name}</div>
     );
   }
 }
 
 MenuPage.propTypes = {
   params: React.PropTypes.shape({
-    menuId: React.PropTypes.number.isRequired,
+    menuId: React.PropTypes.string.isRequired,
+  }),
+  menu: React.PropTypes.shape({
+    id: React.PropTypes.string.isRequired,
+    chef: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,
   }),
 };
 
-export default MenuPage;
+const mapStateToProps = (state, ownProps) => ({
+  menu: R.find(R.propEq('id', ownProps.params.menuId))(state.menus),
+});
+export default connect(mapStateToProps)(MenuPage);
