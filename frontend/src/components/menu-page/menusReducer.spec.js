@@ -8,12 +8,12 @@ describe('menus reducer', () => {
   it('initializes state', () => {
     const initialState = [
       {
-        id: 0,
+        id: '0',
         name: 'Demo Menu 0',
         chef: 'cuckoo lis',
       },
       {
-        id: 1,
+        id: '1',
         name: 'Demo Menu 1',
         chef: 'coco puffs',
       },
