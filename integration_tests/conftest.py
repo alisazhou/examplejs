@@ -12,6 +12,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 class TestBrowser(webdriver.PhantomJS):
     def __init__(self, host_address, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.implicitly_wait(5)
+        self.set_page_load_timeout(5)
         self.host_address = host_address
         self.get(self.host_address + '/')
 
