@@ -109,6 +109,8 @@ def test_can_make_payment(browser):
     paypal_button = browser.get_slow_loading_css_element('input[name="submit"]')
     assert 'PayPal' in paypal_button.get_attribute('alt')
     # click on it
+    # temporary hack before refactoring
+    browser.set_page_load_timeout(30)
     paypal_button.click()
     # we are redirected to paypal site
     assert 'paypal.com' in browser.current_url
