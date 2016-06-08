@@ -8,7 +8,7 @@ install:
 script: 
   - set -e  && set -o pipefail && npm run test | tee /dev/stderr | grep -v "Warning"
   - npm run lint
-  - cd ../integration_tests && py.test
+  - cd ../integration_tests && py.test -x
 notifications:
   email:
     on_success: change
