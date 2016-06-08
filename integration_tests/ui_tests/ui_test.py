@@ -114,3 +114,5 @@ def test_can_make_payment(browser):
     paypal_button.click()
     # we are redirected to paypal site
     assert 'paypal.com' in browser.current_url
+
+
