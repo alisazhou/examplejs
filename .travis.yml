@@ -9,6 +9,9 @@ before_install:
   - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
   - sudo mv phantomjs /usr/local/phantomjs/bin/phantomjs
 
+after_failure:
+  - cat ghostdriver.log
+
 install: 
   - "rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 6"
   - "cd frontend && nvm use 6 && npm install && npm run build"
@@ -17,7 +20,7 @@ script:
   - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep 2.0.0
   - set -e  && set -o pipefail && npm run test | tee /dev/stderr | grep -v "Warning"
   - npm run lint
-  - cd ../integration_tests && py.test -x || tail ghostdriver.log
+  - cd ../integration_tests && py.test -x
 notifications:
   email:
     on_success: change
