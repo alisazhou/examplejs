@@ -1,14 +1,23 @@
 language: python
 python: "3.5"
 
+sudo: required
+
+before_install:
+  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - tar -xjf phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
+  - sudo mv phantomjs /usr/local/phantomjs/bin/phantomjs
+
 install: 
   - "rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 6"
   - "cd frontend && nvm use 6 && npm install && npm run build"
   - "pip install -r ../integration_tests/requirements.txt"
 script: 
+  - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep 2.0.0
   - set -e  && set -o pipefail && npm run test | tee /dev/stderr | grep -v "Warning"
   - npm run lint
-  - cd ../integration_tests && py.test -x
+  - cd ../integration_tests && py.test -x || tail ghostdriver.log
 notifications:
   email:
     on_success: change

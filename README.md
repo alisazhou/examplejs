@@ -14,7 +14,6 @@ See individual folders for their READMEs
 **DOING**
 - _ch_: refactor fts into modules based on page
 - _ch_: add new user stories
-- _ch_: make mac firefox selenium use virtualdisplay
 - _az_: react-router
 - _az_: change Reservation Form to Search Menu Form
 
@@ -24,3 +23,4 @@ See individual folders for their READMEs
 - payment page
 - ReservationForm wired to store 
 - webpack
+- _ch_: switch firefox selenium to phantomjs
