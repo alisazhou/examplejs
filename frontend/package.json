@@ -58,6 +58,7 @@
     "eslint-plugin-react": "^5.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "jest-cli": "^12.1.1",
+    "node-sass": "^3.7.0",
     "ramda": "^0.21.0",
     "react": "^15.1.0",
     "react-addons-shallow-compare": "^15.1.0",
