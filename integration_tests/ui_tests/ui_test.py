@@ -35,7 +35,7 @@ def test_reservations_page_asks_for_information(browser):
 def test_seller_page_prompts_to_fill_reservation_form_if_empty(browser):
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
     # user is prompted for booking info if reservation form left unfilled
-    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
+    browser.click_link_text('2. Choose Available People')
     assert 'Please specify time and address' in browser.body_text
 
 
@@ -51,7 +51,7 @@ def test_seller_page_displays_booking_if_reservation_form_filled(browser):
     for name_attr, value in booking.items():
         browser.find_element_by_name(name_attr).send_keys(value)
     # booking summary displayed on seller page
-    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
+    browser.click_link_text('2. Choose Available People')
     assert "Time: test_time" in browser.body_text
     assert "Address: test_address" in browser.body_text
 

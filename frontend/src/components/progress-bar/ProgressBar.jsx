@@ -1,24 +1,20 @@
 import React from 'react';
-import R from 'ramda';
-
-import { BOOK, CHOICE, CONFIRM } from '../sticky-layout/pageMapping.js';
-import ProgressBarPart from './ProgressBarPart.jsx';
+import { Link } from 'react-router';
 
 
 class ProgressBar extends React.Component {
   render () {
-    // somehow this needs to be inside render function
-    // otherwise progressStages = [undefined, undefined, undefined]
-    // if declared at module level (maybe some weird browserify thing)
-    const progressStages = [ BOOK, CHOICE, CONFIRM ];
     return (
       <div className='progressBar'>
-        { R.map(
-          stage => {
-            return <ProgressBarPart key={stage} page={stage}/>;
-          },
-          progressStages
-        )}
+        <Link to='reservation' className='progressBar--part'>
+          1. Booking Details
+        </Link>
+        <Link to='availability' className='progressBar--part'>
+          2. Choose Available People
+        </Link>
+        <Link to='payment' className='progressBar--part'>
+          3. Confirmation & Payment
+        </Link>
       </div>
     );
   }

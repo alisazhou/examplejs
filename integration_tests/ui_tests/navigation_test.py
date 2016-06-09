@@ -6,11 +6,11 @@ def test_can_use_progress_bar_to_navigate(browser):
     browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
 
     # click on navbar
-    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
+    browser.click_link_text('2. Choose Available People')
     assert 'Reservation Details' not in browser.body_text
 
     # return to booking reservation page using navbar
-    browser.find_element_by_xpath('//div[text()="1. Booking Details"]').click()
+    browser.click_link_text('1. Booking Details')
     assert 'Reservation Details' in browser.body_text
 
 
@@ -37,8 +37,8 @@ def test_saves_state_between_pages(browser):
         assert value in field.get_attribute('value')
 
     # go to next page and back again, booking info is preserved
-    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
-    browser.find_element_by_xpath('//div[text()="1. Booking Details"]').click()
+    browser.click_link_text('2. Choose Available People')
+    browser.click_link_text('1. Booking Details')
     for field_label, value in booking.items():
         field = browser.find_element_by_name(field_label)
         field_text = field.get_attribute('value')

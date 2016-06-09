@@ -3,6 +3,7 @@
     background-color: map-get($colors, blue);
 
     &--part {
+        color: white;
         display: inline;
         border: 0.15rem solid map-get($colors, bright-green);
         border-top-right-radius: 1rem;

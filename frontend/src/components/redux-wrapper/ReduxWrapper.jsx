@@ -14,6 +14,7 @@ import StickyLayout from '../sticky-layout/StickyLayout.jsx';
 import AvailabilityPage from '../availability-page/AvailabilityPage.jsx';
 import MenuPage from '../menu-page/MenuPage.jsx';
 import PaymentPage from '../payment-page/PaymentPage.jsx';
+import ReservationPage from '../reservation-page/ReservationPage.jsx';
 
 
 const rootReducer = combineReducers({
@@ -42,6 +43,7 @@ export default class WrappedComponent extends React.Component {
           <Route path='/availability' component={AvailabilityPage} />
           <Route path='/menus/:menuId' component={MenuPage} />
           <Route path='/payment' component={PaymentPage} />
+          <Route path='/reservation' component={ReservationPage} />
         </Router>
       </Provider>
     );
