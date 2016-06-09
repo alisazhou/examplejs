@@ -12,6 +12,7 @@ import { reducer as form } from 'redux-form';
 
 import StickyLayout from '../sticky-layout/StickyLayout.jsx';
 import MenuPage from '../menu-page/MenuPage.jsx';
+import PaymentPage from '../payment-page/PaymentPage.jsx';
 
 
 const rootReducer = combineReducers({
@@ -38,6 +39,7 @@ export default class WrappedComponent extends React.Component {
         <Router history={browserHistory} >
           <Route path='/' component={StickyLayout} />
           <Route path='/menus/:menuId' component={MenuPage} />
+          <Route path='/payment' component={PaymentPage} />
         </Router>
       </Provider>
     );

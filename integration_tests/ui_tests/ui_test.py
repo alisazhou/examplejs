@@ -103,7 +103,7 @@ def test_can_make_payment(browser):
     # click on one seller
     seller_div = browser.find_element_by_xpath('//div[text()[contains(.,"vincent")]]')
     # click next to go to payment confirmation page
-    browser.find_element_by_css_selector('input[type="button"]').click()
+    browser.click_link_text('next')
 
     # see a paypal button
     paypal_button = browser.get_slow_loading_css_element('input[name="submit"]')
