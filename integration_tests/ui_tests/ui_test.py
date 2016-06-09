@@ -65,7 +65,7 @@ def test_make_reservations(browser):
     browser.find_element_by_css_selector('input[name="address"]').send_keys('hi')
 
     # click next
-    browser.find_element_by_css_selector('input[type="button"]').click()
+    browser.click_link_text('next')
 
     # see availability
     assert 'Reservation Details' not in browser.body_text
@@ -99,7 +99,7 @@ def test_can_make_payment(browser):
     #
     #
     # click next to go to availability page
-    browser.find_element_by_css_selector('input[type="button"]').click()
+    browser.click_link_text('next')
     # click on one seller
     seller_div = browser.find_element_by_xpath('//div[text()[contains(.,"vincent")]]')
     # click next to go to payment confirmation page
