@@ -13,7 +13,7 @@ def test_can_go_to_different_pages(browser):
 
 def test_reservations_page_asks_for_information(browser):
     # click on button inside of intro page
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     # there are four input fields
     all_inputs = browser.find_elements_by_class_name("reservation_detail")
     assert len(all_inputs) == 4
@@ -33,14 +33,14 @@ def test_reservations_page_asks_for_information(browser):
 
 
 def test_seller_page_prompts_to_fill_reservation_form_if_empty(browser):
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     # user is prompted for booking info if reservation form left unfilled
     browser.click_link_text('2. Choose Available People')
     assert 'Please specify time and address' in browser.body_text
 
 
 def test_seller_page_displays_booking_if_reservation_form_filled(browser):
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     # fill reservation form
     booking = {
         "name": "test_name",
@@ -58,7 +58,7 @@ def test_seller_page_displays_booking_if_reservation_form_filled(browser):
 
 def test_make_reservations(browser):
     # click on button inside of intro page
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     assert 'Reservation Details' in browser.body_text
 
     # enter details
@@ -93,7 +93,7 @@ def test_make_reservations(browser):
 
 def test_can_make_payment(browser):
     # click on button inside of intro page
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
 
     # fill in information into form
     #
