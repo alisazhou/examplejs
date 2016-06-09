@@ -1,16 +1,3 @@
-def test_can_go_to_different_pages(browser):
-    assert 'iChef' in browser.body_text
-    assert '+852' not in browser.body_text
-    # click on footer contact us link
-    browser.find_element_by_xpath('//a[@href="#"][text()[contains(.,"Contact")]]').click()
-    assert 'iChef' not in browser.body_text
-    assert '+852' in browser.body_text
-    # click on footer main intro page link
-    browser.find_element_by_xpath('//a[@href="#"][text()[contains(.,"Main")]]').click()
-    assert 'iChef' in browser.body_text
-    assert '+852' not in browser.body_text
-
-
 def test_reservations_page_asks_for_information(browser):
     # click on button inside of intro page
     browser.click_link_text('Book Now')

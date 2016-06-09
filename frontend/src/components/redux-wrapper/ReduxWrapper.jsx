@@ -12,6 +12,7 @@ import { reducer as form } from 'redux-form';
 
 import StickyLayout from '../sticky-layout/StickyLayout.jsx';
 import AvailabilityPage from '../availability-page/AvailabilityPage.jsx';
+import ContactPage from '../contact-page/ContactPage.jsx';
 import MenuPage from '../menu-page/MenuPage.jsx';
 import PaymentPage from '../payment-page/PaymentPage.jsx';
 import ReservationPage from '../reservation-page/ReservationPage.jsx';
@@ -41,6 +42,7 @@ export default class WrappedComponent extends React.Component {
         <Router history={browserHistory} >
           <Route path='/' component={StickyLayout} />
           <Route path='/availability' component={AvailabilityPage} />
+          <Route path='/contact' component={ContactPage} />
           <Route path='/menus/:menuId' component={MenuPage} />
           <Route path='/payment' component={PaymentPage} />
           <Route path='/reservation' component={ReservationPage} />

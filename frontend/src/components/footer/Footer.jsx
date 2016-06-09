@@ -1,21 +1,14 @@
 import React from 'react';
-import { BaseChangePageComponent, baseConnect } from '../sticky-layout/BaseChangePageComponent.jsx';
-import { INTRO, CONTACT } from '../sticky-layout/pageMapping.js';
+import { Link } from 'react-router';
 
-class Footer extends BaseChangePageComponent {
+
+export default class Footer extends React.Component {
   render () {
     return (
       <div>
-        <div>
-          <a href='#' onClick={this.clickThroughTo(INTRO)}>Main Page </a>
-        </div>
-        <div>
-          <a href='#' onClick={this.clickThroughTo(CONTACT)}>Contact Us</a>
-        </div>
+        <Link to='/'>Main Page</Link>
+        <Link to='/contact'>Contact Us</Link>
       </div>
     );
   }
 }
-
-export default baseConnect(Footer);
-export { Footer };
