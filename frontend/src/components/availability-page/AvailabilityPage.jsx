@@ -1,12 +1,11 @@
 import React from 'react';
 import R from 'ramda';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
-import NextButton from '../next-button/NextButton.jsx';
-import { CONFIRM } from '../sticky-layout/pageMapping.js';
-import Seller from '../seller/Seller.jsx';
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
 import ReservationSummary from '../reservation-summary/ReservationSummary.jsx';
+import Seller from '../seller/Seller.jsx';
 
 class AvailabilityPage extends React.Component {
   render () {
@@ -19,7 +18,7 @@ class AvailabilityPage extends React.Component {
           seller => <Seller key={seller.id} {...seller} />,
           this.props.sellers
         )}
-        <NextButton toPage={CONFIRM}/>
+        <Link to='/payment'>next</Link>
       </div>
     );
   }

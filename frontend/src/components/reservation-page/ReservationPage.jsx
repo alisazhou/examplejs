@@ -1,9 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
-import NextButton from '../next-button/NextButton.jsx';
 import ReservationForm from './ReservationForm.jsx';
-import { CHOICE } from '../sticky-layout/pageMapping.js';
 
 
 class ReservationPage extends React.Component {
@@ -16,7 +15,7 @@ class ReservationPage extends React.Component {
       <div>
         <ProgressBar/>
         <ReservationForm onSubmit={this.handleSubmit.bind(this)} />
-        <NextButton toPage={CHOICE}/>
+        <Link to='/availability'>next</Link>
       </div>
     );
   }

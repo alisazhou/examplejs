@@ -1,19 +1,6 @@
-def test_can_go_to_different_pages(browser):
-    assert 'iChef' in browser.body_text
-    assert '+852' not in browser.body_text
-    # click on footer contact us link
-    browser.find_element_by_xpath('//a[@href="#"][text()[contains(.,"Contact")]]').click()
-    assert 'iChef' not in browser.body_text
-    assert '+852' in browser.body_text
-    # click on footer main intro page link
-    browser.find_element_by_xpath('//a[@href="#"][text()[contains(.,"Main")]]').click()
-    assert 'iChef' in browser.body_text
-    assert '+852' not in browser.body_text
-
-
 def test_reservations_page_asks_for_information(browser):
     # click on button inside of intro page
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     # there are four input fields
     all_inputs = browser.find_elements_by_class_name("reservation_detail")
     assert len(all_inputs) == 4
@@ -33,14 +20,14 @@ def test_reservations_page_asks_for_information(browser):
 
 
 def test_seller_page_prompts_to_fill_reservation_form_if_empty(browser):
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     # user is prompted for booking info if reservation form left unfilled
-    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
+    browser.click_link_text('2. Choose Available People')
     assert 'Please specify time and address' in browser.body_text
 
 
 def test_seller_page_displays_booking_if_reservation_form_filled(browser):
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     # fill reservation form
     booking = {
         "name": "test_name",
@@ -51,21 +38,21 @@ def test_seller_page_displays_booking_if_reservation_form_filled(browser):
     for name_attr, value in booking.items():
         browser.find_element_by_name(name_attr).send_keys(value)
     # booking summary displayed on seller page
-    browser.find_element_by_xpath('//div[text()="2. Choose Available People"]').click()
+    browser.click_link_text('2. Choose Available People')
     assert "Time: test_time" in browser.body_text
     assert "Address: test_address" in browser.body_text
 
 
 def test_make_reservations(browser):
     # click on button inside of intro page
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
     assert 'Reservation Details' in browser.body_text
 
     # enter details
     browser.find_element_by_css_selector('input[name="address"]').send_keys('hi')
 
     # click next
-    browser.find_element_by_css_selector('input[type="button"]').click()
+    browser.click_link_text('next')
 
     # see availability
     assert 'Reservation Details' not in browser.body_text
@@ -93,17 +80,17 @@ def test_make_reservations(browser):
 
 def test_can_make_payment(browser):
     # click on button inside of intro page
-    browser.find_element_by_xpath('//button[text()[contains(.,"Book Now")]]').click()
+    browser.click_link_text('Book Now')
 
     # fill in information into form
     #
     #
     # click next to go to availability page
-    browser.find_element_by_css_selector('input[type="button"]').click()
+    browser.click_link_text('next')
     # click on one seller
     seller_div = browser.find_element_by_xpath('//div[text()[contains(.,"vincent")]]')
     # click next to go to payment confirmation page
-    browser.find_element_by_css_selector('input[type="button"]').click()
+    browser.click_link_text('next')
 
     # see a paypal button
     paypal_button = browser.get_slow_loading_css_element('input[name="submit"]')

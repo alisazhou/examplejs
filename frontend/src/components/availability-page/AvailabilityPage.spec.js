@@ -3,19 +3,14 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
+import { Link } from 'react-router';
 
 import '../../testHelpers.js';
 
 jest.unmock('./AvailabilityPage.jsx');
 import WrappedPage, { AvailabilityPage } from './AvailabilityPage.jsx';
 
-jest.unmock('../sticky-layout/pageMapping.js');
-import { CONFIRM } from '../sticky-layout/pageMapping.js';
-
 import Seller from '../seller/Seller.jsx';
-
-jest.unmock('../sticky-layout/BaseChangePageComponent');
-import NextButton from '../next-button/NextButton.jsx';
 
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
@@ -53,11 +48,10 @@ describe('AvailabilityPage react component', () => {
     expect(secondSeller.type).toBe(Seller);
     expect(secondSeller.props.name).toBe('2');
   });
-  it('has a NextButton component', () => {
-    expect(result).toHaveChild(NextButton);
-  });
-  it('has a NextButton component with the correct callback', () => {
-    expect(result.props.children[4].props.toPage).toBe(CONFIRM);
+  it('has a Link component to payment page', () => {
+    const link = R.find(R.propEq('type', Link))(result.props.children);
+    expect(link).toBeDefined();
+    expect(link.props.to).toEqual('/payment');
   });
 });
 

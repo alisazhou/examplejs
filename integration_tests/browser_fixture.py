@@ -31,6 +31,9 @@ class BaseBrowser(webdriver.PhantomJS):
     def click_link_id(self, link_id):
         self.find_element_by_id(link_id).click()
 
+    def click_link_text(self, link_text):
+        self.find_element_by_link_text(link_text).click()
+
     def login_admin(self):
         assert 'not logged in' in browser.body_text
         browser.type_into('id_username', 'admin')

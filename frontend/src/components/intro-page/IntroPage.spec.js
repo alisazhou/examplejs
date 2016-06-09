@@ -2,78 +2,45 @@
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import R from 'ramda';
 import { Link } from 'react-router';
 
 jest.unmock('./IntroPage.jsx');
-import WrappedPage, { IntroPage } from './IntroPage.jsx';
-jest.unmock('../sticky-layout/BaseChangePageComponent.jsx');
-import { BaseChangePageComponent } from '../sticky-layout/BaseChangePageComponent.jsx';
-
-jest.unmock('../sticky-layout/pageMapping.js');
-import { BOOK } from '../sticky-layout/pageMapping.js';
+import IntroPage from './IntroPage.jsx';
 
 
 describe('StickyBody react component', () => {
-  let mockChangePage = jasmine.createSpy('mockChangePage');
   const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<IntroPage changePage={mockChangePage}/>);
+  shallowRenderer.render(<IntroPage />);
   const result = shallowRenderer.getRenderOutput();
-
-  beforeEach(() => {
-    // recreate the spy for each test
-    mockChangePage = jasmine.createSpy('mockChangePage');
-  });
 
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
 
-  it('has two Link child components', () => {
+  describe('Link child components', () => {
     const findLinks = result.props.children.filter(
       child => child.type === Link
     );
-    expect(findLinks.length).toEqual(2);
-  });
 
-  it('extends BaseChangePageComponent', () => {
-    expect(new IntroPage).toEqual(jasmine.any(BaseChangePageComponent));
-  });
-  it('is wrapped by a baseConnect', () => {
-    expect(WrappedPage).not.toBe(IntroPage);
-    expect(WrappedPage.WrappedComponent).toBe(IntroPage);
-    expect(WrappedPage.displayName).toBe('Connect(IntroPage)');
-  });
-
-  describe('with a book now button child', () => {
-    it('exists', () => {
-      const bookButton = R.find(
-        element => {return element.type === 'button';},
-        result.props.children
-      );
-      expect(bookButton).toBeDefined();
+    it('has three Link child components', () => {
+      expect(findLinks.length).toEqual(3);
     });
 
-    let renderedBookButton;
-    beforeEach(() => {
-      // use deeper rendering
-      const renderedIntroPage = TestUtils.renderIntoDocument(
-        <IntroPage changePage={mockChangePage}/>
-      );
-      renderedBookButton = TestUtils.findRenderedDOMComponentWithTag(
-        renderedIntroPage, 'button'
-      );
-      // using a new mock each time, so need to click again each time
-      TestUtils.Simulate.click(renderedBookButton);
+    it('has a link to /menus/0', () => {
+      const firstLink = findLinks[0];
+      expect(firstLink.props.to).toBe('/menus/0');
     });
-    it('has the correct callback function', () => {
-      expect(mockChangePage).toHaveBeenCalled();
+  
+    it('has a link to /menus/1', () => {
+      const secondLink = findLinks[1];
+      expect(secondLink.props.to).toBe('/menus/1');
     });
-    it('is only called once', () => {
-      expect(mockChangePage.calls.count()).toBe(1);
-    });
-    it('passes the correct params', () => {
-      expect(mockChangePage).toHaveBeenCalledWith(BOOK);
+  
+    it('has a Link component to reservation page', () => {
+      const bookNowLink = findLinks[2];
+      expect(bookNowLink.props.to).toEqual('/reservation');
     });
   });
+
+
 });

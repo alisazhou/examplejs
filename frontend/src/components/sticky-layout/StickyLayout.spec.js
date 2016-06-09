@@ -5,19 +5,12 @@ import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
 jest.unmock('./StickyLayout.jsx');
-import WrappedLayout, { StickyLayout } from './StickyLayout.jsx';
-
-jest.unmock('./pageMapping.js');
-import { pageMapping } from './pageMapping.js';
-
-jest.unmock('../sticky-layout/BaseChangePageComponent');
+import StickyLayout from './StickyLayout.jsx';
 import Footer from '../footer/Footer.jsx';
 
 describe('StickyLayout react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
-  // add to pageMapping so that React.createElement does not complain about not receiving an element/component
-  pageMapping.set('randomPagey', 'heading');
-  shallowRenderer.render(<StickyLayout currentPage='randomPagey'/>);
+  shallowRenderer.render(<StickyLayout />);
   const result = shallowRenderer.getRenderOutput();
 
   it('renders to a div with two children', () => {
@@ -32,21 +25,6 @@ describe('StickyLayout react component', () => {
     });
     it('has the correct css classes', () => {
       expect(firstChild.props.className).toEqual('sticky-layout--body');
-    });
-    it('has a single child', () => {
-      React.Children.only(firstChild.props.children);
-    });
-    it('has a child with wrappee type corresponds to pageMap', () => {
-      let childOfChild = React.Children.only(firstChild.props.children);
-      expect(childOfChild.type).toBe('heading');
-
-      // chg the prop and re-render
-      pageMapping.set('random2', 'body');
-      // need a new renderer (otherwise it appends to old render)
-      const shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<StickyLayout currentPage='random2'/>);
-      childOfChild = React.Children.only(shallowRenderer.getRenderOutput().props.children[0].props.children);
-      expect(childOfChild.type).toBe('body');
     });
   });
 
@@ -63,16 +41,10 @@ describe('StickyLayout react component', () => {
   });
 
   it('has the correct propTypes for validation', () => {
-    const expectedPropTypes = [ 'currentPage' ];
+    const expectedPropTypes = [ 'children' ];
     R.forEach(
       prop => expect(R.has(prop)(StickyLayout.propTypes)).toBe(true),
       expectedPropTypes
     );
-  });
-
-  it('is wrapped by a redux connect', () => {
-    expect(WrappedLayout).not.toBe(StickyLayout);
-    expect(WrappedLayout.WrappedComponent).toBe(StickyLayout);
-    expect(WrappedLayout.displayName).toBe('Connect(StickyLayout)');
   });
 });
