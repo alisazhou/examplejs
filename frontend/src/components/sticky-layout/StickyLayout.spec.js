@@ -26,9 +26,6 @@ describe('StickyLayout react component', () => {
     it('has the correct css classes', () => {
       expect(firstChild.props.className).toEqual('sticky-layout--body');
     });
-    it('has a single child', () => {
-      React.Children.only(firstChild.props.children);
-    });
   });
 
   describe('the second child', () => {
@@ -43,8 +40,8 @@ describe('StickyLayout react component', () => {
     });
   });
 
-  xit('has the correct propTypes for validation', () => {
-    const expectedPropTypes = [ 'currentPage' ];
+  it('has the correct propTypes for validation', () => {
+    const expectedPropTypes = [ 'children' ];
     R.forEach(
       prop => expect(R.has(prop)(StickyLayout.propTypes)).toBe(true),
       expectedPropTypes

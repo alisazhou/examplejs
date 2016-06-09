@@ -2,7 +2,7 @@ import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
-import { browserHistory, Route, Router } from 'react-router';
+import { browserHistory, IndexRoute, Route, Router } from 'react-router';
 
 import sellers from '../seller/sellersReducer.js';
 import currentSellerId from '../seller/currentSellerIdReducer.js';
@@ -12,6 +12,7 @@ import { reducer as form } from 'redux-form';
 import StickyLayout from '../sticky-layout/StickyLayout.jsx';
 import AvailabilityPage from '../availability-page/AvailabilityPage.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
+import IntroPage from '../intro-page/IntroPage.jsx';
 import MenuPage from '../menu-page/MenuPage.jsx';
 import PaymentPage from '../payment-page/PaymentPage.jsx';
 import ReservationPage from '../reservation-page/ReservationPage.jsx';
@@ -38,12 +39,14 @@ export default class WrappedComponent extends React.Component {
     return (
       <Provider store={store}>
         <Router history={browserHistory} >
-          <Route path='/' component={StickyLayout} />
-          <Route path='/availability' component={AvailabilityPage} />
-          <Route path='/contact' component={ContactPage} />
-          <Route path='/menus/:menuId' component={MenuPage} />
-          <Route path='/payment' component={PaymentPage} />
-          <Route path='/reservation' component={ReservationPage} />
+          <Route path='/' component={StickyLayout}>
+            <IndexRoute component={IntroPage} />
+            <Route path='availability' component={AvailabilityPage} />
+            <Route path='contact' component={ContactPage} />
+            <Route path='payment' component={PaymentPage} />
+            <Route path='reservation' component={ReservationPage} />
+          </Route>
+          <Route path='menus/:menuId' component={MenuPage} />
         </Router>
       </Provider>
     );

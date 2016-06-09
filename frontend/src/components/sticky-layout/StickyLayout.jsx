@@ -2,7 +2,7 @@ import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 
 import Footer from '../footer/Footer.jsx';
-import IntroPage from '../intro-page/IntroPage.jsx';
+
 
 export default class StickyLayout extends React.Component {
   // pure render
@@ -14,7 +14,7 @@ export default class StickyLayout extends React.Component {
     return (
       <div>
         <div className='sticky-layout--body'>
-          <IntroPage/>
+          { this.props.children || 'Loading...' }
         </div>
         <div className='sticky-layout--footer'>
           <Footer/>
@@ -23,3 +23,7 @@ export default class StickyLayout extends React.Component {
     );
   }
 }
+
+StickyLayout.propTypes = {
+  children: React.PropTypes.node,
+};
