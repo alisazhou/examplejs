@@ -17,7 +17,7 @@ def test_has_search_bar(browser):
     assert search_bar.get_attribute('placeholder') == 'search'
 
 def test_links_to_menu_details(browser):
-    link_menu_details = browser.find_elements_by_class_name('router-link')
+    link_menu_details = browser.find_elements_by_class_name('menu-list')
     assert len(link_menu_details) >= 1
 
 def test_displays_menus_that_go_to_menu_page(intro_page_browser):

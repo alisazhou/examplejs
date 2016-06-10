@@ -3,12 +3,14 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Link } from 'react-router';
+import R from 'ramda';
 
 jest.unmock('./IntroPage.jsx');
 import IntroPage from './IntroPage.jsx';
+import MenuList from '../menu-list/MenuList.jsx';
 
 
-describe('StickyBody react component', () => {
+describe('IntroPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(<IntroPage />);
   const result = shallowRenderer.getRenderOutput();
@@ -17,30 +19,13 @@ describe('StickyBody react component', () => {
     expect(result.type).toBe('div');
   });
 
-  describe('Link child components', () => {
-    const findLinks = result.props.children.filter(
-      child => child.type === Link
-    );
-
-    it('has three Link child components', () => {
-      expect(findLinks.length).toEqual(3);
-    });
-
-    it('has a link to /menus/0', () => {
-      const firstLink = findLinks[0];
-      expect(firstLink.props.to).toBe('/menus/0');
-    });
-  
-    it('has a link to /menus/1', () => {
-      const secondLink = findLinks[1];
-      expect(secondLink.props.to).toBe('/menus/1');
-    });
-  
-    it('has a Link component to reservation page', () => {
-      const bookNowLink = findLinks[2];
-      expect(bookNowLink.props.to).toEqual('/reservation');
-    });
+  it('has a Link component to reservation page', () => {
+    const bookNowLink = R.find(R.propEq('type', Link))(result.props.children);
+    expect(bookNowLink.props.to).toEqual('/reservation');
   });
 
-
+  it('has a MenuList child component', () => {
+    const menuList = R.find(R.propEq('type', MenuList))(result.props.children);
+    expect(menuList).toBeDefined();
+  });
 });
