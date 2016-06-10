@@ -6,13 +6,21 @@ import { Link } from 'react-router';
 import R from 'ramda';
 
 jest.unmock('./IntroPage.jsx');
-import IntroPage from './IntroPage.jsx';
+import WrappedPage, { IntroPage } from './IntroPage.jsx';
+jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
+import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuList from '../menu-list/MenuList.jsx';
 
 
-describe('IntroPage react component', () => {
+const PROPS_FROM_REDUX = {
+  menus: [
+    {id: 'id0', name: 'name0', chef: 'chef0'},
+    {id: 'id1', name: 'name1', chef: 'chef1'},
+  ],
+};
+describe('IntroPage component', () => {
   const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<IntroPage />);
+  shallowRenderer.render(<IntroPage {...PROPS_FROM_REDUX} />);
   const result = shallowRenderer.getRenderOutput();
 
   it('renders to a div', () => {
@@ -27,5 +35,23 @@ describe('IntroPage react component', () => {
   it('has a MenuList child component', () => {
     const menuList = R.find(R.propEq('type', MenuList))(result.props.children);
     expect(menuList).toBeDefined();
+  });
+});
+
+
+describe('IntroPage smart component', () => {
+  it('is wrapped by a connect', () => {
+    expect(WrappedPage).not.toBe(IntroPage);
+    expect(WrappedPage.WrappedComponent).toBe(IntroPage);
+    expect(WrappedPage.displayName).toBe('Connect(IntroPage)');
+  });
+
+  it('receives menus from store', () => {
+    const shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(
+      <WrappedPage store={store} />
+    );
+    const result = shallowRenderer.getRenderOutput();
+    expect(result.props.menus).toBeDefined();
   });
 });
