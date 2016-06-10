@@ -20,7 +20,7 @@ script:
   - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep 2.0.0
   - set -e  && set -o pipefail && npm run test | tee /dev/stderr | grep -v "Warning"
   - npm run lint
-  - cd ../integration_tests && py.test -x
+  - cd ../integration_tests && py.test -x --strict -r w
 notifications:
   email:
     on_success: change
