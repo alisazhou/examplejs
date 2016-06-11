@@ -1,0 +1,19 @@
+import React from 'react';
+import MenuListItem from './MenuListItem.jsx';
+
+
+export default class MenuList extends React.Component {
+  render () {
+    return (
+      <ul>
+        {this.props.menus.map(menu =>
+          <MenuListItem key={menu.id} menu={menu}/>
+        )}
+      </ul>
+    );
+  }
+}
+
+MenuList.propTypes = {
+  menus: React.PropTypes.array.isRequired,
+};

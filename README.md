@@ -8,14 +8,13 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- make custom mocks
-- fix webpack.config linter errors
+- _az_: change Reservation Form to Search Menu Form
+- login and register pages
+
 
 **DOING**
 - _ch_: refactor fts into modules based on page
 - _ch_: add new user stories
-- _az_: react-router
-- _az_: change Reservation Form to Search Menu Form
 
 
 **DONE**
@@ -23,4 +22,5 @@ See individual folders for their READMEs
 - payment page
 - ReservationForm wired to store 
 - webpack
-- _ch_: switch firefox selenium to phantomjs
+- switch firefox selenium to phantomjs
+- react router

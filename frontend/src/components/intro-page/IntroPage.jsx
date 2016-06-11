@@ -1,15 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import MenuList from '../menu-list/MenuList.jsx';
 
-export default class IntroPage extends React.Component {
+
+export class IntroPage extends React.Component {
   render () {
     return <div>
       <p>iChef</p>
       <input type='search' id='search' placeholder='search' /><br/>
-      <Link to='/menus/0' id='menu_0' className='router-link'>purdy pic uno</Link><br/>
-      <Link to='/menus/1' id='menu_1' classname='router-link'>purdy pic dos</Link><br/>
+      <MenuList menus={this.props.menus} />
       <Link to='/reservation'>Book Now</Link>
     </div>;
   }
 }
+
+IntroPage.propTypes = {
+  menus: React.PropTypes.array,
+};
+
+const mapStateToProps = state => ({
+  menus: state.menus,
+});
+
+export default connect(mapStateToProps)(IntroPage);
