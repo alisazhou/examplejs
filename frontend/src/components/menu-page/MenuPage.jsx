@@ -6,7 +6,11 @@ import R from 'ramda';
 export class MenuPage extends React.Component {
   render () {
     return (
-      <div>{this.props.menu.name}</div>
+      <div>
+        <h1>{this.props.menu.name}</h1>
+        <p>dummy description</p>
+        <p>dummy filters</p>
+      </div>
     );
   }
 }
@@ -19,6 +23,11 @@ MenuPage.propTypes = {
     id: React.PropTypes.string.isRequired,
     chef: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
+    description: React.PropTypes.string.isRequired,
+    image: React.PropTypes.string.isRequired,
+    tagWords: React.PropTypes.arrayOf(
+      React.PropTypes.string.isRequired
+    ).isRequired,
   }),
 };
 

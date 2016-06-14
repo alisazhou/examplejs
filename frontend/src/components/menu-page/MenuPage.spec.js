@@ -1,6 +1,8 @@
 /* eslint-env jasmine, jest */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
+import '../../testHelpers.js';
 
 jest.unmock('./MenuPage.jsx');
 import WrappedPage, { MenuPage } from './MenuPage.jsx';
@@ -13,7 +15,12 @@ const PROPS_FROM_ROUTER = {
 };
 const PROPS_FROM_STORE = {
   menu: {
-    id: '0', chef: 'eat my food', name: 'i keel you',
+    id: 'test id',
+    chef: 'test chef name',
+    name: 'test menu name',
+    description: 'test description',
+    image: 'test image src',
+    tagWords: [ 'test tag 0', 'test tag 1' ],
   },
 };
 describe('MenuPage react component', () => {
@@ -27,8 +34,9 @@ describe('MenuPage react component', () => {
     expect(result.type).toBe('div');
   });
 
-  xit('displays menu name dynamically based on id', () => {
-    expect(result.props.children).toContain(1234);
+  it('displays menu name dynamically based on id', () => {
+    const header = R.find(R.propEq('type', 'h1'))(result.props.children);
+    expect(header.props.children).toBe('test menu name');
   });
 });
 
