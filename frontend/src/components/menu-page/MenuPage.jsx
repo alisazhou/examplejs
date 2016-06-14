@@ -2,11 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
+import MenuDescription from './MenuDescription.jsx';
+
 
 export class MenuPage extends React.Component {
   render () {
     return (
-      <div>{this.props.menu.name}</div>
+      <div>
+        <h1>{this.props.menu.name}</h1>
+        <MenuDescription {...this.props.menu}/>
+        <p>dummy filters</p>
+      </div>
     );
   }
 }
@@ -19,6 +25,11 @@ MenuPage.propTypes = {
     id: React.PropTypes.string.isRequired,
     chef: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
+    description: React.PropTypes.string.isRequired,
+    image: React.PropTypes.string.isRequired,
+    tagWords: React.PropTypes.arrayOf(
+      React.PropTypes.string.isRequired
+    ).isRequired,
   }),
 };
 
