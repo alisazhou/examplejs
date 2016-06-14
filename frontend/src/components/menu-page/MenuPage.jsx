@@ -2,13 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
+import MenuDescription from './MenuDescription.jsx';
+
 
 export class MenuPage extends React.Component {
   render () {
     return (
       <div>
         <h1>{this.props.menu.name}</h1>
-        <p>dummy description</p>
+        <MenuDescription {...this.props.menu}/>
         <p>dummy filters</p>
       </div>
     );

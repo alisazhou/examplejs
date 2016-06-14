@@ -8,6 +8,7 @@ jest.unmock('./MenuPage.jsx');
 import WrappedPage, { MenuPage } from './MenuPage.jsx';
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
+import MenuDescription from './MenuDescription.jsx';
 
 
 const PROPS_FROM_ROUTER = {
@@ -37,6 +38,10 @@ describe('MenuPage react component', () => {
   it('displays menu name dynamically based on id', () => {
     const header = R.find(R.propEq('type', 'h1'))(result.props.children);
     expect(header.props.children).toBe('test menu name');
+  });
+
+  it('has a MenuDescription child component', () => {
+    expect(result).toHaveChild(MenuDescription);
   });
 });
 
