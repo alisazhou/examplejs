@@ -10,6 +10,7 @@ import WrappedPage, { IntroPage } from './IntroPage.jsx';
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuList from '../menu-list/MenuList.jsx';
+import SearchBar from '../search-bar/SearchBar.jsx';
 
 
 const PROPS_FROM_REDUX = {
@@ -35,6 +36,11 @@ describe('IntroPage component', () => {
   it('has a MenuList child component', () => {
     const menuList = R.find(R.propEq('type', MenuList))(result.props.children);
     expect(menuList).toBeDefined();
+  });
+
+  it('has a SearchBar child component', () => {
+    const searchBar = R.find(R.propEq('type', SearchBar))(result.props.children);
+    expect(searchBar).toBeDefined();
   });
 });
 

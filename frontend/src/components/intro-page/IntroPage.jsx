@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import MenuList from '../menu-list/MenuList.jsx';
+import SearchBar from '../search-bar/SearchBar.jsx';
 
 
 export class IntroPage extends React.Component {
   render () {
     return <div>
       <p>iChef</p>
-      <input type='search' id='search' placeholder='search' /><br/>
+      <SearchBar />
       <MenuList menus={this.props.menus} />
       <Link to='/reservation'>Book Now</Link>
     </div>;

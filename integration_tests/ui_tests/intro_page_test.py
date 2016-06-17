@@ -1,4 +1,5 @@
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from components import click_on_nth_menu
 from browser_fixture import BaseBrowser, get_browser_fixture_of_class
@@ -11,10 +12,6 @@ intro_page_browser = get_browser_fixture_of_class(IntroPageBrowser)
 pytest.yield_fixture()(intro_page_browser)
 
 
-
-def test_has_search_bar(browser):
-    search_bar = browser.find_element_by_id('search')
-    assert search_bar.get_attribute('placeholder') == 'search'
 
 def test_links_to_menu_details(browser):
     link_menu_details = browser.find_elements_by_class_name('menu-list')
@@ -30,3 +27,30 @@ def test_displays_menus_that_go_to_menu_page(intro_page_browser):
     # click on second menu detail link
     intro_page_browser.click_on_nth_menu(1)
     assert 'Demo Menu 1' in intro_page_browser.body_text
+
+def test_search_bar_autocompletes(browser):
+    search_bar = browser.find_element_by_class_name('search-bar')
+    input_box = search_bar.find_element_by_css_selector('.Select input')
+    # before clicking on search, no results are shown
+    with pytest.raises(NoSuchElementException):
+        browser.find_element_by_class_name('Select-menu-outer')
+    # type in "demo", both menus are shown
+    input_box.send_keys('demo')
+    search_results = browser.find_element_by_class_name('Select-menu-outer')
+    assert 'Demo Menu 0' in search_results.text
+    assert 'Demo Menu 1' in search_results.text
+    # type in 0, only first menu is shown
+    input_box.clear()
+    input_box.send_keys('0')
+    assert 'Demo Menu 0' in search_results.text
+    assert 'Demo Menu 1' not in search_results.text
+    # type in 1, only second menu is shown
+    input_box.clear()
+    input_box.send_keys('1')
+    assert 'Demo Menu 0' not in search_results.text
+    assert 'Demo Menu 1' in search_results.text
+    # type in fancy, neither menus are shown
+    input_box.clear()
+    input_box.send_keys('fancy')
+    assert 'Demo Menu 0' not in search_results.text
+    assert 'Demo Menu 1' not in search_results.text
