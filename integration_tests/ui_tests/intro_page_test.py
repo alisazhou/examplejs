@@ -54,3 +54,12 @@ def test_search_bar_autocompletes(browser):
     input_box.send_keys('fancy')
     assert 'Demo Menu 0' not in search_results.text
     assert 'Demo Menu 1' not in search_results.text
+
+def test_search_result_routes_to_menu_page(browser):
+    # search for menu 0
+    search_bar = browser.find_element_by_class_name('search-bar')
+    input_box = search_bar.find_element_by_css_selector('.Select input')
+    input_box.send_keys('Demo Menu 0')
+    menu = browser.find_element_by_class_name('Select-option')
+    menu.click()
+    assert '/menus/0' in browser.current_url
