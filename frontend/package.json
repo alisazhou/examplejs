@@ -4,7 +4,7 @@
   "description": "how to setup a react webapp on pythonanywhere",
   "main": "bundled.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js --progress --profile --colors && node-sass src/main.scss ../static/bundled.css",
+    "build": "webpack --config webpack.config.js --progress --profile --colors && node-sass src/main.scss ../static/bundled.css --output-style compressed",
     "css": "node-sass src/main.scss ../static/bundled.css",
     "js": "webpack --config webpack.config.js --progress --profile --colors --watch",
     "lint": "eslint src",
@@ -19,6 +19,7 @@
       "<rootDir>/node_modules/react-addons-test-utils/",
       "<rootDir>/node_modules/react-redux/",
       "<rootDir>/node_modules/react-router/",
+      "<rootDir>/node_modules/react-select/",
       "<rootDir>/node_modules/redux/",
       "<rootDir>/node_modules/redux-form/",
       "<rootDir>/node_modules/redux-logger/",
@@ -66,11 +67,11 @@
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
+    "react-select": "^1.0.0-beta13",
     "redux": "^3.5.2",
     "redux-form": "^5.2.4",
     "redux-logger": "^2.6.1",
     "sass-loader": "^3.2.0",
-    "uglifycss": "0.0.20",
     "uglifyjs": "^2.4.10",
     "webpack": "^1.13.1"
   }
