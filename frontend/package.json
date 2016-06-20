@@ -4,8 +4,8 @@
   "description": "how to setup a react webapp on pythonanywhere",
   "main": "bundled.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js --progress --profile --colors && sass src/main.scss | uglifycss > ../static/bundled.css",
-    "css": "sass src/main.scss | uglifycss > ../static/bundled.css",
+    "build": "webpack --config webpack.config.js --progress --profile --colors && node-sass src/main.scss ../static/bundled.css",
+    "css": "node-sass src/main.scss ../static/bundled.css",
     "js": "webpack --config webpack.config.js --progress --profile --colors --watch",
     "lint": "eslint src",
     "retest": "jest --no-cache --watch=all",
