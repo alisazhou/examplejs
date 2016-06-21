@@ -18,10 +18,11 @@ export class SearchBar extends React.Component {
           {...searchCuisine}
           value={searchCuisine.value||''}>
           <option value='all'>All</option>
-          <option value='American'>American</option>
-          <option value='Chinese'>Chinese</option>
-          <option value='French'>French</option>
-          <option value='Indian'>Indian</option>
+          {this.props.cuisines.map(cuisine =>
+            <option key={cuisine.id} value={cuisine.name}>
+              {cuisine.name}
+            </option>
+          )}
         </select>
       </form>
     );
@@ -29,6 +30,12 @@ export class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
+  cuisines: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      name: React.PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
   fields: React.PropTypes.shape({
     searchCuisine: React.PropTypes.shape({
       value: React.PropTypes.string.isRequired,
@@ -39,8 +46,12 @@ SearchBar.propTypes = {
   }).isRequired,
 };
 
+const mapStateToProps = state => ({
+  cuisines: state.cuisines,
+});
+
 export default reduxForm({
   form: 'searchBar',
   fields,
   initialValues: { searchText: '', searchCuisine: 'all' },
-})(SearchBar);
+}, mapStateToProps)(SearchBar);

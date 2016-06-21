@@ -9,6 +9,7 @@ import { SearchBar } from './SearchBar.jsx';
 
 
 const PROPS_FROM_STORE = {
+  cuisines: [ { id: 0, name: '' } ],
   fields: {
     searchCuisine: { value: '' },
     searchText: { value: '' },

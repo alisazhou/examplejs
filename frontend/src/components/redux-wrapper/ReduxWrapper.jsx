@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
 import { browserHistory, IndexRoute, Route, Router } from 'react-router';
 
+import cuisines from '../menu-list/cuisinesReducer.js';
 import sellers from '../seller/sellersReducer.js';
 import currentSellerId from '../seller/currentSellerIdReducer.js';
 import menus from '../menu-page/menusReducer.js';
@@ -19,6 +20,7 @@ import ReservationPage from '../reservation-page/ReservationPage.jsx';
 
 
 const rootReducer = combineReducers({
+  cuisines,
   currentSellerId,
   form,
   menus,
