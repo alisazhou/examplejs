@@ -5,7 +5,7 @@ const initialState = [
     chef: 'cuckoo lis',
     description: 'description 0',
     image: 'image src 0',
-    tagWords: [ 'tag 0', 'tag 1' ],
+    tagWords: [ 'American', 'French' ],
   },
   {
     id: '1',
@@ -13,7 +13,7 @@ const initialState = [
     chef: 'coco puffs',
     description: 'description 1',
     image: 'image src 1',
-    tagWords: [ 'tag 1', 'tag 2' ],
+    tagWords: [ 'Chinese', 'French' ],
   },
 ];
 

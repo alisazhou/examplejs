@@ -88,34 +88,47 @@ describe('mapStateToProps selector', () => {
       },
     ],
   };
+  const selectMenusUnfiltered = {
+    menus: [
+      {
+        id: 'id0',
+        name: 'name0',
+        chef: 'chef0',
+        description: 'description0',
+        image: 'image0',
+        tagWords: [ 'tag0' ],
+      },
+      {
+        id: 'id1',
+        name: 'name1',
+        chef: 'chef1',
+        description: 'description1',
+        image: 'image1',
+        tagWords: [ 'tag1' ],
+      },
+    ],
+  };
 
   it('selects all menus from state if form is undefined', () => {
-    const expectedSelectedState = {
-      menus: [
-        {
-          id: 'id0',
-          name: 'name0',
-          chef: 'chef0',
-          description: 'description0',
-          image: 'image0',
-          tagWords: [ 'tag0' ],
-        },
-        {
-          id: 'id1',
-          name: 'name1',
-          chef: 'chef1',
-          description: 'description1',
-          image: 'image1',
-          tagWords: [ 'tag1' ],
-        },
-      ],
-    };
     const actualSelectedState = mapStateToProps(fullState);
-    expect(actualSelectedState).toEqual(expectedSelectedState);
+    expect(actualSelectedState).toEqual(selectMenusUnfiltered);
   });
 
-  describe('filters menus based on searchText entered', () => {
-    const expectedSelectedState = {
+  it('selects all menus from state with default values of form', () => {
+    const defaultState = Object.assign({}, fullState, {
+      form: {
+        searchBar: {
+          searchCuisine: { value: 'all' },
+          searchText: { value: '' },
+        },
+      },
+    });
+    const actualSelectedState = mapStateToProps(defaultState);
+    expect(actualSelectedState).toEqual(selectMenusUnfiltered);
+  });
+
+  describe('filters menus based on searchText and searchCuisine', () => {
+    const selectMenusFiltered = {
       menus: [ {
         id: 'id0',
         name: 'name0',
@@ -126,16 +139,44 @@ describe('mapStateToProps selector', () => {
       } ],
     };
 
-    it('filters menus based on name if given in form', () => {
-      const stateWithForm = Object.assign({}, fullState, {
+    it('filters menus based on name if given in searchText', () => {
+      const stateWithName = Object.assign({}, fullState, {
         form: {
           searchBar: {
+            searchCuisine: { value: 'all' },
             searchText: { value: 'name0' },
           },
         },
       });
-      const actualSelectedState = mapStateToProps(stateWithForm);
-      expect(actualSelectedState).toEqual(expectedSelectedState);
+      const actualSelectedState = mapStateToProps(stateWithName);
+      expect(actualSelectedState).toEqual(selectMenusFiltered);
+    });
+
+    it('filters menus based on description if given in form', () => {
+      const stateWithDescription = Object.assign({}, fullState, {
+        form: {
+          searchBar: {
+            searchCuisine: { value: 'all' },
+            searchText: { value: 'description0' },
+          },
+        },
+      });
+      const actualSelectedState = mapStateToProps(stateWithDescription);
+      expect(actualSelectedState).toEqual(selectMenusFiltered);
+    });
+
+    it('filters menus based on option chosen in searchCuisine', () => {
+      const stateWithCuisine = Object.assign({}, fullState, {
+        form: {
+          searchBar: {
+            searchCuisine: { value: 'tag0' },
+            searchText: { value: '' },
+          },
+        },
+      });
+      const actualSelectedState = mapStateToProps(stateWithCuisine);
+      expect(actualSelectedState).toEqual(selectMenusFiltered);
     });
   });
+
 });

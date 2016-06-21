@@ -36,8 +36,14 @@ export const mapStateToProps = state => {
   let menus;
   if (state.form && state.form.searchBar) {
     menus = state.menus.filter(menu => {
-      let searchText = state.form.searchBar.searchText.value.toLowerCase();
-      return menu.name.toLowerCase().includes(searchText);
+      const searchText = state.form.searchBar.searchText.value.toLowerCase();
+      const matchName = menu.name.toLowerCase().includes(searchText);
+      const matchDescription = menu.description.toLowerCase().includes(searchText);
+      return (matchName || matchDescription);
+    });
+    menus = menus.filter(menu => {
+      const searchCuisine = state.form.searchBar.searchCuisine.value;
+      return searchCuisine === 'all' || menu.tagWords.includes(searchCuisine);
     });
   } else {
     menus = state.menus;

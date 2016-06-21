@@ -1,17 +1,18 @@
 /* eslint-env jest */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
+import '../../testHelpers.js';
 
 jest.unmock('./SearchBar.jsx');
 import { SearchBar } from './SearchBar.jsx';
 
 
 const PROPS_FROM_STORE = {
-  fields: {searchText: {value: '' }},
-  menus: [ {
-    id: '', name: '', chef: '', description: '', image: '',
-    tagWords: [ '' ],
-  } ],
+  fields: {
+    searchCuisine: { value: '' },
+    searchText: { value: '' },
+  },
 };
 describe('SearchBar presentational component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -25,7 +26,14 @@ describe('SearchBar presentational component', () => {
   });
 
   it('has an input child component', () => {
-    const inputBox = result.props.children;
-    expect(inputBox.type).toBe('input');
+    expect(result).toHaveChild('input');
+  });
+
+  describe('select child component', () => {
+    const select = R.find(R.propEq('type', 'select'))(result.props.children);
+
+    it('exists', () => {
+      expect(select).toBeDefined();
+    });
   });
 });
