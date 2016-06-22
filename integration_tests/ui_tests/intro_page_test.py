@@ -33,3 +33,36 @@ def test_there_is_search_bar(browser):
     search_bar = browser.find_element_by_class_name('search-bar')
     input_box = search_bar.find_element_by_tag_name('input')
     assert input_box.get_attribute('placeholder') == 'I feel like having...'
+
+def test_search_bar_updates_menu_list_by_name(browser):
+    # find search bar input
+    input_box = browser.find_element_by_css_selector('.search-bar input')
+    # type in "menu", both menus are shown
+    input_box.send_keys('menu')
+    filtered_menus = browser.find_elements_by_class_name('menu-list--item')
+    assert len(filtered_menus) == 2
+    assert 'Demo Menu 0' in browser.body_text
+    assert 'Demo Menu 1' in browser.body_text
+    # type in menu 0, only first menu is shown
+    input_box.clear()
+    input_box.send_keys('menu 0')
+    assert 'Demo Menu 0' in browser.body_text
+    assert 'Demo Menu 1' not in browser.body_text
+    # type in menu 1, only second menu is shown
+    input_box.clear()
+    input_box.send_keys('menu 1')
+    assert 'Demo Menu 0' not in browser.body_text
+    assert 'Demo Menu 1' in browser.body_text
+    # type in menu 2, neither menus are shown
+    input_box.clear()
+    input_box.send_keys('menu 2')
+    assert 'Demo Menu 0' not in browser.body_text
+    assert 'Demo Menu 1' not in browser.body_text
+
+@pytest.mark.skip('not yet implemented')
+def test_search_bar_udpates_menu_list_by_description(browser):
+    pass
+    # find search bar input, type in "description", both menus are shown
+    # type in description 0, only first menu is shown
+    # type in description 1, only second menu is shown
+    # type in description 2, neither are shown

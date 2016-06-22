@@ -18,11 +18,31 @@ export class IntroPage extends React.Component {
 }
 
 IntroPage.propTypes = {
-  menus: React.PropTypes.array,
+  menus: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+      name: React.PropTypes.string.isRequired,
+      chef: React.PropTypes.string.isRequired,
+      description: React.PropTypes.string.isRequired,
+      image: React.PropTypes.string.isRequired,
+      tagWords: React.PropTypes.arrayOf(
+        React.PropTypes.string.isRequired
+      ).isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
-const mapStateToProps = state => ({
-  menus: state.menus,
-});
+export const mapStateToProps = state => {
+  let menus;
+  if (state.form && state.form.searchBar) {
+    menus = state.menus.filter(menu => {
+      let searchText = state.form.searchBar.searchText.value.toLowerCase();
+      return menu.name.toLowerCase().includes(searchText);
+    });
+  } else {
+    menus = state.menus;
+  }
+  return { menus };
+};
 
 export default connect(mapStateToProps)(IntroPage);

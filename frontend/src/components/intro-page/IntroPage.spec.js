@@ -1,12 +1,11 @@
 /*eslint-env jest,jasmine */
-
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Link } from 'react-router';
 import R from 'ramda';
 
 jest.unmock('./IntroPage.jsx');
-import WrappedPage, { IntroPage } from './IntroPage.jsx';
+import WrappedPage, { IntroPage, mapStateToProps } from './IntroPage.jsx';
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuList from '../menu-list/MenuList.jsx';
@@ -14,10 +13,14 @@ import SearchBar from '../search-bar/SearchBar.jsx';
 
 
 const PROPS_FROM_REDUX = {
-  menus: [
-    {id: 'id0', name: 'name0', chef: 'chef0'},
-    {id: 'id1', name: 'name1', chef: 'chef1'},
-  ],
+  menus: [ {
+    id: 'id0',
+    name: 'name0',
+    chef: 'chef0',
+    description: 'description0',
+    image: 'image0',
+    tagWords: [ 'tag0' ],
+  } ],
 };
 describe('IntroPage component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -59,5 +62,80 @@ describe('IntroPage smart component', () => {
     );
     const result = shallowRenderer.getRenderOutput();
     expect(result.props.menus).toBeDefined();
+  });
+});
+
+
+describe('mapStateToProps selector', () => {
+  const fullState = {
+    irrelevant: {},
+    menus: [
+      {
+        id: 'id0',
+        name: 'name0',
+        chef: 'chef0',
+        description: 'description0',
+        image: 'image0',
+        tagWords: [ 'tag0' ],
+      },
+      {
+        id: 'id1',
+        name: 'name1',
+        chef: 'chef1',
+        description: 'description1',
+        image: 'image1',
+        tagWords: [ 'tag1' ],
+      },
+    ],
+  };
+
+  it('selects all menus from state if form is undefined', () => {
+    const expectedSelectedState = {
+      menus: [
+        {
+          id: 'id0',
+          name: 'name0',
+          chef: 'chef0',
+          description: 'description0',
+          image: 'image0',
+          tagWords: [ 'tag0' ],
+        },
+        {
+          id: 'id1',
+          name: 'name1',
+          chef: 'chef1',
+          description: 'description1',
+          image: 'image1',
+          tagWords: [ 'tag1' ],
+        },
+      ],
+    };
+    const actualSelectedState = mapStateToProps(fullState);
+    expect(actualSelectedState).toEqual(expectedSelectedState);
+  });
+
+  describe('filters menus based on searchText entered', () => {
+    const expectedSelectedState = {
+      menus: [ {
+        id: 'id0',
+        name: 'name0',
+        chef: 'chef0',
+        description: 'description0',
+        image: 'image0',
+        tagWords: [ 'tag0' ],
+      } ],
+    };
+
+    it('filters menus based on name if given in form', () => {
+      const stateWithForm = Object.assign({}, fullState, {
+        form: {
+          searchBar: {
+            searchText: { value: 'name0' },
+          },
+        },
+      });
+      const actualSelectedState = mapStateToProps(stateWithForm);
+      expect(actualSelectedState).toEqual(expectedSelectedState);
+    });
   });
 });
