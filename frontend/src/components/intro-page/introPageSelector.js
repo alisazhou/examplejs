@@ -1,35 +1,32 @@
 import R from 'ramda';
 
 
-const filterBySearchText = (menus, form) => {
-  if (form && form.searchBar) {
-    const searchText = form.searchBar.searchText.value.toLowerCase();
-    const match = menuInfo => (
-      text => menuInfo.toLowerCase().includes(text)
-    );
-    const filteredMenus = menus.filter(menu => {
-      const matchName = match(menu.name);
-      const matchDes = match(menu.description);
-      return R.either(matchName, matchDes)(searchText);
-    });
-    return filteredMenus;
-  } else {
-    return menus;
-  }
+const byText = text => menus => {
+  const match = menuInfo => (
+    text => menuInfo.toLowerCase().includes(text)
+  );
+  const filteredMenus = menus.filter(menu =>
+    R.either(match(menu.name), match(menu.description))(text)
+  );
+  return filteredMenus;
 };
 
-const filterBySearchCuisine = (menus, form) => {
-  if (form && form.searchBar) {
-    const searchCuisine = form.searchBar.searchCuisine.value;
-    if (searchCuisine === 'all') {
-      return menus;
-    } else {
-      return menus.filter(menu => menu.tagWords.includes(searchCuisine));
-    }
-  } else {
+const byCuisine = cuisine => menus => {
+  if (cuisine === 'all') {
     return menus;
   }
+  return menus.filter(menu => menu.tagWords.includes(cuisine));
 };
 
 
-export { filterBySearchCuisine, filterBySearchText};
+const combineFilters = (menus, form) => {
+  if (!form || !form.searchBar) {
+    return menus;
+  }
+  const text = form.searchBar.searchText.value.toLowerCase();
+  const cuisine = form.searchBar.searchCuisine.value;
+  return R.compose(byText(text), byCuisine(cuisine))(menus);
+};
+
+
+export { byCuisine, byText, combineFilters };

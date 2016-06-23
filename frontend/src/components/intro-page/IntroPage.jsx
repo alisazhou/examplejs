@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import MenuList from '../menu-list/MenuList.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
-import { filterBySearchCuisine, filterBySearchText } from './introPageSelector.js';
+import { combineFilters } from './introPageSelector.js';
 
 
 export class IntroPage extends React.Component {
@@ -22,10 +22,8 @@ IntroPage.propTypes = {
   menus: React.PropTypes.array,
 };
 
-const mapStateToProps = state => {
-  let matchText = filterBySearchText(state.menus, state.form);
-  let matchTextAndCuisine = filterBySearchCuisine(matchText, state.form);
-  return { menus: matchTextAndCuisine };
-};
+const mapStateToProps = state => ({
+  menus: combineFilters(state.menus, state.form),
+});
 
 export default connect(mapStateToProps)(IntroPage);
