@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import MenuList from '../menu-list/MenuList.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
+import { filterBySearchCuisine, filterBySearchText } from './introPageSelector.js';
 
 
 export class IntroPage extends React.Component {
@@ -18,37 +19,13 @@ export class IntroPage extends React.Component {
 }
 
 IntroPage.propTypes = {
-  menus: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      name: React.PropTypes.string.isRequired,
-      chef: React.PropTypes.string.isRequired,
-      description: React.PropTypes.string.isRequired,
-      image: React.PropTypes.string.isRequired,
-      tagWords: React.PropTypes.arrayOf(
-        React.PropTypes.string.isRequired
-      ).isRequired,
-    }).isRequired
-  ).isRequired,
+  menus: React.PropTypes.array,
 };
 
-export const mapStateToProps = state => {
-  let menus;
-  if (state.form && state.form.searchBar) {
-    menus = state.menus.filter(menu => {
-      const searchText = state.form.searchBar.searchText.value.toLowerCase();
-      const matchName = menu.name.toLowerCase().includes(searchText);
-      const matchDescription = menu.description.toLowerCase().includes(searchText);
-      return (matchName || matchDescription);
-    });
-    menus = menus.filter(menu => {
-      const searchCuisine = state.form.searchBar.searchCuisine.value;
-      return searchCuisine === 'all' || menu.tagWords.includes(searchCuisine);
-    });
-  } else {
-    menus = state.menus;
-  }
-  return { menus };
+const mapStateToProps = state => {
+  let matchText = filterBySearchText(state.menus, state.form);
+  let matchTextAndCuisine = filterBySearchCuisine(matchText, state.form);
+  return { menus: matchTextAndCuisine };
 };
 
 export default connect(mapStateToProps)(IntroPage);
