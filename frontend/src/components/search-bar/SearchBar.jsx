@@ -1,38 +1,57 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import Select from 'react-select';
+import { reduxForm } from 'redux-form';
+
+export const fields = [ 'searchText', 'searchCuisine' ];
 
 
 export class SearchBar extends React.Component {
   render () {
-    const goToMenu = (menu) => {
-      browserHistory.push(`/menus/${menu.value}`);
-    };
+    const { fields: { searchText, searchCuisine }} = this.props;
     return (
-      <div className='search-bar'>
-        <Select
-          options={this.props.menus}
-          placeholder='Search menu'
-          onChange={goToMenu}
+      <form className='search-bar'>
+        <input
+          type='search'
+          placeholder='I feel like having...'
+          {...searchText}
         />
-      </div>
+        <select
+          {...searchCuisine}
+          value={searchCuisine.value||''}>
+          <option value='all'>All</option>
+          {this.props.cuisines.map(cuisine =>
+            <option key={cuisine.id} value={cuisine.name}>
+              {cuisine.name}
+            </option>
+          )}
+        </select>
+      </form>
     );
   }
 }
 
 SearchBar.propTypes = {
-  menus: React.PropTypes.arrayOf(
+  cuisines: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      value: React.PropTypes.string.isRequired,
-      label: React.PropTypes.string.isRequired,
+      id: React.PropTypes.number.isRequired,
+      name: React.PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
+  fields: React.PropTypes.shape({
+    searchCuisine: React.PropTypes.shape({
+      value: React.PropTypes.string.isRequired,
+    }).isRequired,
+    searchText: React.PropTypes.shape({
+      value: React.PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
-  menus: state.menus.map(menu => ({
-    value: menu.id, label: menu.name,
-  })),
+  cuisines: state.cuisines,
 });
-export default connect(mapStateToProps)(SearchBar);
+
+export default reduxForm({
+  form: 'searchBar',
+  fields,
+  initialValues: { searchText: '', searchCuisine: 'all' },
+}, mapStateToProps)(SearchBar);

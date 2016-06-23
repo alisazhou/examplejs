@@ -5,11 +5,10 @@ import { Link } from 'react-router';
 export default class MenuListItem extends React.Component {
   render () {
     return (
-      <li>
+      <li className='menu-list--item'>
         <Link
           id={`menu_${this.props.menu.id}`}
-          to={`/menus/${this.props.menu.id}`}
-          className='menu-list'>
+          to={`/menus/${this.props.menu.id}`} >
           {this.props.menu.name}
         </Link>
       </li>

@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import MenuList from '../menu-list/MenuList.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
+import { combineFilters } from './introPageSelector.js';
 
 
 export class IntroPage extends React.Component {
@@ -22,7 +23,7 @@ IntroPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  menus: state.menus,
+  menus: combineFilters(state.menus, state.form),
 });
 
 export default connect(mapStateToProps)(IntroPage);

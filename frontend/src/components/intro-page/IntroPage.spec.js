@@ -1,5 +1,4 @@
 /*eslint-env jest,jasmine */
-
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Link } from 'react-router';
@@ -7,18 +6,15 @@ import R from 'ramda';
 
 jest.unmock('./IntroPage.jsx');
 import WrappedPage, { IntroPage } from './IntroPage.jsx';
+jest.unmock('./introPageSelector.js');
+import * as selectors from './introPageSelector.js';
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuList from '../menu-list/MenuList.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
 
 
-const PROPS_FROM_REDUX = {
-  menus: [
-    {id: 'id0', name: 'name0', chef: 'chef0'},
-    {id: 'id1', name: 'name1', chef: 'chef1'},
-  ],
-};
+const PROPS_FROM_REDUX = { menus: [] };
 describe('IntroPage component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(<IntroPage {...PROPS_FROM_REDUX} />);
@@ -55,9 +51,18 @@ describe('IntroPage smart component', () => {
   it('receives menus from store', () => {
     const shallowRenderer = TestUtils.createRenderer();
     shallowRenderer.render(
-      <WrappedPage store={store} />
+      <WrappedPage store={store}/>
     );
     const result = shallowRenderer.getRenderOutput();
     expect(result.props.menus).toBeDefined();
+  });
+
+  it('calls combineFilters', () => {
+    spyOn(selectors, 'combineFilters');
+    const shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(
+      <WrappedPage store={store} />
+    );
+    expect(selectors.combineFilters).toHaveBeenCalled();
   });
 });
