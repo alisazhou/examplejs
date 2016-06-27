@@ -34,7 +34,7 @@ if (process.env.NODE_ENV !== 'test') {
   const logger = createLogger();
   middlewares.push(logger);
 }
-export let store = createStore(rootReducer, applyMiddleware(...middlewares));
+let store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 export default class WrappedComponent extends React.Component {
   render () {
@@ -54,3 +54,6 @@ export default class WrappedComponent extends React.Component {
     );
   }
 }
+
+export default WrappedComponent;
+export { store };

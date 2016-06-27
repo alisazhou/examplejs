@@ -5,7 +5,7 @@ import R from 'ramda';
 import MenuDescription from './MenuDescription.jsx';
 
 
-export class MenuPage extends React.Component {
+class MenuPage extends React.Component {
   render () {
     return (
       <div>
@@ -36,4 +36,6 @@ MenuPage.propTypes = {
 const mapStateToProps = (state, ownProps) => ({
   menu: R.find(R.propEq('id', ownProps.params.menuId))(state.menus),
 });
+
 export default connect(mapStateToProps)(MenuPage);
+export { MenuPage };

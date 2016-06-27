@@ -1,6 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
-export const fields = [ 'name', 'tel', 'address', 'time' ];
+
+const fields = [ 'name', 'tel', 'address', 'time' ];
 
 
 class ReservationForm extends React.Component {
@@ -58,4 +59,4 @@ export default reduxForm({
   destroyOnUnmount: false,
 })(ReservationForm);
 
-export { ReservationForm };
+export { fields, ReservationForm };

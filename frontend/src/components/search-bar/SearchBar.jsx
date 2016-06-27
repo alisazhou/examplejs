@@ -1,10 +1,10 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 
-export const fields = [ 'searchText', 'searchCuisine' ];
+const fields = [ 'searchText', 'searchCuisine' ];
 
 
-export class SearchBar extends React.Component {
+class SearchBar extends React.Component {
   render () {
     const { fields: { searchText, searchCuisine }} = this.props;
     return (
@@ -55,3 +55,4 @@ export default reduxForm({
   fields,
   initialValues: { searchText: '', searchCuisine: 'all' },
 }, mapStateToProps)(SearchBar);
+export { fields, SearchBar };

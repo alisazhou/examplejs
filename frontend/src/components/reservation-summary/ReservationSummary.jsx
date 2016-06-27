@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-export class ReservationSummary extends React.Component {
+class ReservationSummary extends React.Component {
   render () {
     let message = 'Please specify time and address.';
     if (this.props.formData) {
@@ -27,3 +27,4 @@ ReservationSummary.propTypes = {
 const mapStateToProps = state => ({ formData: state.form.reservationForm });
 
 export default connect(mapStateToProps)(ReservationSummary);
+export { ReservationSummary };

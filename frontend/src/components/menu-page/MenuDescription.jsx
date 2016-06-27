@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default class MenuDescription extends React.Component {
+class MenuDescription extends React.Component {
   render () {
     return (
       <div>
@@ -18,3 +18,5 @@ MenuDescription.propTypes = {
   description: React.PropTypes.string.isRequired,
   image: React.PropTypes.string.isRequired,
 };
+
+export default MenuDescription;

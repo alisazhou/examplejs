@@ -7,7 +7,7 @@ import SearchBar from '../search-bar/SearchBar.jsx';
 import { combineFilters } from './introPageSelector.js';
 
 
-export class IntroPage extends React.Component {
+class IntroPage extends React.Component {
   render () {
     return <div>
       <p>iChef</p>
@@ -27,3 +27,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(IntroPage);
+export { IntroPage };

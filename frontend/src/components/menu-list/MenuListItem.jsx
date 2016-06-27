@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 
-export default class MenuListItem extends React.Component {
+class MenuListItem extends React.Component {
   render () {
     return (
       <li className='menu-list--item'>
@@ -23,3 +23,5 @@ MenuListItem.propTypes = {
     chef: React.PropTypes.string.isRequired,
   }).isRequired,
 };
+
+export default MenuListItem;

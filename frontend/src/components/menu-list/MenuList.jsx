@@ -2,7 +2,7 @@ import React from 'react';
 import MenuListItem from './MenuListItem.jsx';
 
 
-export default class MenuList extends React.Component {
+class MenuList extends React.Component {
   render () {
     return (
       <ul className='menu-list'>
@@ -17,3 +17,5 @@ export default class MenuList extends React.Component {
 MenuList.propTypes = {
   menus: React.PropTypes.array.isRequired,
 };
+
+export default MenuList;

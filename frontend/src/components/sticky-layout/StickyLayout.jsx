@@ -4,7 +4,7 @@ import shallowCompare from 'react-addons-shallow-compare';
 import Footer from '../footer/Footer.jsx';
 
 
-export default class StickyLayout extends React.Component {
+class StickyLayout extends React.Component {
   // pure render
   shouldComponentUpdate (nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
@@ -27,3 +27,5 @@ export default class StickyLayout extends React.Component {
 StickyLayout.propTypes = {
   children: React.PropTypes.node,
 };
+
+export default StickyLayout;
