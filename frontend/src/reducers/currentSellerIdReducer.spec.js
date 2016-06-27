@@ -1,6 +1,5 @@
 /*eslint-env jest,jasmine */
-jest.unmock('./currentSellerActions.js');
-import { selectSellerActionCreator } from './currentSellerActions.js';
+import { selectSellerActionCreator } from '../actions/currentSellerActions.js';
 import reducer from './currentSellerIdReducer.js';
 
 

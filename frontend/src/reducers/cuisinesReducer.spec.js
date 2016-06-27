@@ -1,5 +1,4 @@
 /* eslint-env jest */
-jest.unmock('./cuisinesReducer.js');
 import cuisinesReducer from './cuisinesReducer.js';
 
 

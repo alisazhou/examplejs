@@ -1,6 +1,6 @@
 // in the sub-reducer, we get passed state.sellers as the state
 
-import { FETCH_SELLERS_REQUEST } from './sellersActions.js';
+import { FETCH_SELLERS_REQUEST } from '../actions/sellersActions.js';
 
 const initialState = [
   { id: 3, name: 'vincent' },
@@ -8,7 +8,7 @@ const initialState = [
   { id: 5, name: 'conrad' },
 ];
 
-const currentStateReducer = (state = initialState, action) => {
+const sellersReducer = (state = initialState, action) => {
   switch (action.type) {
   case FETCH_SELLERS_REQUEST:
     // set flag that fetching is in process
@@ -27,4 +27,4 @@ const currentStateReducer = (state = initialState, action) => {
   return state;
 };
 
-export default currentStateReducer;
+export default sellersReducer;

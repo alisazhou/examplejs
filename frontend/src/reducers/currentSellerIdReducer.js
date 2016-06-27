@@ -1,6 +1,6 @@
 // in the sub-reducer, we get passed state.sellers as the state
 
-import { SELECT_SELLER } from './currentSellerActions.js';
+import { SELECT_SELLER } from '../actions/currentSellerActions.js';
 
 const initialState = -1;
 

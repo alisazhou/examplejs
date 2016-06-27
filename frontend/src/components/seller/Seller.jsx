@@ -1,7 +1,7 @@
 import React from 'react';
 import R from 'ramda';
 import { connect } from 'react-redux';
-import { selectSellerActionCreator } from './currentSellerActions.js';
+import { selectSellerActionCreator } from '../../actions/currentSellerActions.js';
 
 class Seller extends React.Component {
   render () {

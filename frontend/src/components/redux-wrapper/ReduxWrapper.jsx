@@ -4,10 +4,10 @@ import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
 import { browserHistory, IndexRoute, Route, Router } from 'react-router';
 
-import cuisines from '../menu-list/cuisinesReducer.js';
-import sellers from '../seller/sellersReducer.js';
-import currentSellerId from '../seller/currentSellerIdReducer.js';
-import menus from '../menu-page/menusReducer.js';
+import cuisines from '../../reducers/cuisinesReducer.js';
+import currentSellerId from '../../reducers/currentSellerIdReducer.js';
+import menus from '../../reducers/menusReducer.js';
+import sellers from '../../reducers/sellersReducer.js';
 import { reducer as form } from 'redux-form';
 
 import StickyLayout from '../sticky-layout/StickyLayout.jsx';
