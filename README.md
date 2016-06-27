@@ -8,7 +8,6 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- _az_: change Reservation Form to Search Menu Form
 - login and register pages
 
 
@@ -24,3 +23,4 @@ See individual folders for their READMEs
 - webpack
 - switch firefox selenium to phantomjs
 - react router
+- type-as-you-search menus list
