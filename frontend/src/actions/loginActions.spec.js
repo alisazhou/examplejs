@@ -1,6 +1,9 @@
-/* eslint-env jest */
+/* eslint-env jasmine, jest */
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
 import {
-  loginFailure, loginRequest, loginSuccess,
+  loginFailure, loginRequest, loginSuccess, loginUser,
 } from './loginActions.js';
 import {
   LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS,
@@ -46,4 +49,30 @@ describe('synchronous action creators', () => {
     });
   });
 
+});
+
+
+describe('async action creator loginUser', () => {
+  const middlewares = [ thunk ];
+  const mockStore = configureMockStore(middlewares)({ users: [] });
+  const creds = { username: 'username1', password: 'qwerty123' };
+
+  it('creates LOGIN_SUCCESS if 200', () => {
+    const mockResponseText = { token: 'token for username1' };
+    const mockResponse = {
+      json () {
+        return mockResponseText;
+      },
+    };
+    const mockPromise = new Promise(resolve => resolve(mockResponse));
+    spyOn(window, 'fetch').and.returnValue(mockPromise);
+    const expActions = [
+      loginRequest(),
+      loginSuccess(mockResponseText),
+    ];
+    return mockStore.dispatch(loginUser(creds))
+      .then(() => {
+        expect(mockStore.getActions()).toEqual(expActions);
+      });
+  });
 });
