@@ -53,17 +53,36 @@ describe('synchronous action creators', () => {
 
 describe('async action creator loginUser', () => {
   const middlewares = [ thunk ];
-  const mockStore = configureMockStore(middlewares)({ users: [] });
-  const creds = { username: 'username1', password: 'qwerty123' };
+  const creds = { username: 'username', password: 'password' };
+  let mockStore;
+
+  beforeEach(() => {
+    mockStore = configureMockStore(middlewares)({ users: [] });
+  });
 
   it('creates LOGIN_SUCCESS if 200', () => {
-    const mockResponseText = { token: 'token for username1' };
-    const mockResponse = { json: () => mockResponseText };
-    const mockPromise = new Promise(resolve => resolve(mockResponse));
-    spyOn(window, 'fetch').and.returnValue(mockPromise);
+    const mockResponseJson = { token: 'token for username1' };
+    const mockResponse = new Promise(resolve => resolve({
+      json: () => new Promise(resolve => resolve(mockResponseJson)),
+      ok: true,
+    }));
+    spyOn(window, 'fetch').and.returnValue(mockResponse);
     const expActions = [
       loginRequestActionCreator(),
-      loginSuccessActionCreator(mockResponseText.token),
+      loginSuccessActionCreator(mockResponseJson.token),
+    ];
+    return mockStore.dispatch(loginUserActionCreator(creds))
+      .then(() => {
+        expect(mockStore.getActions()).toEqual(expActions);
+      });
+  });
+
+  it('creates LOGIN_FAILURE if 400', () => {
+    const mockResponse = new Promise(resolve => resolve({ ok: false }));
+    spyOn(window, 'fetch').and.returnValue(mockResponse);
+    const expActions = [
+      loginRequestActionCreator(),
+      loginFailureActionCreator('Wrong username/password.'),
     ];
     return mockStore.dispatch(loginUserActionCreator(creds))
       .then(() => {
