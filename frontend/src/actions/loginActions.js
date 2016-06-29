@@ -5,23 +5,23 @@ import {
 } from './actionTypes.js';
 
 
-const loginFailure = errMsg => ({
+const loginFailureActionCreator = errMsg => ({
   type: LOGIN_FAILURE,
   errMsg,
 });
 
-const loginRequest = () => ({
+const loginRequestActionCreator = () => ({
   type: LOGIN_REQUEST,
 });
 
 
-const loginSuccess = user => ({
+const loginSuccessActionCreator = token => ({
   type: LOGIN_SUCCESS,
-  token: user.token,
+  token,
 });
 
 
-const loginUser = creds => {
+const loginUserActionCreator = creds => {
   const config = {
     method: 'POST',
     headers: {
@@ -29,20 +29,22 @@ const loginUser = creds => {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      username: creds.username,
-      password: creds.password,
-    }),
+    body: JSON.stringify(creds),
   };
 
   return dispatch => {
-    dispatch(loginRequest());
+    dispatch(loginRequestActionCreator());
 
-    return fetch('http://127.0.0.1:8000/auth/tokens/', config)
+    return fetch(`http://${window.location.host}/auth/tokens/`, config)
       .then(response => response.json())
-      .then(json => { dispatch(loginSuccess(json)); });
+      .then(json => { dispatch(loginSuccessActionCreator(json.token)); });
   };
 };
 
 
-export { loginFailure, loginRequest, loginSuccess, loginUser };
+export {
+  loginFailureActionCreator,
+  loginRequestActionCreator,
+  loginSuccessActionCreator,
+  loginUserActionCreator,
+};
