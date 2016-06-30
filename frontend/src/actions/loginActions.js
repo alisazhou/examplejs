@@ -35,20 +35,14 @@ const loginUserActionCreator = creds => {
   return dispatch => {
     dispatch(loginRequestActionCreator());
 
-    const checkStatus = response => {
-      if (response.ok) {
-        return response;
-      } else {
-        const err = new Error('Wrong username/password.');
-        throw err;
-      }
-    };
+    const checkStatus = response => (
+      response.ok ? response.json() : Promise.reject('Unable to log in.')
+    );
 
     return fetch(`http://${window.location.host}/auth/tokens/`, config)
       .then(response => checkStatus(response))
-      .then(response => response.json())
       .then(json => dispatch(loginSuccessActionCreator(json.token)))
-      .catch(err => dispatch(loginFailureActionCreator(err.message)));
+      .catch(err => dispatch(loginFailureActionCreator(err)));
   };
 };
 

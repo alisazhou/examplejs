@@ -41,7 +41,7 @@ describe('authReducer', () => {
 
   it('handles LOGIN_REQUEST action', () => {
     const currState = {
-      errMsg: '',
+      errMsg: 'prev error',
       isAuthenticated: false,
       isFetching: false,
       token: '',
@@ -59,7 +59,7 @@ describe('authReducer', () => {
 
   it('handles LOGIN_SUCCESS action', () => {
     const currState = {
-      errMsg: '',
+      errMsg: 'prev error',
       isAuthenticated: false,
       isFetching: true,
       token: '',

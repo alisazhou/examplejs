@@ -82,7 +82,7 @@ describe('async action creator loginUser', () => {
     spyOn(window, 'fetch').and.returnValue(mockResponse);
     const expActions = [
       loginRequestActionCreator(),
-      loginFailureActionCreator('Wrong username/password.'),
+      loginFailureActionCreator('Unable to log in.'),
     ];
     return mockStore.dispatch(loginUserActionCreator(creds))
       .then(() => {

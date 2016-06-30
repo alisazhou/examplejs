@@ -13,11 +13,12 @@ const authReducer = (state = initialState, action) => {
     });
   } else if (action.type === LOGIN_REQUEST) {
     return Object.assign({}, state, {
-      isAuthenticated: false,
+      errMsg: '',
       isFetching: true,
     });
   } else if (action.type === LOGIN_SUCCESS) {
     return Object.assign({}, state, {
+      errMsg: '',
       isAuthenticated: true,
       isFetching: false,
       token: action.token,
