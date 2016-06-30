@@ -11,6 +11,7 @@ import * as selectors from './introPageSelector.js';
 jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuList from '../menu-list/MenuList.jsx';
+import Navbar from '../navbar/Navbar.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
 
 
@@ -32,6 +33,11 @@ describe('IntroPage component', () => {
   it('has a MenuList child component', () => {
     const menuList = R.find(R.propEq('type', MenuList))(result.props.children);
     expect(menuList).toBeDefined();
+  });
+
+  it('has a Navbar child component', () => {
+    const navbar = R.find(R.propEq('type', Navbar))(result.props.children);
+    expect(navbar).toBeDefined();
   });
 
   it('has a SearchBar child component', () => {
