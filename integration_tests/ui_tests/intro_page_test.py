@@ -118,3 +118,18 @@ def test_search_bar_updates_menu_list_by_cuisine(browser):
     click_on_option_by_text(options, 'Indian')
     assert 'Demo Menu 0' not in browser.body_text
     assert 'Demo Menu 1' not in browser.body_text
+
+def test_has_navbar_with_signup_and_login(browser):
+    # find signup and login buttons in navbar
+    navbar = browser.find_element_by_class_name('navbar')
+    # sign up button links to signup
+    signup = browser.find_element_by_class_name('signup_btn')
+    assert signup.text == 'Sign up'
+    signup.click()
+    assert '/signup/' in browser.current_url
+    browser.back()
+    # login button links to login
+    login_button = browser.find_element_by_class_name('login_btn')
+    assert login_button.text == 'Log in'
+    login_button.click()
+    assert '/login/' in browser.current_url

@@ -11,8 +11,6 @@ jest.unmock('./AvailabilityPage.jsx');
 import WrappedPage, { AvailabilityPage } from './AvailabilityPage.jsx';
 
 import Seller from '../seller/Seller.jsx';
-
-jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 jest.unmock('../progress-bar/ProgressBar.jsx');
