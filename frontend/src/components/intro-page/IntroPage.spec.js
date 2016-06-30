@@ -8,7 +8,6 @@ jest.unmock('./IntroPage.jsx');
 import WrappedPage, { IntroPage } from './IntroPage.jsx';
 jest.unmock('./introPageSelector.js');
 import * as selectors from './introPageSelector.js';
-jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuList from '../menu-list/MenuList.jsx';
 import Navbar from '../navbar/Navbar.jsx';

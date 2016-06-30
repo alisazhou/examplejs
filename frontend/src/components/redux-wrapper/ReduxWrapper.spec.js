@@ -5,7 +5,6 @@ import TestUtils from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
 
-jest.unmock('./ReduxWrapper.jsx');
 import WrappedComponent, { store } from './ReduxWrapper.jsx';
 
 

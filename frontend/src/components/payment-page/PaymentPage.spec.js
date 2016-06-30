@@ -8,7 +8,6 @@ import '../../testHelpers.js';
 jest.unmock('./PaymentPage.jsx');
 import WrappedPage, { PaymentPage } from './PaymentPage.jsx';
 
-jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 import PaypalButton from './PaypalButton.jsx';

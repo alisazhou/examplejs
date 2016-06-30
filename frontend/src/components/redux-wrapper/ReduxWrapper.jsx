@@ -1,9 +1,11 @@
 import React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import createLogger from 'redux-logger';
 import { browserHistory, IndexRoute, Route, Router } from 'react-router';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import createLogger from 'redux-logger';
+import thunk from 'redux-thunk';
 
+import auth from '../../reducers/authReducer.js';
 import cuisines from '../../reducers/cuisinesReducer.js';
 import currentSellerId from '../../reducers/currentSellerIdReducer.js';
 import menus from '../../reducers/menusReducer.js';
@@ -20,6 +22,7 @@ import ReservationPage from '../reservation-page/ReservationPage.jsx';
 
 
 const rootReducer = combineReducers({
+  auth,
   cuisines,
   currentSellerId,
   form,
@@ -27,7 +30,7 @@ const rootReducer = combineReducers({
   sellers,
 });
 
-const middlewares = [];
+const middlewares = [ thunk ];
 
 // jest test runner node_env
 if (process.env.NODE_ENV !== 'test') {

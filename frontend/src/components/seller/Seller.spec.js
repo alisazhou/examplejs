@@ -7,7 +7,6 @@ import R from 'ramda';
 jest.unmock('./Seller.jsx');
 import WrappedSeller, { Seller } from './Seller.jsx';
 
-jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 

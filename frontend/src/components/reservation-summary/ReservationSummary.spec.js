@@ -6,7 +6,6 @@ import TestUtils from 'react-addons-test-utils';
 jest.unmock('./ReservationSummary.jsx');
 import WrappedSummary, { ReservationSummary } from './ReservationSummary.jsx';
 
-jest.unmock('../redux-wrapper/ReduxWrapper.jsx');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 

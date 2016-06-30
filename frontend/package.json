@@ -27,7 +27,8 @@
       "<rootDir>/node_modules/redux-thunk/",
       "<rootDir>/node_modules/ramda/",
       "<rootDir>/src/actions/",
-      "<rootDir>/src/reducers/",
+      "<rootDir>/src/components/redux-wrapper/ReduxWrapper.jsx",
+      "<rootDir>/src/reducers/.*Reducer.js",
       "<rootDir>/src/testHelpers.js"
     ],
     "testPathDirs": [
