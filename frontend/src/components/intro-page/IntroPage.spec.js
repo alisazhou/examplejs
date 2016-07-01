@@ -1,4 +1,3 @@
-/*eslint-env jest,jasmine */
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Link } from 'react-router';

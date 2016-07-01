@@ -1,4 +1,3 @@
-/*eslint-env jest,jasmine */
 import { selectSellerActionCreator } from '../actions/currentSellerActions.js';
 import reducer from './currentSellerIdReducer.js';
 

@@ -1,4 +1,3 @@
-/* eslint-env jasmine,jest */
 jest.mock('./authReducerInitialState.js');
 import authReducer from './authReducer.js';
 import {

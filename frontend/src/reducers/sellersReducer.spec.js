@@ -1,5 +1,3 @@
-/*eslint-env jest,jasmine */
-
 import reducer from './sellersReducer.js';
 
 describe('redux state: sellers', () => {

@@ -1,4 +1,3 @@
-/* eslint-env jasmine, jest */
 jest.unmock('./introPageSelector.js');
 import { combineFilters, byText, byCuisine } from './introPageSelector.js';
 

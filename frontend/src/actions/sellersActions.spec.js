@@ -1,5 +1,3 @@
-/*eslint-env jest,jasmine */
-
 jest.unmock('./sellersActions.js');
 import { FETCH_SELLERS_REQUEST } from './sellersActions.js';
 

@@ -1,5 +1,3 @@
-/*eslint-env jest,jasmine */
-
 jest.unmock('./currentSellerActions.js');
 import { SELECT_SELLER, selectSellerActionCreator } from './currentSellerActions.js';
 

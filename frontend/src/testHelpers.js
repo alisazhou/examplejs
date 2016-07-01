@@ -1,5 +1,3 @@
-/*eslint-env jest,jasmine */
-
 import React from 'react';
 import R from 'ramda';
 

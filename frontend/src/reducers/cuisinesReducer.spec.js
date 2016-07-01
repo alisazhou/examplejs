@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import cuisinesReducer from './cuisinesReducer.js';
 
 
