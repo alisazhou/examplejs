@@ -6,18 +6,18 @@ const allMenus = [
   {
     id: 'id0',
     name: 'name0',
+    category: 'category0',
     chef: 'chef0',
     description: 'description0',
     image: 'image0',
-    tagWords: [ 'tag0' ],
   },
   {
     id: 'id1',
     name: 'name1',
+    category: 'category1',
     chef: 'chef1',
     description: 'description1',
     image: 'image1',
-    tagWords: [ 'tag1' ],
   },
 ];
 
@@ -31,10 +31,10 @@ describe('filter menus by searchText', () => {
     const expMenus = [ {
       id: 'id0',
       name: 'name0',
+      category: 'category0',
       chef: 'chef0',
       description: 'description0',
       image: 'image0',
-      tagWords: [ 'tag0' ],
     } ];
     const filteredMenus = byText('name0')(allMenus);
     expect(filteredMenus).toEqual(expMenus);
@@ -44,10 +44,10 @@ describe('filter menus by searchText', () => {
     const expMenus = [ {
       id: 'id1',
       name: 'name1',
+      category: 'category1',
       chef: 'chef1',
       description: 'description1',
       image: 'image1',
-      tagWords: [ 'tag1' ],
     } ];
     const filteredMenus = byText('description1')(allMenus);
     expect(filteredMenus).toEqual(expMenus);
@@ -62,16 +62,16 @@ describe('filter by searchCuisine', () => {
     expect(filteredMenus).toEqual(allMenus);
   });
 
-  it('filters by menu tagWords', () => {
+  it('filters by menu category', () => {
     const expMenus = [ {
       id: 'id1',
       name: 'name1',
+      category: 'category1',
       chef: 'chef1',
       description: 'description1',
       image: 'image1',
-      tagWords: [ 'tag1' ],
     } ];
-    const filteredMenus = byCuisine('tag1')(allMenus);
+    const filteredMenus = byCuisine('category1')(allMenus);
     expect(filteredMenus).toEqual(expMenus);
   });
 });

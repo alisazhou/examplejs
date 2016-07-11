@@ -23,13 +23,11 @@ MenuPage.propTypes = {
   }),
   menu: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
+    category: React.PropTypes.string.isRequired,
     chef: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     description: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired,
-    tagWords: React.PropTypes.arrayOf(
-      React.PropTypes.string.isRequired
-    ).isRequired,
   }),
 };
 

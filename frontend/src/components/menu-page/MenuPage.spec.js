@@ -5,6 +5,7 @@ import '../../testHelpers.js';
 
 jest.unmock('./MenuPage.jsx');
 import WrappedPage, { MenuPage } from './MenuPage.jsx';
+jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuDescription from './MenuDescription.jsx';
 
@@ -15,6 +16,7 @@ const PROPS_FROM_ROUTER = {
 const PROPS_FROM_STORE = {
   menu: {
     id: 'test id',
+    category: 'tent category',
     chef: 'test chef name',
     name: 'test menu name',
     description: 'test description',
