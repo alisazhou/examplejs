@@ -1,4 +1,6 @@
-import { SELECT_MENU } from '../actions/actionTypes.js';
+import {
+  ADD_ORDER_CUSTOMER, SELECT_MENU,
+} from '../actions/actionTypes.js';
 
 
 const orderReducer = (state = {}, action) => {
@@ -7,6 +9,12 @@ const orderReducer = (state = {}, action) => {
       dateTime: action.dateTime,
       menuId: action.menuId,
       partySize: action.partySize,
+    });
+  } else if (action.type === ADD_ORDER_CUSTOMER) {
+    return Object.assign({}, state, {
+      customerName: action.customerName,
+      customerAddress: action.customerAddress,
+      customerTel: action.customerTel,
     });
   }
   return state;
