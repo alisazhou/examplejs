@@ -5,17 +5,17 @@ import {
 
 const orderReducer = (state = {}, action) => {
   if (action.type === SELECT_MENU) {
-    return Object.assign({}, state, {
+    return {...state,
       dateTime: action.dateTime,
       menuId: action.menuId,
       partySize: action.partySize,
-    });
+    };
   } else if (action.type === ADD_ORDER_CUSTOMER) {
-    return Object.assign({}, state, {
+    return {...state, 
       customerName: action.customerName,
       customerAddress: action.customerAddress,
       customerTel: action.customerTel,
-    });
+    };
   }
   return state;
 };
