@@ -8,6 +8,7 @@ import WrappedPage, { MenuPage } from './MenuPage.jsx';
 jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuDescription from './MenuDescription.jsx';
+import OrderAttributes from './OrderAttributes.jsx';
 
 
 const PROPS_FROM_ROUTER = {
@@ -42,6 +43,11 @@ describe('MenuPage react component', () => {
 
   it('has a MenuDescription child component', () => {
     expect(result).toHaveChild(MenuDescription);
+  });
+
+  it('has an OrderAttributes child component', () => {
+    const attrs = R.find(R.propEq('type', OrderAttributes))(result.props.children);
+    expect(attrs).toBeDefined();
   });
 });
 

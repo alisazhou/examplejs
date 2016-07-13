@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import R from 'ramda';
 
 import MenuDescription from './MenuDescription.jsx';
+import OrderAttributes from './OrderAttributes.jsx';
 
 
 class MenuPage extends React.Component {
@@ -11,7 +12,7 @@ class MenuPage extends React.Component {
       <div>
         <h1>{this.props.menu.name}</h1>
         <MenuDescription {...this.props.menu}/>
-        <p>dummy filters</p>
+        <OrderAttributes />
       </div>
     );
   }
