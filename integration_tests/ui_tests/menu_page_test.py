@@ -27,7 +27,7 @@ def test_has_chef_name_and_description(menu_page_browser):
     assert 'cuckoo lis' in menu_page_browser.body_text
     assert 'description 0' in menu_page_browser.body_text
 
-def test_can_specify_order_attrs_and_customer_info(menu_page_browser):
+def test_can_specify_order_attrs(menu_page_browser):
     # find form for order attributes
     attrs = menu_page_browser.find_element_by_class_name('menu_page--attributes')
     # select party size and fill in time, click next
@@ -37,6 +37,8 @@ def test_can_specify_order_attrs_and_customer_info(menu_page_browser):
     click_on_option_by_text(options, '5 ~ 6')
     party_time = attrs.find_element_by_tag_name('input')
     party_time.send_keys('Sat 7pm')
-    # click on next to customer info page
-    # fill in customer info
-    # order is posted to server
+    # click on next to customer info page, 
+    next_btn = menu_page_browser.find_element_by_link_text('Next')
+    next_btn.click()
+    assert '/reservation' in menu_page_browser.current_url
+    # ordered menu is shown

@@ -1,6 +1,5 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { Link } from 'react-router';
 import R from 'ramda';
 
 jest.unmock('./IntroPage.jsx');
@@ -21,11 +20,6 @@ describe('IntroPage component', () => {
 
   it('renders to a div', () => {
     expect(result.type).toBe('div');
-  });
-
-  it('has a Link component to reservation page', () => {
-    const bookNowLink = R.find(R.propEq('type', Link))(result.props.children);
-    expect(bookNowLink.props.to).toEqual('/reservation');
   });
 
   it('has a MenuList child component', () => {

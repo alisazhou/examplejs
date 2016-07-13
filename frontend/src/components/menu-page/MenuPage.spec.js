@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import { Link } from 'react-router';
 import R from 'ramda';
 import '../../testHelpers.js';
 
@@ -48,6 +49,11 @@ describe('MenuPage react component', () => {
   it('has an OrderAttributes child component', () => {
     const attrs = R.find(R.propEq('type', OrderAttributes))(result.props.children);
     expect(attrs).toBeDefined();
+  });
+
+  it('has a Link child to reservation page', () => {
+    const link = R.find(R.propEq('type', Link))(result.props.children);
+    expect(link.props.to).toEqual('/reservation');
   });
 });
 

@@ -1,30 +1,7 @@
 import pytest
 
 
-def test_can_use_progress_bar_to_navigate(browser):
-    # click on button inside of intro page
-    browser.click_link_text('Book Now')
-
-    # click on navbar
-    browser.click_link_text('2. Choose Available People')
-    assert 'Reservation Details' not in browser.body_text
-
-    # return to booking reservation page using navbar
-    browser.click_link_text('1. Booking Details')
-    assert 'Reservation Details' in browser.body_text
-
-
-def test_can_use_footer_to_navigate(browser):
-    # while on intro page, can click to go to contact page
-    browser.click_link_text('Contact Us')
-    assert 'contact' in browser.current_url
-    assert 'Contact Us' in browser.body_text
-    # while on contact page, can click to go back to intro
-    browser.click_link_text('Main Page')
-    ## host_address does not have trailing '/'
-    assert browser.current_url == browser.host_address + '/'
-
-
+@pytest.mark.skip('modify this for MenuPage')
 def test_saves_state_between_pages(browser):
     # click on button inside of intro page
     browser.click_link_text('Book Now')

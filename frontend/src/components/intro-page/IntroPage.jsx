@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 import MenuList from '../menu-list/MenuList.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
@@ -15,7 +14,6 @@ class IntroPage extends React.Component {
       <p>iChef</p>
       <SearchBar />
       <MenuList menus={this.props.menus} />
-      <Link to='/reservation'>Book Now</Link>
     </div>;
   }
 }

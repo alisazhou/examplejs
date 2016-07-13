@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import R from 'ramda';
 
 import MenuDescription from './MenuDescription.jsx';
@@ -13,6 +14,7 @@ class MenuPage extends React.Component {
         <h1>{this.props.menu.name}</h1>
         <MenuDescription {...this.props.menu}/>
         <OrderAttributes />
+        <Link to='/reservation'>Next</Link>
       </div>
     );
   }
