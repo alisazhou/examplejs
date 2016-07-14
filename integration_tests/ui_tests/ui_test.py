@@ -1,6 +1,8 @@
+import pytest
+
+
+@pytest.mark.skip('modify this for reservation page')
 def test_reservations_page_asks_for_information(browser):
-    # click on button inside of intro page
-    browser.click_link_text('Book Now')
     # there are four input fields
     all_inputs = browser.find_elements_by_class_name("reservation_detail")
     assert len(all_inputs) == 4
@@ -19,15 +21,15 @@ def test_reservations_page_asks_for_information(browser):
     assert name_attr_to_label == expected
 
 
+@pytest.mark.skip('modify this for reservation page')
 def test_seller_page_prompts_to_fill_reservation_form_if_empty(browser):
-    browser.click_link_text('Book Now')
     # user is prompted for booking info if reservation form left unfilled
     browser.click_link_text('2. Choose Available People')
     assert 'Please specify time and address' in browser.body_text
 
 
+@pytest.mark.skip('modify this for reservation page')
 def test_seller_page_displays_booking_if_reservation_form_filled(browser):
-    browser.click_link_text('Book Now')
     # fill reservation form
     booking = {
         "name": "test_name",
@@ -43,9 +45,8 @@ def test_seller_page_displays_booking_if_reservation_form_filled(browser):
     assert "Address: test_address" in browser.body_text
 
 
+@pytest.mark.skip('modify this for reservation page')
 def test_make_reservations(browser):
-    # click on button inside of intro page
-    browser.click_link_text('Book Now')
     assert 'Reservation Details' in browser.body_text
 
     # enter details
@@ -78,10 +79,8 @@ def test_make_reservations(browser):
     # select details based on availability
 
 
+@pytest.mark.skip('modify this for reservation page')
 def test_can_make_payment(browser):
-    # click on button inside of intro page
-    browser.click_link_text('Book Now')
-
     # fill in information into form
     #
     #

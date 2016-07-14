@@ -1,4 +1,5 @@
 import cuisinesReducer from './cuisinesReducer.js';
+jest.unmock('./cuisinesReducerInitialState.js');
 
 
 describe('cuisines reducer', () => {

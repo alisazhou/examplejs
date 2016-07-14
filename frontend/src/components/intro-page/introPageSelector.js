@@ -15,7 +15,7 @@ const byCuisine = cuisine => menus => {
   if (cuisine === 'all') {
     return menus;
   }
-  return menus.filter(menu => menu.tagWords.includes(cuisine));
+  return menus.filter(menu => menu.category === cuisine);
 };
 
 

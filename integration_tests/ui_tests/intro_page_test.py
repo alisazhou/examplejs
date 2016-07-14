@@ -108,11 +108,6 @@ def test_search_bar_updates_menu_list_by_cuisine(browser):
     click_on_option_by_text(options, 'All')
     assert 'Demo Menu 0' in browser.body_text
     assert 'Demo Menu 1' in browser.body_text
-    # choose French, both menus are shown
-    select.click()
-    click_on_option_by_text(options, 'French')
-    assert 'Demo Menu 0' in browser.body_text
-    assert 'Demo Menu 1' in browser.body_text
     # choose Indian, neither menus are shown
     select.click()
     click_on_option_by_text(options, 'Indian')
