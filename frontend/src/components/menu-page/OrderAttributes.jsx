@@ -1,29 +1,28 @@
 import React from 'react';
-import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 import partySizeOptions from './orderAttributesConstants.js';
+import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
-
-const fields = [ 'partySize', 'dateTime' ];
 
 class OrderAttributes extends React.Component {
   render () {
-    const { fields: { partySize, dateTime }} = this.props;
     return (
       <form className='menu_page--attributes'>
         <label>How many guests?
           <select
-            {...partySize}
-            value={partySize.value||''}>
+            value={this.props.partySize}
+            onChange={e => this.props.updateOrder({partySize: e.target.value})}>
           {partySizeOptions.map(size =>
-            <option key={size.value} value={size.value}> {size.label} </option>
+            <option key={size.value} value={size.label}>{size.label}</option>
           )}
           </select>
         </label>
         <label>When's the party?
           <input
             placeholder='Fri 8pm'
-            {...dateTime}/>
+            value={this.props.dateTime}
+            onChange={e => this.props.updateOrder({dateTime: e.target.value})} />
         </label>
       </form>
     );
@@ -31,20 +30,19 @@ class OrderAttributes extends React.Component {
 }
 
 OrderAttributes.propTypes = {
-  fields: React.PropTypes.shape({
-    partySize: React.PropTypes.shape({
-      value: React.PropTypes.string.isRequired,
-    }).isRequired,
-    dateTime: React.PropTypes.shape({
-      value: React.PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  dateTime: React.PropTypes.string.isRequired,
+  partySize: React.PropTypes.string.isRequired,
+  updateOrder: React.PropTypes.func.isRequired,
 };
 
-export default reduxForm({
-  form: 'orderAttributes',
-  fields,
-  destroyOnUnmount: false,
-})(OrderAttributes);
+const mapStateToProps = state => ({
+  dateTime: state.order.dateTime || '',
+  partySize: state.order.partySize || '',
+});
 
-export { fields, OrderAttributes };
+const mapDispatchToProps = dispatch => ({
+  updateOrder: update => { dispatch(updateOrderActionCreator(update)); },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderAttributes);
+export { OrderAttributes };
