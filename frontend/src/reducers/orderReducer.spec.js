@@ -1,6 +1,7 @@
 import orderReducer from './orderReducer.js';
 import {
-  ADD_ORDER_CUSTOMER, SELECT_MENU,
+  ADD_ORDER_CUSTOMER,
+  UPDATE_ORDER,
 } from '../actions/actionTypes.js';
 
 
@@ -19,24 +20,60 @@ describe('order reducer', () => {
     expect(nextState).toEqual({});
   });
 
-  it('handles select menu action', () => {
-    const selectMenuAction = {
-      type: SELECT_MENU,
-      dateTime: 'time0',
-      menuId: 'menu0',
-      partySize: 1,
-    };
-    const expState = {
-      customerName: '',
-      customerAddress: '',
-      customerTel: '',
-      dateTime: 'time0',
-      menuId: 'menu0',
-      partySize: 1,
-    };
-    const nextState = orderReducer(currState, selectMenuAction);
-    expect(nextState).toEqual(expState);
-    expect(nextState).not.toBe(currState);
+  describe('handles update order action', () => {
+    it('updates dateTime', () => {
+      const updateAction = {
+        type: UPDATE_ORDER,
+        update: { dateTime: 'time0' },
+      };
+      const expState = {
+        customerName: '',
+        customerAddress: '',
+        customerTel: '',
+        dateTime: 'time0',
+        menuId: '',
+        partySize: 0,
+      };
+      const nextState = orderReducer(currState, updateAction);
+      expect(nextState).toEqual(expState);
+      expect(nextState).not.toBe(currState);
+    });
+
+    it('updates menuId', () => {
+      const updateAction = {
+        type: UPDATE_ORDER,
+        update: { menuId: 'menu0' },
+      };
+      const expState = {
+        customerName: '',
+        customerAddress: '',
+        customerTel: '',
+        dateTime: '',
+        menuId: 'menu0',
+        partySize: 0,
+      };
+      const nextState = orderReducer(currState, updateAction);
+      expect(nextState).toEqual(expState);
+      expect(nextState).not.toBe(currState);
+    });
+
+    it('updates partySize', () => {
+      const updateAction = {
+        type: UPDATE_ORDER,
+        update: { partySize: 1 },
+      };
+      const expState = {
+        customerName: '',
+        customerAddress: '',
+        customerTel: '',
+        dateTime: '',
+        menuId: '',
+        partySize: 1,
+      };
+      const nextState = orderReducer(currState, updateAction);
+      expect(nextState).toEqual(expState);
+      expect(nextState).not.toBe(currState);
+    });
   });
 
   it('handles add customer to order action', () => {

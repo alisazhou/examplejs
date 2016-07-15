@@ -9,6 +9,7 @@ import auth from '../../reducers/authReducer.js';
 import cuisines from '../../reducers/cuisinesReducer.js';
 import currentSellerId from '../../reducers/currentSellerIdReducer.js';
 import menus from '../../reducers/menusReducer.js';
+import order from '../../reducers/orderReducer.js';
 import sellers from '../../reducers/sellersReducer.js';
 import { reducer as form } from 'redux-form';
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   currentSellerId,
   form,
   menus,
+  order,
   sellers,
 });
 
