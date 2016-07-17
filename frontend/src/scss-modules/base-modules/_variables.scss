@@ -6,6 +6,7 @@ $root-font-size: 4vh;
 // http://www.sitepoint.com/sass-multiple-arguments-lists-or-arglist/
 // Colors
 $colors: (
+  white: #fff,
   blue: #477dca,
   hard-black: #333,
   soft-black: #555,
@@ -13,6 +14,7 @@ $colors: (
   light-gray: #ddd,
   bright-green: #65F3B3,
   bright-blue: #14BCC8,
+  nav-bg: #ce172b,
 );
 
 $base-font: (
@@ -69,3 +71,14 @@ $navbar-min-height: map-get($base-font, spacing) + 0.4rem; //buttons
 // $visual-grid: true;
 // $visual-grid-color: #faa;
 // $visual-grid-index: front;
+
+
+// widths
+
+$widths: (
+  nn: 30em,
+  tn: 36em,
+  sm: 46em,
+  md: 58em,
+  lg: 70em,
+);
