@@ -14,7 +14,7 @@ class Navbar extends React.Component {
             <button type='button'>iChef</button>
           </div>
           <div className='navbar--buttons--title'/>
-          { this.props.isAuthenticated ? <ProfileButton className='navbar--buttons--login'/> : <AuthBlock className='navbar--buttons--login'/> }
+          { this.props.isAuthenticated ? <ProfileButton /> : <AuthBlock /> }
         </div>
       </div>
     );
