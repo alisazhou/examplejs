@@ -27,14 +27,14 @@ describe('AuthBlock dumb component', () => {
     it('first AuthButton is for signup', () => {
       const signup = authButtons[0];
       expect(signup.props.linkTo).toBe('/signup/');
-      expect(signup.props.className).toBe('signup_btn');
+      expect(signup.props.className).toBe('navbar--buttons--not-logged-in--signup_btn');
       expect(signup.props.content).toBe('Sign up');
     });
 
     it('second AuthButton is for login', () => {
       const login = authButtons[1];
       expect(login.props.linkTo).toBe('/login/');
-      expect(login.props.className).toBe('login_btn');
+      expect(login.props.className).toBe('navbar--buttons--not-logged-in--login_btn');
       expect(login.props.content).toBe('Log in');
     });
   });

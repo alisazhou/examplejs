@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import '../../testHelpers.js';
 
 jest.unmock('./Navbar.jsx');
 import WrappedBar, { Navbar } from './Navbar.jsx';
@@ -11,32 +12,44 @@ import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 describe('Navbar dumb component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   const PROPS_FROM_REDUX = { isAuthenticated: false };
+  shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} />);
+  const result = shallowRenderer.getRenderOutput();
 
-  it('renders to a div', () => {
-    shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} />);
-    const result = shallowRenderer.getRenderOutput();
+  it('renders to a single div with class name navbar', () => {
     expect(result.type).toBe('div');
+    expect(result.props.className).toBe('navbar');
   });
 
-  describe('when user is not authenticated', () => {
-    shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} />);
-    const result = shallowRenderer.getRenderOutput();
+  const resultButtons = React.Children.only(result.props.children);
+  it('has one child div with classname navbar--buttons', () => {
+    expect(resultButtons.type).toBe('div');
+    expect(resultButtons.props.className).toBe('navbar--buttons');
+  });
 
-    it('has an AuthBlock child component', () => {
-      expect(result.props.children.type).toBe(AuthBlock);
+  describe('navbar--buttons', () => {
+    it('has a navbar--buttons--home', () => {
+      const homeButton = resultButtons.props.children[0];
+      expect(homeButton.type).toBe('div');
+      expect(homeButton.props.className).toBe('navbar--buttons--home');
+    });
+    it('has a navbar--buttons--title', () => {
+      const titleButton = resultButtons.props.children[1];
+      expect(titleButton.type).toBe('div');
+      expect(titleButton.props.className).toBe('navbar--buttons--title');
     });
 
-  });
-
-  describe('when user is authenticated', () => {
-    const PROPS_FROM_REDUX = { isAuthenticated: true };
-    shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} />);
-    const result = shallowRenderer.getRenderOutput();
-
-    it('has one ProfileButton component', () => {
-      expect(result.props.children.type).toBe(ProfileButton);
+    it('has one AuthBlock component when not authenticated', () => {
+      expect(resultButtons).toHaveChild(AuthBlock);
+    });
+    it('has one ProfileButton component when authenticated', () => {
+      const PROPS_FROM_REDUX = { isAuthenticated: true };
+      shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} />);
+      const result = shallowRenderer.getRenderOutput();
+      const resultButtons = React.Children.only(result.props.children);
+      expect(resultButtons).toHaveChild(ProfileButton);
     });
   });
+
 });
 
 
