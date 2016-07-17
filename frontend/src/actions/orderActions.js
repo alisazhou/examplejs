@@ -1,6 +1,4 @@
-import {
-  ADD_ORDER_CUSTOMER, SELECT_MENU,
-} from './actionTypes.js';
+import { ADD_ORDER_CUSTOMER, UPDATE_ORDER } from './actionTypes.js';
 
 
 const addOrderCustomerActionCreator = customer => ({
@@ -8,11 +6,12 @@ const addOrderCustomerActionCreator = customer => ({
   ...customer,
 });
 
-const selectMenuActionCreator = (dateTime, menuId, partySize) => ({
-  type: SELECT_MENU,
-  dateTime, menuId, partySize,
+const updateOrderActionCreator = update => ({
+  type: UPDATE_ORDER,
+  update,
 });
 
 export {
-  addOrderCustomerActionCreator, selectMenuActionCreator,
+  addOrderCustomerActionCreator,
+  updateOrderActionCreator,
 };

@@ -1,7 +1,7 @@
 import pytest
+from selenium.webdriver.support.ui import Select
 
 from browser_fixture import BaseBrowser, get_browser_fixture_of_class
-from components import click_on_option_by_text
 
 class MenuPageBrowser(BaseBrowser):
     def __init__(self, *args, **kwargs):
@@ -27,18 +27,23 @@ def test_has_chef_name_and_description(menu_page_browser):
     assert 'cuckoo lis' in menu_page_browser.body_text
     assert 'description 0' in menu_page_browser.body_text
 
-def test_can_specify_order_attrs(menu_page_browser):
+def test_can_save_specified_order_attrs(menu_page_browser):
     # find form for order attributes
     attrs = menu_page_browser.find_element_by_class_name('menu_page--attributes')
     # select party size and fill in time, click next
-    party_size = attrs.find_element_by_tag_name('select')
-    party_size.click()
-    options = party_size.find_elements_by_tag_name('option')
-    click_on_option_by_text(options, '5 ~ 6')
+    party_size = Select(attrs.find_element_by_tag_name('select'))
+    party_size.select_by_visible_text('5 ~ 6')
     party_time = attrs.find_element_by_tag_name('input')
     party_time.send_keys('Sat 7pm')
     # click on next to customer info page, 
     next_btn = menu_page_browser.find_element_by_link_text('Next')
     next_btn.click()
     assert '/reservation' in menu_page_browser.current_url
-    # ordered menu is shown
+    # TODO: ordered menu is shown
+    # go back, order attributes are preserved
+    menu_page_browser.back()
+    attrs = menu_page_browser.find_element_by_class_name('menu_page--attributes')
+    party_size = Select(attrs.find_element_by_tag_name('select'))
+    assert '5 ~ 6' in party_size.first_selected_option.text
+    party_time = attrs.find_element_by_tag_name('input')
+    assert party_time.get_attribute('value') == 'Sat 7pm'

@@ -1,7 +1,8 @@
 import pytest
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import Select
 
-from components import click_on_nth_menu, click_on_option_by_text
+from components import click_on_nth_menu
 from browser_fixture import BaseBrowser, get_browser_fixture_of_class
 
 class IntroPageBrowser(BaseBrowser):
@@ -33,11 +34,9 @@ def test_there_is_search_bar(browser):
     search_bar = browser.find_element_by_class_name('search-bar')
     input_box = search_bar.find_element_by_tag_name('input')
     assert input_box.get_attribute('placeholder') == 'I feel like having...'
-    dropdown = search_bar.find_element_by_tag_name('select')
-    options = dropdown.find_elements_by_tag_name('option')
-    assert len(options) == 5
-    options_text = [opt.text for opt in options]
-    assert options_text == [ 'All', 'American', 'Chinese', 'French', 'Indian' ]
+    dropdown = Select(search_bar.find_element_by_tag_name('select'))
+    options_text = [opt.text for opt in dropdown.options]
+    assert options_text == ['All', 'American', 'Chinese', 'French', 'Indian']
 
 def test_search_bar_updates_menu_list_by_name(browser):
     # find search bar input
@@ -91,26 +90,21 @@ def test_search_bar_udpates_menu_list_by_description(browser):
 
 def test_search_bar_updates_menu_list_by_cuisine(browser):
     # find search bar select and options
-    select = browser.find_element_by_css_selector('.search-bar select')
-    options = select.find_elements_by_tag_name('option')
+    select = Select(browser.find_element_by_css_selector('.search-bar select'))
     # choose American, only first menu is shown
-    select.click()
-    click_on_option_by_text(options, 'American')
+    select.select_by_visible_text('American')
     assert 'Demo Menu 0' in browser.body_text
     assert 'Demo Menu 1' not in browser.body_text
     # choose Chinese, only second menu is shown
-    select.click()
-    click_on_option_by_text(options, 'Chinese')
+    select.select_by_visible_text('Chinese')
     assert 'Demo Menu 0' not in browser.body_text
     assert 'Demo Menu 1' in browser.body_text
     # choose All, both menus are shown
-    select.click()
-    click_on_option_by_text(options, 'All')
+    select.select_by_visible_text('All')
     assert 'Demo Menu 0' in browser.body_text
     assert 'Demo Menu 1' in browser.body_text
     # choose Indian, neither menus are shown
-    select.click()
-    click_on_option_by_text(options, 'Indian')
+    select.select_by_visible_text('Indian')
     assert 'Demo Menu 0' not in browser.body_text
     assert 'Demo Menu 1' not in browser.body_text
 

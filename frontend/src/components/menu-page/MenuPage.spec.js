@@ -10,6 +10,7 @@ jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuDescription from './MenuDescription.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
+import * as actions from '../../actions/orderActions.js';
 
 
 const PROPS_FROM_ROUTER = {
@@ -25,6 +26,7 @@ const PROPS_FROM_STORE = {
     image: 'test image src',
     tagWords: [ 'test tag 0', 'test tag 1' ],
   },
+  updateOrder: () => {},
 };
 describe('MenuPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -73,4 +75,14 @@ describe('MenuPage smart component', () => {
     expect(result.props.menu).toBeDefined();
   });
 
+  it('calls dispatch with the correct callbacks', () => {
+    spyOn(store, 'dispatch');
+    spyOn(actions, 'updateOrderActionCreator').and.returnValue('update order');
+    const rendered = TestUtils.renderIntoDocument(
+      <WrappedPage store={store} {...PROPS_FROM_ROUTER} />
+    );
+    const button = TestUtils.findRenderedDOMComponentWithTag(rendered, 'button');
+    TestUtils.Simulate.click(button);
+    expect(store.dispatch).toHaveBeenCalledWith('update order');
+  });
 });

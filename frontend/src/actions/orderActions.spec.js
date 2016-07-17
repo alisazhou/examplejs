@@ -1,8 +1,10 @@
 import {
-  addOrderCustomerActionCreator, selectMenuActionCreator,
+  addOrderCustomerActionCreator,
+  updateOrderActionCreator,
 } from './orderActions.js';
 import {
-  ADD_ORDER_CUSTOMER, SELECT_MENU,
+  ADD_ORDER_CUSTOMER,
+  UPDATE_ORDER,
 } from './actionTypes.js';
 
 
@@ -22,16 +24,10 @@ describe('synchronous action creators', () => {
     expect(actualAction).toEqual(expAction);
   });
 
-  it('selectMenu action creator should create SELECT_MENU action', () => {
-    const dateTime = 'time0';
-    const menuId = 'menu0';
-    const partySize = 1;
-    const expAction = {
-      type: SELECT_MENU,
-      dateTime, menuId, partySize,
-    };
-    const actualAction = selectMenuActionCreator(dateTime, menuId, partySize);
+  it('updateOrderActionCreator should create UPDATE_ORDER action', () => {
+    const update = { attr: '' };
+    const expAction = { type: UPDATE_ORDER, update };
+    const actualAction = updateOrderActionCreator(update);
     expect(actualAction).toEqual(expAction);
   });
-
 });
