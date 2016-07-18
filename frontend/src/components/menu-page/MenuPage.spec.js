@@ -9,7 +9,7 @@ jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuDescription from './MenuDescription.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
-import LinkButton from '../link-button/LinkButton';
+import LinkButton from '../link-button/LinkButton.jsx';
 // import * as actions from '../../actions/orderActions.js';
 
 

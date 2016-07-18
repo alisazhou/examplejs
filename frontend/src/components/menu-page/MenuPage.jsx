@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
-import LinkButton from '../link-button/LinkButton';
-import MenuDescription from './MenuDescription';
-import OrderAttributes from './OrderAttributes';
+import LinkButton from '../link-button/LinkButton.jsx';
+import MenuDescription from './MenuDescription.jsx';
+import OrderAttributes from './OrderAttributes.jsx';
 import { updateOrderActionCreator } from '../../actions/orderActions';
 
 
@@ -16,7 +16,7 @@ class MenuPage extends React.Component {
         <MenuDescription {...this.props.menu}/>
         <OrderAttributes />
         <LinkButton
-          toLink='/reservation'
+          linkTo='/reservation'
           content='Next'
           btnProps={{onClick: this.props.updateOrder}}
         />
