@@ -23,23 +23,13 @@ describe('ReservationForm react component', () => {
     expect(result.type).toBe('form');
   });
 
-  xit('handles validate', () => {
-    // Should be part of integration test?
-  });
-
-  it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'fields', 'handleSubmit' ];
-    R.forEach(
-      prop => expect(R.has(prop)(ReservationForm.propTypes)).toBe(true),
-      expectedPropTypes
-    );
-  });
-
-  describe('child button', () => {
-    const button = R.last(result.props.children);
-    it('has an onClick props with the correct callback', () => {
-      expect(button.props.onClick).toBe(mockHandleSubmit);
-    });
+  it('has three input fields wrapped in label', () => {
+    const fieldLabels = result.props.children;
+    expect(fieldLabels.length).toEqual(3);
+    R.forEach(label => expect(label.type).toBe('label'), fieldLabels);
+    const findInput = node =>
+      R.find(R.propEq('type', 'input'))(node.props.children);
+    R.forEach(label => expect(findInput(label)).toBeDefined(), fieldLabels);
   });
 
 });

@@ -6,43 +6,30 @@ const fields = [ 'name', 'tel', 'address', 'time' ];
 
 class ReservationForm extends React.Component {
   render () {
-    const {
-      fields: {name, tel, address, time},
-      handleSubmit,
-    } = this.props;
-
+    const { name, tel, address } = this.props.fields;
     return (
-      <form>
-        <p>Customize your Reservation Details</p>
+      <form className='reservation_form'>
         <label>Name:
           <input
             type='text'
-            className='reservation_detail'
+            className='reservation_form--name'
             {...name}
           />
         </label>
         <label>Mobile:
           <input
             type='text'
-            className='reservation_detail'
+            className='reservation_form--tel'
             {...tel}
           />
         </label>
         <label>Address:
           <input
             type='text'
-            className='reservation_detail'
+            className='reservation_form--add'
             {...address}
           />
         </label>
-        <label>Preferred time:
-          <input
-            type='text'
-            className='reservation_detail'
-            {...time}
-          />
-        </label>
-        <button type='submit' onClick={handleSubmit}>confirm</button>
       </form>
     );
   }
@@ -50,7 +37,6 @@ class ReservationForm extends React.Component {
 
 ReservationForm.propTypes = {
   fields: React.PropTypes.object.isRequired,
-  handleSubmit: React.PropTypes.func.isRequired,
 };
 
 export default reduxForm({
