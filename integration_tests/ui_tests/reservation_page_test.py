@@ -29,6 +29,22 @@ def test_ordered_menu_is_shown(res_page_browser):
         assert label in res_page_browser.body_text
         assert content in res_page_browser.body_text
 
+def test_saves_reservation_detail_between_pages(res_page_browser):
+    # fill res form, click next
+    res_page_browser.fill_reservation_form_and_submit(
+        'alisa', 'az add', 'az tel')
+    # go back, reservation details are still shown
+    res_page_browser.back()
+    name_field = res_page_browser.find_element_by_class_name(
+        'reservation_form--name')
+    assert name_field.get_attribute('value') == 'alisa'
+    add_field = res_page_browser.find_element_by_class_name(
+        'reservation_form--add')
+    assert add_field.get_attribute('value') == 'az add'
+    tel_field = res_page_browser.find_element_by_class_name(
+        'reservation_form--tel')
+    assert tel_field.get_attribute('value') == 'az tel'
+
 def test_links_to_payment_page(res_page_browser):
     # fill res form, click next, lands on payment page
     res_page_browser.fill_reservation_form_and_submit(
