@@ -5,20 +5,20 @@ import AuthButton from './AuthButton.jsx';
 
 class AuthBlock extends React.Component {
   render () {
-    const cssClassName = 'navbar--buttons--not-logged-in';
+    const blockName = 'navbar-buttons';
     const loginBtnProps = {
-      className: `${ cssClassName }--login_btn`,
+      className: `${ blockName }__user-login-btn`,
       content: 'Log in',
       linkTo: '/login/',
     };
     const signupBtnProps = {
-      className: `${ cssClassName }--signup_btn`,
+      className: `${ blockName }__user-signup-btn`,
       content: 'Sign up',
       linkTo: '/signup/',
     };
 
     return (
-      <div className={cssClassName}>
+      <div className={`${ blockName }__user-div`}>
         <AuthButton {...signupBtnProps} />
         <AuthButton {...loginBtnProps} />
       </div>

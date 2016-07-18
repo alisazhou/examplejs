@@ -3,31 +3,19 @@
     @extend .overflow-auto, .p1, .white;
     background-color: map-get($colors, nav-bg);
 
-    button { @extend .btn, .white; }
+}
 
-    &--buttons {
-        @extend .mx-auto;
-        // don't start at the edge of the screen if screen very wide
-        @include max-width("lg");
+.navbar-buttons {
+    @extend .mx-auto;
+    // don't start at the edge of the screen if screen very wide
+    @include max-width("lg");
 
-        &--home {
-            @extend .col, .col-3;
-            button { @extend .py1; }
-        }
+    &__home-div { @extend .col, .col-3; }
+    &__home-btn { @extend .btn, .white, .py1; }
 
-        &--title {
-            @extend .col, .col-6, .flex;
-        }
+    &__title-div { @extend .col, .col-6, .flex; }
 
-        &--not-logged-in {
-            @extend .col, .col-3, .flex;
-
-            a { @extend .white; }
-
-            &--login_btn button {
-                @extend .btn-outline, .ml1;
-            }
-        }
-    }
-
+    &__user-div { @extend .col, .col-3, .flex; }
+    &__user-login-btn { @extend .btn, .white, .btn-outline, .ml1; }
+    &__user-signup-btn { @extend .btn, .white; }
 }

@@ -21,21 +21,21 @@ describe('Navbar dumb component', () => {
   });
 
   const resultButtons = React.Children.only(result.props.children);
-  it('has one child div with classname navbar--buttons', () => {
+  it('has one child div with classname navbar-buttons', () => {
     expect(resultButtons.type).toBe('div');
-    expect(resultButtons.props.className).toBe('navbar--buttons');
+    expect(resultButtons.props.className).toBe('navbar-buttons');
   });
 
-  describe('navbar--buttons', () => {
-    it('has a navbar--buttons--home', () => {
+  describe('navbar-buttons', () => {
+    it('has a navbar-buttons__home-div', () => {
       const homeButton = resultButtons.props.children[0];
       expect(homeButton.type).toBe('div');
-      expect(homeButton.props.className).toBe('navbar--buttons--home');
+      expect(homeButton.props.className).toBe('navbar-buttons__home-div');
     });
-    it('has a navbar--buttons--title', () => {
+    it('has a navbar-buttons__title-dev', () => {
       const titleButton = resultButtons.props.children[1];
       expect(titleButton.type).toBe('div');
-      expect(titleButton.props.className).toBe('navbar--buttons--title');
+      expect(titleButton.props.className).toBe('navbar-buttons__title-div');
     });
 
     it('has one AuthBlock component when not authenticated', () => {

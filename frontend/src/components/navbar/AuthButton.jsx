@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 class AuthButton extends React.Component {
   render () {
     return (
-      <Link to={this.props.linkTo} className={this.props.className} >
-        <button>{this.props.content}</button>
+      <Link to={this.props.linkTo}>
+        <button className={this.props.className}>{this.props.content}</button>
       </Link>
     );
   }
