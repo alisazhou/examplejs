@@ -1,6 +1,5 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { Link } from 'react-router';
 import R from 'ramda';
 import '../../testHelpers.js';
 
@@ -10,13 +9,14 @@ jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuDescription from './MenuDescription.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
-import * as actions from '../../actions/orderActions.js';
+import LinkButton from '../link-button/LinkButton';
+// import * as actions from '../../actions/orderActions.js';
 
 
 const PROPS_FROM_ROUTER = {
   params: { menuId: '0' },
 };
-const PROPS_FROM_STORE = {
+const PROPS_FROM_REDUX = {
   menu: {
     id: 'test id',
     category: 'tent category',
@@ -31,7 +31,7 @@ const PROPS_FROM_STORE = {
 describe('MenuPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
-    <MenuPage {...PROPS_FROM_ROUTER} {...PROPS_FROM_STORE} />
+    <MenuPage {...PROPS_FROM_ROUTER} {...PROPS_FROM_REDUX} />
   );
   const result = shallowRenderer.getRenderOutput();
 
@@ -39,7 +39,7 @@ describe('MenuPage react component', () => {
     expect(result.type).toBe('div');
   });
 
-  it('displays menu name dynamically based on id', () => {
+  it('displays menu name', () => {
     const header = R.find(R.propEq('type', 'h1'))(result.props.children);
     expect(header.props.children).toBe('test menu name');
   });
@@ -53,9 +53,11 @@ describe('MenuPage react component', () => {
     expect(attrs).toBeDefined();
   });
 
-  it('has a Link child to reservation page', () => {
-    const link = R.find(R.propEq('type', Link))(result.props.children);
-    expect(link.props.to).toEqual('/reservation');
+  it('has a LinkButton child', () => {
+    expect(result).toHaveChild(LinkButton);
+  });
+  it('has a LinkButton child with the correct properties', () => {
+    // rewrite testhelper toHaveChild to also check properties
   });
 });
 
@@ -75,14 +77,7 @@ describe('MenuPage smart component', () => {
     expect(result.props.menu).toBeDefined();
   });
 
-  it('calls dispatch with the correct callbacks', () => {
-    spyOn(store, 'dispatch');
-    spyOn(actions, 'updateOrderActionCreator').and.returnValue('update order');
-    const rendered = TestUtils.renderIntoDocument(
-      <WrappedPage store={store} {...PROPS_FROM_ROUTER} />
-    );
-    const button = TestUtils.findRenderedDOMComponentWithTag(rendered, 'button');
-    TestUtils.Simulate.click(button);
-    expect(store.dispatch).toHaveBeenCalledWith('update order');
+  xit('has correct dispatch function given to LinkButton', () => {
+    //
   });
 });

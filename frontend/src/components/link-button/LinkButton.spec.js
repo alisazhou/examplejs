@@ -8,7 +8,7 @@ import LinkButton from './LinkButton.jsx';
 
 const PROPS_FROM_PARENT = {
   linkTo: '/go/to/here',
-  btnClassName: 'bem-y-class-name',
+  btnProps: {className: 'bem-y-class-name', onClick: () => {}},
   content: 'insightful descriptions',
 };
 
@@ -29,8 +29,8 @@ describe('LinkButton component', () => {
   it('has a single child button component', () => {
     expect(child.type).toBe('button');
   });
-  it('gives correct className button child', () => {
-    expect(child.props.className).toEqual(PROPS_FROM_PARENT.btnClassName);
+  it('gives correct props to button child', () => {
+    expect(child.props).toEqual(jasmine.objectContaining(PROPS_FROM_PARENT.btnProps));
   });
   it('gives correct text to button child', () => {
     expect(child.props.children).toEqual(PROPS_FROM_PARENT.content);

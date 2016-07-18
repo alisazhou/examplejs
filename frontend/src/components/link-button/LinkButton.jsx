@@ -5,14 +5,14 @@ class LinkButton extends React.Component {
   render () {
     return (
       <Link to={this.props.linkTo}>
-        <button className={this.props.btnClassName}>{this.props.content}</button>
+        <button {...this.props.btnProps}>{this.props.content}</button>
       </Link>
     );
   }
 }
 
 LinkButton.propTypes = {
-  btnClassName: React.PropTypes.string.isRequired,
+  btnProps: React.PropTypes.object.isRequired,
   content: React.PropTypes.string.isRequired,
   linkTo: React.PropTypes.string.isRequired,
 };

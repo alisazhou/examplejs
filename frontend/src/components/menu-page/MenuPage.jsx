@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import R from 'ramda';
 
-import MenuDescription from './MenuDescription.jsx';
-import OrderAttributes from './OrderAttributes.jsx';
-import { updateOrderActionCreator } from '../../actions/orderActions.js';
+import LinkButton from '../link-button/LinkButton';
+import MenuDescription from './MenuDescription';
+import OrderAttributes from './OrderAttributes';
+import { updateOrderActionCreator } from '../../actions/orderActions';
 
 
 class MenuPage extends React.Component {
@@ -15,9 +15,11 @@ class MenuPage extends React.Component {
         <h1>{this.props.menu.name}</h1>
         <MenuDescription {...this.props.menu}/>
         <OrderAttributes />
-        <Link to='/reservation'>
-          <button onClick={this.props.updateOrder}>Next</button>
-        </Link>
+        <LinkButton
+          toLink='/reservation'
+          content='Next'
+          btnProps={{onClick: this.props.updateOrder}}
+        />
       </div>
     );
   }
