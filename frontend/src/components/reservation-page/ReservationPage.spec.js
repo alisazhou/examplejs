@@ -6,9 +6,9 @@ import R from 'ramda';
 
 jest.unmock('./ReservationPage.jsx');
 import ReservationPage from './ReservationPage.jsx';
-
-import ReservationForm from './ReservationForm.jsx';
+import MenuSummary from './MenuSummary.jsx';
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
+import ReservationForm from './ReservationForm.jsx';
 
 describe('ReservationPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -17,6 +17,9 @@ describe('ReservationPage react component', () => {
 
   it('renders to a div', () => {
     expect(result.type).toBe('div');
+  });
+  it('has a MenuSummary component', () => {
+    expect(result).toHaveChild(MenuSummary);
   });
   it('has a ProgressBar component', () => {
     expect(result).toHaveChild(ProgressBar);
