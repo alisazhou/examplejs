@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
+import MenuSummary from '../order-summary/MenuSummary.jsx';
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
 import PaypalButton from './PaypalButton.jsx';
+import ReservationSummary from '../order-summary/ReservationSummary.jsx';
 
 class PaymentPage extends React.Component {
   render () {
@@ -10,18 +11,12 @@ class PaymentPage extends React.Component {
       <div>
         <ProgressBar/>
         <p>Here are your booking details:</p>
+        <ReservationSummary />
+        <MenuSummary />
         <PaypalButton/>
       </div>
     );
   }
 }
 
-PaymentPage.propTypes = {
-  currentSellerId: React.PropTypes.number.isRequired,
-};
-
-const mapStateToProps = state => ({ currentSellerId: state.currentSellerId });
-
-export default connect(mapStateToProps, null)(PaymentPage);
-export { PaymentPage };
-
+export default PaymentPage;

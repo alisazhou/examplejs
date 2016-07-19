@@ -1,22 +1,18 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-
 import '../../testHelpers.js';
 
 jest.unmock('./PaymentPage.jsx');
-import WrappedPage, { PaymentPage } from './PaymentPage.jsx';
-
-import { store } from '../redux-wrapper/ReduxWrapper.jsx';
-
+import PaymentPage from './PaymentPage.jsx';
+import MenuSummary from '../order-summary/MenuSummary.jsx';
 import PaypalButton from './PaypalButton.jsx';
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
+import ReservationSummary from '../order-summary/MenuSummary.jsx';
 
-const PROPS_FROM_REDUX = {currentSellerId: 1};
+
 describe('PaymentPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(
-    <PaymentPage {...PROPS_FROM_REDUX}/>
-  );
+  shallowRenderer.render(<PaymentPage />);
   const result = shallowRenderer.getRenderOutput();
 
   it('renders to a div', () => {
@@ -28,24 +24,13 @@ describe('PaymentPage react component', () => {
   it('has a confirmation of booking details', () => {
     expect(result).toHaveChild('p');
   });
+  it('has a ReservationSummary component', () => {
+    expect(result).toHaveChild(ReservationSummary);
+  });
+  it('has a MenuSummary component', () => {
+    expect(result).toHaveChild(MenuSummary);
+  });
   it('has a PaypalButton', () => {
     expect(result).toHaveChild(PaypalButton);
   });
-});
-
-describe('PaymentPage Smart Component', () => {
-  it('is wrapped by a connect', () => {
-    expect(WrappedPage).not.toBe(PaymentPage);
-    expect(WrappedPage.WrappedComponent).toBe(PaymentPage);
-    expect(WrappedPage.displayName).toBe('Connect(PaymentPage)');
-  });
-  it('has a mapStateToProps that gives currentSellerId prop', () => {
-    const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(
-      <WrappedPage store={store}/>
-    );
-    const result = shallowRenderer.getRenderOutput();
-    expect(result.props.currentSellerId).toBeDefined();
-  });
-
 });
