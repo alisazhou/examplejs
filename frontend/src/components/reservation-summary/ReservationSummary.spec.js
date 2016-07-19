@@ -3,57 +3,46 @@ import TestUtils from 'react-addons-test-utils';
 
 jest.unmock('./ReservationSummary.jsx');
 import WrappedSummary, { ReservationSummary } from './ReservationSummary.jsx';
-
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
+const PROPS_FROM_REDUX = {
+  customerAdd: 'add0', customerName: 'name0', customerTel: 'tel0',
+};
 describe('ReservationSummary react component', () => {
+  const shallowRenderer = TestUtils.createRenderer();
+  shallowRenderer.render(<ReservationSummary {...PROPS_FROM_REDUX} />);
+  const result = shallowRenderer.getRenderOutput();
+
   it('renders to a div', () => {
-    const propsFromRedux = {
-      formData: { time: {}, address: {} },
-    };
-    const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(<ReservationSummary {...propsFromRedux} />);
-    const result = shallowRenderer.getRenderOutput();
     expect(result.type).toBe('div');
   });
 
-  it('renders a prompt message if props undefined', () => {
-    const propsFromRedux = {
-      formData: { time: {}, address: {}},
-    };
-    const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(<ReservationSummary {...propsFromRedux} />);
-    const result = shallowRenderer.getRenderOutput();
-    const pTag = result.props.children.props.children;
-    expect(pTag).toBe('Please specify time and address.');
-  });
-
-  it('renders time and address if provided', ()=> {
-    const propsFromRedux = {
-      formData: {
-        time: {value: 'testTime'}, address: {value: 'testAddress'},
-      },
-    };
-    const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(<ReservationSummary {...propsFromRedux} />);
-    const result = shallowRenderer.getRenderOutput();
-    const pTag = result.props.children.props.children;
-    expect(pTag).toContain('testTime');
-    expect(pTag).toContain('testAddress');
+  it('renders reservation info', ()=> {
+    const resInfo = result.props.children;
+    expect(resInfo[0].props.children).toBe('Name: name0');
+    expect(resInfo[1].props.children).toBe('Address: add0');
+    expect(resInfo[2].props.children).toBe('Phone: tel0');
   });
 
 });
 
 
 describe('ReservationSummary smart component', () => {
-  const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<WrappedSummary store={store} />);
 
   it('is wrapped by a connect', () => {
     expect(WrappedSummary).not.toBe(ReservationSummary);
     expect(WrappedSummary.WrappedComponent).toBe(ReservationSummary);
     expect(WrappedSummary.displayName).toBe('Connect(ReservationSummary)');
+  });
+
+  it('receives props from store', () => {
+    const shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(<WrappedSummary store={store} />);
+    const result = shallowRenderer.getRenderOutput();
+    expect(result.props.customerAdd).toBeDefined();
+    expect(result.props.customerName).toBeDefined();
+    expect(result.props.customerTel).toBeDefined();
   });
 
 });
