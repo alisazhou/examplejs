@@ -54,8 +54,15 @@ describe('MenuPage react component', () => {
     expect(attrs).toBeDefined();
   });
 
-  it('has a LinkButton child', () => {
-    expect(result).toHaveChild(LinkButton);
+  it('has two LinkButton child nodes', () => {
+    const linkBtns = result.props.children.filter(
+      child => child.type === LinkButton
+    );
+    expect(linkBtns.length).toEqual(2);
+    expect(linkBtns[0].props.content).toBe('Back');
+    expect(linkBtns[0].props.linkTo).toBe('/');
+    expect(linkBtns[1].props.content).toBe('Next');
+    expect(linkBtns[1].props.linkTo).toBe('/reservation');
   });
   const expectedProps = {
     linkTo: '/reservation',

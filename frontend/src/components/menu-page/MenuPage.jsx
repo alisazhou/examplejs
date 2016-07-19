@@ -16,6 +16,10 @@ class MenuPage extends React.Component {
         <MenuDescription {...this.props.menu}/>
         <OrderAttributes />
         <LinkButton
+          linkTo='/'
+          content='Back'
+        />
+        <LinkButton
           linkTo='/reservation'
           content='Next'
           btnProps={{ onClick: R.partial(this.props.updateOrder)(this.props.params.menuId) }}
