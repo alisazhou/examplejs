@@ -6,7 +6,7 @@ import R from 'ramda';
 jest.unmock('./ReservationPage.jsx');
 import ReservationPage from './ReservationPage.jsx';
 import LinkButton from '../link-button/LinkButton.jsx';
-import MenuSummary from './MenuSummary.jsx';
+import MenuSummary from '../order-summary/MenuSummary.jsx';
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
 import ReservationForm from './ReservationForm.jsx';
 
