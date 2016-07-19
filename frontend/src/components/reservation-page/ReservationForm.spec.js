@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
+import '../../testHelpers.js';
 
 jest.unmock('./ReservationForm.jsx');
 import WrappedForm, { ReservationForm } from './ReservationForm.jsx';
@@ -28,9 +29,7 @@ describe('ReservationForm react component', () => {
     const fieldLabels = result.props.children;
     expect(fieldLabels.length).toEqual(3);
     R.forEach(label => expect(label.type).toBe('label'), fieldLabels);
-    const findInput = node =>
-      R.find(R.propEq('type', 'input'))(node.props.children);
-    R.forEach(label => expect(findInput(label)).toBeDefined(), fieldLabels);
+    R.forEach(label => expect(label).toHaveChild('input'), fieldLabels);
   });
 
 });
