@@ -7,10 +7,8 @@ import thunk from 'redux-thunk';
 
 import auth from '../../reducers/authReducer.js';
 import cuisines from '../../reducers/cuisinesReducer.js';
-import currentSellerId from '../../reducers/currentSellerIdReducer.js';
 import menus from '../../reducers/menusReducer.js';
 import order from '../../reducers/orderReducer.js';
-import sellers from '../../reducers/sellersReducer.js';
 import { reducer as form } from 'redux-form';
 
 import StickyLayout from '../sticky-layout/StickyLayout.jsx';
@@ -24,11 +22,9 @@ import ReservationPage from '../reservation-page/ReservationPage.jsx';
 const rootReducer = combineReducers({
   auth,
   cuisines,
-  currentSellerId,
   form,
   menus,
   order,
-  sellers,
 });
 
 const middlewares = [ thunk ];
