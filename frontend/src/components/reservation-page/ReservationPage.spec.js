@@ -7,7 +7,6 @@ jest.unmock('./ReservationPage.jsx');
 import ReservationPage from './ReservationPage.jsx';
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuSummary from '../order-summary/MenuSummary.jsx';
-import ProgressBar from '../progress-bar/ProgressBar.jsx';
 import ReservationForm from './ReservationForm.jsx';
 
 describe('ReservationPage react component', () => {
@@ -20,9 +19,6 @@ describe('ReservationPage react component', () => {
   });
   it('has a MenuSummary component', () => {
     expect(result).toHaveChild(MenuSummary);
-  });
-  it('has a ProgressBar component', () => {
-    expect(result).toHaveChild(ProgressBar);
   });
   it('has a ReservationForm component', () => {
     expect(result).toHaveChild(ReservationForm);

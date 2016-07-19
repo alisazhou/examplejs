@@ -6,7 +6,6 @@ jest.unmock('./PaymentPage.jsx');
 import PaymentPage from './PaymentPage.jsx';
 import MenuSummary from '../order-summary/MenuSummary.jsx';
 import PaypalButton from './PaypalButton.jsx';
-import ProgressBar from '../progress-bar/ProgressBar.jsx';
 import ReservationSummary from '../order-summary/MenuSummary.jsx';
 
 
@@ -17,9 +16,6 @@ describe('PaymentPage react component', () => {
 
   it('renders to a div', () => {
     expect(result.type).toBe('div');
-  });
-  it('has a ProgressBar component', () => {
-    expect(result).toHaveChild(ProgressBar);
   });
   it('has a confirmation of booking details', () => {
     expect(result).toHaveChild('p');
