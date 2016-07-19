@@ -8,12 +8,14 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
+- ! _ch_: review and remove legacy code
 - login and register pages
 
 
 **DOING**
-- _ch_: refactor fts into modules based on page
 - _ch_: add new user stories
+- add back buttons to pages
+- form validation
 
 
 **DONE**
@@ -24,3 +26,4 @@ See individual folders for their READMEs
 - switch firefox selenium to phantomjs
 - react router
 - type-as-you-search menus list
+- refactor fts into modules based on page

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
-import ReservationSummary from '../reservation-summary/ReservationSummary.jsx';
+import ReservationSummary from '../order-summary/ReservationSummary.jsx';
 import Seller from '../seller/Seller.jsx';
 
 class AvailabilityPage extends React.Component {

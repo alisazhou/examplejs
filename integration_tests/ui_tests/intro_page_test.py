@@ -112,13 +112,13 @@ def test_has_navbar_with_signup_and_login(browser):
     # find signup and login buttons in navbar
     navbar = browser.find_element_by_class_name('navbar')
     # sign up button links to signup
-    signup = browser.find_element_by_class_name('signup_btn')
+    signup = browser.find_element_by_class_name('navbar-buttons__user-signup-btn')
     assert signup.text == 'Sign up'
     signup.click()
     assert '/signup/' in browser.current_url
     browser.back()
     # login button links to login
-    login_button = browser.find_element_by_class_name('login_btn')
+    login_button = browser.find_element_by_class_name('navbar-buttons__user-login-btn')
     assert login_button.text == 'Log in'
     login_button.click()
     assert '/login/' in browser.current_url

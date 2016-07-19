@@ -8,6 +8,15 @@ class MenuPageBrowser(BaseBrowser):
         super().__init__(*args, **kwargs)
         self.click_link_text('Demo Menu 0')
 
+    def fill_order_form_and_submit(self, size_option, time_input):
+        attrs = self.find_element_by_class_name('menu_page--attributes')
+        party_size = Select(attrs.find_element_by_tag_name('select'))
+        party_size.select_by_visible_text(size_option)
+        party_time = attrs.find_element_by_tag_name('input')
+        party_time.send_keys(time_input)
+        self.find_element_by_xpath('//a/button[text()="Next"]').click()
+
+
 
 menu_page_browser = get_browser_fixture_of_class(MenuPageBrowser)
 pytest.yield_fixture()(menu_page_browser)
@@ -28,18 +37,8 @@ def test_has_chef_name_and_description(menu_page_browser):
     assert 'description 0' in menu_page_browser.body_text
 
 def test_can_save_specified_order_attrs(menu_page_browser):
-    # find form for order attributes
-    attrs = menu_page_browser.find_element_by_class_name('menu_page--attributes')
-    # select party size and fill in time, click next
-    party_size = Select(attrs.find_element_by_tag_name('select'))
-    party_size.select_by_visible_text('5 ~ 6')
-    party_time = attrs.find_element_by_tag_name('input')
-    party_time.send_keys('Sat 7pm')
-    # click on next to customer info page, 
-    next_btn = menu_page_browser.find_element_by_link_text('Next')
-    next_btn.click()
-    assert '/reservation' in menu_page_browser.current_url
-    # TODO: ordered menu is shown
+    # fill order form, go to next page
+    menu_page_browser.fill_order_form_and_submit('5 ~ 6', 'Sat 7pm')
     # go back, order attributes are preserved
     menu_page_browser.back()
     attrs = menu_page_browser.find_element_by_class_name('menu_page--attributes')

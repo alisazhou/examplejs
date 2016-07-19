@@ -1,62 +1,56 @@
 import React from 'react';
-import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
-const fields = [ 'name', 'tel', 'address', 'time' ];
+import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 
 class ReservationForm extends React.Component {
   render () {
-    const {
-      fields: {name, tel, address, time},
-      handleSubmit,
-    } = this.props;
-
     return (
-      <form>
-        <p>Customize your Reservation Details</p>
+      <form className='reservation_form'>
         <label>Name:
           <input
             type='text'
-            className='reservation_detail'
-            {...name}
-          />
+            className='reservation_form--name'
+            onChange={e => this.props.updateOrder({customerName: e.target.value})}
+            value={this.props.customerName} />
         </label>
         <label>Mobile:
           <input
             type='text'
-            className='reservation_detail'
-            {...tel}
-          />
+            className='reservation_form--tel'
+            onChange={e => this.props.updateOrder({customerTel: e.target.value})}
+            value={this.props.customerTel} />
         </label>
         <label>Address:
           <input
             type='text'
-            className='reservation_detail'
-            {...address}
-          />
+            className='reservation_form--add'
+            onChange={e => this.props.updateOrder({customerAdd: e.target.value})}
+            value={this.props.customerAdd} />
         </label>
-        <label>Preferred time:
-          <input
-            type='text'
-            className='reservation_detail'
-            {...time}
-          />
-        </label>
-        <button type='submit' onClick={handleSubmit}>confirm</button>
       </form>
     );
   }
 }
 
 ReservationForm.propTypes = {
-  fields: React.PropTypes.object.isRequired,
-  handleSubmit: React.PropTypes.func.isRequired,
+  customerAdd: React.PropTypes.string.isRequired,
+  customerName: React.PropTypes.string.isRequired,
+  customerTel: React.PropTypes.string.isRequired,
+  updateOrder: React.PropTypes.func.isRequired,
 };
 
-export default reduxForm({
-  form: 'reservationForm',
-  fields,
-  destroyOnUnmount: false,
-})(ReservationForm);
+const mapStateToProps = state => ({
+  customerName: state.order.customerName || '',
+  customerAdd: state.order.customerAdd || '',
+  customerTel: state.order.customerTel || '',
+});
 
-export { fields, ReservationForm };
+const mapDispatchToProps = dispatch => ({
+  updateOrder: update => { dispatch(updateOrderActionCreator(update));},
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReservationForm);
+
+export { ReservationForm };

@@ -14,7 +14,7 @@ import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 jest.unmock('../progress-bar/ProgressBar.jsx');
 import ProgressBar from '../progress-bar/ProgressBar.jsx';
 
-jest.unmock('../reservation-summary/ReservationSummary.jsx');
+jest.unmock('../order-summary/ReservationSummary.jsx');
 
 describe('AvailabilityPage react component', () => {
   let mockSellers = [ {key: 1, name: '1'}, {key: 2, name: '2'} ];
