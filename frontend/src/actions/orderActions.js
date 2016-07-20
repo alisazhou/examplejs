@@ -1,4 +1,4 @@
-import { UPDATE_ORDER } from './actionTypes.js';
+import { UPDATE_ORDER, VALIDATE_ORDER } from './actionTypes.js';
 
 
 const updateOrderActionCreator = update => ({
@@ -6,4 +6,9 @@ const updateOrderActionCreator = update => ({
   update,
 });
 
-export { updateOrderActionCreator };
+const validateOrderActionCreator = field => ({
+  type: VALIDATE_ORDER,
+  field,
+});
+
+export { updateOrderActionCreator, validateOrderActionCreator };
