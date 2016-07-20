@@ -1,8 +1,5 @@
 import orderReducer from './orderReducer.js';
-import {
-  ADD_ORDER_CUSTOMER,
-  UPDATE_ORDER,
-} from '../actions/actionTypes.js';
+import { UPDATE_ORDER } from '../actions/actionTypes.js';
 
 
 describe('order reducer', () => {
@@ -74,25 +71,5 @@ describe('order reducer', () => {
       expect(nextState).toEqual(expState);
       expect(nextState).not.toBe(currState);
     });
-  });
-
-  it('handles add customer to order action', () => {
-    const addOrderCustomerAction = {
-      type: ADD_ORDER_CUSTOMER,
-      customerName: 'customer0',
-      customerAddress: 'address0',
-      customerTel: 'tel0',
-    };
-    const expState = {
-      customerName: 'customer0',
-      customerAddress: 'address0',
-      customerTel: 'tel0',
-      dateTime: '',
-      menuId: '',
-      partySize: 0,
-    };
-    const nextState = orderReducer(currState, addOrderCustomerAction);
-    expect(nextState).toEqual(expState);
-    expect(nextState).not.toBe(currState);
   });
 });
