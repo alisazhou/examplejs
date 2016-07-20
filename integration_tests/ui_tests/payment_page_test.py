@@ -27,6 +27,11 @@ def test_shows_menu_and_reservation_of_order(pmt_page_browser):
         assert content in pmt_page_browser.body_text
 
 
+def test_has_back_btn_to_reservation_page(pmt_page_browser):
+    pmt_page_browser.find_element_by_xpath('//a/button[text()="Back"]').click()
+    assert '/reservation' in pmt_page_browser.current_url
+
+
 def test_can_make_payment(pmt_page_browser):
     # see a paypal button
     paypal_button = pmt_page_browser.get_slow_loading_css_element('input[name="submit"]')

@@ -1,9 +1,11 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 import '../../testHelpers.js';
 
 jest.unmock('./PaymentPage.jsx');
 import PaymentPage from './PaymentPage.jsx';
+import LinkButton from '../link-button/LinkButton.jsx';
 import MenuSummary from '../order-summary/MenuSummary.jsx';
 import PaypalButton from './PaypalButton.jsx';
 import ReservationSummary from '../order-summary/MenuSummary.jsx';
@@ -25,6 +27,12 @@ describe('PaymentPage react component', () => {
   });
   it('has a MenuSummary component', () => {
     expect(result).toHaveChild(MenuSummary);
+  });
+  it('has a LinkButton', () => {
+    const linkBtn = R.find(R.propEq('type', LinkButton))(result.props.children);
+    expect(linkBtn).toBeDefined();
+    expect(linkBtn.props.content).toBe('Back');
+    expect(linkBtn.props.linkTo).toBe('/reservation');
   });
   it('has a PaypalButton', () => {
     expect(result).toHaveChild(PaypalButton);
