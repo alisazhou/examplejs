@@ -29,6 +29,12 @@ def test_ordered_menu_is_shown(res_page_browser):
         assert label in res_page_browser.body_text
         assert content in res_page_browser.body_text
 
+
+def test_has_back_btn_to_menu_page(res_page_browser):
+    res_page_browser.find_element_by_xpath('//a/button[text()="Back"]').click()
+    assert '/menus/0' in res_page_browser.current_url
+
+
 def test_saves_reservation_detail_between_pages(res_page_browser):
     # fill res form, click next
     res_page_browser.fill_reservation_form_and_submit(
