@@ -1,3 +1,5 @@
+import R from 'ramda';
+
 import { UPDATE_ORDER, VALIDATE_ORDER } from './actionTypes.js';
 
 
@@ -11,4 +13,11 @@ const validateOrderActionCreator = field => ({
   field,
 });
 
-export { updateOrderActionCreator, validateOrderActionCreator };
+const validatePage = fields => dispatch =>
+  R.forEach(R.compose(dispatch, validateOrderActionCreator), fields);
+
+export {
+  updateOrderActionCreator,
+  validateOrderActionCreator,
+  validatePage,
+};
