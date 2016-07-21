@@ -3,7 +3,7 @@ import { UPDATE_ORDER, VALIDATE_ORDER } from '../actions/actionTypes.js';
 
 
 describe('order reducer', () => {
-  const currState = {
+  const initState = {
     customerName: '',
     customerAddress: '',
     customerTel: '',
@@ -14,7 +14,7 @@ describe('order reducer', () => {
 
   it('initializes state', () => {
     const nextState = orderReducer(undefined, {});
-    expect(nextState).toEqual({});
+    expect(nextState).toEqual(initState);
   });
 
   describe('handles update order action', () => {
@@ -31,9 +31,9 @@ describe('order reducer', () => {
         menuId: '',
         partySize: '',
       };
-      const nextState = orderReducer(currState, updateAction);
+      const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
-      expect(nextState).not.toBe(currState);
+      expect(nextState).not.toBe(initState);
     });
 
     it('updates menuId', () => {
@@ -49,9 +49,9 @@ describe('order reducer', () => {
         menuId: 'menu0',
         partySize: '',
       };
-      const nextState = orderReducer(currState, updateAction);
+      const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
-      expect(nextState).not.toBe(currState);
+      expect(nextState).not.toBe(initState);
     });
 
     it('updates partySize', () => {
@@ -67,9 +67,9 @@ describe('order reducer', () => {
         menuId: '',
         partySize: 'partySize0',
       };
-      const nextState = orderReducer(currState, updateAction);
+      const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
-      expect(nextState).not.toBe(currState);
+      expect(nextState).not.toBe(initState);
     });
   });
 
