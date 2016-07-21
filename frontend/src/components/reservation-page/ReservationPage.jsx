@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuSummary from '../order-summary/MenuSummary.jsx';
+import PaypalButton from './PaypalButton.jsx';
 import ReservationForm from './ReservationForm.jsx';
 
 
@@ -13,7 +14,7 @@ class ReservationPage extends React.Component {
         <MenuSummary />
         <ReservationForm />
         <LinkButton linkTo={`/menus/${this.props.menuId}`} content='Back' />
-        <LinkButton linkTo='/payment' content='Next' />
+        <PaypalButton />
       </div>
     );
   }

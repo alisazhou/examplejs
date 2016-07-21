@@ -7,6 +7,7 @@ jest.unmock('./ReservationPage.jsx');
 import WrappedPage, { ReservationPage } from './ReservationPage.jsx';
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuSummary from '../order-summary/MenuSummary.jsx';
+import PaypalButton from './PaypalButton.jsx';
 import ReservationForm from './ReservationForm.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
@@ -27,23 +28,17 @@ describe('ReservationPage react component', () => {
     expect(result).toHaveChild(ReservationForm);
   });
 
-  describe('two LinkButton child nodes', () => {
-    it('has a Back LinkButton to MenuPage', () => {
-      const expProps = {
-        linkTo: '/menus/menuId0',
-        content: 'Back',
-      };
-      const backBtn = findChildren(result, LinkButton, expProps);
-      expect(backBtn.length).toEqual(1);
-    });
-    it('has a Nexi LinkButton to PaymentPage', () => {
-      const expProps = {
-        linkTo: '/payment',
-        content: 'Next',
-      };
-      const nextBtn = findChildren(result, LinkButton, expProps);
-      expect(nextBtn.length).toEqual(1);
-    });
+  it('has a Back LinkButton to MenuPage', () => {
+    const expProps = {
+      linkTo: '/menus/menuId0',
+      content: 'Back',
+    };
+    const backBtn = findChildren(result, LinkButton, expProps);
+    expect(backBtn.length).toEqual(1);
+  });
+
+  it('has a PaypalButton', () => {
+    expect(result).toHaveChild(PaypalButton);
   });
 });
 
