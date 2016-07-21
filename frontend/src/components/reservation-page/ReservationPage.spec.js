@@ -8,6 +8,7 @@ import WrappedPage, { ReservationPage } from './ReservationPage.jsx';
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuSummary from '../order-summary/MenuSummary.jsx';
 import ReservationForm from './ReservationForm.jsx';
+import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
 const PROPS_FROM_REDUX = { menuId: 'menuId0' };
@@ -52,5 +53,12 @@ describe('ReservationPage smart component', () => {
     expect(WrappedPage).not.toBe(ReservationPage);
     expect(WrappedPage.WrappedComponent).toBe(ReservationPage);
     expect(WrappedPage.displayName).toBe('Connect(ReservationPage)');
+  });
+
+  it('receives props from store', () => {
+    const shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(<WrappedPage store={store} />);
+    const result = shallowRenderer.getRenderOutput();
+    expect(result.props.menuId).toBeDefined();
   });
 });

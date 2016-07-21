@@ -45,6 +45,7 @@ def test_has_back_btn_to_intro_page(browser):
     # find Back btn, click on it, land back on intro page
     browser.find_element_by_xpath('//a/button[text()="Back"]').click()
     assert browser.current_url == starting_url
+    assert 'How many guests?' not in browser.body_text
 
 
 def test_can_save_specified_order_attrs(menu_page_browser):
