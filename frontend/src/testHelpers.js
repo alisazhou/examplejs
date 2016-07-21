@@ -19,3 +19,18 @@ beforeEach(() => {
   });
 });
 
+
+const findChild = (rendered, childType, childProps) => {
+  const correctTypeFilter = R.filter(
+    child => child.type === childType
+  );
+  const correctPropsFilter = R.filter(
+    child => R.all(
+      ([ key, value ]) => R.equals(child.props[key], value),
+      R.toPairs(childProps)
+    )
+  );
+
+  return R.compose(correctTypeFilter, correctPropsFilter)(rendered.props.children);
+};
+export { findChild };

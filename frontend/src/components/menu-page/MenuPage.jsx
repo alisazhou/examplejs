@@ -5,7 +5,7 @@ import R from 'ramda';
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
-import { updateOrderActionCreator } from '../../actions/orderActions';
+import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 
 class MenuPage extends React.Component {

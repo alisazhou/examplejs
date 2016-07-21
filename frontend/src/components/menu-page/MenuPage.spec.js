@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
-import '../../testHelpers.js';
+import { findChild } from '../../testHelpers.js';
 
 jest.unmock('./MenuPage.jsx');
 import WrappedPage, { MenuPage } from './MenuPage.jsx';
@@ -58,6 +58,15 @@ describe('MenuPage react component', () => {
   });
   it('has a LinkButton child with the correct properties', () => {
     // rewrite testhelper toHaveChild to also check properties
+    const expectedProps = {
+      linkTo: '/reservation',
+      content: 'Next',
+      btnProps: {onClick: PROPS_FROM_REDUX.updateOrder},
+    };
+    const LinkButtons = findChild(
+      result, LinkButton, expectedProps
+    );
+    expect(LinkButtons.length).toEqual(1);
   });
 });
 
@@ -68,16 +77,19 @@ describe('MenuPage smart component', () => {
     expect(WrappedPage.displayName).toBe('Connect(MenuPage)');
   });
 
-  it('receives menu name from store', () => {
-    const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(
-      <WrappedPage store={store} {...PROPS_FROM_ROUTER} />
-    );
-    const result = shallowRenderer.getRenderOutput();
+  const shallowRenderer = TestUtils.createRenderer();
+  shallowRenderer.render(
+    <WrappedPage store={store} {...PROPS_FROM_ROUTER} />
+  );
+  const result = shallowRenderer.getRenderOutput();
+  it('receives menu name from redux store', () => {
     expect(result.props.menu).toBeDefined();
   });
 
-  xit('has correct dispatch function given to LinkButton', () => {
-    //
+  it('receives correct dispatch function from redux store', () => {
+    expect(result.props.updateOrder).toBeDefined();
+    // refactor: take out menuId stuff in dispatch, instead do it in render
+    // expect dispatch function === dispatch(updateOrderActionCreator)
+    // then btnProps in test above will also need to be chgd to pass in props
   });
 });
