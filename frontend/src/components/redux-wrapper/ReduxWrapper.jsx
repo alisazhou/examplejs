@@ -43,9 +43,9 @@ export default class WrappedComponent extends React.Component {
           <Route path='/' component={StickyLayout}>
             <IndexRoute component={IntroPage} />
             <Route path='contact' component={ContactPage} />
+            <Route path='menus/:menuId' component={MenuPage} />
             <Route path='reservation' component={ReservationPage} />
           </Route>
-          <Route path='menus/:menuId' component={MenuPage} />
         </Router>
       </Provider>
     );
