@@ -16,6 +16,7 @@ import LinkButton from '../link-button/LinkButton.jsx';
 const PROPS_FROM_ROUTER = {
   params: { menuId: '0' },
 };
+const mockUpdateOrder = jasmine.createSpy('mock update order');
 const PROPS_FROM_REDUX = {
   menu: {
     id: 'test id',
@@ -26,7 +27,7 @@ const PROPS_FROM_REDUX = {
     image: 'test image src',
     tagWords: [ 'test tag 0', 'test tag 1' ],
   },
-  updateOrder: () => {},
+  updateOrder: mockUpdateOrder,
 };
 describe('MenuPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -56,17 +57,24 @@ describe('MenuPage react component', () => {
   it('has a LinkButton child', () => {
     expect(result).toHaveChild(LinkButton);
   });
-  it('has a LinkButton child with the correct properties', () => {
-    // rewrite testhelper toHaveChild to also check properties
-    const expectedProps = {
-      linkTo: '/reservation',
-      content: 'Next',
-      btnProps: {onClick: PROPS_FROM_REDUX.updateOrder},
-    };
-    const LinkButtons = findChild(
-      result, LinkButton, expectedProps
-    );
+  const expectedProps = {
+    linkTo: '/reservation',
+    content: 'Next',
+  };
+  const LinkButtons = findChild(
+    result, LinkButton, expectedProps
+  );
+  it('has a LinkButton child with the correct static properties', () => {
     expect(LinkButtons.length).toEqual(1);
+  });
+  it('has a LinkButton with the correct btnProps callbacks', () => {
+    const buttonProps = LinkButtons[0].props.btnProps;
+    expect(buttonProps.onClick).toBeDefined();
+
+    expect(mockUpdateOrder.calls.count()).toEqual(0);
+    buttonProps.onClick();
+    expect(mockUpdateOrder.calls.count()).toEqual(1);
+    expect(mockUpdateOrder.calls.argsFor(0)).toEqual([ PROPS_FROM_ROUTER.params.menuId ]);
   });
 });
 
@@ -88,8 +96,6 @@ describe('MenuPage smart component', () => {
 
   it('receives correct dispatch function from redux store', () => {
     expect(result.props.updateOrder).toBeDefined();
-    // refactor: take out menuId stuff in dispatch, instead do it in render
-    // expect dispatch function === dispatch(updateOrderActionCreator)
-    // then btnProps in test above will also need to be chgd to pass in props
+    // technically maybe also expect result.props.updateOrder === dispatch(updateOrderActionCreator)
   });
 });

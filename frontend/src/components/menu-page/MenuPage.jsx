@@ -18,7 +18,7 @@ class MenuPage extends React.Component {
         <LinkButton
           linkTo='/reservation'
           content='Next'
-          btnProps={{onClick: this.props.updateOrder}}
+          btnProps={{ onClick: R.partial(this.props.updateOrder)(this.props.params.menuId) }}
         />
       </div>
     );
@@ -44,10 +44,8 @@ const mapStateToProps = (state, ownProps) => ({
   menu: R.find(R.propEq('id', ownProps.params.menuId))(state.menus),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateOrder: () => {
-    dispatch(updateOrderActionCreator({ menuId: ownProps.params.menuId }));
-  },
+const mapDispatchToProps = dispatch => ({
+  updateOrder: menuId => dispatch(updateOrderActionCreator({ menuId })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuPage);
