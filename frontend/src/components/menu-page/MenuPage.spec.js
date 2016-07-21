@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
-import { findChild } from '../../testHelpers.js';
+import { findChildren } from '../../testHelpers.js';
 
 jest.unmock('./MenuPage.jsx');
 import WrappedPage, { MenuPage } from './MenuPage.jsx';
@@ -54,34 +54,35 @@ describe('MenuPage react component', () => {
     expect(attrs).toBeDefined();
   });
 
-  it('has two LinkButton child nodes', () => {
-    const linkBtns = result.props.children.filter(
-      child => child.type === LinkButton
+  describe('Next LinkButton', () => {
+    const expectedProps = {
+      linkTo: '/reservation',
+      content: 'Next',
+    };
+    const LinkButtons = findChildren(
+      result, LinkButton, expectedProps
     );
-    expect(linkBtns.length).toEqual(2);
-    expect(linkBtns[0].props.content).toBe('Back');
-    expect(linkBtns[0].props.linkTo).toBe('/');
-    expect(linkBtns[1].props.content).toBe('Next');
-    expect(linkBtns[1].props.linkTo).toBe('/reservation');
-  });
-  const expectedProps = {
-    linkTo: '/reservation',
-    content: 'Next',
-  };
-  const LinkButtons = findChild(
-    result, LinkButton, expectedProps
-  );
-  it('has a LinkButton child with the correct static properties', () => {
-    expect(LinkButtons.length).toEqual(1);
-  });
-  it('has a LinkButton with the correct btnProps callbacks', () => {
-    const buttonProps = LinkButtons[0].props.btnProps;
-    expect(buttonProps.onClick).toBeDefined();
+    it('has a LinkButton child with the correct static properties', () => {
+      expect(LinkButtons.length).toEqual(1);
+    });
+    it('has a LinkButton with the correct btnProps callbacks', () => {
+      const buttonProps = LinkButtons[0].props.btnProps;
+      expect(buttonProps.onClick).toBeDefined();
 
-    expect(mockUpdateOrder.calls.count()).toEqual(0);
-    buttonProps.onClick();
-    expect(mockUpdateOrder.calls.count()).toEqual(1);
-    expect(mockUpdateOrder.calls.argsFor(0)).toEqual([ PROPS_FROM_ROUTER.params.menuId ]);
+      expect(mockUpdateOrder.calls.count()).toEqual(0);
+      buttonProps.onClick();
+      expect(mockUpdateOrder.calls.count()).toEqual(1);
+      expect(mockUpdateOrder.calls.argsFor(0)).toEqual([ PROPS_FROM_ROUTER.params.menuId ]);
+    });
+  });
+
+  it('has a Back LinkButton to IntroPage', () => {
+    const expProps = {
+      linkTo: '/',
+      content: 'Back',
+    };
+    const backLinkBtn = findChildren(result, LinkButton, expProps);
+    expect(backLinkBtn.length).toEqual(1);
   });
 });
 

@@ -20,7 +20,7 @@ beforeEach(() => {
 });
 
 
-const findChild = (rendered, childType, childProps) => {
+const findChildren = (rendered, childType, childProps) => {
   const correctTypeFilter = R.filter(
     child => child.type === childType
   );
@@ -33,4 +33,4 @@ const findChild = (rendered, childType, childProps) => {
 
   return R.compose(correctTypeFilter, correctPropsFilter)(rendered.props.children);
 };
-export { findChild };
+export { findChildren };

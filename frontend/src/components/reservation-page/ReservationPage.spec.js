@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import '../../testHelpers.js';
+import { findChildren } from '../../testHelpers.js';
 
 jest.unmock('./ReservationPage.jsx');
 import WrappedPage, { ReservationPage } from './ReservationPage.jsx';
@@ -24,15 +25,24 @@ describe('ReservationPage react component', () => {
   it('has a ReservationForm component', () => {
     expect(result).toHaveChild(ReservationForm);
   });
-  it('has two LinkButton child nodes', () => {
-    const linkBtns = result.props.children.filter(
-      child => child.type === LinkButton
-    );
-    expect(linkBtns.length).toEqual(2);
-    expect(linkBtns[0].props.content).toBe('Back');
-    expect(linkBtns[0].props.linkTo).toBe('/menus/menuId0');
-    expect(linkBtns[1].props.content).toBe('Next');
-    expect(linkBtns[1].props.linkTo).toBe('/payment');
+
+  describe('two LinkButton child nodes', () => {
+    it('has a Back LinkButton to MenuPage', () => {
+      const expProps = {
+        linkTo: '/menus/menuId0',
+        content: 'Back',
+      };
+      const backBtn = findChildren(result, LinkButton, expProps);
+      expect(backBtn.length).toEqual(1);
+    });
+    it('has a Nexi LinkButton to PaymentPage', () => {
+      const expProps = {
+        linkTo: '/payment',
+        content: 'Next',
+      };
+      const nextBtn = findChildren(result, LinkButton, expProps);
+      expect(nextBtn.length).toEqual(1);
+    });
   });
 });
 
