@@ -1,7 +1,9 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
-import { Route, Router } from 'react-router';
+import { IndexRoute, Route, Router } from 'react-router';
+import '../../testHelpers.js';
+import { findChildren } from '../../testHelpers.js';
 
 import WrappedComponent, { store } from './ReduxWrapper.jsx';
 
@@ -20,16 +22,27 @@ describe('A wrapped component', () => {
     expect(result.props.store).toBe(store);
   });
 
-  it('has one Router child component', () => {
+  describe('Router wrapper', () => {
     const router = result.props.children;
-    expect(router.type).toBe(Router);
+    it('is of type Router', () => {
+      expect(router.type).toBe(Router);
+    });
+
+    describe('baseRoute component', () => {
+      const baseRoute = router.props.children;
+      it('is a Route', () => {
+        expect(baseRoute.type).toBe(Route);
+      });
+
+      it('has an IndexRoute child component', () => {
+        expect(baseRoute).toHaveChild(IndexRoute);
+      });
+
+      it('has three Route child components', () => {
+        const routes = findChildren(baseRoute, Route);
+        expect(routes.length).toEqual(3);
+      });
+    });
   });
 
-  it('has Route grandchild components', () => {
-    const router = result.props.children;
-    const findRoute = router.props.children.filter(
-      child => child.type === Route
-    );
-    expect(findRoute.length).not.toEqual(0);
-  });
 });

@@ -1,23 +1,20 @@
 import orderReducer from './orderReducer.js';
-import {
-  ADD_ORDER_CUSTOMER,
-  UPDATE_ORDER,
-} from '../actions/actionTypes.js';
+import { UPDATE_ORDER, VALIDATE_ORDER } from '../actions/actionTypes.js';
 
 
 describe('order reducer', () => {
-  const currState = {
+  const initState = {
     customerName: '',
     customerAddress: '',
     customerTel: '',
     dateTime: '',
     menuId: '',
-    partySize: 0,
+    partySize: '',
   };
 
   it('initializes state', () => {
     const nextState = orderReducer(undefined, {});
-    expect(nextState).toEqual({});
+    expect(nextState).toEqual(initState);
   });
 
   describe('handles update order action', () => {
@@ -32,11 +29,11 @@ describe('order reducer', () => {
         customerTel: '',
         dateTime: 'time0',
         menuId: '',
-        partySize: 0,
+        partySize: '',
       };
-      const nextState = orderReducer(currState, updateAction);
+      const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
-      expect(nextState).not.toBe(currState);
+      expect(nextState).not.toBe(initState);
     });
 
     it('updates menuId', () => {
@@ -50,17 +47,17 @@ describe('order reducer', () => {
         customerTel: '',
         dateTime: '',
         menuId: 'menu0',
-        partySize: 0,
+        partySize: '',
       };
-      const nextState = orderReducer(currState, updateAction);
+      const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
-      expect(nextState).not.toBe(currState);
+      expect(nextState).not.toBe(initState);
     });
 
     it('updates partySize', () => {
       const updateAction = {
         type: UPDATE_ORDER,
-        update: { partySize: 1 },
+        update: { partySize: 'partySize0' },
       };
       const expState = {
         customerName: '',
@@ -68,31 +65,38 @@ describe('order reducer', () => {
         customerTel: '',
         dateTime: '',
         menuId: '',
-        partySize: 1,
+        partySize: 'partySize0',
       };
-      const nextState = orderReducer(currState, updateAction);
+      const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
-      expect(nextState).not.toBe(currState);
+      expect(nextState).not.toBe(initState);
     });
   });
 
-  it('handles add customer to order action', () => {
-    const addOrderCustomerAction = {
-      type: ADD_ORDER_CUSTOMER,
-      customerName: 'customer0',
-      customerAddress: 'address0',
-      customerTel: 'tel0',
-    };
-    const expState = {
-      customerName: 'customer0',
-      customerAddress: 'address0',
+  describe('handles validate order actions', () => {
+    const mixedState = {
+      customerName: 'name0',
+      customerAddress: '',
       customerTel: 'tel0',
       dateTime: '',
-      menuId: '',
-      partySize: 0,
+      menuId: 'menu0',
+      partySize: '',
     };
-    const nextState = orderReducer(currState, addOrderCustomerAction);
-    expect(nextState).toEqual(expState);
-    expect(nextState).not.toBe(currState);
+
+    it('marks filled fields as valid', () => {
+      const field = 'customerName';
+      const validateAction = { type: VALIDATE_ORDER, field };
+      const expState = {...mixedState, customerNameValidated: true };
+      const nextState = orderReducer(mixedState, validateAction);
+      expect(nextState).toEqual(expState);
+    });
+
+    it('marks unfilled fields as invalid', () => {
+      const field = 'customerAddress';
+      const validateAction = { type: VALIDATE_ORDER, field };
+      const expState = {...mixedState, customerAddressValidated: false };
+      const nextState = orderReducer(mixedState, validateAction);
+      expect(nextState).toEqual(expState);
+    });
   });
 });

@@ -15,7 +15,6 @@ import StickyLayout from '../sticky-layout/StickyLayout.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
 import IntroPage from '../intro-page/IntroPage.jsx';
 import MenuPage from '../menu-page/MenuPage.jsx';
-import PaymentPage from '../payment-page/PaymentPage.jsx';
 import ReservationPage from '../reservation-page/ReservationPage.jsx';
 
 
@@ -44,10 +43,9 @@ export default class WrappedComponent extends React.Component {
           <Route path='/' component={StickyLayout}>
             <IndexRoute component={IntroPage} />
             <Route path='contact' component={ContactPage} />
-            <Route path='payment' component={PaymentPage} />
+            <Route path='menus/:menuId' component={MenuPage} />
             <Route path='reservation' component={ReservationPage} />
           </Route>
-          <Route path='menus/:menuId' component={MenuPage} />
         </Router>
       </Provider>
     );

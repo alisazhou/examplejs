@@ -1,33 +1,38 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
 import {
-  addOrderCustomerActionCreator,
   updateOrderActionCreator,
+  validateOrderActionCreator,
+  validatePage,
 } from './orderActions.js';
-import {
-  ADD_ORDER_CUSTOMER,
-  UPDATE_ORDER,
-} from './actionTypes.js';
+import { UPDATE_ORDER, VALIDATE_ORDER } from './actionTypes.js';
 
 
 describe('synchronous action creators', () => {
-  it('addOrderCustomerActionCreator creates ADD_ORDER_CUSTOMER action', () => {
-    const customer = {
-      customerName: 'customer0',
-      customerAddress: 'address0',
-      customerTel: 'tel0',
-
-    };
-    const expAction = {
-      type: ADD_ORDER_CUSTOMER,
-      ...customer,
-    };
-    const actualAction = addOrderCustomerActionCreator(customer);
-    expect(actualAction).toEqual(expAction);
-  });
-
   it('updateOrderActionCreator should create UPDATE_ORDER action', () => {
     const update = { attr: '' };
     const expAction = { type: UPDATE_ORDER, update };
     const actualAction = updateOrderActionCreator(update);
     expect(actualAction).toEqual(expAction);
+  });
+
+  it('validateOrderActionCreator should create VALIDATE_ORDER action', () => {
+    const field = 'field';
+    const expAction = { type: VALIDATE_ORDER, field };
+    const actualAction = validateOrderActionCreator(field);
+    expect(actualAction).toEqual(expAction);
+  });
+
+  it('validatePageThunk should dispatch VALIDATE_ORDER action', () => {
+    const mockStore = configureMockStore([ thunk ])({});
+    const fields = [ 'fieldA', 'fieldB' ];
+    const expActions = [
+      validateOrderActionCreator('fieldA'),
+      validateOrderActionCreator('fieldB'),
+    ];
+    mockStore.dispatch(validatePage(fields));
+    const actualActions = mockStore.getActions();
+    expect(actualActions).toEqual(expActions);
   });
 });
