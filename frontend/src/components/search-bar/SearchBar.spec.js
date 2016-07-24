@@ -1,7 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import R from 'ramda';
-import '../../testHelpers.js';
+import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./SearchBar.jsx');
 import { SearchBar } from './SearchBar.jsx';
@@ -17,23 +16,27 @@ const PROPS_FROM_STORE = {
 describe('SearchBar presentational component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
-    <SearchBar {...PROPS_FROM_STORE} />
+    <SearchBar {...PROPS_FROM_STORE}/>
   );
   const result = shallowRenderer.getRenderOutput();
 
-  it('renders to a form', () => {
-    expect(result.type).toBe('form');
+  it('has a form child component', () => {
+    expect(findInTree(result, 'form').length).toBe(1);
   });
 
-  it('has an input child component', () => {
-    expect(result).toHaveChild('input');
-  });
-
-  describe('select child component', () => {
-    const select = R.find(R.propEq('type', 'select'))(result.props.children);
-
-    it('exists', () => {
-      expect(select).toBeDefined();
+  describe('within the form', () => {
+    const form = findInTree(result, 'form')[0];
+    it('has an Input child component', () => {
+      const input = findInTree(form, 'input');
+      expect(input.length).toEqual(1);
     });
+    it('has a Select child component', () => {
+      const select = findInTree(form, 'select');
+      expect(select.length).toEqual(1);
+    });
+    xit('has the correct options', () => {
+      // test that PROPS_FROM_STORE.cuisines are mapped into list of options
+    });
+
   });
 });
