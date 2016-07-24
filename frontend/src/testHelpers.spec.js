@@ -1,6 +1,4 @@
-import { findChildren } from './testHelpers.js';
-
-
+import { findChildren, findInTree } from './testHelpers.js';
 
 describe('findChildren', () => {
   const childy = { type: 'type1', props: {x: 1}};
@@ -9,32 +7,73 @@ describe('findChildren', () => {
 
   it('should filter out childs that dont fit type', () => {
     expect(findChildren(
-      rendered,
-      'type3'
+      rendered, 'type3'
     )).toEqual([]);
   });
   it('should filter out childs that dont fit property', () => {
     expect(findChildren(
-      rendered,
-      'type1', {x: 2}
+      rendered, 'type1', {x: 2}
+    )).toEqual([]);
+  });
+  it('should not puke if child does not have target property', () => {
+    expect(findChildren(
+      rendered, 'type1', {randomProperty: 2}
     )).toEqual([]);
   });
   it('should return childs that fit type when no props passed in', () => {
     expect(findChildren(
-      rendered,
-      'type1'
+      rendered, 'type1'
     )).toEqual([ childy ]);
   });
   it('should return childs that fit type and props', () => {
     expect(findChildren(
-      rendered,
-      'type1', {x: 1}
+      rendered, 'type1', {x: 1}
     )).toEqual([ childy ]);
   });
-  it('should work/deep compare objects etc', () => {
+  it('should work for objects (do deep compare etc)', () => {
     expect(findChildren(
-      rendered,
-      'type2', {x: {y: 2}}
+      rendered, 'type2', {x: {y: 2}}
     )).toEqual([ childyWithObject ]);
+  });
+});
+
+describe('findInTree', () => {
+  const childy = { type: 'type1', props: {x: 1}};
+  const childyWithObject = { type: 'type2', props: {x: {y: 2}}};
+  const thirdChild = {type: 'type3', props: {}};
+  const childWithinChild = { type: 'hi', props: {children: [ thirdChild ]}};
+  const rendered = {props: {children: [ childy, childyWithObject, childWithinChild ]}};
+
+  describe('should work the same as findChildren', () => {
+    it('should filter out childs that dont fit type', () => {
+      expect(findInTree(
+        rendered, 'wrongtype'
+      )).toEqual([]);
+    });
+    it('should filter out childs that dont fit property', () => {
+      expect(findInTree(
+        rendered, 'type1', {x: 2}
+      )).toEqual([]);
+    });
+    it('should return childs that fit type when no props passed in', () => {
+      expect(findInTree(
+        rendered, 'type1'
+      )).toEqual([ childy ]);
+    });
+    it('should return childs that fit type and props', () => {
+      expect(findInTree(
+        rendered, 'type1', {x: 1}
+      )).toEqual([ childy ]);
+    });
+    it('should work for objects (do deep compare etc)', () => {
+      expect(findInTree(
+        rendered, 'type2', {x: {y: 2}}
+      )).toEqual([ childyWithObject ]);
+    });
+  });
+  it('should find nested children', () => {
+    expect(findInTree(
+      rendered, 'type3'
+    )).toEqual([ thirdChild ]);
   });
 });

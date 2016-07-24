@@ -30,7 +30,18 @@ const findChildren = (rendered, childType, childProps) => {
       R.toPairs(childProps)
     )
   );
-
   return R.compose(correctTypeFilter, correctPropsFilter)(rendered.props.children);
 };
-export { findChildren };
+
+const findInTree = (rendered, childType, childProps) => {
+  // React TestUtils.scryRenderedDOMComponentsWithTag requires a DOM
+  const children = rendered.props.children;
+  if (children === undefined) { return []; }
+
+  const directChildren = findChildren(rendered, childType, childProps);
+  const findInTreeClosure = R.partialRight(findInTree, [ childType, childProps ]);
+  const deeperChildren = R.chain(findInTreeClosure, children);
+
+  return directChildren.concat(deeperChildren);
+};
+export { findChildren, findInTree };
