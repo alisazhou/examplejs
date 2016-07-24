@@ -19,8 +19,7 @@ beforeEach(() => {
   });
 });
 
-
-const findChildren = (rendered, childType, childProps) => {
+const matchFromList = (listOfNodes, childType, childProps) => {
   const correctTypeFilter = R.filter(
     child => child.type === childType
   );
@@ -30,18 +29,25 @@ const findChildren = (rendered, childType, childProps) => {
       R.toPairs(childProps)
     )
   );
-  return R.compose(correctTypeFilter, correctPropsFilter)(rendered.props.children);
+  return R.compose(correctTypeFilter, correctPropsFilter)(listOfNodes);
+};
+
+const findChildren = (rendered, childType, childProps) => {
+  return matchFromList(rendered.props.children, childType, childProps);
+};
+
+const flattenTree = topNode => {
+  if (topNode === undefined) { return []; }
+  if (topNode.props === undefined) { return [ topNode ]; }
+  if (topNode.props.children === undefined) { return [ topNode ]; }
+  return [ topNode ].concat(
+    R.chain(flattenTree, topNode.props.children)
+  );
 };
 
 const findInTree = (rendered, childType, childProps) => {
   // React TestUtils.scryRenderedDOMComponentsWithTag requires a DOM
-  const children = rendered.props.children;
-  if (children === undefined) { return []; }
-
-  const directChildren = findChildren(rendered, childType, childProps);
-  const findInTreeClosure = R.partialRight(findInTree, [ childType, childProps ]);
-  const deeperChildren = R.chain(findInTreeClosure, children);
-
-  return directChildren.concat(deeperChildren);
+  const listOfNodes = flattenTree(rendered);
+  return matchFromList(listOfNodes, childType, childProps);
 };
 export { findChildren, findInTree };

@@ -76,4 +76,9 @@ describe('findInTree', () => {
       rendered, 'type3'
     )).toEqual([ thirdChild ]);
   });
+  it('should be able to find the component/parent itself', () => {
+    expect(findInTree(
+      thirdChild, 'type3'
+    )).toEqual([ thirdChild ]);
+  });
 });
