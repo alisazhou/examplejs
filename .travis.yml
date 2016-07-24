@@ -19,7 +19,7 @@ install:
   - "pip install -r ../integration_tests/requirements.txt"
 script: 
   - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep 2.0.0
-  - set -e  && set -o pipefail && npm run test | tee /dev/stderr | grep -v "Warning"
+  - set -e  && set -o pipefail && ! npm run test 2>&1 | tee /dev/stderr | grep "Warning"
   - npm run lint
   - cd ../integration_tests && py.test -x --strict -r w
 notifications:
