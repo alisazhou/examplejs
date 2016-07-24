@@ -74,28 +74,23 @@ describe('order reducer', () => {
   });
 
   describe('handles validate order actions', () => {
-    const mixedState = {
-      customerName: 'name0',
-      customerAddress: '',
-      customerTel: 'tel0',
-      dateTime: '',
-      menuId: 'menu0',
-      partySize: '',
-    };
-
-    it('marks filled fields as valid', () => {
-      const field = 'customerName';
-      const validateAction = { type: VALIDATE_ORDER, field };
-      const expState = {...mixedState, customerNameValidated: true };
-      const nextState = orderReducer(mixedState, validateAction);
+    it('marks fields as valid', () => {
+      const field = {
+        fieldName: 'fieldName', validStatus: true,
+      };
+      const validateAction = { type: VALIDATE_ORDER, ...field };
+      const expState = { fieldNameValidated: true };
+      const nextState = orderReducer({}, validateAction);
       expect(nextState).toEqual(expState);
     });
 
-    it('marks unfilled fields as invalid', () => {
-      const field = 'customerAddress';
-      const validateAction = { type: VALIDATE_ORDER, field };
-      const expState = {...mixedState, customerAddressValidated: false };
-      const nextState = orderReducer(mixedState, validateAction);
+    it('marks fields as invalid', () => {
+      const field = {
+        fieldName: 'fieldName', validStatus: false,
+      };
+      const validateAction = { type: VALIDATE_ORDER, ...field };
+      const expState = { fieldNameValidated: false };
+      const nextState = orderReducer({}, validateAction);
       expect(nextState).toEqual(expState);
     });
   });
