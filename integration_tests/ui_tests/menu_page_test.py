@@ -14,7 +14,7 @@ class MenuPageBrowser(BaseBrowser):
         party_size.select_by_visible_text(size_option)
         party_time = attrs.find_element_by_tag_name('input')
         party_time.send_keys(time_input)
-        self.find_element_by_xpath('//a/button[text()="Next"]').click()
+        self.find_element_by_xpath('//button[text()="Next"]').click()
 
 
 
@@ -58,3 +58,20 @@ def test_can_save_specified_order_attrs(menu_page_browser):
     assert '5 ~ 6' in party_size.first_selected_option.text
     party_time = attrs.find_element_by_tag_name('input')
     assert party_time.get_attribute('value') == 'Sat 7pm'
+
+
+def test_performs_form_validation(menu_page_browser):
+    # no error msg shown
+    # not fill in form, click on next button, remain on the same page
+    next_btn = menu_page_browser.find_element_by_xpath('//button[text()="Next"]')
+    next_btn.click()
+    assert '/menus/0' in menu_page_browser.current_url
+    # sees error messages for both fields
+    # select party size, click on next button, remain on the same page
+    menu_page_browser.fill_order_form_and_submit('3 ~ 4', '')
+    assert '/menus/0' in menu_page_browser.current_url
+    # sees error message for only date time
+    # fill date time, click on next button, land on /reservation
+    menu_page_browser.fill_order_form_and_submit('3 ~ 4', 'Fri 4pm')
+    assert '/reservation' in menu_page_browser.current_url
+    assert 'Mobile' in menu_page_browser.body_text
