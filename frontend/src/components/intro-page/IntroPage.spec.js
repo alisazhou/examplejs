@@ -2,6 +2,8 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 
+import { findChildren } from '../../testHelpers.js';
+
 jest.unmock('./IntroPage.jsx');
 import WrappedPage, { IntroPage } from './IntroPage.jsx';
 jest.unmock('./introPageSelector.js');
@@ -10,6 +12,7 @@ import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuList from '../menu-list/MenuList.jsx';
 import Navbar from '../navbar/Navbar.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
+import HowItWorks from '../how-it-works/HowItWorks.jsx';
 
 
 const PROPS_FROM_REDUX = { menus: [] };
@@ -22,20 +25,25 @@ describe('IntroPage component', () => {
     expect(result.type).toBe('div');
   });
 
-  it('has a MenuList child component', () => {
-    const menuList = R.find(R.propEq('type', MenuList))(result.props.children);
-    expect(menuList).toBeDefined();
-  });
-
   it('has a Navbar child component', () => {
     const navbar = R.find(R.propEq('type', Navbar))(result.props.children);
     expect(navbar).toBeDefined();
+  });
+
+  it('has a HowItWorks child component', () => {
+    expect(findChildren(result, HowItWorks).length).toBe(1);
   });
 
   it('has a SearchBar child component', () => {
     const searchBar = R.find(R.propEq('type', SearchBar))(result.props.children);
     expect(searchBar).toBeDefined();
   });
+
+  it('has a MenuList child component', () => {
+    const menuList = R.find(R.propEq('type', MenuList))(result.props.children);
+    expect(menuList).toBeDefined();
+  });
+
 });
 
 

@@ -5,16 +5,19 @@ import MenuList from '../menu-list/MenuList.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
 import { combineFilters } from './introPageSelector.js';
 import Navbar from '../navbar/Navbar.jsx';
+import HowItWorks from '../how-it-works/HowItWorks.jsx';
 
 
 class IntroPage extends React.Component {
   render () {
-    return <div>
-      <Navbar />
-      <p>iChef</p>
-      <SearchBar />
-      <MenuList menus={this.props.menus} />
-    </div>;
+    return (
+      <div>
+        <Navbar />
+        <HowItWorks />
+        <SearchBar />
+        <MenuList menus={this.props.menus} />
+      </div>
+    );
   }
 }
 
