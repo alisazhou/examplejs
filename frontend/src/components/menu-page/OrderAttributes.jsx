@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import partySizeOptions from './orderAttributesConstants.js';
 import { updateAndValidate } from '../../actions/orderActions.js';
+import ValidationError from '../validation-error/ValidationError.jsx';
 
 
 const fields = [ 'partySize', 'dateTime' ];
@@ -25,6 +26,9 @@ class OrderAttributes extends React.Component {
     return (
       <form className='menu_page--attributes'>
         <label>How many guests?
+          <ValidationError
+            invalid={this.props.partySizeInvalid}
+            error={partySize.error} />
           <select
             {...partySize}
             value={partySize.value||''}
@@ -36,6 +40,9 @@ class OrderAttributes extends React.Component {
           </select>
         </label>
         <label>When's the party?
+          <ValidationError
+            invalid={this.props.dateTimeInvalid}
+            error={dateTime.error} />
           <input
             placeholder='Fri 8pm'
             {...dateTime}
@@ -48,6 +55,7 @@ class OrderAttributes extends React.Component {
 }
 
 OrderAttributes.propTypes = {
+  dateTimeInvalid: React.PropTypes.bool.isRequired,
   fields: React.PropTypes.shape({
     partySize: React.PropTypes.shape({
       value: React.PropTypes.string.isRequired,
@@ -56,14 +64,21 @@ OrderAttributes.propTypes = {
       value: React.PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  partySizeInvalid: React.PropTypes.bool.isRequired,
   updateAndValidate: React.PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  partySizeInvalid: state.order.partySizeValidated === false,
+  dateTimeInvalid: state.order.dateTimeValidated === false,
+});
 const mapDispatchToProps = dispatch => ({
   updateAndValidate: field => dispatch(updateAndValidate(field)),
 });
 
-const ConnectedAttributes = connect(null, mapDispatchToProps)(OrderAttributes);
+const ConnectedAttributes = connect(
+  mapStateToProps, mapDispatchToProps
+)(OrderAttributes);
 
 export default reduxForm({
   form: 'orderAttributes',

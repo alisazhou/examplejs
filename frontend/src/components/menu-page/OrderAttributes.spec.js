@@ -1,21 +1,25 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
+import '../../testHelpers.js';
 
 jest.unmock('./OrderAttributes.jsx');
 jest.unmock('./orderAttributesConstants.js');
 import FormAttributes, { ConnectedAttributes, OrderAttributes } from './OrderAttributes.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
+import ValidationError from '../validation-error/ValidationError.jsx';
 
 
 const mockUpdateAndValidate = jest.fn();
 const PROPS_FROM_REDUX_FORM = {
   fields: {
-    partySize: { value: '' },
-    dateTime: { value: '' },
+    partySize: { value: '', error: 'partySize error' },
+    dateTime: { value: '', error: 'dateTime error' },
   },
 };
 const PROPS_FROM_REDUX = {
+  dateTimeInvalid: true,
+  partySizeInvalid: true,
   updateAndValidate: mockUpdateAndValidate,
 };
 describe('OrderAttributes dumb component', () => {
@@ -33,12 +37,20 @@ describe('OrderAttributes dumb component', () => {
     expect(result.type).toBe('form');
   });
 
-  it('has a select child component with 6 options', () => {
+  it('first field has a ValidationError child component', () => {
+    expect(firstLabel).toHaveChild(ValidationError);
+  });
+
+  it('first field has a select child component with 6 options', () => {
     expect(select).toBeDefined();
     const options = select.props.children.filter(child =>
       child.type === 'option'
     );
     expect(options.length).toEqual(6);
+  });
+
+  it('second field has a ValidationError child component', () => {
+    expect(secondLabel).toHaveChild(ValidationError);
   });
 
   it('has an input child', () => {
@@ -71,6 +83,8 @@ describe('OrderAttributes redux connect-wrapped component', () => {
       <ConnectedAttributes store={store} {...PROPS_FROM_REDUX_FORM} />
     );
     const result = shallowRenderer.getRenderOutput();
+    expect(result.props.dateTimeInvalid).toBeDefined();
+    expect(result.props.partySizeInvalid).toBeDefined();
     expect(result.props.updateAndValidate).toBeDefined();
   });
 });

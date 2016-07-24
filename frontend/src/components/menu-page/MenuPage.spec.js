@@ -19,22 +19,20 @@ const PROPS_FROM_ROUTER = {
   params: { menuId: '0' },
 };
 const mockUpdateOrder = jasmine.createSpy('mock update order');
+const mockMarkInvalid = jest.fn();
 const PROPS_FROM_REDUX_INVALID = {
-  menu: {
-    id: 'test id',
-    category: 'tent category',
-    chef: 'test chef name',
-    name: 'test menu name',
-    description: 'test description',
-    image: 'test image src',
-    tagWords: [ 'test tag 0', 'test tag 1' ],
-  },
-  pageValid: false,
+  dateTimeValidated: undefined,
+  markAsInvalid: mockMarkInvalid,
+  menu: { name: 'test menu name' },
+  partySizeValidated: false,
   updateOrderMenu: mockUpdateOrder,
 };
 const mockUpdateOrder2 = jasmine.createSpy('mock update order 2');
+const mockMarkInvalid2 = jest.fn();
 const PROPS_FROM_REDUX_VALID = {...PROPS_FROM_REDUX_INVALID,
-  pageValid: true,
+  dateTimeValidated: true,
+  markAsInvalid: mockMarkInvalid2,
+  partySizeValidated: true,
   updateOrderMenu: mockUpdateOrder2,
 };
 describe('MenuPage react component', () => {
@@ -81,10 +79,13 @@ describe('MenuPage react component', () => {
       const onInvalidNextClick = invalidNextBtn.props.onClick;
       expect(onInvalidNextClick).toBeDefined();
       expect(mockUpdateOrder.calls.count()).toEqual(0);
+      expect(mockMarkInvalid).not.toBeCalled();
       spyOn(browserHistory, 'push');
       onInvalidNextClick();
       expect(mockUpdateOrder.calls.count()).toEqual(1);
       expect(mockUpdateOrder.calls.argsFor(0)).toEqual([ PROPS_FROM_ROUTER.params.menuId ]);
+      expect(mockMarkInvalid).toBeCalledWith('dateTime');
+      expect(mockMarkInvalid).not.toBeCalledWith('partySize');
       expect(browserHistory.push).not.toHaveBeenCalled();
     });
 
@@ -96,6 +97,7 @@ describe('MenuPage react component', () => {
       onValidNextClick();
       expect(mockUpdateOrder2.calls.count()).toEqual(1);
       expect(mockUpdateOrder2.calls.argsFor(0)).toEqual([ PROPS_FROM_ROUTER.params.menuId ]);
+      expect(mockMarkInvalid2).not.toBeCalled();
       expect(browserHistory.push).toHaveBeenCalledWith('/reservation');
     });
   });
@@ -128,7 +130,7 @@ describe('MenuPage smart component', () => {
 
   it('receives correct dispatch function from redux store', () => {
     expect(result.props.updateOrderMenu).toBeDefined();
-    expect(result.props.pageValid).toBeDefined();
+    expect(result.props.markAsInvalid).toBeDefined();
     // technically maybe also expect result.props.updateOrder === dispatch(updateOrderActionCreator)
   });
 });

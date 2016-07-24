@@ -62,15 +62,21 @@ def test_can_save_specified_order_attrs(menu_page_browser):
 
 def test_performs_form_validation(menu_page_browser):
     # no error msg shown
+    assert 'select the number of guests' not in menu_page_browser.body_text
+    assert 'specify a time' not in menu_page_browser.body_text
     # not fill in form, click on next button, remain on the same page
     next_btn = menu_page_browser.find_element_by_xpath('//button[text()="Next"]')
     next_btn.click()
     assert '/menus/0' in menu_page_browser.current_url
     # sees error messages for both fields
+    assert 'select the number of guests' in menu_page_browser.body_text
+    assert 'specify a time' in menu_page_browser.body_text
     # select party size, click on next button, remain on the same page
     menu_page_browser.fill_order_form_and_submit('3 ~ 4', '')
     assert '/menus/0' in menu_page_browser.current_url
     # sees error message for only date time
+    assert 'select the number of guests' not in menu_page_browser.body_text
+    assert 'specify a time' in menu_page_browser.body_text
     # fill date time, click on next button, land on /reservation
     menu_page_browser.fill_order_form_and_submit('3 ~ 4', 'Fri 4pm')
     assert '/reservation' in menu_page_browser.current_url
