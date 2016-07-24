@@ -33,16 +33,17 @@ const matchFromList = (listOfNodes, childType, childProps) => {
 };
 
 const findChildren = (rendered, childType, childProps) => {
-  return matchFromList(rendered.props.children, childType, childProps);
+  // because react decides to return props.children as a non-list if only one result
+  // doing children = [ rendered.props.children ] just fucks everything up somehow
+  const children = [].concat(rendered.props.children);
+  return matchFromList(children, childType, childProps);
 };
 
 const flattenTree = topNode => {
-  if (topNode === undefined) { return []; }
-  if (topNode.props === undefined) { return [ topNode ]; }
-  if (topNode.props.children === undefined) { return [ topNode ]; }
-  return [ topNode ].concat(
-    R.chain(flattenTree, topNode.props.children)
-  );
+  if (topNode === undefined || topNode === null) { return []; }
+  if (topNode.props === undefined) { return [].concat(topNode); }
+  if (topNode.props.children === undefined) { return [].concat(topNode); }
+  return R.chain(flattenTree, [].concat(topNode.props.children)).concat(topNode);
 };
 
 const findInTree = (rendered, childType, childProps) => {
