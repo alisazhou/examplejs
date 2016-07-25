@@ -61,3 +61,33 @@ def test_can_make_payment(res_page_browser):
     paypal_button.click()
     # we are redirected to paypal site
     assert 'paypal.com' in res_page_browser.current_url
+
+
+def test_performs_form_validation(res_page_browser):
+    # no error msg shown at first
+    assert 'Please fill in your name' not in res_page_browser.body_text
+    assert 'Address is required' not in res_page_browser.body_text
+    assert 'Contact info is required' not in res_page_browser.body_text
+    # click on Paypal button, remain on same page
+    paypal_button = res_page_browser.get_slow_loading_css_element(
+        'input[name="submit"]')
+    # TODO: paypal_button.click()
+    assert '/reservation' in res_page_browser.current_url
+    # TODO: see error msgs for name, address, and phone
+    # fill in name, click on Paypal, remain on same page
+    res_page_browser.fill_reservation_form_and_submit(
+        'alisa', '', '')
+    # TODO: paypal_button.click()
+    assert '/reservation' in res_page_browser.current_url
+    # TODO: no more error for name
+    # fill in address, click on Paypal, remain on same page
+    res_page_browser.fill_reservation_form_and_submit(
+        '', 'alisa address', '')
+    # TODO: paypal_button.click()
+    assert '/reservation' in res_page_browser.current_url
+    # TODO: no more error for address
+    # fill iphonen phone, click on Paypal, land on Paypal page
+    res_page_browser.fill_reservation_form_and_submit(
+        '', '', 'alisa phone')
+    paypal_button.click()
+    assert 'paypal.com' in res_page_browser.current_url
