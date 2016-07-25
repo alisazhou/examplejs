@@ -24,7 +24,7 @@ class OrderAttributes extends React.Component {
   render () {
     const { fields: { partySize, dateTime }} = this.props;
     return (
-      <form className='menu_page--attributes'>
+      <form className='menu_page--attributes' onSubmit={e => e.preventDefault()}>
         <label>How many guests?
           <ValidationError
             invalid={this.props.partySizeInvalid}

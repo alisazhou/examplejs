@@ -1,4 +1,5 @@
 import pytest
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
 from browser_fixture import BaseBrowser, get_browser_fixture_of_class
@@ -81,3 +82,13 @@ def test_performs_form_validation(menu_page_browser):
     menu_page_browser.fill_order_form_and_submit('3 ~ 4', 'Fri 4pm')
     assert '/reservation' in menu_page_browser.current_url
     assert 'Mobile' in menu_page_browser.body_text
+
+
+def test_disable_query_submit_on_enter_press(menu_page_browser):
+    # click on input, press enter
+    party_time = menu_page_browser.find_element_by_tag_name('input')
+    party_time.send_keys(Keys.ENTER)
+    # does not send get request to server, stays on same page
+    assert 'dateTime=' not in menu_page_browser.current_url
+    assert '/menus/0' in menu_page_browser.current_url
+    assert 'Demo Menu 0' in menu_page_browser.body_text

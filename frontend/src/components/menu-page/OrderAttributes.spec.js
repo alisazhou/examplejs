@@ -37,6 +37,13 @@ describe('OrderAttributes dumb component', () => {
     expect(result.type).toBe('form');
   });
 
+  it('prevents default on submit', () => {
+    expect(result.props.onSubmit).toBeDefined();
+    const mockEvent = jasmine.createSpyObj('mockEvent', [ 'preventDefault' ]);
+    result.props.onSubmit(mockEvent);
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
+  });
+
   it('first field has a ValidationError child component', () => {
     expect(firstLabel).toHaveChild(ValidationError);
   });
