@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+
 import { updateAndValidate } from '../../actions/orderActions.js';
+import ValidationError from '../validation-error/ValidationError.jsx';
 
 
 const fields = [ 'customerName', 'customerTel', 'customerAddress' ];
@@ -26,6 +28,9 @@ class ReservationForm extends React.Component {
     return (
       <form className='reservation_form'>
         <label>Name:
+          <ValidationError
+            invalid={this.props.customerNameInvalid}
+            error={customerName.error} />
           <input
             type='text'
             className='reservation_form--name'
@@ -34,6 +39,9 @@ class ReservationForm extends React.Component {
           />
         </label>
         <label>Mobile
+          <ValidationError
+            invalid={this.props.customerTelInvalid}
+            error={customerTel.error} />
           <input
             type='text'
             className='reservation_form--tel'
@@ -42,6 +50,9 @@ class ReservationForm extends React.Component {
           />
         </label>
         <label>Address:
+          <ValidationError
+            invalid={this.props.customerAddressInvalid}
+            error={customerAddress.error} />
           <input
             type='text'
             className='reservation_form--add'
@@ -55,16 +66,24 @@ class ReservationForm extends React.Component {
 }
 
 ReservationForm.propTypes = {
+  customerAddressInvalid: React.PropTypes.bool.isRequired,
+  customerNameInvalid: React.PropTypes.bool.isRequired,
+  customerTelInvalid: React.PropTypes.bool.isRequired,
   fields: React.PropTypes.object.isRequired,
   updateAndValidate: React.PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  customerAddressInvalid: state.order.customerAddressValidated === false,
+  customerNameInvalid: state.order.customerNameValidated === false,
+  customerTelInvalid: state.order.customerTelValidated === false,
+});
 const mapDispatchToProps = dispatch => ({
   updateAndValidate: field => dispatch(updateAndValidate(field)),
 });
 
 const ConnectedForm = connect(
-  null, mapDispatchToProps
+  mapStateToProps, mapDispatchToProps
 )(ReservationForm);
 
 export default reduxForm({

@@ -7,6 +7,7 @@ import { findChildren } from '../../testHelpers.js';
 jest.unmock('./ReservationForm.jsx');
 import WrappedForm, { ConnectedForm, ReservationForm } from './ReservationForm.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
+import ValidationError from '../validation-error/ValidationError.jsx';
 
 
 const PROPS_FROM_REDUX_FORM = {
@@ -18,6 +19,9 @@ const PROPS_FROM_REDUX_FORM = {
 };
 const mockUpdateAndValidate = jest.fn();
 const PROPS_FROM_REDUX = {
+  customerAddressInvalid: true,
+  customerNameInvalid: true,
+  customerTelInvalid: true,
   updateAndValidate: mockUpdateAndValidate,
 };
 
@@ -33,9 +37,10 @@ describe('ReservationForm react component', () => {
     expect(result.type).toBe('form');
   });
 
-  it('has three input fields wrapped in label', () => {
+  it('each label has an input field and a ValidationError child component', () => {
     expect(labelNodes.length).toEqual(3);
     R.forEach(label => expect(label).toHaveChild('input'), labelNodes);
+    R.forEach(label => expect(label).toHaveChild(ValidationError), labelNodes);
   });
 
   describe('onBlur callbacks', () => {

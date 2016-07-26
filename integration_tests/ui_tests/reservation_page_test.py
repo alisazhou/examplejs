@@ -74,19 +74,28 @@ def test_performs_form_validation(res_page_browser):
         'input[name="submit"]')
     paypal_button.click()
     assert '/reservation' in res_page_browser.current_url
-    # TODO: see error msgs for name, address, and phone
+    # see error msgs for name, address, and phone
+    assert 'Please fill in your name' in res_page_browser.body_text
+    assert 'Address is required' in res_page_browser.body_text
+    assert 'Contact info is required' in res_page_browser.body_text
     # fill in name, click on Paypal, remain on same page
     res_page_browser.fill_reservation_form_and_submit(
         'alisa', '', '')
     paypal_button.click()
     assert '/reservation' in res_page_browser.current_url
-    # TODO: no more error for name
+    # no more error for name
+    assert 'Please fill in your name' not in res_page_browser.body_text
+    assert 'Address is required' in res_page_browser.body_text
+    assert 'Contact info is required' in res_page_browser.body_text
     # fill in address, click on Paypal, remain on same page
     res_page_browser.fill_reservation_form_and_submit(
         '', 'alisa address', '')
     paypal_button.click()
     assert '/reservation' in res_page_browser.current_url
-    # TODO: no more error for address
+    # no more error for address
+    assert 'Please fill in your name' not in res_page_browser.body_text
+    assert 'Address is required' not in res_page_browser.body_text
+    assert 'Contact info is required' in res_page_browser.body_text
     # fill form, click on Paypal, land on Paypal page
     res_page_browser.fill_reservation_form_and_submit(
         '', '', 'alisa phone')
