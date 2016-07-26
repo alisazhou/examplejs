@@ -8,8 +8,8 @@ const validateAndFindUntouched = (e, fieldsStatus) => {
     return [];
   }
   e.preventDefault();
-  // return untouched fields to mark as invalid for error msg display
-  return R.map(pair => pair[0],
+  // return untouched field names to mark as invalid for error msg display
+  return R.map(pair => pair[0].slice(0, -9),
     R.filter(pair => pair[1] === undefined, fieldPairs)
   );
 };
