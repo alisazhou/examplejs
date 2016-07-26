@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 import { findChildren } from '../../testHelpers.js';
 
 jest.unmock('./PaypalButton.jsx');
@@ -9,8 +10,10 @@ import * as helpers from '../formHelpers.js';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
+const mockMarkInvalid = jest.fn();
 const PROPS_FROM_REDUX = {
   fieldsStatus: { fieldValidated: true },
+  markInvalid: mockMarkInvalid,
 };
 describe('PaypalButton dumb component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -25,12 +28,15 @@ describe('PaypalButton dumb component', () => {
     const paypal = findChildren(result, 'input', {name: 'submit'})[0];
     expect(paypal).toBeDefined();
     expect(paypal.props.onClick).toBeDefined();
-    spyOn(helpers, 'onNextClick');
+    expect(mockMarkInvalid).not.toBeCalled();
+    spyOn(helpers, 'validateAndFindUntouched')
+      .and.returnValue([ 'untouchedField' ]);
     const event = 'event';
     paypal.props.onClick(event);
-    expect(helpers.onNextClick).toHaveBeenCalledWith(
-      'event', {fieldValidated: true}, 3
+    expect(helpers.validateAndFindUntouched).toHaveBeenCalledWith(
+      'event', PROPS_FROM_REDUX.fieldsStatus
     );
+    expect(mockMarkInvalid).toBeCalledWith('untouchedField');
   });
 });
 
@@ -47,6 +53,7 @@ describe('PaypalButton smart component', () => {
     shallowRenderer.render(<WrappedButton store={store} />);
     const result = shallowRenderer.getRenderOutput();
     expect(result.props.fieldsStatus).toBeDefined();
+    expect(result.props.markInvalid).toBeDefined();
   });
 });
 
@@ -70,10 +77,19 @@ describe('mapStateToProps selector', () => {
     expect(actualState).toEqual(expState);
   });
 
-  it('ignores prop that does not exist', () => {
+  it('marks props that do not exist as undefined', () => {
     const currState = { order: {}, irrelevantState: {} };
-    const expState = { fieldsStatus: {}};
+    const expState = { fieldsStatus: {
+      customerNameValidated: undefined,
+      customerTelValidated: undefined,
+      customerAddressValidated: undefined,
+    }};
     const actualState = mapStateToProps(currState);
     expect(actualState).toEqual(expState);
+    // perversely, the following exp passes!
+    // expect(actualState).toEqual({ fieldsStatus: {}});
+    // hence, check for keys
+    expect(R.keys(actualState.fieldsStatus))
+      .toEqual(R.keys(expState.fieldsStatus));
   });
 });

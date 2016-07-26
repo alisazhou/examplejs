@@ -1,12 +1,17 @@
 import R from 'ramda';
 
 
-const onNextClick = (e, fieldsStatus, numOfFields) => {
+const validateAndFindUntouched = (e, fieldsStatus) => {
   const fieldPairs = R.toPairs(fieldsStatus);
   const pageValid = R.all(pair => pair[1])(fieldPairs);
-  if (!pageValid || fieldPairs.length < numOfFields) {
-    e.preventDefault();
+  if (pageValid) {
+    return [];
   }
+  e.preventDefault();
+  // return untouched fields to mark as invalid for error msg display
+  return R.map(pair => pair[0],
+    R.filter(pair => pair[1] === undefined, fieldPairs)
+  );
 };
 
-export { onNextClick };
+export { validateAndFindUntouched };

@@ -1,29 +1,45 @@
 jest.unmock('./formHelpers.js');
-import { onNextClick } from './formHelpers.js';
+import { validateAndFindUntouched } from './formHelpers.js';
 
 
-describe('onNextClick callback', () => {
-  let mockEvent;
+describe('validateAndFindUntouched form helper', () => {
 
-  beforeEach (() => {
-    mockEvent = jasmine.createSpyObj('mockEvent', [ 'preventDefault' ]);
-  });
-
-  it('does not prevent default when all fields are true', () => {
+  describe('when all fields are true', () => {
+    const spy = jasmine.createSpy('spy');
+    let mockEvent = { preventDefault: spy};
     const fieldsStatus = { fieldA: true, fieldB: true };
-    onNextClick(mockEvent, fieldsStatus, 2);
-    expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+    const untouched = validateAndFindUntouched(mockEvent, fieldsStatus);
+    it('does not prevent default', () => {
+      expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+    });
+    it('finds no untouched', () => {
+      expect(untouched).toEqual([]);
+    });
   });
 
-  it('prevents default when some field is false', () => {
+  describe('when some field is false', () => {
+    const spy = jasmine.createSpy('spy');
+    let mockEvent = { preventDefault: spy};
     const fieldsStatus = { fieldA: false, fieldB: true };
-    onNextClick(mockEvent, fieldsStatus, 2);
-    expect(mockEvent.preventDefault).toHaveBeenCalled();
+    const untouched = validateAndFindUntouched(mockEvent, fieldsStatus);
+    it('prevents default', () => {
+      expect(mockEvent.preventDefault).toHaveBeenCalled();
+    });
+    it('finds no untouched', () => {
+      expect(untouched).toEqual([]);
+    });
   });
 
-  it('prevents default when some field is undefined', () => {
-    const fieldsStatus = { fieldA: true, fieldB: true };
-    onNextClick(mockEvent, fieldsStatus, 3);
-    expect(mockEvent.preventDefault).toHaveBeenCalled();
+  describe('when some field is undefined', () => {
+    const spy = jasmine.createSpy('spy');
+    let mockEvent = { preventDefault: spy};
+    const fieldsStatus = { fieldA: undefined, fieldB: true };
+    const untouched = validateAndFindUntouched(mockEvent, fieldsStatus);
+    it('prevents default', () => {
+      expect(mockEvent.preventDefault).toHaveBeenCalled();
+    });
+    it('finds untouched', () => {
+      expect(untouched).toEqual([ 'fieldA' ]);
+    });
   });
 });
