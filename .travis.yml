@@ -1,28 +1,36 @@
 language: python
 python: "3.5"
 
-sudo: required
+sudo: false
+
+cache:
+  directories:
+    - "travis_phantomjs"
 
 before_install:
-  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-  - tar -xjf phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-  - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
-  - sudo mv phantomjs /usr/local/phantomjs/bin/phantomjs
+  - "export PHANTOMJS_VERSION=2.1.1"
+  - "phantomjs --version"
+  - "export PATH=$PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH"
+  - "phantomjs --version"
+  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs; fi"
+  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; fi"
+  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then tar -xvf $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi"
+  - "phantomjs --version"
   - git submodule update --init --recursive
 
 after_failure:
-  - cat ghostdriver.log
+  - echo oops && cat ghostdriver.log
 
 install: 
   - "rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 6"
   - "cd frontend && nvm use 6 && npm install && npm run build"
   - "pip install -r ../integration_tests/requirements.txt"
 script: 
-  - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep 2.0.0
+  - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep $PHANTOMJS_VERSION
   - set -e  && set -o pipefail && ! npm run test 2>&1 | tee /dev/stderr | grep "Warning"
   - npm run lint
   - cd ../integration_tests && py.test -x --strict -r w --timeout=60
 notifications:
   email:
     on_success: change
-    on_failure: always
+    on_failure: change
