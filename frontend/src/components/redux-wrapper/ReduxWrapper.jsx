@@ -35,7 +35,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 let store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-export default class WrappedComponent extends React.Component {
+class WrappedComponent extends React.Component {
   render () {
     return (
       <Provider store={store}>
