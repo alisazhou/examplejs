@@ -2,65 +2,98 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 import '../../testHelpers.js';
+import { findChildren } from '../../testHelpers.js';
 
 jest.unmock('./ReservationForm.jsx');
-import WrappedForm, { ReservationForm } from './ReservationForm.jsx';
+import WrappedForm, { ConnectedForm, ReservationForm } from './ReservationForm.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
-import * as actions from '../../actions/orderActions.js';
+import ValidationError from '../validation-error/ValidationError.jsx';
 
 
+const PROPS_FROM_REDUX_FORM = {
+  fields: {
+    customerName: { value: 'name0' },
+    customerTel: { value: 'tel0' },
+    customerAddress: { value: 'address0' },
+  },
+};
+const mockUpdateAndValidate = jest.fn();
 const PROPS_FROM_REDUX = {
-  customerAdd: 'add0', customerName: 'name0', customerTel: 'tel0',
-  updateOrder: () => {},
+  customerAddressInvalid: true,
+  customerNameInvalid: true,
+  customerTelInvalid: true,
+  updateAndValidate: mockUpdateAndValidate,
 };
 
 describe('ReservationForm react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
-    <ReservationForm {...PROPS_FROM_REDUX}/>
+    <ReservationForm {...PROPS_FROM_REDUX_FORM} {...PROPS_FROM_REDUX} />
   );
   const result = shallowRenderer.getRenderOutput();
+  const labelNodes = findChildren(result, 'label');
 
   it('renders to a form', () => {
     expect(result.type).toBe('form');
   });
 
-  it('has three input fields wrapped in label', () => {
-    const fieldLabels = result.props.children;
-    expect(fieldLabels.length).toEqual(3);
-    R.forEach(label => expect(label.type).toBe('label'), fieldLabels);
-    R.forEach(label => expect(label).toHaveChild('input'), fieldLabels);
+  it('each label has an input field and a ValidationError child component', () => {
+    expect(labelNodes.length).toEqual(3);
+    R.forEach(label => expect(label).toHaveChild('input'), labelNodes);
+    R.forEach(label => expect(label).toHaveChild(ValidationError), labelNodes);
+  });
+
+  describe('onBlur callbacks', () => {
+    const cusInfoFields = R.map(
+      label => R.find(R.propEq('type', 'input'))(label.props.children),
+      labelNodes
+    );
+
+    it('each input has onBlur', () => {
+      R.forEach(
+        input => expect(input.props.onBlur).toBeDefined(),
+        cusInfoFields
+      );
+    });
+
+    it('has the correct callbacks', () => {
+      expect(mockUpdateAndValidate).not.toBeCalled();
+      R.forEach(
+        field => field.props.onBlur(),
+        cusInfoFields
+      );
+      const { customerName, customerTel, customerAddress } =
+        PROPS_FROM_REDUX_FORM.fields;
+      expect(mockUpdateAndValidate.mock.calls).toEqual(
+        [ [ customerName ], [ customerTel ], [ customerAddress ] ]
+      );
+    });
+
+  });
+});
+
+
+describe('ReservationForm redux-connected component', () => {
+  it('is wrapped by a connect', () => {
+    expect(ConnectedForm).not.toBe(ReservationForm);
+    expect(ConnectedForm.WrappedComponent).toBe(ReservationForm);
+    expect(ConnectedForm.displayName).toBe('Connect(ReservationForm)');
+  });
+
+  it('receives props from store', () => {
+    const shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(
+      <ConnectedForm store={store} {...PROPS_FROM_REDUX_FORM} />
+    );
+    const result = shallowRenderer.getRenderOutput();
+    expect(result.props.updateAndValidate).toBeDefined();
   });
 
 });
 
 
-describe('ReservationForm smart component', () => {
-  it('is wrapped by a connect', () => {
-    expect(WrappedForm).not.toBe(ReservationForm);
-    expect(WrappedForm.WrappedComponent).toBe(ReservationForm);
-    expect(WrappedForm.displayName).toBe('Connect(ReservationForm)');
-  });
-  
-  it('receives props from store', () => {
-    const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(<WrappedForm store={store} />);
-    const result = shallowRenderer.getRenderOutput();
-    expect(result.props.customerAdd).toBeDefined();
-    expect(result.props.customerName).toBeDefined();
-    expect(result.props.customerTel).toBeDefined();
-    expect(result.props.updateOrder).toBeDefined();
-  });
-
-  it('calls dispatch with correct callback', () => {
-    spyOn(store, 'dispatch');
-    spyOn(actions, 'updateOrderActionCreator').and.returnValue('update order');
-    const rendered = TestUtils.renderIntoDocument(
-      <WrappedForm store={store} />
-    );
-    const fields = TestUtils.scryRenderedDOMComponentsWithTag(rendered, 'input');
-    R.forEach(input => TestUtils.Simulate.change(input), fields);
-    expect(store.dispatch).toHaveBeenCalledTimes(3);
-    expect(store.dispatch).toHaveBeenCalledWith('update order');
+describe('ReservationForm redux form-connected component', () => {
+  it('is wrapped by a redux form', () => {
+    expect(WrappedForm.name).toBe('ConnectedForm');
   });
 });

@@ -4,8 +4,8 @@ import R from 'ramda';
 
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
+import MenuPageNextButton from './MenuPageNextButton.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
-import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 
 class MenuPage extends React.Component {
@@ -15,15 +15,8 @@ class MenuPage extends React.Component {
         <h1>{this.props.menu.name}</h1>
         <MenuDescription {...this.props.menu}/>
         <OrderAttributes />
-        <LinkButton
-          linkTo='/'
-          content='Back'
-        />
-        <LinkButton
-          linkTo='/reservation'
-          content='Next'
-          btnProps={{ onClick: R.partial(this.props.updateOrder)(this.props.params.menuId) }}
-        />
+        <LinkButton linkTo='/' content='Back' />
+        <MenuPageNextButton menuId={this.props.menu.id} />
       </div>
     );
   }
@@ -32,25 +25,16 @@ class MenuPage extends React.Component {
 MenuPage.propTypes = {
   menu: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
-    category: React.PropTypes.string.isRequired,
-    chef: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string.isRequired,
-    image: React.PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   params: React.PropTypes.shape({
     menuId: React.PropTypes.string.isRequired,
-  }),
-  updateOrder: React.PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
   menu: R.find(R.propEq('id', ownProps.params.menuId))(state.menus),
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateOrder: menuId => dispatch(updateOrderActionCreator({ menuId })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MenuPage);
+export default connect(mapStateToProps)(MenuPage);
 export { MenuPage };

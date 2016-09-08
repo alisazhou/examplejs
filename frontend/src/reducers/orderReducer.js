@@ -15,7 +15,7 @@ const orderReducer = (state = initialState, action) => {
     return {...state, ...action.update };
   } else if (action.type === VALIDATE_ORDER) {
     return {...state,
-      [ `${action.field}Validated` ]: state[action.field] !== '',
+      [ `${action.fieldName}Validated` ]: action.validStatus,
     };
   }
   return state;

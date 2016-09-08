@@ -7,27 +7,17 @@ jest.unmock('./MenuPage.jsx');
 import WrappedPage, { MenuPage } from './MenuPage.jsx';
 jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
-import MenuDescription from './MenuDescription.jsx';
-import OrderAttributes from './OrderAttributes.jsx';
 import LinkButton from '../link-button/LinkButton.jsx';
-// import * as actions from '../../actions/orderActions.js';
+import MenuDescription from './MenuDescription.jsx';
+import MenuPageNextButton from './MenuPageNextButton.jsx';
+import OrderAttributes from './OrderAttributes.jsx';
 
 
 const PROPS_FROM_ROUTER = {
   params: { menuId: '0' },
 };
-const mockUpdateOrder = jasmine.createSpy('mock update order');
 const PROPS_FROM_REDUX = {
-  menu: {
-    id: 'test id',
-    category: 'tent category',
-    chef: 'test chef name',
-    name: 'test menu name',
-    description: 'test description',
-    image: 'test image src',
-    tagWords: [ 'test tag 0', 'test tag 1' ],
-  },
-  updateOrder: mockUpdateOrder,
+  menu: { id: '0', name: 'test menu name' },
 };
 describe('MenuPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -50,30 +40,7 @@ describe('MenuPage react component', () => {
   });
 
   it('has an OrderAttributes child component', () => {
-    const attrs = R.find(R.propEq('type', OrderAttributes))(result.props.children);
-    expect(attrs).toBeDefined();
-  });
-
-  describe('Next LinkButton', () => {
-    const expectedProps = {
-      linkTo: '/reservation',
-      content: 'Next',
-    };
-    const LinkButtons = findChildren(
-      result, LinkButton, expectedProps
-    );
-    it('has a LinkButton child with the correct static properties', () => {
-      expect(LinkButtons.length).toEqual(1);
-    });
-    it('has a LinkButton with the correct btnProps callbacks', () => {
-      const buttonProps = LinkButtons[0].props.btnProps;
-      expect(buttonProps.onClick).toBeDefined();
-
-      expect(mockUpdateOrder.calls.count()).toEqual(0);
-      buttonProps.onClick();
-      expect(mockUpdateOrder.calls.count()).toEqual(1);
-      expect(mockUpdateOrder.calls.argsFor(0)).toEqual([ PROPS_FROM_ROUTER.params.menuId ]);
-    });
+    expect(result).toHaveChild(OrderAttributes);
   });
 
   it('has a Back LinkButton to IntroPage', () => {
@@ -84,6 +51,11 @@ describe('MenuPage react component', () => {
     const backLinkBtn = findChildren(result, LinkButton, expProps);
     expect(backLinkBtn.length).toEqual(1);
   });
+
+  it('has a MenuPageNextButton child component', () => {
+    expect(result).toHaveChild(MenuPageNextButton);
+  });
+
 });
 
 describe('MenuPage smart component', () => {
@@ -98,12 +70,7 @@ describe('MenuPage smart component', () => {
     <WrappedPage store={store} {...PROPS_FROM_ROUTER} />
   );
   const result = shallowRenderer.getRenderOutput();
-  it('receives menu name from redux store', () => {
+  it('receives menu from redux store', () => {
     expect(result.props.menu).toBeDefined();
-  });
-
-  it('receives correct dispatch function from redux store', () => {
-    expect(result.props.updateOrder).toBeDefined();
-    // technically maybe also expect result.props.updateOrder === dispatch(updateOrderActionCreator)
   });
 });
