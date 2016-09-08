@@ -19,17 +19,20 @@ beforeEach(() => {
   });
 });
 
-const matchFromList = (listOfNodes, childType, childProps) => {
+const matchFromList = (listOfNodes, expectedChildType, expectedChildProps) => {
   const correctTypeFilter = R.filter(
-    child => child.type === childType
+    child => child.type === expectedChildType
   );
+
+  const hasDefinedPropsFilter = R.filter(R.has('props'));
+
   const correctPropsFilter = R.filter(
     child => R.all(
       ([ key, value ]) => R.equals(child.props[key], value),
-      R.toPairs(childProps)
+      R.toPairs(expectedChildProps)
     )
   );
-  return R.compose(correctTypeFilter, correctPropsFilter)(listOfNodes);
+  return R.pipe(correctTypeFilter, hasDefinedPropsFilter, correctPropsFilter)(listOfNodes);
 };
 
 const findChildren = (rendered, childType, childProps) => {

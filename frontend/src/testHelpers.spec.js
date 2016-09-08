@@ -62,16 +62,23 @@ describe('findInTree', () => {
       )).toEqual([]);
     });
     it('should not puke if child does not have target property', () => {
-      expect(findChildren(
+      expect(findInTree(
         rendered, 'type1', {randomProperty: 2}
+      )).toEqual([]);
+    });
+    it('should use correct ordering of filters so it does not puke if some child does not have .props at all', () => {
+      const childWithoutProps = {};
+      expect(findInTree(
+        {props: {children: [ childy, childWithoutProps ]}}, 'type1', { shouldNeverGetHere: 2 }
       )).toEqual([]);
     });
     it('should not puke if props.children is not an array', () => {
       // because react decides to return props.children as a non-list if only one result
-      expect(findChildren(
+      expect(findInTree(
         {props: {children: childy}}, 'type1'
       )).toEqual([ childy ]);
     });
+
     it('should return childs that fit type when no props passed in', () => {
       expect(findInTree(
         rendered, 'type1'
