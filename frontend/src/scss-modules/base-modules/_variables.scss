@@ -1,5 +1,5 @@
 // Typography
-$root-font-size: 4vh;
+$root-font-size: 1em;
 
 // for discussion of using lists etc
 // http://blackfalcon.roughdraft.io/a8e151dd85bb1631897b-how-to-better-make-use-of-variables-in-your-sass
@@ -15,6 +15,9 @@ $colors: (
   bright-green: #65F3B3,
   bright-blue: #14BCC8,
   nav-bg: #ce172b,
+  search-bg: #ce172b,
+  howitoworks-bg: #aaa,
+  howitoworks: #fff,
 );
 
 $base-font: (

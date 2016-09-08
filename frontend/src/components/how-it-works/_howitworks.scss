@@ -1,0 +1,23 @@
+
+.howitworks {
+    &__header {
+        @extend .bg-cover, .bg-center;
+        background-color: map-get($colors, howitworks-bg);
+        color: map-get($colors, howitworks);
+        background-image: url("/img/sushi-background-2.jpg");
+    }
+    &__div { @extend .center, .px2, .pt4, .pb4 }
+    &__heading { @extend .h1, .mt0, .mb4, .regular }  //.h0-responsive,
+}
+
+.howitworks-text {
+    @extend .clearfix, .mx-auto;
+    @include max-width("md");
+    &__description--small {
+        @extend .sm-hide, .col, .col-12, .px2;
+    }
+    &__description--large {
+        @include only-show-if-larger-than("sm");
+        @extend .col, .col-12, .sm-col-4, .p2;
+    }
+}

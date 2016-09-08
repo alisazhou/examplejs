@@ -1,0 +1,14 @@
+
+.searchbar {
+    &__background {
+        @extend .clearfix, .pt2, .pl1;
+        background-color: map-get($colors, search-bg);
+    }
+}
+
+.searchbar-form {
+    @extend .mx-auto;
+    @include max-width("lg");
+    &__search-field-div { @extend .col, .col-12, .md-col-4, .pr1, .pb2, .mx-auto; }
+    &__search-field { @extend .col, .col-12; }  // , .field
+}

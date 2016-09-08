@@ -8,31 +8,30 @@ class SearchBar extends React.Component {
   render () {
     const { fields: { searchText, searchCuisine }} = this.props;
     return (
-      <div className='clearfix pt2 pl1 search-bg'>
-        <div className='max-lg mx-auto'>
-          <form className='search-bar'>
-            <div className='col col-12 md-col-4 pr1 pb2 mx-auto'>
-              <input
-                type='search'
-                placeholder='I feel like having...'
-                className='col col-12 field'
-                {...searchText}
-              />
-            </div>
-            <div className='col col-12 md-col-4 pr1 pb2 mx-auto'>
-              <select
-                {...searchCuisine}
-                value={searchCuisine.value||''}>
-                <option value='all'>All</option>
-                {this.props.cuisines.map(cuisine =>
-                  <option key={cuisine.id} value={cuisine.name}>
-                    {cuisine.name}
-                  </option>
-                )}
-              </select>
-            </div>
-          </form>
-        </div>
+      <div className='searchbar__background'>
+        <form className='searchbar-form'>
+          <div className='searchbar-form__search-field-div'>
+            <input
+              type='search'
+              placeholder='I feel like having...'
+              className='searchbar-form__search-field'
+              {...searchText}
+            />
+          </div>
+          <div className='searchbar-form__search-field-div'>
+            <select
+              {...searchCuisine}
+              value={searchCuisine.value||''}>
+              <option value='all'>All</option>
+              {this.props.cuisines.map(cuisine =>
+                <option key={cuisine.id} value={cuisine.name}>
+                  {cuisine.name}
+                </option>
+              )}
+              className='searchbar-form__search-field'
+            </select>
+          </div>
+        </form>
       </div>
     );
   }
