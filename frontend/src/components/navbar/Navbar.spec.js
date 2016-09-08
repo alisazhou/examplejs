@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import '../../testHelpers.js';
+import R from 'ramda';
+import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./Navbar.jsx');
 import WrappedBar, { Navbar } from './Navbar.jsx';
@@ -32,10 +33,26 @@ describe('Navbar dumb component', () => {
       expect(homeButton.type).toBe('div');
       expect(homeButton.props.className).toBe('navbar-buttons__home-div');
     });
-    it('has a navbar-buttons__title-dev', () => {
-      const titleButton = resultButtons.props.children[1];
-      expect(titleButton.type).toBe('div');
-      expect(titleButton.props.className).toBe('navbar-buttons__title-div');
+    it('has a navbar-buttons__title-div', () => {
+      const titleDiv = resultButtons.props.children[1];
+      expect(titleDiv.type).toBe('div');
+      expect(titleDiv.props.className).toBe('navbar-buttons__title-div');
+    });
+    it('renders navbar-buttons__title-btn if there is props.title', () => {
+      shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} title='titleman'/>);
+      const result = shallowRenderer.getRenderOutput();
+      const titleButton = findInTree(
+        result, 'button', { className: 'navbar-buttons__title-btn' }
+      );
+      expect(titleButton.props).toBeDefined();
+      const buttonText = React.Children.only(result.props.children);
+      expect(buttonText).toBe('titleman');
+    });
+    it('does not render navbar-buttons__title-btn if props.title is undefined', () => {
+      const titleButton = findInTree(
+        resultButtons, 'button', { className: 'navbar-buttons__title-btn' }
+      );
+      expect(titleButton).toEqual([]);
     });
 
     it('has one AuthBlock component when not authenticated', () => {
@@ -51,6 +68,14 @@ describe('Navbar dumb component', () => {
     });
   });
 
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'isAuthenticated', 'title' ];
+    R.forEach(
+      prop => expect(R.has(prop)(Navbar.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(Navbar.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });
 
 

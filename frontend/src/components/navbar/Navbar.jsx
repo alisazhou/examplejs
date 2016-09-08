@@ -6,6 +6,11 @@ import ProfileButton from './ProfileButton.jsx';
 
 
 class Navbar extends React.Component {
+  renderTitleIfGiven () {
+    if (this.props.title) {
+      return <button type='button' className='navbar-buttons__title-btn'>{ this.props.title }</button>;
+    }
+  }
   render () {
     return (
       <div className='navbar'>
@@ -13,7 +18,9 @@ class Navbar extends React.Component {
           <div className='navbar-buttons__home-div'>
             <button className='navbar-buttons__home-btn' type='button'>iChef</button>
           </div>
-          <div className='navbar-buttons__title-div'/>
+          <div className='navbar-buttons__title-div'>
+            { this.renderTitleIfGiven() }
+          </div>
           { this.props.isAuthenticated ? <ProfileButton /> : <AuthBlock /> }
         </div>
       </div>
@@ -23,6 +30,7 @@ class Navbar extends React.Component {
 
 Navbar.propTypes = {
   isAuthenticated: React.PropTypes.bool.isRequired,
+  title: React.PropTypes.string,
 };
 
 const mapStateToProps = state => ({
