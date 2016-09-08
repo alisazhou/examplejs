@@ -5,6 +5,7 @@ import R from 'ramda';
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
 import MenuPageNextButton from './MenuPageNextButton.jsx';
+import Navbar from '../navbar/Navbar.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
 
 
@@ -12,6 +13,7 @@ class MenuPage extends React.Component {
   render () {
     return (
       <div>
+        <Navbar />
         <h1>{this.props.menu.name}</h1>
         <MenuDescription {...this.props.menu}/>
         <OrderAttributes />

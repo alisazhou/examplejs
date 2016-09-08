@@ -10,6 +10,7 @@ import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
 import MenuPageNextButton from './MenuPageNextButton.jsx';
+import Navbar from '../navbar/Navbar.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
 
 
@@ -28,6 +29,11 @@ describe('MenuPage react component', () => {
 
   it('renders to a div', () => {
     expect(result.type).toBe('div');
+  });
+
+  it('has a Navbar child component', () => {
+    const navbar = R.find(R.propEq('type', Navbar))(result.props.children);
+    expect(navbar).toBeDefined();
   });
 
   it('displays menu name', () => {

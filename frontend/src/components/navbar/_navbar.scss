@@ -3,7 +3,6 @@
 .navbar {
     @extend .overflow-auto, .p1, .white;
     background-color: map-get($colors, nav-bg);
-
 }
 
 .navbar-buttons {
