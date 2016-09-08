@@ -1,15 +1,18 @@
 #!/bin/bash
 
+set -e
+
 echo running pre-push hooks
 
 cd "$(git rev-parse --show-toplevel)/frontend"
 npm run lint
 
-RESULT = $?
+RESULT=$?
 
 if [ $RESULT -ne 0 ]; then
+    echo lint plz
     exit 1 # push will not execute
 fi
-echo lint plz
+
 exit 0 # push will execute
 

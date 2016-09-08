@@ -5,6 +5,9 @@ See individual folders for their READMEs
 
 [Greenkeeper](https://greenkeeper.io/) is being used to automatically create pull requests.
 
+# Setup
+- be sure to symlink pre-push hook to .git/hooks/pre-push, and have it executable. won't need to do it after git 2.9
+
 
 #### Kanban Bananas
 **TO-DO**
