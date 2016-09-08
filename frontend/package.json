@@ -31,7 +31,7 @@
       "<rootDir>/src/reducers/.*Reducer.js",
       "<rootDir>/src/testHelpers.js"
     ],
-    "testPathIgnorePatterns": ["<rootDir>/src/vendors"],
+    "testPathIgnorePatterns": ["<rootDir>/src/scss-modules/vendors"],
     "testPathDirs": [
       "<rootDir>/src"
     ],
