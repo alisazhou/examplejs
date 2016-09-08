@@ -41,6 +41,7 @@ describe('Navbar dumb component', () => {
     it('has one AuthBlock component when not authenticated', () => {
       expect(resultButtons).toHaveChild(AuthBlock);
     });
+
     it('has one ProfileButton component when authenticated', () => {
       const PROPS_FROM_REDUX = { isAuthenticated: true };
       shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} />);

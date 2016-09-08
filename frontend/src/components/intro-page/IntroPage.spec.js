@@ -44,6 +44,14 @@ describe('IntroPage component', () => {
     expect(menuList).toBeDefined();
   });
 
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'menus' ];
+    R.forEach(
+      prop => expect(R.has(prop)(IntroPage.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(IntroPage.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });
 
 

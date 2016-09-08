@@ -44,5 +44,6 @@ describe('StickyLayout react component', () => {
       prop => expect(R.has(prop)(StickyLayout.propTypes)).toBe(true),
       expectedPropTypes
     );
+    expect(R.keys(StickyLayout.propTypes).length).toEqual(expectedPropTypes.length);
   });
 });

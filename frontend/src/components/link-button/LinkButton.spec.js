@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 
 import { Link } from 'react-router';
 
@@ -36,5 +37,11 @@ describe('LinkButton component', () => {
     expect(child.props.children).toEqual(PROPS_FROM_PARENT.content);
   });
   it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'btnProps', 'content', 'linkTo' ];
+    R.forEach(
+      prop => expect(R.has(prop)(LinkButton.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(LinkButton.propTypes).length).toEqual(expectedPropTypes.length);
   });
 });
