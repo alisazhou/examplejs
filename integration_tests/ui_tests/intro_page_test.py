@@ -1,13 +1,10 @@
 import pytest
 from selenium.webdriver.support.ui import Select
 
-from components import click_on_nth_menu
+from ui_mixins import NavbarMixin, MenuListMixin
 from browser_fixture import BaseBrowser, get_browser_fixture_of_class
 
-class IntroPageBrowser(BaseBrowser):
-    def click_on_nth_menu(self, nth):
-        return click_on_nth_menu(self, nth)
-
+class IntroPageBrowser(BaseBrowser, MenuListMixin, NavbarMixin):
     def get_search_bar(self):
         return self.find_element_by_class_name('searchbar-form')
 
@@ -123,17 +120,26 @@ def test_search_bar_updates_menu_list_by_cuisine(intro_page_browser):
     assert 'Demo Menu 1' not in intro_page_browser.body_text
 
 
-def test_has_navbar_with_signup_and_login(browser):
-    # find signup and login buttons in navbar
-    navbar = browser.find_element_by_class_name('navbar')
-    # sign up button links to signup
-    signup = navbar.find_element_by_class_name('navbar-buttons__user-signup-btn')
-    assert signup.text == 'Sign up'
-    signup.click()
-    assert '/signup/' in browser.current_url
-    browser.back()
-    # login button links to login
-    login_button = browser.find_element_by_class_name('navbar-buttons__user-login-btn')
-    assert login_button.text == 'Log in'
+def test_navbar_works_correctly(intro_page_browser):
+    # alisa goes to the intro page and sees a navbar
+    intro_page_browser.get_navbar()
+    # she sees that the navbar does not have a title
+    # (but need a textless button there so that the css spacing is correct)
+    assert intro_page_browser.get_navbar_title_btn().text == ''
+
+    # she sees a sign up button with the appropriate text
+    signup_button = intro_page_browser.get_navbar_signup_btn()
+    signup_button.text == 'Sign up'
+    # she clicks on it
+    signup_button.click()
+    # and is taken to the signup page
+    assert '/signup/' in intro_page_browser.current_url
+
+    # she goes back and sees a login button
+    intro_page_browser.back()
+    login_button = intro_page_browser.get_navbar_login_btn()
+    login_button.text == 'Log in'
+    # she clicks on it
     login_button.click()
-    assert '/login/' in browser.current_url
+    # she is taken to the login page
+    assert '/login/' in intro_page_browser.current_url

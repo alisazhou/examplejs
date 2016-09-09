@@ -2,9 +2,11 @@ import pytest
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
+
+from ui_mixins import NavbarMixin
 from browser_fixture import BaseBrowser, get_browser_fixture_of_class
 
-class MenuPageBrowser(BaseBrowser):
+class MenuPageBrowser(BaseBrowser, NavbarMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.click_link_text('Demo Menu 0')
@@ -24,7 +26,7 @@ pytest.yield_fixture()(menu_page_browser)
 
 
 def test_has_menu_name_in_navbar(menu_page_browser):
-    navbar_title = menu_page_browser.find_element_by_css_selector('button.navbar-buttons__title-btn')
+    navbar_title = menu_page_browser.get_navbar_title_btn()
     assert navbar_title.text == 'Demo Menu 0'
 
 
