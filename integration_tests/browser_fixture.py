@@ -1,5 +1,6 @@
 from contextlib import contextmanager
 
+import pytest
 from pyvirtualdisplay import Display
 
 from selenium import webdriver
@@ -34,19 +35,13 @@ class BaseBrowser(webdriver.PhantomJS):
     def click_link_text(self, link_text):
         self.find_element_by_link_text(link_text).click()
 
-    def login_admin(self):
-        assert 'not logged in' in browser.body_text
-        browser.type_into('id_username', 'admin')
-        browser.type_into('id_password', 'password')
-        browser.find_element_by_xpath('//form/input[@type="submit"]').click()
-
     @contextmanager
     def context_to_assert_page_reload(self, time_out=1):
         old_page = self.find_element_by_tag_name('html')
         yield
         wait = WebDriverWait(self, time_out)
         wait.until(
-            expected_conditions.staleness_of(old_page)
+            EC.staleness_of(old_page)
         )
 
     def get_slow_loading_css_element(self, css_selector, timeout=10):
@@ -60,7 +55,7 @@ class BaseBrowser(webdriver.PhantomJS):
 
 
 
-def get_browser_fixture_of_class(BrowserClass):
+def setup_pytest_browser_fixture(BrowserClass):
     def browser(live_server, settings):
         # also require the live_server fixture from pytest-django
         # django runserver doesnt support https.
@@ -73,4 +68,4 @@ def get_browser_fixture_of_class(BrowserClass):
             _browser = BrowserClass(host_address=live_server.url)
             yield _browser
             _browser.close()
-    return browser
+    return pytest.fixture(browser)

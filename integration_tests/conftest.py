@@ -1,11 +1,12 @@
 ## import datetime
 
 import pytest
-from browser_fixture import BaseBrowser, get_browser_fixture_of_class
+from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
-browser = get_browser_fixture_of_class(BaseBrowser)
-pytest.yield_fixture()(browser)
 
+# sometimes this fixture will be overridden with new browser using
+# BaseBrowser + Mixins
+browser = setup_pytest_browser_fixture(BaseBrowser)
 
 @pytest.yield_fixture()
 def normal_user(django_user_model):
