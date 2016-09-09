@@ -38,21 +38,20 @@ describe('Navbar dumb component', () => {
       expect(titleDiv.type).toBe('div');
       expect(titleDiv.props.className).toBe('navbar-buttons__title-div');
     });
-    it('renders navbar-buttons__title-btn if there is props.title', () => {
+    it('has a navbar-buttons__title-btn', () => {
+      const titleButton = findInTree(
+        result, 'button', { className: 'navbar-buttons__title-btn' }
+      );
+      expect(titleButton.length).toBe(1);
+    });
+
+    it('renders text inside of navbar-buttons__title-btn if props.title is given', () => {
       shallowRenderer.render(<Navbar {...PROPS_FROM_REDUX} title='titleman'/>);
       const result = shallowRenderer.getRenderOutput();
       const titleButton = findInTree(
         result, 'button', { className: 'navbar-buttons__title-btn' }
-      );
-      expect(titleButton.props).toBeDefined();
-      const buttonText = React.Children.only(result.props.children);
-      expect(buttonText).toBe('titleman');
-    });
-    it('does not render navbar-buttons__title-btn if props.title is undefined', () => {
-      const titleButton = findInTree(
-        resultButtons, 'button', { className: 'navbar-buttons__title-btn' }
-      );
-      expect(titleButton).toEqual([]);
+      )[0];
+      expect(titleButton.props.children).toBe('titleman');
     });
 
     it('has one AuthBlock component when not authenticated', () => {

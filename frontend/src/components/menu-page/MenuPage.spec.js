@@ -36,11 +36,6 @@ describe('MenuPage react component', () => {
     expect(navbar).toBeDefined();
   });
 
-  it('displays menu name', () => {
-    const header = R.find(R.propEq('type', 'h1'))(result.props.children);
-    expect(header.props.children).toBe('test menu name');
-  });
-
   it('has a MenuDescription child component', () => {
     expect(result).toHaveChild(MenuDescription);
   });

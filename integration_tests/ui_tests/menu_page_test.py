@@ -23,9 +23,9 @@ menu_page_browser = get_browser_fixture_of_class(MenuPageBrowser)
 pytest.yield_fixture()(menu_page_browser)
 
 
-def test_has_menu_name_as_header(menu_page_browser):
-    header = menu_page_browser.find_element_by_tag_name('h1')
-    assert header.text == 'Demo Menu 0'
+def test_has_menu_name_in_navbar(menu_page_browser):
+    navbar_title = menu_page_browser.find_element_by_css_selector('button.navbar-buttons__title-btn')
+    assert navbar_title.text == 'Demo Menu 0'
 
 
 def test_has_menu_image(menu_page_browser):

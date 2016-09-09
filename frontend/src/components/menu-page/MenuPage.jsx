@@ -13,8 +13,7 @@ class MenuPage extends React.Component {
   render () {
     return (
       <div>
-        <Navbar />
-        <h1>{this.props.menu.name}</h1>
+        <Navbar title={this.props.menu.name}/>
         <MenuDescription {...this.props.menu}/>
         <OrderAttributes />
         <LinkButton linkTo='/' content='Back' />

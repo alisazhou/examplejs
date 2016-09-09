@@ -13,9 +13,10 @@
     &__home-div { @extend .col, .col-3; }
     &__home-btn { @extend .btn, .white, .py1; }
 
-    &__title-div { @extend .col, .col-6, .flex; }
+    &__title-div { @extend .col, .col-6, .flex, .items-center; }
+    &__title-btn { @extend .btn, .flex-auto, .py1; }
 
-    &__user-div { @extend .col, .col-3, .flex; }
+    &__user-div { @extend .col, .col-3, .flex, .items-center, .flex-auto; }
     &__user-login-btn { @extend .btn, .white, .btn-outline, .ml1; }
     &__user-signup-btn { @extend .btn, .white; }
 }
