@@ -14,7 +14,7 @@ class BaseBrowser(webdriver.PhantomJS):
         self.implicitly_wait(5)
         self.set_page_load_timeout(5)
         self.host_address = host_address
-        self.get(self.host_address + '/')
+        self.goto('/')
 
     @property
     def body_text(self):

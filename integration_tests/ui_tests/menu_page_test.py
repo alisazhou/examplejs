@@ -37,12 +37,18 @@ def test_has_chef_name_and_description(browser):
 
 
 def test_has_back_btn_to_intro_page(browser):
-    # start at intro page, get url
+    # alisa goes to the intro page
+    browser.goto('/')
     starting_url = browser.current_url
+
+    # she navigates to the menu page
     browser.click_link_text('Demo Menu 0')
     assert browser.current_url != starting_url
-    # find Back btn, click on it, land back on intro page
+
+    # she finds and clicks a back button on the menu page
     browser.find_element_by_xpath('//a/button[text()="Back"]').click()
+
+    # she returns to the intro page
     assert browser.current_url == starting_url
     assert 'How many guests?' not in browser.body_text
 
