@@ -13,6 +13,9 @@ See individual folders for their READMEs
 **TO-DO**
 - ! _ch_: review and remove legacy code
 - login and register pages
+- make going to hosturl/menu/0 etc redirect on the server side
+- clean up reducers/initial state/mocks
+- update redux form to get rid of uknown props warning
 
 
 **DOING**

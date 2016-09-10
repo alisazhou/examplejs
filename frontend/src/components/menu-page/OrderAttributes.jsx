@@ -1,4 +1,5 @@
 import React from 'react';
+import R from 'ramda';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
@@ -27,16 +28,17 @@ class OrderAttributes extends React.Component {
       <form className='menu_page--attributes' onSubmit={e => e.preventDefault()}>
         <label>How many guests?
           <ValidationError
-            invalid={this.props.partySizeInvalid}
-            error={partySize.error} />
+            invalid={ this.props.partySizeInvalid }
+            error={ partySize.error }
+          />
           <select
-            {...partySize}
-            value={partySize.value||''}
-            onBlur={() => this.props.updateAndValidate(partySize)}
-          >
-          {partySizeOptions.map(size =>
-            <option key={size.value} value={size.label}>{size.label}</option>
-          )}
+            { ...partySize }
+            value={ partySize.value || '' }
+            onBlur={ () => this.props.updateAndValidate(partySize) }>
+            { partySizeOptions.map(
+                size => <option key={size.value} value={size.label}>{size.label}</option>
+              )
+            }
           </select>
         </label>
         <label>When's the party?
@@ -73,7 +75,7 @@ const mapStateToProps = state => ({
   dateTimeInvalid: state.order.dateTimeValidated === false,
 });
 const mapDispatchToProps = dispatch => ({
-  updateAndValidate: field => dispatch(updateAndValidate(field)),
+  updateAndValidate: R.compose(dispatch, updateAndValidate),
 });
 
 const ConnectedAttributes = connect(

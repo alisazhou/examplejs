@@ -22,7 +22,7 @@ class SearchBar extends React.Component {
             <select
               {...searchCuisine}
               value={searchCuisine.value||''}>
-              <option value='all'>All</option>
+              <option value='all'>All Cuisines</option>
               {this.props.cuisines.map(cuisine =>
                 <option key={cuisine.id} value={cuisine.name}>
                   {cuisine.name}

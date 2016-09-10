@@ -12,7 +12,7 @@ class LinkButton extends React.Component {
 }
 
 LinkButton.propTypes = {
-  btnProps: React.PropTypes.object.isRequired,
+  btnProps: React.PropTypes.object,
   content: React.PropTypes.string.isRequired,
   linkTo: React.PropTypes.string.isRequired,
 };
