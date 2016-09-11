@@ -1,15 +1,13 @@
 from browser_fixture import setup_pytest_browser_fixture
-from menu_page_test import MenuPageBrowser
 
-class ResPageBrowser(MenuPageBrowser):
+from ui_mixins import NavigationMixin, NavbarMixin
+from browser_fixture import BaseBrowser
+
+class ResPageBrowser(BaseBrowser, NavigationMixin, NavbarMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fill_order_form_and_submit('3 ~ 4', 'Sun 1pm')
-
-    def fill_reservation_form_and_submit(self, name, add, tel):
-        self.find_element_by_class_name('reservation_form--name').send_keys(name)
-        self.find_element_by_class_name('reservation_form--add').send_keys(add)
-        self.find_element_by_class_name('reservation_form--tel').send_keys(tel)
+        self.from_intro_page_select_menu('Demo Menu 0')
+        self.from_menu_page_fill_form_and_submit('3 ~ 4', 'Sun 1pm')
 
 browser = setup_pytest_browser_fixture(ResPageBrowser)
 
@@ -29,9 +27,19 @@ def test_has_back_btn_to_menu_page(browser):
     assert '/menus/0' in browser.current_url
 
 
+    # TODO: put navbar into reservation page
+    ## home_url = browser.host_address + '/'
+    ## # alisa is at the reservation page
+    ## # she can click the home icon to go back to the home page
+    ## browser.get_navbar_home_btn().click()
+    ## assert browser.current_url == home_url
+
+    ## browser.from_intro_page_select_menu('Demo Menu 0')
+    ## self.from_menu_page_fill_form_and_submit('3 ~ 4', 'Sun 1pm')
+
 def test_saves_reservation_detail_between_pages(browser):
     # fill res form, go back to prev page
-    browser.fill_reservation_form_and_submit(
+    browser.from_reservation_page_fill_form_and_submit(
         'alisa', 'az add', 'az tel')
     browser.back()
     # go fwd to res page, reservation details are still shown
@@ -52,7 +60,7 @@ def test_can_make_payment(browser):
     paypal_button = browser.get_slow_loading_css_element('input[name="submit"]')
     assert 'PayPal' in paypal_button.get_attribute('alt')
     # fill in reservation form, and click on paypal btn
-    browser.fill_reservation_form_and_submit('name0', 'address0', 'tel0')
+    browser.from_reservation_page_fill_form_and_submit('name0', 'address0', 'tel0')
     ## temporary hack before refactoring
     browser.set_page_load_timeout(30)
     paypal_button.click()
@@ -75,7 +83,7 @@ def test_performs_form_validation(browser):
     assert 'Address is required' in browser.body_text
     assert 'Contact info is required' in browser.body_text
     # fill in name, click on Paypal, remain on same page
-    browser.fill_reservation_form_and_submit(
+    browser.from_reservation_page_fill_form_and_submit(
         'alisa', '', '')
     paypal_button.click()
     assert '/reservation' in browser.current_url
@@ -84,7 +92,7 @@ def test_performs_form_validation(browser):
     assert 'Address is required' in browser.body_text
     assert 'Contact info is required' in browser.body_text
     # fill in address, click on Paypal, remain on same page
-    browser.fill_reservation_form_and_submit(
+    browser.from_reservation_page_fill_form_and_submit(
         '', 'alisa address', '')
     paypal_button.click()
     assert '/reservation' in browser.current_url
@@ -93,7 +101,7 @@ def test_performs_form_validation(browser):
     assert 'Address is required' not in browser.body_text
     assert 'Contact info is required' in browser.body_text
     # fill form, click on Paypal, land on Paypal page
-    browser.fill_reservation_form_and_submit(
+    browser.from_reservation_page_fill_form_and_submit(
         '', '', 'alisa phone')
     browser.set_page_load_timeout(30)
     paypal_button.click()

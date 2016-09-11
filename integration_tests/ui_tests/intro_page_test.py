@@ -1,16 +1,10 @@
 from selenium.webdriver.support.ui import Select
 
-from ui_mixins import NavbarMixin, MenuListMixin
+from ui_mixins import SearchBarMixin, NavbarMixin, MenuListMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
-class IntroPageBrowser(BaseBrowser, MenuListMixin, NavbarMixin):
-    def get_search_bar(self):
-        return self.find_element_by_class_name('searchbar-form')
-
-    def type_into_search_input(self, text):
-        input_box = self.get_search_bar().find_element_by_tag_name('input')
-        input_box.clear()
-        input_box.send_keys(text)
+class IntroPageBrowser(BaseBrowser, SearchBarMixin, MenuListMixin, NavbarMixin):
+    pass
 
 browser = setup_pytest_browser_fixture(IntroPageBrowser)
 
@@ -39,7 +33,7 @@ def test_there_is_search_bar(browser):
 
     dropdown = Select(search_bar.find_element_by_tag_name('select'))
     options_text = [opt.text for opt in dropdown.options]
-    assert options_text == ['All', 'American', 'Chinese', 'French', 'Indian']
+    assert options_text == ['All Cuisines', 'American', 'Chinese', 'French', 'Indian']
 
 
 def test_search_bar_updates_menu_list_by_name(browser):
@@ -107,7 +101,7 @@ def test_search_bar_updates_menu_list_by_cuisine(browser):
     assert 'Demo Menu 1' in browser.body_text
 
     # choose All, both menus are shown
-    select.select_by_visible_text('All')
+    select.select_by_visible_text('All Cuisines')
     assert 'Demo Menu 0' in browser.body_text
     assert 'Demo Menu 1' in browser.body_text
 
@@ -119,7 +113,7 @@ def test_search_bar_updates_menu_list_by_cuisine(browser):
 
 def test_navbar_works_correctly(browser):
     # alisa goes to the intro page and sees a navbar
-    browser.get_navbar()
+    browser.get_navbar_div()
     # she sees that the navbar does not have a title
     # (but need a textless button there so that the css spacing is correct)
     assert browser.get_navbar_title_btn().text == ''

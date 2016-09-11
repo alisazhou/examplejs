@@ -1,5 +1,3 @@
-## import datetime
-
 import pytest
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
@@ -16,3 +14,4 @@ def normal_user(django_user_model):
     yield user
     # do i need this? maybe if we don't kill db between tests?
     user.delete()
+
