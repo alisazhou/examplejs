@@ -1,5 +1,7 @@
+import pytest
 from browser_fixture import setup_pytest_browser_fixture
 
+from constants import OFFLINE
 from ui_mixins import NavigationMixin, NavbarMixin
 from browser_fixture import BaseBrowser
 
@@ -55,6 +57,7 @@ def test_saves_reservation_detail_between_pages(browser):
     assert tel_field.get_attribute('value') == 'az tel'
 
 
+@pytest.mark.skipif(OFFLINE, reason='no internet')
 def test_can_make_payment(browser):
     # see a paypal button
     paypal_button = browser.get_slow_loading_css_element('input[name="submit"]')
@@ -103,6 +106,8 @@ def test_performs_form_validation(browser):
     # fill form, click on Paypal, land on Paypal page
     browser.from_reservation_page_fill_form_and_submit(
         '', '', 'alisa phone')
-    browser.set_page_load_timeout(30)
-    paypal_button.click()
-    assert 'paypal.com' in browser.current_url
+
+    if not OFFLINE:
+        browser.set_page_load_timeout(30)
+        paypal_button.click()
+        assert 'paypal.com' in browser.current_url
