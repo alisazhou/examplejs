@@ -67,5 +67,6 @@ def setup_pytest_browser_fixture(BrowserClass):
         with Display(visible=0, size=(800, 600)):
             _browser = BrowserClass(host_address=live_server.url)
             yield _browser
-            _browser.close()
+            # use quit instead of close to release all resources
+            _browser.quit()
     return pytest.fixture(browser)
