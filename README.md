@@ -24,8 +24,7 @@ See individual folders for their READMEs
 
 **DOING**
 - _ch_: add new user stories
-- add back buttons to pages
-- form validation
+- _az_: refactor form validation
 - _az_: OrderAttributes, break datetime into two separate input fields (need to change state shape)
 
 
@@ -38,3 +37,5 @@ See individual folders for their READMEs
 - react router
 - type-as-you-search menus list
 - refactor fts into modules based on page
+- add calendar widget to pick date time
+- add back buttons to pages
