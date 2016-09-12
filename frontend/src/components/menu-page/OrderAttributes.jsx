@@ -46,7 +46,7 @@ class OrderAttributes extends React.Component {
             invalid={this.props.dateTimeInvalid}
             error={dateTime.error} />
           <input
-            placeholder='Fri 8pm'
+            type='datetime-local'
             {...dateTime}
             onBlur={() => this.props.updateAndValidate(dateTime)}
           />

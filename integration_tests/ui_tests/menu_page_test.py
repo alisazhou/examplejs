@@ -47,14 +47,14 @@ def test_has_correct_navigation_buttons(browser):
 
 def test_can_save_specified_order_attrs(browser):
     # fill order form, go to next page
-    browser.from_menu_page_fill_form_and_submit('5 ~ 6', 'Sat 7pm')
+    browser.from_menu_page_fill_form_and_submit('5 ~ 6', '09122016', '0700pm')
     # go back to menu page, order attributes are preserved
     browser.find_element_by_xpath('//a/button[text()="Back"]').click()
     attrs = browser.find_element_by_class_name('menu_page--attributes')
     party_size = browser.get_order_party_size_select()
     assert '5 ~ 6' in party_size.first_selected_option.text
     party_time = attrs.find_element_by_tag_name('input')
-    assert party_time.get_attribute('value') == 'Sat 7pm'
+    assert party_time.get_attribute('value') == '091220160700pm'
 
 
 def test_performs_form_validation(browser):
@@ -69,13 +69,13 @@ def test_performs_form_validation(browser):
     assert 'select the number of guests' in browser.body_text
     assert 'specify a time' in browser.body_text
     # select party size, click on next button, remain on the same page
-    browser.from_menu_page_fill_form_and_submit('3 ~ 4', '', expect_fail=True)
+    browser.from_menu_page_fill_form_and_submit('3 ~ 4', '', '', expect_fail=True)
     browser.assert_on_page('menu')
     # sees error message for only date time
     assert 'select the number of guests' not in browser.body_text
     assert 'specify a time' in browser.body_text
     # fill date time, click on next button, land on /reservation
-    browser.from_menu_page_fill_form_and_submit('3 ~ 4', 'Fri 4pm', expect_fail=True)
+    browser.from_menu_page_fill_form_and_submit('3 ~ 4', '09132016', '0400pm', expect_fail=True)
     browser.assert_on_page('reservation')
     assert 'Mobile' in browser.body_text
 

@@ -19,12 +19,14 @@ See individual folders for their READMEs
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
 - consider pulling node urls out into contants.py. but it is not super easy to do because need to interpolate menu id etc. (and js doesn't have a good way to dynamically interpolate that)
 - after doing that, consider taking off trailing slashes for everything
+- [ui] make datetime captured in OrderAttributes more readable on reservation page
 
 
 **DOING**
 - _ch_: add new user stories
 - add back buttons to pages
 - form validation
+- _az_: OrderAttributes, break datetime into two separate input fields (need to change state shape)
 
 
 **DONE**
