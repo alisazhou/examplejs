@@ -1,9 +1,9 @@
 from selenium.webdriver.support.ui import Select
 
-from ui_mixins import SearchBarMixin, NavbarMixin, MenuListMixin
+from ui_mixins import NavigationMixin, SearchBarMixin, NavbarMixin, MenuListMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
-class IntroPageBrowser(BaseBrowser, SearchBarMixin, MenuListMixin, NavbarMixin):
+class IntroPageBrowser(BaseBrowser, NavigationMixin, SearchBarMixin, MenuListMixin, NavbarMixin):
     pass
 
 browser = setup_pytest_browser_fixture(IntroPageBrowser)
@@ -124,7 +124,7 @@ def test_navbar_works_correctly(browser):
     # she clicks on it
     signup_button.click()
     # and is taken to the signup page
-    assert '/signup/' in browser.current_url
+    browser.assert_on_page('signup')
 
     # she goes back and sees a login button
     browser.back()
@@ -133,4 +133,4 @@ def test_navbar_works_correctly(browser):
     # she clicks on it
     login_button.click()
     # she is taken to the login page
-    assert '/login/' in browser.current_url
+    browser.assert_on_page('login')

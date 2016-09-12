@@ -1,5 +1,6 @@
-
+import re
 from selenium.webdriver.support.ui import Select
+from constants import URLS
 
 class NavbarMixin():
     def get_navbar_div(self):
@@ -43,21 +44,26 @@ class SearchBarMixin():
 
 
 class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
+    def assert_on_page(self, expected_page):
+        expected_url = self.host_address + URLS[expected_page]
+        matches = re.match(expected_url, self.current_url)
+        assert matches, 'expected {} to match {}'.format(self.current_url, expected_url)
+
     def from_intro_page_select_menu(self, menu_link_text):
-        assert self.current_url == self.host_address + '/'
+        self.assert_on_page('intro')
         self.click_link_text(menu_link_text)
-        assert '/menus/' in self.current_url
+        self.assert_on_page('menu')
 
     def from_menu_page_fill_form_and_submit(self, size_option, time_input, expect_fail=False):
-        assert '/menus/' in self.current_url
+        self.assert_on_page('menu')
         self.get_order_party_size_select().select_by_visible_text(size_option)
         self.get_order_party_time_input().send_keys(time_input)
         self.find_element_by_xpath('//button[text()="Next"]').click()
         if not expect_fail:
-            assert self.current_url == self.host_address + '/reservation'
+            self.assert_on_page('reservation')
 
     def from_reservation_page_fill_form_and_submit(self, name, add, tel):
-        assert self.current_url == self.host_address + '/reservation'
+        self.assert_on_page('reservation')
         self.find_element_by_class_name('reservation_form--name').send_keys(name)
         self.find_element_by_class_name('reservation_form--add').send_keys(add)
         self.find_element_by_class_name('reservation_form--tel').send_keys(tel)

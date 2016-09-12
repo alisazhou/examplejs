@@ -10,4 +10,10 @@ except Exception as e:
     print(e)
     OFFLINE = True
 
-assert OFFLINE == False
+URLS = {
+    'intro': r'/$',
+    'menu': r'/menus/[0-9]+/$',
+    'reservation': r'/reservation/$',
+    'signup': r'/signup/$',
+    'login': r'/login/$',
+}

@@ -27,22 +27,21 @@ def test_has_chef_name_and_description(browser):
 
 
 def test_has_correct_navigation_buttons(browser):
-    home_url = browser.host_address + '/'
     # alisa is at the menu page
     # she can click the home icon to go back to the home page
     browser.get_navbar_home_btn().click()
-    assert browser.current_url == home_url
+    browser.assert_on_page('intro')
 
-    # alisa goes to the intro page
-    # she navigates to the menu page
-    browser.click_link_text('Demo Menu 0')
-    assert browser.current_url != home_url
+    # alisa can also directly type in the url to get to a specific menu page
+    browser.goto('/menus/0/')
+    browser.assert_on_page('menu')
+    # todo: make it so that /menus/0 (no trailing slash) also redirects to with trailing slash
 
     # she finds and clicks a back button on the menu page
     browser.find_element_by_xpath('//a/button[text()="Back"]').click()
 
     # she returns to the intro page
-    assert browser.current_url == home_url
+    browser.assert_on_page('intro')
     assert 'How many guests?' not in browser.body_text
 
 
@@ -65,19 +64,19 @@ def test_performs_form_validation(browser):
     # not fill in form, click on next button, remain on the same page
     next_btn = browser.find_element_by_xpath('//button[text()="Next"]')
     next_btn.click()
-    assert '/menus/0' in browser.current_url
+    browser.assert_on_page('menu')
     # sees error messages for both fields
     assert 'select the number of guests' in browser.body_text
     assert 'specify a time' in browser.body_text
     # select party size, click on next button, remain on the same page
     browser.from_menu_page_fill_form_and_submit('3 ~ 4', '', expect_fail=True)
-    assert '/menus/0' in browser.current_url
+    browser.assert_on_page('menu')
     # sees error message for only date time
     assert 'select the number of guests' not in browser.body_text
     assert 'specify a time' in browser.body_text
     # fill date time, click on next button, land on /reservation
     browser.from_menu_page_fill_form_and_submit('3 ~ 4', 'Fri 4pm', expect_fail=True)
-    assert '/reservation' in browser.current_url
+    browser.assert_on_page('reservation')
     assert 'Mobile' in browser.body_text
 
 
@@ -86,7 +85,5 @@ def test_disable_query_submit_on_enter_press(browser):
     party_time = browser.find_element_by_tag_name('input')
     party_time.send_keys(Keys.ENTER)
     # does not send get request to server, stays on same page
-    assert 'dateTime=' not in browser.current_url
-    assert '/menus/0' in browser.current_url
-    assert 'Demo Menu 0' in browser.body_text
+    browser.assert_on_page('menu')
 

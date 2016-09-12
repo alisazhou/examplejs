@@ -14,7 +14,7 @@ class ResPageBrowser(BaseBrowser, NavigationMixin, NavbarMixin):
 browser = setup_pytest_browser_fixture(ResPageBrowser)
 
 def test_ordered_menu_is_shown(browser):
-    assert '/reservation' in browser.current_url
+    browser.assert_on_page('reservation')
     order_summary = {
         'Number of guests' :'3 ~ 4',
         'Time': 'Sun 1pm',
@@ -26,7 +26,7 @@ def test_ordered_menu_is_shown(browser):
 
 def test_has_back_btn_to_menu_page(browser):
     browser.find_element_by_xpath('//a/button[text()="Back"]').click()
-    assert '/menus/0' in browser.current_url
+    browser.assert_on_page('menu')
 
 
     # TODO: put navbar into reservation page
@@ -80,7 +80,7 @@ def test_performs_form_validation(browser):
     paypal_button = browser.get_slow_loading_css_element(
         'input[name="submit"]')
     paypal_button.click()
-    assert '/reservation' in browser.current_url
+    browser.assert_on_page('reservation')
     # see error msgs for name, address, and phone
     assert 'Please fill in your name' in browser.body_text
     assert 'Address is required' in browser.body_text
@@ -89,7 +89,7 @@ def test_performs_form_validation(browser):
     browser.from_reservation_page_fill_form_and_submit(
         'alisa', '', '')
     paypal_button.click()
-    assert '/reservation' in browser.current_url
+    browser.assert_on_page('reservation')
     # no more error for name
     assert 'Please fill in your name' not in browser.body_text
     assert 'Address is required' in browser.body_text
@@ -98,7 +98,7 @@ def test_performs_form_validation(browser):
     browser.from_reservation_page_fill_form_and_submit(
         '', 'alisa address', '')
     paypal_button.click()
-    assert '/reservation' in browser.current_url
+    browser.assert_on_page('reservation')
     # no more error for address
     assert 'Please fill in your name' not in browser.body_text
     assert 'Address is required' not in browser.body_text
