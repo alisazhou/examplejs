@@ -32,7 +32,7 @@ describe('MenuPageNextButton dumb component', () => {
   });
 
   it('routes to /reservation', () => {
-    expect(result.props.to).toBe('/reservation');
+    expect(result.props.to).toBe('/reservation/');
   });
 
   describe('button child', () => {

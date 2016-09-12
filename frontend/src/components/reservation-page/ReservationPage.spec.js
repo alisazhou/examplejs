@@ -30,7 +30,7 @@ describe('ReservationPage react component', () => {
 
   it('has a Back LinkButton to MenuPage', () => {
     const expProps = {
-      linkTo: '/menus/menuId0',
+      linkTo: `/menus/${PROPS_FROM_REDUX.menuId}/`,
       content: 'Back',
     };
     const backBtn = findChildren(result, LinkButton, expProps);

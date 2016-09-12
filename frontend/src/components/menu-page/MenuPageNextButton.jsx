@@ -17,7 +17,7 @@ class MenuPageNextButton extends React.Component {
       R.map(fieldName => this.props.markInvalid(fieldName), untouched);
     };
     return (
-      <Link to='/reservation'>
+      <Link to='/reservation/'>
         <button onClick={e => onMenuNextClick(e)}>
           Next
         </button>

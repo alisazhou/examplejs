@@ -35,7 +35,7 @@ describe('MenuListItem dumb component', () => {
     });
 
     it('links to url based on menu id', () => {
-      expect(childOfLi.props.to).toBe('/menus/id');
+      expect(childOfLi.props.to).toBe(`/menus/${PROPS_FROM_PARENT.menu.id}/`);
     });
   
   });

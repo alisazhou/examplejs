@@ -13,7 +13,7 @@ class ReservationPage extends React.Component {
       <div>
         <MenuSummary />
         <ReservationForm />
-        <LinkButton linkTo={`/menus/${this.props.menuId}`} content='Back' />
+        <LinkButton linkTo={`/menus/${this.props.menuId}/`} content='Back' />
         <PaypalButton />
       </div>
     );

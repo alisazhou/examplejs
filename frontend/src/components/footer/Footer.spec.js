@@ -31,7 +31,7 @@ describe('Footer react component', () => {
 
     it('second Link to contact us', () => {
       const secondLink = links[1];
-      expect(secondLink.props.to).toBe('/contact');
+      expect(secondLink.props.to).toBe('/contact/');
     });
   });
 

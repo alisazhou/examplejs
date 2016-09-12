@@ -8,7 +8,7 @@ class MenuListItem extends React.Component {
       <li className='menu-list--item'>
         <Link
           id={`menu_${this.props.menu.id}`}
-          to={`/menus/${this.props.menu.id}`} >
+          to={`/menus/${this.props.menu.id}/`} >
           {this.props.menu.name}
         </Link>
       </li>
