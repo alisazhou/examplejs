@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 
 jest.unmock('./MenuList.jsx');
 import MenuList from './MenuList.jsx';
@@ -28,4 +29,12 @@ describe('MenuList dumb component', () => {
     expect(findMenuListItem.length).toEqual(2);
   });
 
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'menus' ];
+    R.forEach(
+      prop => expect(R.has(prop)(MenuList.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(MenuList.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });

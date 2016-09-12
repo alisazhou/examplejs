@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 
 jest.unmock('./ValidationError.jsx');
 import ValidationError from './ValidationError.jsx';
@@ -39,5 +40,14 @@ describe('ValidationError dumb component', () => {
     it('shows error msg', () => {
       expect(invalidResult.props.children).toBe('error invalid');
     });
+  });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'error', 'invalid' ];
+    R.forEach(
+      prop => expect(R.has(prop)(ValidationError.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(ValidationError.propTypes).length).toEqual(expectedPropTypes.length);
   });
 });

@@ -70,6 +70,21 @@ describe('ReservationForm react component', () => {
     });
 
   });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [
+      'customerAddressInvalid',
+      'customerNameInvalid',
+      'customerTelInvalid',
+      'fields',
+      'updateAndValidate',
+    ];
+    R.forEach(
+      prop => expect(R.has(prop)(ReservationForm.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(ReservationForm.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });
 
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 import '../../testHelpers.js';
 import { findChildren } from '../../testHelpers.js';
 
@@ -21,9 +22,11 @@ describe('ReservationPage react component', () => {
   it('renders to a div', () => {
     expect(result.type).toBe('div');
   });
+
   it('has a MenuSummary component', () => {
     expect(result).toHaveChild(MenuSummary);
   });
+
   it('has a ReservationForm component', () => {
     expect(result).toHaveChild(ReservationForm);
   });
@@ -39,6 +42,15 @@ describe('ReservationPage react component', () => {
 
   it('has a PaypalButton', () => {
     expect(result).toHaveChild(PaypalButton);
+  });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'menuId' ];
+    R.forEach(
+      prop => expect(R.has(prop)(ReservationPage.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(ReservationPage.propTypes).length).toEqual(expectedPropTypes.length);
   });
 });
 

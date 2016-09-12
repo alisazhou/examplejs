@@ -75,6 +75,20 @@ describe('OrderAttributes dumb component', () => {
     expect(mockUpdateAndValidate.mock.calls.length).toEqual(2);
     expect(mockUpdateAndValidate.mock.calls[1][0]).toEqual(dateTime);
   });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [
+      'dateTimeInvalid',
+      'fields',
+      'partySizeInvalid',
+      'updateAndValidate',
+    ];
+    R.forEach(
+      prop => expect(R.has(prop)(OrderAttributes.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(OrderAttributes.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });
 
 describe('OrderAttributes redux connect-wrapped component', () => {

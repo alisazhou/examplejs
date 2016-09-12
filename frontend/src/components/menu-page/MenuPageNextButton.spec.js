@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 import { Link } from 'react-router';
 
 jest.unmock('./MenuPageNextButton.jsx');
@@ -55,6 +56,22 @@ describe('MenuPageNextButton dumb component', () => {
         .toHaveBeenCalledWith(mockEvent, PROPS_FROM_REDUX.fieldsStatus);
       expect(mockMarkInvalid).toBeCalledWith('undefinedField');
     });
+  });
+
+  it('has the correct proptypes', () => {
+    const expectedPropTypes = [
+      'fieldsStatus',
+      'markInvalid',
+      'menuId',
+      'updateOrderMenu',
+    ];
+    R.forEach(
+      prop => expect(R.has(prop)(MenuPageNextButton.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(
+      R.keys(MenuPageNextButton.propTypes).length
+    ).toEqual(expectedPropTypes.length);
   });
 });
 

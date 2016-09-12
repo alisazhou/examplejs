@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 import { Link } from 'react-router';
 
 jest.unmock('./AuthButton.jsx');
@@ -26,5 +27,14 @@ describe('AuthButton dumb component', () => {
     const btn = result.props.children;
     expect(btn.type).toBe('button');
     expect(btn.props.children).toBe('testContent');
+  });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'className', 'content', 'linkTo' ];
+    R.forEach(
+      prop => expect(R.has(prop)(AuthButton.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(AuthButton.propTypes).length).toEqual(expectedPropTypes.length);
   });
 });

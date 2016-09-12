@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./SearchBar.jsx');
@@ -38,5 +39,14 @@ describe('SearchBar presentational component', () => {
       // test that PROPS_FROM_STORE.cuisines are mapped into list of options
     });
 
+  });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'cuisines', 'fields' ];
+    R.forEach(
+      prop => expect(R.has(prop)(SearchBar.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(SearchBar.propTypes).length).toEqual(expectedPropTypes.length);
   });
 });

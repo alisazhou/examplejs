@@ -38,6 +38,15 @@ describe('PaypalButton dumb component', () => {
     );
     expect(mockMarkInvalid).toBeCalledWith('untouchedField');
   });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'fieldsStatus', 'markInvalid' ];
+    R.forEach(
+      prop => expect(R.has(prop)(PaypalButton.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(PaypalButton.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });
 
 

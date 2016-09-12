@@ -57,6 +57,14 @@ describe('MenuPage react component', () => {
     expect(result).toHaveChild(MenuPageNextButton);
   });
 
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'menu', 'params' ];
+    R.forEach(
+      prop => expect(R.has(prop)(MenuPage.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(MenuPage.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });
 
 describe('MenuPage smart component', () => {

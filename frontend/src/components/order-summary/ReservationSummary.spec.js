@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 
 jest.unmock('./ReservationSummary.jsx');
 import WrappedSummary, { ReservationSummary } from './ReservationSummary.jsx';
@@ -25,6 +26,14 @@ describe('ReservationSummary react component', () => {
     expect(resInfo[2].props.children).toBe('Phone: tel0');
   });
 
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'customerAdd', 'customerName', 'customerTel' ];
+    R.forEach(
+      prop => expect(R.has(prop)(ReservationSummary.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(ReservationSummary.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });
 
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 import { Link } from 'react-router';
 
 jest.unmock('./MenuListItem.jsx');
@@ -8,7 +9,7 @@ import MenuListItem from './MenuListItem.jsx';
 
 const PROPS_FROM_PARENT = {
   menu: {
-    id: 'id', name: 'name', chef: 'chef',
+    id: 'id', name: 'name',
   },
 };
 describe('MenuListItem dumb component', () => {
@@ -37,7 +38,15 @@ describe('MenuListItem dumb component', () => {
     it('links to url based on menu id', () => {
       expect(childOfLi.props.to).toBe(`/menus/${PROPS_FROM_PARENT.menu.id}/`);
     });
-  
+
   });
 
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'menu' ];
+    R.forEach(
+      prop => expect(R.has(prop)(MenuListItem.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(MenuListItem.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });

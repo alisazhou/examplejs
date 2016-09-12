@@ -40,4 +40,13 @@ describe('MenuDescription dumb component', () => {
     expect(description).toBeDefined();
     expect(description.props.children).toBe('menu description');
   });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'chef', 'description', 'image' ];
+    R.forEach(
+      prop => expect(R.has(prop)(MenuDescription.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(MenuDescription.propTypes).length).toEqual(expectedPropTypes.length);
+  });
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import R from 'ramda';
 
 jest.unmock('./MenuSummary.jsx');
 import WrappedSummary, { MenuSummary } from './MenuSummary.jsx';
@@ -24,6 +25,15 @@ describe('MenuSummary dumb component', () => {
     expect(fields[0].props.children).toBe('Menu: menu0');
     expect(fields[1].props.children).toBe('Number of guests: partySize0');
     expect(fields[2].props.children).toBe('Time: dateTime0');
+  });
+
+  it('has the correct propTypes', () => {
+    const expectedPropTypes = [ 'dateTime', 'menuName', 'partySize' ];
+    R.forEach(
+      prop => expect(R.has(prop)(MenuSummary.propTypes)).toBe(true),
+      expectedPropTypes
+    );
+    expect(R.keys(MenuSummary.propTypes).length).toEqual(expectedPropTypes.length);
   });
 });
 

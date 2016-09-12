@@ -20,7 +20,6 @@ MenuListItem.propTypes = {
   menu: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
-    chef: React.PropTypes.string.isRequired,
   }).isRequired,
 };
 
