@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import Select
 from ui_mixins import NavigationMixin, SearchBarMixin, NavbarMixin, MenuListMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
-class IntroPageBrowser(BaseBrowser, NavigationMixin, SearchBarMixin, MenuListMixin, NavbarMixin):
+class IntroPageBrowser(NavigationMixin, SearchBarMixin, MenuListMixin, NavbarMixin, BaseBrowser):
     pass
 
 browser = setup_pytest_browser_fixture(IntroPageBrowser)

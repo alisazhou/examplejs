@@ -5,7 +5,7 @@ from constants import OFFLINE
 from ui_mixins import NavigationMixin, NavbarMixin
 from browser_fixture import BaseBrowser
 
-class ResPageBrowser(BaseBrowser, NavigationMixin, NavbarMixin):
+class ResPageBrowser(NavigationMixin, NavbarMixin, BaseBrowser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.from_intro_page_select_menu('Demo Menu 0')

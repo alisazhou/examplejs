@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from ui_mixins import NavigationMixin, NavbarMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
-class MenuPageBrowser(BaseBrowser, NavigationMixin, NavbarMixin):
+class MenuPageBrowser(NavigationMixin, NavbarMixin, BaseBrowser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.from_intro_page_select_menu('Demo Menu 0')
