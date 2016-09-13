@@ -28,7 +28,7 @@ install:
 
 script: 
   - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep $PHANTOMJS_VERSION
-  - set -e  && set -o pipefail && ! npm run test 2>&1 | tee /dev/stderr | grep -e "Warning" -e "fail"
+  - set -e  && ! npm run test 2>&1 | tee /dev/stderr | grep -e "Warning" -e "fail"
   - npm run lint
   - cd ../integration_tests && py.test -x --strict -r w --timeout=60
 notifications:
