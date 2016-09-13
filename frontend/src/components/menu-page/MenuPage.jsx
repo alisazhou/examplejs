@@ -4,7 +4,6 @@ import R from 'ramda';
 
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
-import MenuPageNextButton from './MenuPageNextButton.jsx';
 import Navbar from '../navbar/Navbar.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
 
@@ -15,9 +14,8 @@ class MenuPage extends React.Component {
       <div>
         <Navbar title={this.props.menu.name}/>
         <MenuDescription {...this.props.menu}/>
-        <OrderAttributes />
+        <OrderAttributes menuId={this.props.menu.id} />
         <LinkButton linkTo='/' content='Back' />
-        <MenuPageNextButton menuId={this.props.menu.id} />
       </div>
     );
   }
