@@ -5,11 +5,11 @@ sudo: false
 cache:
   directories:
     - $HOME/.cache/pip
-    - "travis_phantomjs"
+    - $HOME/travis_phantomjs
     - $HOME/.nvm
 
 after_failure:
-  - rm -rf travis_phantomjs
+  - rm -rf $HOME/travis_phantomjs
   - rm -rf $HOME/.cache/pip
   - rm -rf $HOME/.nvm
   - echo oops && cat ghostdriver.log
@@ -17,7 +17,7 @@ after_failure:
 before_install:
   - "phantomjs --version"
   - "export PHANTOMJS_VERSION=2.1.1"
-  - "export PATH=$PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH"
+  - "export PATH=$HOME/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH"
   - git submodule update --init --recursive
 
 install: 
@@ -27,9 +27,9 @@ install:
   - "source ~/.nvm/nvm.sh && nvm install 6"
   - "cd frontend && nvm use 6 && npm install && npm run build"
   - "pip install -r ../integration_tests/requirements.txt"
-  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs; fi"
-  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; fi"
-  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then tar -xvf $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi"
+  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then rm -rf $HOME/travis_phantomjs; mkdir -p $HOME/travis_phantomjs; fi"
+  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $HOME/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; fi"
+  - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then tar -xvf $HOME/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $HOME/travis_phantomjs; fi"
 
 script: 
   - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep $PHANTOMJS_VERSION

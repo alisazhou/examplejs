@@ -10,7 +10,7 @@
     "lint": "eslint src --ignore-pattern 'src/scss-modules/vendors/*'",
     "retest": "jest --no-cache --watch=all",
     "test": "jest --noStackTrace --no-cache --bail",
-    "ncu": "ncu --error-level 2"
+    "ncu": "ncu --error-level 2 --reject redux-form"
   },
   "jest": {
     "automock": true,
@@ -79,7 +79,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.0",
     "redux": "^3.6.0",
-    "redux-form": "^6.0.2",
+    "redux-form": "^5.2.4",
     "redux-logger": "^2.6.1",
     "redux-mock-store": "^1.2.0",
     "redux-thunk": "^2.1.0",

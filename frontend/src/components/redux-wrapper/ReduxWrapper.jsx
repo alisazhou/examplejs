@@ -21,9 +21,9 @@ import ReservationPage from '../reservation-page/ReservationPage.jsx';
 const rootReducer = combineReducers({
   auth,
   cuisines,
-  form,
   menus,
   order,
+  form,
 });
 
 const middlewares = [ thunk ];
