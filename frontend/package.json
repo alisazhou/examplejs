@@ -10,8 +10,7 @@
     "lint": "eslint src --ignore-pattern 'src/scss-modules/vendors/*'",
     "retest": "jest --no-cache --watch=all",
     "test": "jest --noStackTrace --no-cache --bail",
-    "greenkeeper": "greenkeeper login && greenkeeper disable && greenkeeper enable",
-    "ncu": "ncu"
+    "ncu": "ncu --error-level 2"
   },
   "jest": {
     "automock": true,
@@ -69,7 +68,6 @@
     "eslint": "^3.5.0",
     "eslint-plugin-react": "^6.2.1",
     "extract-text-webpack-plugin": "^1.0.1",
-    "greenkeeper": "^4.0.0",
     "jest-cli": "^15.1.1",
     "node-sass": "^3.9.3",
     "npm-check-updates": "^2.8.0",

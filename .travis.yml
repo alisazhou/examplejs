@@ -6,10 +6,12 @@ cache:
   directories:
     - $HOME/.cache/pip
     - "travis_phantomjs"
+    - $HOME/.nvm
 
 after_failure:
   - rm -rf travis_phantomjs
   - rm -rf $HOME/.cache/pip
+  - rm -rf $HOME/.nvm
   - echo oops && cat ghostdriver.log
 
 before_install:
@@ -19,7 +21,10 @@ before_install:
   - git submodule update --init --recursive
 
 install: 
-  - "rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 6"
+  - "if [ -d $HOME/.nvm/.git ]; then cd ~/.nvm && git pull; fi"
+  - "if [ ! -d $HOME/.nvm/.git ]; then rm -r ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm; fi"
+  - "(cd ~/.nvm && git fetch --tags && git checkout `git describe --abbrev=0 --tags`)"
+  - "source ~/.nvm/nvm.sh && nvm install 6"
   - "cd frontend && nvm use 6 && npm install && npm run build"
   - "pip install -r ../integration_tests/requirements.txt"
   - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs; fi"
@@ -28,6 +33,7 @@ install:
 
 script: 
   - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep $PHANTOMJS_VERSION
+  - npm run ncu
   - set -e  && ! npm run test 2>&1 | tee /dev/stderr | grep -e "Warning" -e "fail"
   - npm run lint
   - cd ../integration_tests && py.test -x --strict -r w --timeout=60
