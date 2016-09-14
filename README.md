@@ -14,6 +14,9 @@ See individual folders for their READMEs
 - create react component for intro page menu items
 - turn sticky page footer into the navbar header?
 - start adding static urls for pics
+- add # of guests react component to frontpage searchbar
+     - refactor out searchbar into separate components
+     - also add date component to frontpage searchbar
 - login and register pages
 - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
 - update redux form to get rid of uknown props warning

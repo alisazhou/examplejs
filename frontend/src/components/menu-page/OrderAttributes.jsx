@@ -44,9 +44,9 @@ class OrderAttributes extends React.Component {
         <label>When's the party?
           <ValidationError
             invalid={this.props.dateTimeInvalid}
-            error={dateTime.error} />
-          <input
-            type='datetime-local'
+            error={dateTime.error}
+          />
+          <input type='date'
             {...dateTime}
             onBlur={() => this.props.updateAndValidate(dateTime)}
           />
