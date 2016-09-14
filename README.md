@@ -11,14 +11,15 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- ! _ch_: review and remove legacy code
+- create react component for intro page menu items
+- turn sticky page footer into the navbar header?
+- start adding static urls for pics
 - login and register pages
-- make going to hosturl/menu/0 etc redirect on the server side
-- clean up reducers/initial state/mocks
+- clean up reducers/initial state/`__mocks__`- it's inconsistent right now
 - update redux form to get rid of uknown props warning
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
 - consider pulling node urls out into contants.py. but it is not super easy to do because need to interpolate menu id etc. (and js doesn't have a good way to dynamically interpolate that)
-- after doing that, consider taking off trailing slashes for everything
+    - after doing that, consider taking off trailing slashes for everything
 - [ui] make datetime captured in OrderAttributes more readable on reservation page
 
 
@@ -39,3 +40,4 @@ See individual folders for their READMEs
 - refactor fts into modules based on page
 - add calendar widget to pick date time
 - add back buttons to pages
+- make going to hosturl/menu/0 etc redirect on the server side
