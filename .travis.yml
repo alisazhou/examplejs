@@ -18,15 +18,14 @@ before_install:
   - "phantomjs --version"
   - "export PHANTOMJS_VERSION=2.1.1"
   - "export PATH=$HOME/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH"
-  - git submodule update --init --recursive
 
 install: 
-  - "if [ -d $HOME/.nvm/.git ]; then cd ~/.nvm && git pull; fi"
+  - "if [ -d $HOME/.nvm/.git ]; then cd ~/.nvm && git fetch; fi"
   - "if [ ! -d $HOME/.nvm/.git ]; then rm -r ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm; fi"
   - "(cd ~/.nvm && git fetch --tags && git checkout `git describe --abbrev=0 --tags`)"
   - "source ~/.nvm/nvm.sh && nvm install 6"
-  - "cd frontend && nvm use 6 && npm install && npm run build"
-  - "pip install -r ../integration_tests/requirements.txt"
+  - "cd ~/build/conradho/examplejs/frontend && nvm use 6 && npm install && npm run build"
+  - "pip install -r ~/build/conradho/examplejs/integration_tests/requirements.txt"
   - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then rm -rf $HOME/travis_phantomjs; mkdir -p $HOME/travis_phantomjs; fi"
   - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $HOME/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; fi"
   - "if [ $(phantomjs --version) != '$PHANTOMJS_VERSION' ]; then tar -xvf $HOME/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $HOME/travis_phantomjs; fi"
