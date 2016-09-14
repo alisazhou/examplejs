@@ -14,8 +14,8 @@ const mockSubmit = jest.fn();
 const PROPS_FROM_PARENT = { menuId: 'test id' };
 const PROPS_FROM_REDUX_FORM = {
   fields: {
-    partySize: { value: '', error: 'partySize error' },
-    dateTime: { value: '', error: 'dateTime error' },
+    partySize: { error: undefined, touched: true, value: '' },
+    dateTime: { error: undefined, touched: true, value: '' },
   },
   handleSubmit: mockSubmit,
 };
@@ -49,7 +49,54 @@ describe('OrderAttributes dumb component', () => {
     expect(input).toBeDefined();
   });
 
-  xdescribe('conditional validation error messages', () => {});
+  describe('conditional validation error messages', () => {
+    it('shows no error if touched with no error', () => {
+      const divs = findInTree(result, 'div');
+      expect(divs.length).toBe(0);
+    });
+
+    it('shows no error if not touched', () =>{
+      const fieldsUntouched = {
+        partySize: { error: undefined, touched: false, value: '' },
+        dateTime: { error: 'error 0', touched: false, value: '' },
+      };
+      const PROPS_FROM_REDUX_FORM_UNTOUCHED = {
+        ...PROPS_FROM_REDUX_FORM, fields: fieldsUntouched,
+      };
+      const shallowRenderer1 = TestUtils.createRenderer();
+      shallowRenderer1.render(
+        <OrderAttributes
+          {...PROPS_FROM_PARENT}
+          {...PROPS_FROM_REDUX_FORM_UNTOUCHED}
+          {...PROPS_FROM_REDUX}
+        />
+      );
+      const result1 = shallowRenderer1.getRenderOutput();
+      const divs = findInTree(result1, 'div');
+      expect(divs.length).toBe(0);
+    });
+
+    it('shows errors if touched and has error', () =>{
+      const fieldsTouched = {
+        partySize: { error: 'error 1', touched: true, value: '' },
+        dateTime: { error: 'error 2', touched: true, value: '' },
+      };
+      const PROPS_FROM_REDUX_FORM_TOUCHED = {
+        ...PROPS_FROM_REDUX_FORM, fields: fieldsTouched,
+      };
+      const shallowRenderer2 = TestUtils.createRenderer();
+      shallowRenderer2.render(
+        <OrderAttributes
+          {...PROPS_FROM_PARENT}
+          {...PROPS_FROM_REDUX_FORM_TOUCHED}
+          {...PROPS_FROM_REDUX}
+        />
+      );
+      const result2 = shallowRenderer2.getRenderOutput();
+      const divs = findInTree(result2, 'div');
+      expect(divs.length).toBe(2);
+    });
+  });
 
   xit('has the correct callback', () => {
     //todo: this is not working!!!
