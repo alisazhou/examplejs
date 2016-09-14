@@ -8,7 +8,7 @@ import { SearchBar } from './SearchBar.jsx';
 
 
 const PROPS_FROM_STORE = {
-  cuisines: [ { id: 0, name: '' } ],
+  cuisines: [ { id: 0, name: '0', key: 0 }, { id: 1, name: '1', key: 1 } ],
   fields: {
     searchCuisine: { value: '' },
     searchText: { value: '' },
@@ -43,8 +43,9 @@ describe('SearchBar presentational component', () => {
       const select = findInTree(form, 'select')[0];
       expect(select.props.className).toEqual('searchbar-form__search-field');
     });
-    xit('has the correct options', () => {
-      // todo: test that PROPS_FROM_STORE.cuisines are mapped into list of options
+    it('has the correct options', () => {
+      const options = findInTree(form, 'option');
+      expect(options.length).toEqual(PROPS_FROM_STORE.cuisines.length + 1);
     });
 
   });

@@ -13,7 +13,7 @@ class SearchBar extends React.Component {
                   </option>),
       this.props.cuisines
     );
-    const allOption = (<option value='all'>All Cuisines</option>);
+    const allOption = (<option value='all' key='all'>All Cuisines</option>);
     return R.append(allOption, optionsList);
   }
 
