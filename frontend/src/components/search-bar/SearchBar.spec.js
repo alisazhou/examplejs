@@ -31,12 +31,20 @@ describe('SearchBar presentational component', () => {
       const input = findInTree(form, 'input');
       expect(input.length).toEqual(1);
     });
+    it('has an Input child component with the correct className', () => {
+      const select = findInTree(form, 'input')[0];
+      expect(select.props.className).toEqual('searchbar-form__search-field');
+    });
     it('has a Select child component', () => {
       const select = findInTree(form, 'select');
       expect(select.length).toEqual(1);
     });
+    it('has a Select child component with the correct className', () => {
+      const select = findInTree(form, 'select')[0];
+      expect(select.props.className).toEqual('searchbar-form__search-field');
+    });
     xit('has the correct options', () => {
-      // test that PROPS_FROM_STORE.cuisines are mapped into list of options
+      // todo: test that PROPS_FROM_STORE.cuisines are mapped into list of options
     });
 
   });

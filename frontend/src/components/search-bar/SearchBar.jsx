@@ -1,10 +1,22 @@
 import React from 'react';
+import R from 'ramda';
 import { reduxForm } from 'redux-form';
 
 const fields = [ 'searchText', 'searchCuisine' ];
 
 
 class SearchBar extends React.Component {
+  generateOptionsJsx () {
+    const optionsList = R.map(
+      cuisine => (<option key={cuisine.id} value={cuisine.name}>
+                    {cuisine.name}
+                  </option>),
+      this.props.cuisines
+    );
+    const allOption = (<option value='all'>All Cuisines</option>);
+    return R.append(allOption, optionsList);
+  }
+
   render () {
     const { fields: { searchText, searchCuisine }} = this.props;
     return (
@@ -20,15 +32,11 @@ class SearchBar extends React.Component {
           </div>
           <div className='searchbar-form__search-field-div'>
             <select
-              {...searchCuisine}
-              value={searchCuisine.value||''}>
-              <option value='all'>All Cuisines</option>
-              {this.props.cuisines.map(cuisine =>
-                <option key={cuisine.id} value={cuisine.name}>
-                  {cuisine.name}
-                </option>
-              )}
               className='searchbar-form__search-field'
+              {...searchCuisine}
+              value={searchCuisine.value||''}
+            >
+              { this.generateOptionsJsx() }
             </select>
           </div>
         </form>
