@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import R from 'ramda';
 
-import { updateAndValidate } from '../../actions/orderActions.js';
-import ValidationError from '../validation-error/ValidationError.jsx';
+import { updateOrderActionCreator } from '../../actions/orderActions.js';
+import PaypalButton from './PaypalButton.jsx';
 
 
 const fields = [ 'customerName', 'customerTel', 'customerAddress' ];
@@ -24,66 +25,60 @@ const validate = values => {
 
 class ReservationForm extends React.Component {
   render () {
-    const { customerName, customerTel, customerAddress } = this.props.fields;
+    const {
+      fields: { customerName, customerTel, customerAddress },
+      handleSubmit,
+      valid: formValid,
+    } = this.props;
+
     return (
-      <form className='reservation_form'>
-        <label>Name:
-          <ValidationError
-            invalid={this.props.customerNameInvalid}
-            error={customerName.error} />
-          <input
-            type='text'
-            className='reservation_form--name'
-            {...customerName}
-            onBlur={() =>this.props.updateAndValidate(customerName)}
-          />
-        </label>
-        <label>Mobile
-          <ValidationError
-            invalid={this.props.customerTelInvalid}
-            error={customerTel.error} />
-          <input
-            type='text'
-            className='reservation_form--tel'
-            {...customerTel}
-            onBlur={() => this.props.updateAndValidate(customerTel)}
-          />
-        </label>
-        <label>Address:
-          <ValidationError
-            invalid={this.props.customerAddressInvalid}
-            error={customerAddress.error} />
-          <input
-            type='text'
-            className='reservation_form--add'
-            {...customerAddress}
-            onBlur={() => this.props.updateAndValidate(customerAddress)}
-          />
-        </label>
-      </form>
+      <div>
+        <form className='reservation_form' onSubmit={handleSubmit(this.props.updateOrder)}>
+          <label>Name:
+            <input
+              type='text'
+              className='reservation_form--name'
+              {...customerName}
+            />
+          </label>
+          {customerName.touched && customerName.error && <div>{customerName.error}</div>}
+          <label>Mobile
+            <input
+              type='text'
+              className='reservation_form--tel'
+              {...customerTel}
+            />
+          </label>
+          {customerTel.touched && customerTel.error && <div>{customerTel.error}</div>}
+          <label>Address:
+            <input
+              type='text'
+              className='reservation_form--add'
+              {...customerAddress}
+            />
+          </label>
+          {customerAddress.touched && customerAddress.error && <div>{customerAddress.error}</div>}
+          <button type='submit'>Confirm</button>
+        </form>
+        { formValid && <PaypalButton /> }
+      </div>
     );
   }
 }
 
 ReservationForm.propTypes = {
-  customerAddressInvalid: React.PropTypes.bool.isRequired,
-  customerNameInvalid: React.PropTypes.bool.isRequired,
-  customerTelInvalid: React.PropTypes.bool.isRequired,
   fields: React.PropTypes.object.isRequired,
-  updateAndValidate: React.PropTypes.func.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired,
+  updateOrder: React.PropTypes.func.isRequired,
+  valid: React.PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
-  customerAddressInvalid: state.order.customerAddressValidated === false,
-  customerNameInvalid: state.order.customerNameValidated === false,
-  customerTelInvalid: state.order.customerTelValidated === false,
-});
 const mapDispatchToProps = dispatch => ({
-  updateAndValidate: field => dispatch(updateAndValidate(field)),
+  updateOrder: R.compose(dispatch, updateOrderActionCreator),
 });
 
 const ConnectedForm = connect(
-  mapStateToProps, mapDispatchToProps
+  undefined, mapDispatchToProps
 )(ReservationForm);
 
 export default reduxForm({
