@@ -148,6 +148,6 @@ describe('ReservationForm redux-connected component', () => {
 
 describe('ReservationForm redux form-connected component', () => {
   it('is wrapped by a redux form', () => {
-    expect(WrappedForm.name).toBe('ReduxForm');
+    expect(WrappedForm.name).toBe('ConnectedForm');
   });
 });

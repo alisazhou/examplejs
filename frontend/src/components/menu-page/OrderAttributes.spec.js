@@ -141,6 +141,6 @@ describe('OrderAttributes redux connect-wrapped component', () => {
 
 describe('OrderAttributes redux-from-wrapped component', () => {
   it('is wrapped by a redux form', () => {
-    expect(FormAttributes.name).toBe('ReduxForm');
+    expect(FormAttributes.name).toBe('ConnectedForm');
   });
 });
