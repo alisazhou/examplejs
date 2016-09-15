@@ -33,7 +33,10 @@ class ReservationForm extends React.Component {
 
     return (
       <div>
-        <form className='reservation_form' onSubmit={handleSubmit(this.props.updateOrder)}>
+        <form
+          className='reservation_form'
+          onSubmit={handleSubmit(this.props.updateOrder)}
+        >
           <label>Name:
             <input
               type='text'
@@ -41,7 +44,9 @@ class ReservationForm extends React.Component {
               {...customerName}
             />
           </label>
-          {customerName.touched && customerName.error && <div>{customerName.error}</div>}
+          { customerName.touched && customerName.error &&
+            <div>{customerName.error}</div> }
+
           <label>Mobile
             <input
               type='text'
@@ -49,7 +54,9 @@ class ReservationForm extends React.Component {
               {...customerTel}
             />
           </label>
-          {customerTel.touched && customerTel.error && <div>{customerTel.error}</div>}
+          { customerTel.touched && customerTel.error &&
+            <div>{customerTel.error}</div> }
+
           <label>Address:
             <input
               type='text'
@@ -57,9 +64,12 @@ class ReservationForm extends React.Component {
               {...customerAddress}
             />
           </label>
-          {customerAddress.touched && customerAddress.error && <div>{customerAddress.error}</div>}
+          { customerAddress.touched && customerAddress.error &&
+            <div>{customerAddress.error}</div> }
+
           <button type='submit'>Confirm</button>
         </form>
+
         { formValid && <PaypalButton /> }
       </div>
     );

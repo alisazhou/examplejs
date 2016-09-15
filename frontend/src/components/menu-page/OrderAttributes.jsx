@@ -32,7 +32,10 @@ class OrderAttributes extends React.Component {
     };
 
     return (
-      <form className='menu_page--attributes' onSubmit={handleSubmit(onMenuNextClick)}>
+      <form
+        className='menu_page--attributes'
+        onSubmit={handleSubmit(onMenuNextClick)}
+      >
         <label>How many guests?
           <select
             { ...partySize }
@@ -45,6 +48,7 @@ class OrderAttributes extends React.Component {
           </select>
         </label>
         { partySize.touched && partySize.error && <div>{partySize.error}</div> }
+
         <label>When's the party?
           <input
             type='datetime-local'
@@ -52,6 +56,7 @@ class OrderAttributes extends React.Component {
           />
         </label>
         { dateTime.touched && dateTime.error && <div>{dateTime.error}</div> }
+
         <button type='submit'>Next</button>
       </form>
     );

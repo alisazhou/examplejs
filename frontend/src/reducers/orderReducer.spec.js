@@ -1,5 +1,5 @@
 import orderReducer from './orderReducer.js';
-import { UPDATE_ORDER, VALIDATE_ORDER } from '../actions/actionTypes.js';
+import { UPDATE_ORDER } from '../actions/actionTypes.js';
 
 
 describe('order reducer', () => {
