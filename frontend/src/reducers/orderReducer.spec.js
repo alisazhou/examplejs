@@ -1,5 +1,5 @@
 import orderReducer from './orderReducer.js';
-import { UPDATE_ORDER, VALIDATE_ORDER } from '../actions/actionTypes.js';
+import { UPDATE_ORDER } from '../actions/actionTypes.js';
 
 
 describe('order reducer', () => {
@@ -70,28 +70,6 @@ describe('order reducer', () => {
       const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
       expect(nextState).not.toBe(initState);
-    });
-  });
-
-  describe('handles validate order actions', () => {
-    it('marks fields as valid', () => {
-      const field = {
-        fieldName: 'fieldName', validStatus: true,
-      };
-      const validateAction = { type: VALIDATE_ORDER, ...field };
-      const expState = { fieldNameValidated: true };
-      const nextState = orderReducer({}, validateAction);
-      expect(nextState).toEqual(expState);
-    });
-
-    it('marks fields as invalid', () => {
-      const field = {
-        fieldName: 'fieldName', validStatus: false,
-      };
-      const validateAction = { type: VALIDATE_ORDER, ...field };
-      const expState = { fieldNameValidated: false };
-      const nextState = orderReducer({}, validateAction);
-      expect(nextState).toEqual(expState);
     });
   });
 });

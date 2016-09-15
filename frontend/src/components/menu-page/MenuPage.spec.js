@@ -9,7 +9,6 @@ jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
-import MenuPageNextButton from './MenuPageNextButton.jsx';
 import Navbar from '../navbar/Navbar.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
 
@@ -51,10 +50,6 @@ describe('MenuPage react component', () => {
     };
     const backLinkBtn = findChildren(result, LinkButton, expProps);
     expect(backLinkBtn.length).toEqual(1);
-  });
-
-  it('has a MenuPageNextButton child component', () => {
-    expect(result).toHaveChild(MenuPageNextButton);
   });
 
   it('has the correct propTypes', () => {

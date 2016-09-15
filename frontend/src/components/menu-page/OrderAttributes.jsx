@@ -2,10 +2,10 @@ import React from 'react';
 import R from 'ramda';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import partySizeOptions from './orderAttributesConstants.js';
-import { updateAndValidate } from '../../actions/orderActions.js';
-import ValidationError from '../validation-error/ValidationError.jsx';
+import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 
 const fields = [ 'partySize', 'dateTime' ];
@@ -23,41 +23,44 @@ const validate = values => {
 
 class OrderAttributes extends React.Component {
   render () {
-    const { fields: { partySize, dateTime }} = this.props;
+    const { fields: { partySize, dateTime }, handleSubmit } = this.props;
+
+    const onMenuNextClick = data => {
+      const updates = {...data, menuId: this.props.menuId};
+      this.props.updateOrder(updates);
+      browserHistory.push('/reservation/');
+    };
+
     return (
-      <form className='menu_page--attributes' onSubmit={e => e.preventDefault()}>
+      <form
+        className='menu_page--attributes'
+        onSubmit={handleSubmit(onMenuNextClick)}
+      >
         <label>How many guests?
-          <ValidationError
-            invalid={ this.props.partySizeInvalid }
-            error={ partySize.error }
-          />
           <select
             { ...partySize }
             value={ partySize.value || '' }
-            onBlur={ () => this.props.updateAndValidate(partySize) }>
+          >
             { partySizeOptions.map(
                 size => <option key={size.value} value={size.label}>{size.label}</option>
               )
             }
           </select>
         </label>
+        { partySize.touched && partySize.error && <div>{partySize.error}</div> }
+
         <label>When's the party?
-          <ValidationError
-            invalid={this.props.dateTimeInvalid}
-            error={dateTime.error}
-          />
-          <input type='date'
-            {...dateTime}
-            onBlur={() => this.props.updateAndValidate(dateTime)}
-          />
+          <input type='date' {...dateTime} />
         </label>
+        { dateTime.touched && dateTime.error && <div>{dateTime.error}</div> }
+
+        <button type='submit'>Next</button>
       </form>
     );
   }
 }
 
 OrderAttributes.propTypes = {
-  dateTimeInvalid: React.PropTypes.bool.isRequired,
   fields: React.PropTypes.shape({
     partySize: React.PropTypes.shape({
       value: React.PropTypes.string.isRequired,
@@ -66,20 +69,17 @@ OrderAttributes.propTypes = {
       value: React.PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  partySizeInvalid: React.PropTypes.bool.isRequired,
-  updateAndValidate: React.PropTypes.func.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired,
+  menuId: React.PropTypes.string.isRequired,
+  updateOrder: React.PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  partySizeInvalid: state.order.partySizeValidated === false,
-  dateTimeInvalid: state.order.dateTimeValidated === false,
-});
 const mapDispatchToProps = dispatch => ({
-  updateAndValidate: R.compose(dispatch, updateAndValidate),
+  updateOrder: R.compose(dispatch, updateOrderActionCreator),
 });
 
 const ConnectedAttributes = connect(
-  mapStateToProps, mapDispatchToProps
+  null, mapDispatchToProps
 )(OrderAttributes);
 
 export default reduxForm({

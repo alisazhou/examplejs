@@ -2,27 +2,26 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import R from 'ramda';
 import '../../testHelpers.js';
-import { findChildren } from '../../testHelpers.js';
+import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./ReservationForm.jsx');
 import WrappedForm, { ConnectedForm, ReservationForm } from './ReservationForm.jsx';
+import PaypalButton from './PaypalButton.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
-import ValidationError from '../validation-error/ValidationError.jsx';
 
 
 const PROPS_FROM_REDUX_FORM = {
   fields: {
-    customerName: { value: 'name0' },
-    customerTel: { value: 'tel0' },
-    customerAddress: { value: 'address0' },
+    customerName: { error: undefined, touched: true, value: 'name0' },
+    customerTel: { error: undefined, touched: true, value: 'tel0' },
+    customerAddress: { error: undefined, touched: true, value: 'address0' },
   },
+  handleSubmit: () => {},
+  valid: true,
 };
-const mockUpdateAndValidate = jest.fn();
+const mockUpdate = jest.fn();
 const PROPS_FROM_REDUX = {
-  customerAddressInvalid: true,
-  customerNameInvalid: true,
-  customerTelInvalid: true,
-  updateAndValidate: mockUpdateAndValidate,
+  updateOrder: mockUpdate,
 };
 
 describe('ReservationForm react component', () => {
@@ -31,53 +30,93 @@ describe('ReservationForm react component', () => {
     <ReservationForm {...PROPS_FROM_REDUX_FORM} {...PROPS_FROM_REDUX} />
   );
   const result = shallowRenderer.getRenderOutput();
-  const labelNodes = findChildren(result, 'label');
+  const formNode = findInTree(result, 'form')[0];
 
-  it('renders to a form', () => {
-    expect(result.type).toBe('form');
-  });
-
-  it('each label has an input field and a ValidationError child component', () => {
+  it('has a form with three labels, each label has an input field', () => {
+    expect(formNode).toBeDefined();
+    const labelNodes = findInTree(formNode, 'label');
     expect(labelNodes.length).toEqual(3);
     R.forEach(label => expect(label).toHaveChild('input'), labelNodes);
-    R.forEach(label => expect(label).toHaveChild(ValidationError), labelNodes);
   });
 
-  describe('onBlur callbacks', () => {
-    const cusInfoFields = R.map(
-      label => R.find(R.propEq('type', 'input'))(label.props.children),
-      labelNodes
-    );
-
-    it('each input has onBlur', () => {
-      R.forEach(
-        input => expect(input.props.onBlur).toBeDefined(),
-        cusInfoFields
-      );
+  describe('conditional error messages', () => {
+    it('shows no error when touched and no error', () => {
+      const errors = findInTree(formNode, 'div');
+      expect(errors.length).toBe(0);
     });
 
-    it('has the correct callbacks', () => {
-      expect(mockUpdateAndValidate).not.toBeCalled();
-      R.forEach(
-        field => field.props.onBlur(),
-        cusInfoFields
+    it('shows no errors if untouched', () => {
+      const fieldsUntouched = {
+        customerName: { error: 'error 0', touched: false, value: 'name0' },
+        customerTel: { error: 'error 1', touched: false, value: 'tel0' },
+        customerAddress: { error: 'error 2', touched: false, value: 'address0' },
+      };
+      const PROPS_FROM_REDUX_FORM_UNTOUCHED = {
+        ...PROPS_FROM_REDUX_FORM, fields: fieldsUntouched,
+      };
+      const shallowRenderer1 = TestUtils.createRenderer();
+      shallowRenderer1.render(
+        <ReservationForm
+          {...PROPS_FROM_REDUX_FORM_UNTOUCHED}
+          {...PROPS_FROM_REDUX}
+        />
       );
-      const { customerName, customerTel, customerAddress } =
-        PROPS_FROM_REDUX_FORM.fields;
-      expect(mockUpdateAndValidate.mock.calls).toEqual(
-        [ [ customerName ], [ customerTel ], [ customerAddress ] ]
-      );
+      const result1 = shallowRenderer1.getRenderOutput();
+      const errors = findInTree(findInTree(result1, 'form')[0], 'div');
+      expect(errors.length).toBe(0);
     });
 
+    it('shows errors if touched and has errors', () => {
+      const fieldsTouched = {
+        customerName: { error: 'error 0', touched: true, value: 'name0' },
+        customerTel: { error: 'error 1', touched: true, value: 'tel0' },
+        customerAddress: { error: 'error 2', touched: true, value: 'address0' },
+      };
+      const PROPS_FROM_REDUX_FORM_TOUCHED = {
+        ...PROPS_FROM_REDUX_FORM, fields: fieldsTouched,
+      };
+      const shallowRenderer2 = TestUtils.createRenderer();
+      shallowRenderer2.render(
+        <ReservationForm
+          {...PROPS_FROM_REDUX_FORM_TOUCHED}
+          {...PROPS_FROM_REDUX}
+        />
+      );
+      const result2 = shallowRenderer2.getRenderOutput();
+      const errors = findInTree(findInTree(result2, 'form')[0], 'div');
+      expect(errors.length).toBe(3);
+    });
+  });
+
+  describe('conditional PaypalButton', () => {
+    it('has a PaypalButton child if form is valid', () => {
+      const paypal = findInTree(result, PaypalButton);
+      expect(paypal.length).toBe(1);
+    });
+
+    it('shows no PaypalButton if form is not valid', () => {
+      const PROPS_FROM_REDUX_FORM_INVALID = {
+        ...PROPS_FROM_REDUX_FORM, valid: false,
+      };
+      const shallowRenderer3 = TestUtils.createRenderer();
+      shallowRenderer3.render(
+        <ReservationForm
+          {...PROPS_FROM_REDUX_FORM_INVALID}
+          {...PROPS_FROM_REDUX}
+        />
+      );
+      const result3 = shallowRenderer3.getRenderOutput();
+      const paypal = findInTree(result3, PaypalButton);
+      expect(paypal.length).toBe(0);
+    });
   });
 
   it('has the correct propTypes', () => {
     const expectedPropTypes = [
-      'customerAddressInvalid',
-      'customerNameInvalid',
-      'customerTelInvalid',
       'fields',
-      'updateAndValidate',
+      'handleSubmit',
+      'updateOrder',
+      'valid',
     ];
     R.forEach(
       prop => expect(R.has(prop)(ReservationForm.propTypes)).toBe(true),
@@ -101,7 +140,7 @@ describe('ReservationForm redux-connected component', () => {
       <ConnectedForm store={store} {...PROPS_FROM_REDUX_FORM} />
     );
     const result = shallowRenderer.getRenderOutput();
-    expect(result.props.updateAndValidate).toBeDefined();
+    expect(result.props.updateOrder).toBeDefined();
   });
 
 });
