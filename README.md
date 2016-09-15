@@ -28,8 +28,8 @@ See individual folders for their READMEs
 
 **DOING**
 - _ch_: add new user stories
-- _az_: refactor form validation
-- _az_: OrderAttributes, break datetime into two separate input fields (need to change state shape)
+- _az_: upgrade redux form to v6
+- _az_: fix order forms onSubmit callback tests
 
 
 **DONE**
@@ -44,3 +44,4 @@ See individual folders for their READMEs
 - add calendar widget to pick date time
 - add back buttons to pages
 - make going to hosturl/menu/0 etc redirect on the server side
+- refactor form validation

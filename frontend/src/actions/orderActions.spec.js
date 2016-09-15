@@ -1,6 +1,3 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
 import { updateOrderActionCreator } from './orderActions.js';
 import { UPDATE_ORDER } from './actionTypes.js';
 

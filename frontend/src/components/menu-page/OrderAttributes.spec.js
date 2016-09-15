@@ -99,7 +99,6 @@ describe('OrderAttributes dumb component', () => {
   });
 
   xit('has the correct callback', () => {
-    //todo: this is not working!!!
   });
 
   it('has the correct propTypes', () => {
