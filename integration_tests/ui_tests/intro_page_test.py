@@ -32,8 +32,13 @@ def test_there_is_search_bar(browser):
     assert input_box.get_attribute('placeholder') == 'I feel like having...'
 
     dropdown = Select(search_bar.find_element_by_tag_name('select'))
-    options_text = [opt.text for opt in dropdown.options]
-    assert options_text == ['All Cuisines', 'American', 'Chinese', 'French', 'Indian']
+    selected = dropdown.all_selected_options
+    assert len(selected) == 1
+    assert selected[0].text == 'All Cuisines'
+
+    options_texts = [opt.text for opt in dropdown.options]
+    for expected_text in ['All Cuisines', 'American', 'Chinese', 'French', 'Indian']:
+        assert expected_text in options_texts
 
 
 def test_search_bar_updates_menu_list_by_name(browser):
