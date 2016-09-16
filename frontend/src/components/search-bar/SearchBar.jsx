@@ -23,6 +23,9 @@ class SearchBar extends React.Component {
       <div className='searchbar__background'>
         <form className='searchbar-form'>
           <div className='searchbar-form__search-field-div'>
+            <input type='date' className='searchbar-form__search-field'/>
+          </div>
+          <div className='searchbar-form__search-field-div'>
             <input
               type='search'
               placeholder='I feel like having...'

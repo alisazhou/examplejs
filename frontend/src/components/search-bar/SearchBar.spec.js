@@ -27,13 +27,13 @@ describe('SearchBar presentational component', () => {
 
   describe('within the form', () => {
     const form = findInTree(result, 'form')[0];
-    it('has an Input child component', () => {
+    it('has two Input child component', () => {
       const input = findInTree(form, 'input');
-      expect(input.length).toEqual(1);
+      expect(input.length).toEqual(2);
     });
-    it('has an Input child component with the correct className', () => {
-      const select = findInTree(form, 'input')[0];
-      expect(select.props.className).toEqual('searchbar-form__search-field');
+    it('has two Input child components with the correct className', () => {
+      const inputs = findInTree(form, 'input', {className: 'searchbar-form__search-field'});
+      expect(inputs.length).toEqual(2);
     });
     it('has a Select child component', () => {
       const select = findInTree(form, 'select');
