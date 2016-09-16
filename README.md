@@ -18,6 +18,9 @@ See individual folders for their READMEs
      - refactor out searchbar into separate components
      - also add date component to frontpage searchbar
 - login and register pages
+- more data validation (currently just validating not empty)
+    - use momentjs to validate dates
+- figure out firefox date picker (use react date picker + momentjs?)
 - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
 - update redux form to get rid of uknown props warning
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?

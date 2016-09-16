@@ -9,7 +9,7 @@ class ResPageBrowser(NavigationMixin, NavbarMixin, BaseBrowser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.from_intro_page_select_menu('Demo Menu 0')
-        self.from_menu_page_fill_form_and_submit('3 ~ 4', '09122016', '0700pm')
+        self.from_menu_page_fill_form_and_submit('3 ~ 4', '09122016')
 
 browser = setup_pytest_browser_fixture(ResPageBrowser)
 
@@ -17,7 +17,7 @@ def test_ordered_menu_is_shown(browser):
     browser.assert_on_page('reservation')
     order_summary = {
         'Number of guests' :'3 ~ 4',
-        'Time': '091220160700pm',
+        'Time': '09122016',
         'Menu': 'Demo Menu 0'}
     for label, content in order_summary.items():
         assert label in browser.body_text
@@ -41,8 +41,7 @@ def test_has_back_btn_to_menu_page(browser):
 
 def test_saves_reservation_detail_between_pages(browser):
     # fill res form, go back to prev page
-    browser.from_reservation_page_fill_form_and_submit(
-        'alisa', 'az add', 'az tel')
+    browser.from_reservation_page_fill_form_and_submit('alisa', 'az add', 'az tel')
     browser.back()
     # go fwd to res page, reservation details are still shown
     browser.forward()

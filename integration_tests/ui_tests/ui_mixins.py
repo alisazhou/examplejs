@@ -1,5 +1,4 @@
 import re
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from constants import URLS
 
@@ -55,12 +54,10 @@ class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
         self.click_link_text(menu_link_text)
         self.assert_on_page('menu')
 
-    def from_menu_page_fill_form_and_submit(self, size_option, date, time, expect_fail=False):
+    def from_menu_page_fill_form_and_submit(self, size_option, date, expect_fail=False):
         self.assert_on_page('menu')
         self.get_order_party_size_select().select_by_visible_text(size_option)
         self.get_order_party_time_input().send_keys(date)
-        self.get_order_party_time_input().send_keys(Keys.TAB)
-        self.get_order_party_time_input().send_keys(time)
         self.find_element_by_xpath('//button[text()="Next"]').click()
         if not expect_fail:
             self.assert_on_page('reservation')
