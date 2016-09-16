@@ -7,14 +7,12 @@ const fields = [ 'searchText', 'searchCuisine' ];
 
 class SearchBar extends React.Component {
   generateOptionsJsx () {
-    const optionsList = R.map(
+    return R.map(
       cuisine => (<option key={cuisine.id} value={cuisine.name}>
                     {cuisine.name}
                   </option>),
       this.props.cuisines
     );
-    const allOption = (<option value='all' key='all'>All Cuisines</option>);
-    return R.append(allOption, optionsList);
   }
 
   render () {

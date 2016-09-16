@@ -1,8 +1,9 @@
 const initialState = [
-  { id: 0, name: 'American' },
-  { id: 1, name: 'Chinese' },
-  { id: 2, name: 'French' },
-  { id: 3, name: 'Indian' },
+  { id: 0, name: 'All Cuisines' },
+  { id: 1, name: 'American' },
+  { id: 2, name: 'Chinese' },
+  { id: 3, name: 'French' },
+  { id: 4, name: 'Indian' },
 ];
 
 export default initialState;
