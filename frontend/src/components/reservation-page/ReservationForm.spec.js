@@ -6,7 +6,6 @@ import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./ReservationForm.jsx');
 import WrappedForm, { ConnectedForm, ReservationForm } from './ReservationForm.jsx';
-import PaypalButton from './PaypalButton.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
@@ -17,11 +16,12 @@ const PROPS_FROM_REDUX_FORM = {
     customerAddress: { error: undefined, touched: true, value: 'address0' },
   },
   handleSubmit: () => {},
-  valid: true,
 };
-const mockUpdate = jest.fn();
+const mockUpdateAndMarkValid = jest.fn();
+const mockMarkInvalid = jest.fn();
 const PROPS_FROM_REDUX = {
-  updateOrder: mockUpdate,
+  markInvalid: mockMarkInvalid,
+  updateAndMarkValid: mockUpdateAndMarkValid,
 };
 
 describe('ReservationForm react component', () => {
@@ -88,35 +88,12 @@ describe('ReservationForm react component', () => {
     });
   });
 
-  describe('conditional PaypalButton', () => {
-    it('has a PaypalButton child if form is valid', () => {
-      const paypal = findInTree(result, PaypalButton);
-      expect(paypal.length).toBe(1);
-    });
-
-    it('shows no PaypalButton if form is not valid', () => {
-      const PROPS_FROM_REDUX_FORM_INVALID = {
-        ...PROPS_FROM_REDUX_FORM, valid: false,
-      };
-      const shallowRenderer3 = TestUtils.createRenderer();
-      shallowRenderer3.render(
-        <ReservationForm
-          {...PROPS_FROM_REDUX_FORM_INVALID}
-          {...PROPS_FROM_REDUX}
-        />
-      );
-      const result3 = shallowRenderer3.getRenderOutput();
-      const paypal = findInTree(result3, PaypalButton);
-      expect(paypal.length).toBe(0);
-    });
-  });
-
   it('has the correct propTypes', () => {
     const expectedPropTypes = [
       'fields',
       'handleSubmit',
-      'updateOrder',
-      'valid',
+      'markInvalid',
+      'updateAndMarkValid',
     ];
     R.forEach(
       prop => expect(R.has(prop)(ReservationForm.propTypes)).toBe(true),
@@ -140,7 +117,8 @@ describe('ReservationForm redux-connected component', () => {
       <ConnectedForm store={store} {...PROPS_FROM_REDUX_FORM} />
     );
     const result = shallowRenderer.getRenderOutput();
-    expect(result.props.updateOrder).toBeDefined();
+    expect(result.props.markInvalid).toBeDefined();
+    expect(result.props.updateAndMarkValid).toBeDefined();
   });
 
 });

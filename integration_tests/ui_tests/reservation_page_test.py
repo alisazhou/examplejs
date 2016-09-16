@@ -79,41 +79,67 @@ def test_performs_form_validation(browser):
     assert 'Please fill in your name' not in browser.body_text
     assert 'Address is required' not in browser.body_text
     assert 'Contact info is required' not in browser.body_text
-    # click on confirm button, remain on same page
-    browser.from_reservation_page_fill_form_and_submit('', '', '')
+    # fill in form with empty strings, don't see payment options
+    browser.from_reservation_page_fill_form('', '', '')
+    browser.assert_paypal_button_does_not_exist()
+
+    # click on submit button, still no payment options
+    browser.from_reservation_page_submit_form()
+    browser.assert_paypal_button_does_not_exist()
 
     # see error msgs for name, address, and phone
     assert 'Please fill in your name' in browser.body_text
     assert 'Address is required' in browser.body_text
     assert 'Contact info is required' in browser.body_text
 
-    # don't see payment options displayed yet
+
+    # fill in name, don't see payment options
+    browser.from_reservation_page_fill_form('alisa', '', '')
     browser.assert_paypal_button_does_not_exist()
 
-
-    # fill in name, click on confirm, don't see payment options
-    browser.from_reservation_page_fill_form_and_submit('alisa', '', '')
+    # click on submit button, still no payment options
+    browser.from_reservation_page_submit_form()
+    browser.assert_paypal_button_does_not_exist()
 
     # no more error for name
     assert 'Please fill in your name' not in browser.body_text
     assert 'Address is required' in browser.body_text
     assert 'Contact info is required' in browser.body_text
 
-    # don't see payment options displayed yet
+
+    # fill in address, don't see payment options
+    browser.from_reservation_page_fill_form('', 'alisa address', '')
     browser.assert_paypal_button_does_not_exist()
 
-    # fill in address, click on confirm, don't see payment options
-    browser.from_reservation_page_fill_form_and_submit('', 'alisa address', '')
+    # click on submit button, still no payment options
+    browser.from_reservation_page_submit_form()
+    browser.assert_paypal_button_does_not_exist()
 
     # no more error for address
     assert 'Please fill in your name' in browser.body_text
     assert 'Address is required' not in browser.body_text
     assert 'Contact info is required' in browser.body_text
 
-    # don't see payment options displayed yet
+
+    # fill form correctly, don't click on confirm, don't see payment options
+    browser.from_reservation_page_fill_form('az', 'az add', 'alisa phone')
     browser.assert_paypal_button_does_not_exist()
 
-    # fill form correctly, click on confirm, and payment options are showed
-    browser.from_reservation_page_fill_form_and_submit('az', 'az add', 'alisa phone')
+    # click on confirm, and payment options are shown
+    browser.from_reservation_page_submit_form()
     browser.get_paypal_button()
 
+    # no error messages for any
+    assert 'Please fill in your name' not in browser.body_text
+    assert 'Address is required' not in browser.body_text
+    assert 'Contact info is required' not in browser.body_text
+
+
+    # change a field, paypal button disappears
+    name_input = browser.find_element_by_class_name('reservation_form--name')
+    name_input.send_keys('blah')
+    browser.assert_paypal_button_does_not_exist()
+
+    # click on confirm, and payment options are shown
+    browser.from_reservation_page_submit_form()
+    browser.get_paypal_button()

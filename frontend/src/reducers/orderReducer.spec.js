@@ -9,6 +9,7 @@ describe('order reducer', () => {
     customerTel: '',
     dateTime: '',
     menuId: '',
+    orderValid: false,
     partySize: '',
   };
 
@@ -23,14 +24,7 @@ describe('order reducer', () => {
         type: UPDATE_ORDER,
         update: { dateTime: 'time0' },
       };
-      const expState = {
-        customerName: '',
-        customerAddress: '',
-        customerTel: '',
-        dateTime: 'time0',
-        menuId: '',
-        partySize: '',
-      };
+      const expState = { ...initState, dateTime: 'time0' };
       const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
       expect(nextState).not.toBe(initState);
@@ -41,14 +35,18 @@ describe('order reducer', () => {
         type: UPDATE_ORDER,
         update: { menuId: 'menu0' },
       };
-      const expState = {
-        customerName: '',
-        customerAddress: '',
-        customerTel: '',
-        dateTime: '',
-        menuId: 'menu0',
-        partySize: '',
+      const expState = { ...initState, menuId: 'menu0' };
+      const nextState = orderReducer(initState, updateAction);
+      expect(nextState).toEqual(expState);
+      expect(nextState).not.toBe(initState);
+    });
+
+    it('updates orderValid', () => {
+      const updateAction = {
+        type: UPDATE_ORDER,
+        update: { orderValid: true },
       };
+      const expState = { ...initState, orderValid: true };
       const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
       expect(nextState).not.toBe(initState);
@@ -59,14 +57,7 @@ describe('order reducer', () => {
         type: UPDATE_ORDER,
         update: { partySize: 'partySize0' },
       };
-      const expState = {
-        customerName: '',
-        customerAddress: '',
-        customerTel: '',
-        dateTime: '',
-        menuId: '',
-        partySize: 'partySize0',
-      };
+      const expState = { ...initState, partySize: 'partySize0' };
       const nextState = orderReducer(initState, updateAction);
       expect(nextState).toEqual(expState);
       expect(nextState).not.toBe(initState);

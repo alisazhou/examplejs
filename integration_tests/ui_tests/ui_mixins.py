@@ -72,7 +72,7 @@ class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
         if not expect_fail:
             self.assert_on_page('reservation')
 
-    def from_reservation_page_fill_form_and_submit(self, name, add, tel):
+    def from_reservation_page_fill_form(self, name, add, tel):
         self.assert_on_page('reservation')
         name_input = self.find_element_by_class_name('reservation_form--name')
         name_input.clear()
@@ -83,4 +83,10 @@ class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
         tel_input = self.find_element_by_class_name('reservation_form--tel')
         tel_input.clear()
         tel_input.send_keys(tel)
+
+    def from_reservation_page_submit_form(self):
         self.find_element_by_xpath('//button[@type="submit"][text()="Confirm"]').click()
+
+    def from_reservation_page_fill_form_and_submit(self, name, add, tel):
+        self.from_reservation_page_fill_form(name, add, tel)
+        self.from_reservation_page_submit_form()

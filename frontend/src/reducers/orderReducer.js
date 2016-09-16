@@ -7,6 +7,7 @@ const initialState = {
   customerTel: '',
   dateTime: '',
   menuId: '',
+  orderValid: false,
   partySize: '',
 };
 

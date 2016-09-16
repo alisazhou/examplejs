@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import R from 'ramda';
 
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
-import PaypalButton from './PaypalButton.jsx';
 
 
 const fields = [ 'customerName', 'customerTel', 'customerAddress' ];
@@ -28,20 +26,20 @@ class ReservationForm extends React.Component {
     const {
       fields: { customerName, customerTel, customerAddress },
       handleSubmit,
-      valid: formValid,
     } = this.props;
 
     return (
       <div>
         <form
           className='reservation_form'
-          onSubmit={handleSubmit(this.props.updateOrder)}
+          onSubmit={handleSubmit(this.props.updateAndMarkValid)}
         >
           <label>Name:
             <input
               type='text'
               className='reservation_form--name'
               {...customerName}
+              onFocus={this.props.markInvalid}
             />
           </label>
           { customerName.touched && customerName.error &&
@@ -52,6 +50,7 @@ class ReservationForm extends React.Component {
               type='text'
               className='reservation_form--tel'
               {...customerTel}
+              onFocus={this.props.markInvalid}
             />
           </label>
           { customerTel.touched && customerTel.error &&
@@ -62,6 +61,7 @@ class ReservationForm extends React.Component {
               type='text'
               className='reservation_form--add'
               {...customerAddress}
+              onFocus={this.props.markInvalid}
             />
           </label>
           { customerAddress.touched && customerAddress.error &&
@@ -69,8 +69,6 @@ class ReservationForm extends React.Component {
 
           <button type='submit'>Confirm</button>
         </form>
-
-        { formValid && <PaypalButton /> }
       </div>
     );
   }
@@ -79,12 +77,18 @@ class ReservationForm extends React.Component {
 ReservationForm.propTypes = {
   fields: React.PropTypes.object.isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
-  updateOrder: React.PropTypes.func.isRequired,
-  valid: React.PropTypes.bool.isRequired,
+  markInvalid: React.PropTypes.func.isRequired,
+  updateAndMarkValid: React.PropTypes.func.isRequired,
 };
 
+
 const mapDispatchToProps = dispatch => ({
-  updateOrder: R.compose(dispatch, updateOrderActionCreator),
+  markInvalid: () => {
+    dispatch(updateOrderActionCreator({orderValid: false}));
+  },
+  updateAndMarkValid: data => {
+    dispatch(updateOrderActionCreator({...data, orderValid: true}));
+  },
 });
 
 const ConnectedForm = connect(
