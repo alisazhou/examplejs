@@ -2,10 +2,10 @@ import pytest
 from browser_fixture import setup_pytest_browser_fixture
 
 from constants import OFFLINE
-from ui_mixins import NavigationMixin, NavbarMixin
+from ui_mixins import NavigationMixin, NavbarMixin, PaypalMixin
 from browser_fixture import BaseBrowser
 
-class ResPageBrowser(NavigationMixin, NavbarMixin, BaseBrowser):
+class ResPageBrowser(PaypalMixin, NavigationMixin, NavbarMixin, BaseBrowser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.from_intro_page_select_menu('Demo Menu 0')
@@ -58,11 +58,15 @@ def test_saves_reservation_detail_between_pages(browser):
 
 @pytest.mark.skipif(OFFLINE, reason='no internet')
 def test_can_make_payment(browser):
-    # see a paypal button
-    paypal_button = browser.get_slow_loading_css_element('input[name="submit"]')
-    assert 'PayPal' in paypal_button.get_attribute('alt')
-    # fill in reservation form, and click on paypal btn
-    browser.from_reservation_page_fill_form_and_submit('name0', 'address0', 'tel0')
+    # when alisa first go to the page she doesn't see a paypal button
+    browser.assert_paypal_button_does_not_exist()
+
+    # she fills out the form on the page
+    browser.from_reservation_page_fill_form_and_submit('alisa', 'az add', 'az tel')
+
+    # she now sees a paypal button
+    paypal_button = browser.get_paypal_button()
+
     ## temporary hack before refactoring
     browser.set_page_load_timeout(30)
     paypal_button.click()

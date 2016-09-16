@@ -4,6 +4,7 @@ import pytest
 from pyvirtualdisplay import Display
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -44,14 +45,20 @@ class BaseBrowser(webdriver.PhantomJS):
             EC.staleness_of(old_page)
         )
 
-    def get_slow_loading_css_element(self, css_selector, timeout=10):
+    def get_slow_loading_clickable(self, by_method, selector, timeout=10):
         wait = WebDriverWait(self, timeout)
         return wait.until(
             EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, css_selector)
-            )
+                (by_method, selector)
+            ),
+            'could not find {} in page:\n{}'.format(selector, self.body_text)
         )
 
+    def assert_does_not_exist(self, by_method, selector):
+        with pytest.raises(TimeoutException):
+            WebDriverWait(self, 3).until(
+                EC.presence_of_element_located((by_method, selector))
+            )
 
 
 

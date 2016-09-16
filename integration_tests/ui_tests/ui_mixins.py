@@ -1,5 +1,6 @@
 import re
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.by import By
 from constants import URLS
 
 class NavbarMixin():
@@ -41,6 +42,15 @@ class SearchBarMixin():
         input_box = self.get_search_bar().find_element_by_tag_name('input')
         input_box.clear()
         input_box.send_keys(text)
+
+class PaypalMixin():
+    BUTTON_XPATH = '//input[@name="submit"][contains(@alt, "PayPal")]'
+    def get_paypal_button(self):
+        return self.get_slow_loading_clickable(By.XPATH, self.BUTTON_XPATH)
+
+    def assert_paypal_button_does_not_exist(self):
+        self.assert_does_not_exist(By.XPATH, self.BUTTON_XPATH)
+
 
 
 class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
