@@ -1,41 +1,30 @@
 import React from 'react';
-import R from 'ramda';
-import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { reduxForm, Field } from 'redux-form';
 
-const fields = [ 'searchText', 'searchCuisine' ];
+import { renderInput, renderSelect } from '../formHelpers.js';
+
 
 
 class SearchBar extends React.Component {
-  generateOptionsJsx () {
-    return R.map(
-      cuisine => (<option key={cuisine.id} value={cuisine.name}>
-                    {cuisine.name}
-                  </option>),
-      this.props.cuisines
-    );
-  }
-
   render () {
-    const { fields: { searchText, searchCuisine }} = this.props;
     return (
       <div className='searchbar__background'>
         <form className='searchbar-form'>
           <div className='searchbar-form__search-field-div'>
-            <input
-              type='search'
-              placeholder='I feel like having...'
+            <Field component={renderInput}
               className='searchbar-form__search-field'
-              {...searchText}
+              name='searchText'
+              placeholder='I feel like having...'
+              type='search'
             />
           </div>
           <div className='searchbar-form__search-field-div'>
-            <select
+            <Field component={renderSelect}
               className='searchbar-form__search-field'
-              {...searchCuisine}
-              value={searchCuisine.value||''}
-            >
-              { this.generateOptionsJsx() }
-            </select>
+              name='searchCuisine'
+              options={this.props.cuisines}
+            />
           </div>
         </form>
       </div>
@@ -50,23 +39,16 @@ SearchBar.propTypes = {
       name: React.PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  fields: React.PropTypes.shape({
-    searchCuisine: React.PropTypes.shape({
-      value: React.PropTypes.string.isRequired,
-    }).isRequired,
-    searchText: React.PropTypes.shape({
-      value: React.PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = state => ({
   cuisines: state.cuisines,
 });
 
+const StoreConnectedBar = connect(mapStateToProps)(SearchBar);
+
 export default reduxForm({
   form: 'searchBar',
-  fields,
-  initialValues: { searchText: '', searchCuisine: 'all' },
-}, mapStateToProps)(SearchBar);
-export { fields, SearchBar };
+})(StoreConnectedBar);
+
+export { StoreConnectedBar, SearchBar };

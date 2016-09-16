@@ -32,6 +32,7 @@ See individual folders for their READMEs
 **DOING**
 - _ch_: add new user stories
 - _az_: upgrade redux form to v6
+    - need to use formValueSelector to access fields (introPageSelector)
 - _az_: fix order forms onSubmit callback tests
 
 
