@@ -74,7 +74,13 @@ class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
 
     def from_reservation_page_fill_form_and_submit(self, name, add, tel):
         self.assert_on_page('reservation')
-        self.find_element_by_class_name('reservation_form--name').send_keys(name)
-        self.find_element_by_class_name('reservation_form--add').send_keys(add)
-        self.find_element_by_class_name('reservation_form--tel').send_keys(tel)
-
+        name_input = self.find_element_by_class_name('reservation_form--name')
+        name_input.clear()
+        name_input.send_keys(name)
+        address_input = self.find_element_by_class_name('reservation_form--add')
+        address_input.clear()
+        address_input.send_keys(add)
+        tel_input = self.find_element_by_class_name('reservation_form--tel')
+        tel_input.clear()
+        tel_input.send_keys(tel)
+        self.find_element_by_xpath('//button[@type="submit"][text()="Confirm"]').click()

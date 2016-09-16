@@ -79,38 +79,41 @@ def test_performs_form_validation(browser):
     assert 'Please fill in your name' not in browser.body_text
     assert 'Address is required' not in browser.body_text
     assert 'Contact info is required' not in browser.body_text
-    # click on Paypal button, remain on same page
-    paypal_button = browser.get_slow_loading_css_element(
-        'input[name="submit"]')
-    paypal_button.click()
-    browser.assert_on_page('reservation')
+    # click on confirm button, remain on same page
+    browser.from_reservation_page_fill_form_and_submit('', '', '')
+
     # see error msgs for name, address, and phone
     assert 'Please fill in your name' in browser.body_text
     assert 'Address is required' in browser.body_text
     assert 'Contact info is required' in browser.body_text
-    # fill in name, click on Paypal, remain on same page
-    browser.from_reservation_page_fill_form_and_submit(
-        'alisa', '', '')
-    paypal_button.click()
-    browser.assert_on_page('reservation')
+
+    # don't see payment options displayed yet
+    browser.assert_paypal_button_does_not_exist()
+
+
+    # fill in name, click on confirm, don't see payment options
+    browser.from_reservation_page_fill_form_and_submit('alisa', '', '')
+
     # no more error for name
     assert 'Please fill in your name' not in browser.body_text
     assert 'Address is required' in browser.body_text
     assert 'Contact info is required' in browser.body_text
-    # fill in address, click on Paypal, remain on same page
-    browser.from_reservation_page_fill_form_and_submit(
-        '', 'alisa address', '')
-    paypal_button.click()
-    browser.assert_on_page('reservation')
+
+    # don't see payment options displayed yet
+    browser.assert_paypal_button_does_not_exist()
+
+    # fill in address, click on confirm, don't see payment options
+    browser.from_reservation_page_fill_form_and_submit('', 'alisa address', '')
+
     # no more error for address
-    assert 'Please fill in your name' not in browser.body_text
+    assert 'Please fill in your name' in browser.body_text
     assert 'Address is required' not in browser.body_text
     assert 'Contact info is required' in browser.body_text
-    # fill form, click on Paypal, land on Paypal page
-    browser.from_reservation_page_fill_form_and_submit(
-        '', '', 'alisa phone')
 
-    if not OFFLINE:
-        browser.set_page_load_timeout(30)
-        paypal_button.click()
-        assert 'paypal.com' in browser.current_url
+    # don't see payment options displayed yet
+    browser.assert_paypal_button_does_not_exist()
+
+    # fill form correctly, click on confirm, and payment options are showed
+    browser.from_reservation_page_fill_form_and_submit('az', 'az add', 'alisa phone')
+    browser.get_paypal_button()
+
