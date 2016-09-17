@@ -35,6 +35,7 @@ See individual folders for their READMEs
     - after doing that, consider taking off trailing slashes for everything
 - [ui] make datetime captured in OrderAttributes more readable on reservation page
 - get title to change depending on react routing
+- instead of xs-hide, sm-hide, md-hide etc, maybe have a function that hides if less than lg etc
 
 
 **DOING**
