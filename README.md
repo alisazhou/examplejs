@@ -12,6 +12,8 @@ See individual folders for their READMEs
 #### Kanban Bananas
 **TO-DO**
 - viewport meta
+- take out back button
+- use basscss font
 - wire up date input on front page. add ft for this as well
 - create react component for intro page menu items
 - turn sticky page footer into the navbar header?
@@ -22,6 +24,8 @@ See individual folders for their READMEs
 - login and register pages
 - more data validation (currently just validating not empty)
     - use momentjs to validate dates
+    - have min/max dates
+    - for menu details page, will need to grey out unavailable dates on date picker
 - figure out firefox date picker (use react date picker + momentjs?)
 - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
 - move paypal button outside of reservation form component
@@ -29,8 +33,8 @@ See individual folders for their READMEs
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
 - consider pulling node urls out into contants.py. but it is not super easy to do because need to interpolate menu id etc. (and js doesn't have a good way to dynamically interpolate that)
     - after doing that, consider taking off trailing slashes for everything
-- for menu details page, will need to grey out unavailable dates on date picker
 - [ui] make datetime captured in OrderAttributes more readable on reservation page
+- get title to change depending on react routing
 
 
 **DOING**
