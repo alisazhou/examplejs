@@ -8,7 +8,11 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-class BaseBrowser(webdriver.PhantomJS):
+from constatns import USE_PHANTOMJS
+
+
+BASE_WEBDRIVER = webdriver.PhantomJS if USE_PHANTOMJS else webdriver.Chrome
+class BaseBrowser(BASE_WEBDRIVER):
     def __init__(self, host_address, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.implicitly_wait(5)

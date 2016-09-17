@@ -17,3 +17,4 @@ URLS = {
     'signup': r'/signup/$',
     'login': r'/login/$',
 }
+USE_PHANTOMJS = True
