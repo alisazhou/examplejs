@@ -28,8 +28,8 @@ def test_displays_menus_that_go_to_menu_page(browser):
 def test_there_is_search_bar(browser):
     search_bar = browser.get_search_bar()
 
-    input_box = browser.get_search_bar().find_element_by_tag_name('input')
-    assert input_box.get_attribute('placeholder') == 'I feel like having...'
+    text_search = browser.get_search_bar().find_element_by_xpath('//input[@type="search"]')
+    assert text_search.get_attribute('placeholder') == 'I feel like having...'
 
     dropdown = Select(search_bar.find_element_by_tag_name('select'))
     selected = dropdown.all_selected_options

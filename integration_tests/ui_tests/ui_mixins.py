@@ -39,9 +39,9 @@ class SearchBarMixin():
         return self.find_element_by_class_name('searchbar-form')
 
     def type_into_search_input(self, text):
-        input_box = self.get_search_bar().find_element_by_tag_name('input')
-        input_box.clear()
-        input_box.send_keys(text)
+        text_search = self.get_search_bar().find_element_by_xpath('//input[@type="search"]')
+        text_search.clear()
+        text_search.send_keys(text)
 
 class PaypalMixin():
     BUTTON_XPATH = '//input[@name="submit"][contains(@alt, "PayPal")]'
