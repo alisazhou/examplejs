@@ -58,7 +58,7 @@ describe('filter menus by searchText', () => {
 describe('filter by searchCuisine', () => {
 
   it('returns all menus if searchCuisine is all', () => {
-    const filteredMenus = byCuisine('all')(allMenus);
+    const filteredMenus = byCuisine('All Cuisines')(allMenus);
     expect(filteredMenus).toEqual(allMenus);
   });
 
@@ -77,24 +77,15 @@ describe('filter by searchCuisine', () => {
 });
 
 describe('combined filters', () => {
-  it('returns all menus if form is undefined', () => {
-    const filteredMenus = combineFilters(allMenus, undefined);
-    expect(filteredMenus).toEqual(allMenus);
-  });
-
-  it('returns all menus if searchBar is undefined', () => {
-    const form = { searchBar: undefined };
-    const filteredMenus = combineFilters(allMenus, form);
+  it('returns all menus if text and cuisine are undefined', () => {
+    const filteredMenus = combineFilters(allMenus, undefined, undefined);
     expect(filteredMenus).toEqual(allMenus);
   });
 
   it('filters by text and cuisine', () => {
-    const form = {
-      searchBar: {
-        searchText: { value: '0' }, searchCuisine: { value: '1' },
-      },
-    };
-    const filteredMenus = combineFilters(allMenus, form);
+    const searchText = '0';
+    const searchCuisine = '1';
+    const filteredMenus = combineFilters(allMenus, searchText, searchCuisine);
     expect(Object.keys(filteredMenus).length).toEqual(0);
   });
 });

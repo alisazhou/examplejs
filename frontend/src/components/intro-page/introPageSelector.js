@@ -2,6 +2,9 @@ import R from 'ramda';
 
 
 const byText = text => menus => {
+  if (!text) {
+    return menus;
+  }
   const match = menuInfo => (
     text => menuInfo.toLowerCase().includes(text)
   );
@@ -12,22 +15,16 @@ const byText = text => menus => {
 };
 
 const byCuisine = cuisine => menus => {
-  if (cuisine === 'all') {
+  if (!cuisine || cuisine === 'All Cuisines') {
     return menus;
   }
   return menus.filter(menu => menu.category === cuisine);
 };
 
 
-const combineFilters = (menus, form) => {
-  if (!form || !form.searchBar) {
-    return menus;
-  }
-  return R.compose(
-    byText(form.searchBar.searchText.value),
-    byCuisine(form.searchBar.searchCuisine.value)
-  )(menus);
-};
+const combineFilters = (menus, searchText, searchCuisine) => (
+  R.compose(byText(searchText), byCuisine(searchCuisine))(menus)
+);
 
 
 export { byCuisine, byText, combineFilters };

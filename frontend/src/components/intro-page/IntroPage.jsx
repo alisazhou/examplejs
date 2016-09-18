@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { formValueSelector } from 'redux-form';
 
 import MenuList from '../menu-list/MenuList.jsx';
 import SearchBar from '../search-bar/SearchBar.jsx';
@@ -25,9 +26,11 @@ IntroPage.propTypes = {
   menus: React.PropTypes.array,
 };
 
-const mapStateToProps = state => ({
-  menus: combineFilters(state.menus, state.form),
-});
+const mapStateToProps = state => {
+  const selector = formValueSelector('searchBar');
+  const { searchText, searchCuisine } = selector(state, 'searchText', 'searchCuisine');
+  return { menus: combineFilters(state.menus, searchText, searchCuisine) };
+};
 
 export default connect(mapStateToProps)(IntroPage);
 export { IntroPage };
