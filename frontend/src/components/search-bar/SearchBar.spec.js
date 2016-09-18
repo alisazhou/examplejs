@@ -10,8 +10,10 @@ import { renderInput, renderSelect } from '../formHelpers.js';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
+const mockUpdateOrderDate = jest.fn();
 const PROPS_FROM_STORE = {
   cuisines: [ { id: 0, name: '0', key: 0 }, { id: 1, name: '1', key: 1 } ],
+  updateOrderDate: mockUpdateOrderDate,
 };
 describe('SearchBar presentational component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -27,8 +29,8 @@ describe('SearchBar presentational component', () => {
   describe('within the form', () => {
     const form = findInTree(result, 'form')[0];
     const fields = findInTree(form, Field);
-    it('has two Field child components', () => {
-      expect(fields.length).toBe(2);
+    it('has three Field child components', () => {
+      expect(fields.length).toBe(3);
     });
 
     describe('first Field child', () => {
@@ -36,27 +38,45 @@ describe('SearchBar presentational component', () => {
       it('renders to input field', () => {
         expect(first.props.component).toBe(renderInput);
       });
-      it('has the correct className', () => {
+      it('has the correct props', () => {
         expect(first.props.className).toEqual('searchbar-form__search-field');
+        expect(first.props.name).toEqual('searchDate');
+        expect(first.props.type).toEqual('date');
+      });
+      it('calls updateOrderDate on SearchDate blur', () => {
+        const evt = { target: { value: 'date 0' }};
+        first.props.onBlur(evt);
+        expect(mockUpdateOrderDate).toBeCalledWith({dateTime: 'date 0'});
       });
     });
 
     describe('second Field child', () => {
       const second = fields[1];
-      it('renders to select field', () => {
-        expect(second.props.component).toBe(renderSelect);
+      it('renders to input field', () => {
+        expect(second.props.component).toBe(renderInput);
       });
-      it('has the correct className', () => {
+      it('has the correct props', () => {
         expect(second.props.className).toEqual('searchbar-form__search-field');
+        expect(second.props.name).toEqual('searchText');
+        expect(second.props.type).toEqual('search');
       });
-      it('receives options props', () => {
-        expect(second.props.options).toBe(PROPS_FROM_STORE.cuisines);
+    });
+
+    describe('third Field child', () => {
+      const third = fields[2];
+      it('renders to select field', () => {
+        expect(third.props.component).toBe(renderSelect);
+      });
+      it('has the correct props', () => {
+        expect(third.props.className).toEqual('searchbar-form__search-field');
+        expect(third.props.name).toEqual('searchCuisine');
+        expect(third.props.options).toBe(PROPS_FROM_STORE.cuisines);
       });
     });
   });
 
   it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'cuisines' ];
+    const expectedPropTypes = [ 'cuisines', 'updateOrderDate' ];
     R.forEach(
       prop => expect(R.has(prop)(SearchBar.propTypes)).toBe(true),
       expectedPropTypes
@@ -78,8 +98,9 @@ describe('SearchBar smart component', () => {
     <StoreConnectedBar store={store} {...PROPS_FROM_STORE} />
   );
   const result = shallowRenderer.getRenderOutput();
-  it('receives cuisines from redux store', () => {
+  it('receives props from redux store', () => {
     expect(result.props.cuisines).toBeDefined();
+    expect(result.props.updateOrderDate).toBeDefined();
   });
 });
 
