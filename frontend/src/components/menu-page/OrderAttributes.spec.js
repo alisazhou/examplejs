@@ -5,7 +5,10 @@ import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./OrderAttributes.jsx');
 jest.unmock('./orderAttributesConstants.js');
-import FormAttributes, { ConnectedAttributes, OrderAttributes } from './OrderAttributes.jsx';
+import ReduxConnectedAttributes, {
+  FormConnectedAttributes,
+  OrderAttributes,
+} from './OrderAttributes.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
@@ -19,7 +22,10 @@ const PROPS_FROM_REDUX_FORM = {
   },
   handleSubmit: mockSubmit,
 };
-const PROPS_FROM_REDUX = { updateOrder: mockUpdateOrder };
+const PROPS_FROM_REDUX = {
+  initialValues: { dateTime: '2016-09-19' },
+  updateOrder: mockUpdateOrder,
+};
 describe('OrderAttributes dumb component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
@@ -105,6 +111,7 @@ describe('OrderAttributes dumb component', () => {
     const expectedPropTypes = [
       'fields',
       'handleSubmit',
+      'initialValues',
       'menuId',
       'updateOrder',
     ];
@@ -116,30 +123,36 @@ describe('OrderAttributes dumb component', () => {
   });
 });
 
+
+describe('OrderAttributes redux-from-wrapped component', () => {
+  it('is wrapped by a redux form', () => {
+    expect(FormConnectedAttributes.name).toBe('ConnectedForm');
+  });
+});
+
+
 describe('OrderAttributes redux connect-wrapped component', () => {
   it('is wrapped by a connect', () => {
-    expect(ConnectedAttributes).not.toBe(OrderAttributes);
-    expect(ConnectedAttributes.WrappedComponent).toBe(OrderAttributes);
-    expect(ConnectedAttributes.displayName).toBe('Connect(OrderAttributes)');
+    expect(ReduxConnectedAttributes).not.toBe(FormConnectedAttributes);
+    expect(ReduxConnectedAttributes.WrappedComponent).toBe(
+      FormConnectedAttributes
+    );
+    expect(ReduxConnectedAttributes.displayName).toBe(
+      'Connect(ConnectedForm)'
+    );
   });
 
   it('receives props from redux', () => {
     const shallowRenderer = TestUtils.createRenderer();
     shallowRenderer.render(
-      <ConnectedAttributes
+      <ReduxConnectedAttributes
         store={store}
         {...PROPS_FROM_PARENT}
         {...PROPS_FROM_REDUX_FORM}
       />
     );
     const result = shallowRenderer.getRenderOutput();
+    expect(result.props.initialValues.dateTime).toBeDefined();
     expect(result.props.updateOrder).toBeDefined();
-  });
-});
-
-
-describe('OrderAttributes redux-from-wrapped component', () => {
-  it('is wrapped by a redux form', () => {
-    expect(FormAttributes.name).toBe('ConnectedForm');
   });
 });

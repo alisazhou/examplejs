@@ -2,7 +2,10 @@ import React from 'react';
 import R from 'ramda';
 import { reduxForm } from 'redux-form';
 
-const fields = [ 'searchText', 'searchCuisine' ];
+import { updateOrderActionCreator } from '../../actions/orderActions.js';
+
+
+const fields = [ 'searchDate', 'searchText', 'searchCuisine' ];
 
 
 class SearchBar extends React.Component {
@@ -18,12 +21,17 @@ class SearchBar extends React.Component {
   }
 
   render () {
-    const { fields: { searchText, searchCuisine }} = this.props;
+    const { fields: { searchDate, searchText, searchCuisine }} = this.props;
     return (
       <div className='searchbar__background'>
         <form className='searchbar-form'>
           <div className='searchbar-form__search-field-div'>
-            <input type='date' className='searchbar-form__search-field'/>
+            <input
+              type='date'
+              className='searchbar-form__search-field'
+              {...searchDate}
+              onBlur={e => this.props.updateOrderDate({dateTime: e.target.value})}
+            />
           </div>
           <div className='searchbar-form__search-field-div'>
             <input
@@ -56,6 +64,9 @@ SearchBar.propTypes = {
     }).isRequired
   ).isRequired,
   fields: React.PropTypes.shape({
+    searchDate: React.PropTypes.shape({
+      value: React.PropTypes.string.isRequired,
+    }).isRequired,
     searchCuisine: React.PropTypes.shape({
       value: React.PropTypes.string.isRequired,
     }).isRequired,
@@ -63,15 +74,21 @@ SearchBar.propTypes = {
       value: React.PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  updateOrderDate: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   cuisines: state.cuisines,
 });
 
+const mapDispatchToProps = dispatch => ({
+  updateOrderDate: R.compose(dispatch, updateOrderActionCreator),
+});
+
 export default reduxForm({
   form: 'searchBar',
   fields,
+  destroyOnUnmount: false,
   initialValues: { searchText: '', searchCuisine: 'all' },
-}, mapStateToProps)(SearchBar);
+}, mapStateToProps, mapDispatchToProps)(SearchBar);
 export { fields, SearchBar };

@@ -28,6 +28,8 @@ def test_displays_menus_that_go_to_menu_page(browser):
 def test_there_is_search_bar(browser):
     search_bar = browser.get_search_bar()
 
+    search_bar.find_element_by_xpath('//input[@type="date"]')
+
     text_search = browser.get_search_bar().find_element_by_xpath('//input[@type="search"]')
     assert text_search.get_attribute('placeholder') == 'I feel like having...'
 
@@ -143,3 +145,11 @@ def test_navbar_works_correctly(browser):
     login_button.click()
     # she is taken to the login page
     browser.assert_on_page('login')
+
+
+def test_search_date_is_shown_on_menu_page_form(browser):
+    date_search = browser.get_search_bar().find_element_by_xpath('//input[@type="date"]')
+    date_search.send_keys('09192016')
+    browser.from_intro_page_select_menu('Demo Menu 0')
+    party_time = browser.find_element_by_xpath('//input[@type="date"]')
+    assert party_time.get_attribute('value') == '09192016'

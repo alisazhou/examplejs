@@ -70,24 +70,30 @@ OrderAttributes.propTypes = {
     }).isRequired,
   }).isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
+  initialValues: React.PropTypes.shape({
+    dateTime: React.PropTypes.string,
+  }),
   menuId: React.PropTypes.string.isRequired,
   updateOrder: React.PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  initialValues: { dateTime: state.order.dateTime },
+});
 const mapDispatchToProps = dispatch => ({
   updateOrder: R.compose(dispatch, updateOrderActionCreator),
 });
 
-const ConnectedAttributes = connect(
-  null, mapDispatchToProps
-)(OrderAttributes);
-
-export default reduxForm({
+const FormConnectedAttributes = reduxForm({
   form: 'orderAttributes',
   fields,
   destroyOnUnmount: false,
-  initialValues: {dateTime: '', partySize: ''},
   validate,
-})(ConnectedAttributes);
+})(OrderAttributes);
 
-export { ConnectedAttributes, fields, OrderAttributes };
+const ReduxConnectedAttributes = connect(
+  mapStateToProps, mapDispatchToProps
+)(FormConnectedAttributes);
+
+export default ReduxConnectedAttributes;
+export { FormConnectedAttributes, fields, OrderAttributes };

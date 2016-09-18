@@ -7,12 +7,15 @@ jest.unmock('./SearchBar.jsx');
 import { SearchBar } from './SearchBar.jsx';
 
 
+const mockUpdateOrderDate = jest.fn();
 const PROPS_FROM_STORE = {
   cuisines: [ { id: 0, name: '0', key: 0 }, { id: 1, name: '1', key: 1 } ],
   fields: {
     searchCuisine: { value: '' },
+    searchDate: { value: '' },
     searchText: { value: '' },
   },
+  updateOrderDate: mockUpdateOrderDate,
 };
 describe('SearchBar presentational component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -50,8 +53,15 @@ describe('SearchBar presentational component', () => {
 
   });
 
+  it('calls updateOrderDate on searchDate blur', () => {
+    const searchDate = findInTree(result, 'input', {type: 'date'})[0];
+    const evt = { target: { value: 'date 0' }};
+    searchDate.props.onBlur(evt);
+    expect(mockUpdateOrderDate).toBeCalledWith({dateTime: 'date 0'});
+  });
+
   it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'cuisines', 'fields' ];
+    const expectedPropTypes = [ 'cuisines', 'fields', 'updateOrderDate' ];
     R.forEach(
       prop => expect(R.has(prop)(SearchBar.propTypes)).toBe(true),
       expectedPropTypes
