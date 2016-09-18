@@ -40,6 +40,10 @@ def test_there_is_search_bar(browser):
     for expected_text in ['All Cuisines', 'American', 'Chinese', 'French', 'Indian']:
         assert expected_text in options_texts
 
+def test_search_gives_helpful_message_if_no_results(browser):
+    browser.type_into_search_input('this does not exist')
+    assert 'Sorry' in browser.body_text
+
 
 def test_search_bar_updates_menu_list_by_name(browser):
     # alisa types 'menu' into the search bar input form
