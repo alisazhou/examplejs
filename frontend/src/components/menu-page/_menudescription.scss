@@ -1,0 +1,31 @@
+
+// @import "vendors/basscss/scss/basscss";
+.menudescription-div {
+    @include max-width('sm');
+    @extend .mx-auto, .col-12;
+    color: map-get($colors, menuitem-bordercolor);
+    background-color: map-get($colors, menuitem-bg);
+
+    &__div {
+        @extend .relative, .col-12, .mx-auto;
+        // .line-height-0, 
+    }
+}
+
+/*
+.navbar-buttons {
+    @extend .mx-auto;
+    // don't start at the edge of the screen if screen very wide
+    @include max-width("md");
+
+    &__home-div { @extend .col, .col-3; }
+    &__home-btn { @extend .btn, .white, .py1; }
+
+    &__title-div { @extend .col, .col-6, .flex, .items-center; }
+    &__title-btn { @extend .btn, .flex-auto, .py1; }
+
+    &__user-div { @extend .col, .col-3, .flex, .items-center, .justify-end, .content-stretch; }
+    &__user-login-btn { @extend .btn, .white, .btn-outline, .ml1; }
+    &__user-signup-btn { @extend .btn, .white, .xs-hide, .sm-hide; }
+}
+*/
