@@ -8,7 +8,7 @@
     "css": "node-sass src/main.scss ../static/bundled.css --watch",
     "js": "webpack --config webpack.config.js --progress --profile --colors --watch",
     "lint": "eslint src --ignore-pattern 'src/scss-modules/vendors/*'",
-    "retest": "jest --no-cache --watch=all",
+    "retest": "jest --no-cache --watch",
     "test": "jest --noStackTrace --no-cache --bail",
     "ncu": "ncu --error-level 2 --reject redux-form"
   },

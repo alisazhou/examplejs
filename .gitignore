@@ -10,4 +10,5 @@ db.sqlite3
 npm-debut.log
 npm-debug.log
 static
+collected_static
 ghostdriver.log

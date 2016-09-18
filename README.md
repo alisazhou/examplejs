@@ -11,9 +11,7 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- viewport meta
 - take out back button
-- use basscss font
 - wire up date input on front page. add ft for this as well
 - create react component for intro page menu items
 - turn sticky page footer into the navbar header?
@@ -28,6 +26,7 @@ See individual folders for their READMEs
     - for menu details page, will need to grey out unavailable dates on date picker
 - figure out firefox date picker (use react date picker + momentjs?)
 - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
+- use basscss font
 - move paypal button outside of reservation form component
 - update redux form to get rid of uknown props warning
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
