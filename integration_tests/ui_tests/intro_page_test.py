@@ -10,7 +10,7 @@ browser = setup_pytest_browser_fixture(IntroPageBrowser)
 
 
 def test_links_to_menu_details(browser):
-    link_menu_details = browser.find_elements_by_class_name('menu-list--item')
+    link_menu_details = browser.find_elements_by_class_name('menu-list__item-div')
     assert len(link_menu_details) == 2
     assert 'Demo Menu 0' in link_menu_details[0].text
     assert 'Demo Menu 1' in link_menu_details[1].text

@@ -61,7 +61,7 @@ class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
 
     def from_intro_page_select_menu(self, menu_link_text):
         self.assert_on_page('intro')
-        self.click_link_text(menu_link_text)
+        self.find_element_by_xpath('//h4[text()="{}"]'.format(menu_link_text)).click()
         self.assert_on_page('menu')
 
     def from_menu_page_fill_form_and_submit(self, size_option, date, expect_fail=False):

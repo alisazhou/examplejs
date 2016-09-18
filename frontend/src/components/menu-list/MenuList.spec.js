@@ -18,11 +18,11 @@ describe('MenuList dumb component', () => {
   shallowRenderer.render(<MenuList {...PROPS_FROM_PARENT} />);
   const result = shallowRenderer.getRenderOutput();
 
-  it('renders to a ul', () => {
-    expect(result.type).toBe('ul');
+  it('renders to a div', () => {
+    expect(result.type).toBe('div');
   });
 
-  it('has two MenuListItem child components', () => {
+  it('maps over menus to create MenuListItem child components', () => {
     const findMenuListItem = result.props.children.filter(
       child => child.type === MenuListItem
     );

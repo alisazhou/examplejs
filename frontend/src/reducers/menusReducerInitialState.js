@@ -5,7 +5,8 @@ const initialState = [
     category: 'American',
     chef: 'cuckoo lis',
     description: 'description 0',
-    image: 'image src 0',
+    image: '/static/img/menu0.jpg',
+    price: '200',
   },
   {
     id: '1',
@@ -14,6 +15,7 @@ const initialState = [
     chef: 'coco puffs',
     description: 'description 1',
     image: 'image src 1',
+    price: '100',
   },
 ];
 
