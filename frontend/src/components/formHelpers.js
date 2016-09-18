@@ -18,7 +18,7 @@ const renderInput = field => (
 const renderSelect = field => (
   <div>
     <label>{field.label}
-      <select {...field.select}
+      <select {...field.input}
         className={field.className}
       >
         {R.map(
