@@ -23,20 +23,22 @@ describe('MenuDescription dumb component', () => {
     expect(result.type).toBe('div');
   });
 
+  const innerDiv = React.Children.only(result.props.children);
+
   it('has a img child', () => {
-    const img = R.find(R.propEq('type', 'img'))(result.props.children);
+    const img = R.find(R.propEq('type', 'img'))(innerDiv.props.children);
     expect(img).toBeDefined();
     expect(img.props.src).toBe('image link');
   });
 
   it('shows name of chef', () => {
-    const chef = R.find(R.propEq('type', 'h3'))(result.props.children);
+    const chef = R.find(R.propEq('type', 'h3'))(innerDiv.props.children);
     expect(chef).toBeDefined();
     expect(chef.props.children).toBe('chef name');
   });
 
   it('shows a description of the menu', () => {
-    const description = R.find(R.propEq('type', 'p'))(result.props.children);
+    const description = R.find(R.propEq('type', 'p'))(innerDiv.props.children);
     expect(description).toBeDefined();
     expect(description.props.children).toBe('menu description');
   });
