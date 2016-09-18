@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import { Field } from 'redux-form';
 import R from 'ramda';
 import { findInTree } from '../../testHelpers.js';
 
@@ -9,19 +10,15 @@ import ReduxConnectedAttributes, {
   FormConnectedAttributes,
   OrderAttributes,
 } from './OrderAttributes.jsx';
+import partySizeOptions from './orderAttributesConstants.js';
+import { renderInput, renderSelect } from '../formHelpers.js';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
 const mockUpdateOrder = jest.fn();
 const mockSubmit = jest.fn();
 const PROPS_FROM_PARENT = { menuId: 'test id' };
-const PROPS_FROM_REDUX_FORM = {
-  fields: {
-    partySize: { error: undefined, touched: true, value: '' },
-    dateTime: { error: undefined, touched: true, value: '' },
-  },
-  handleSubmit: mockSubmit,
-};
+const PROPS_FROM_REDUX_FORM = { handleSubmit: mockSubmit };
 const PROPS_FROM_REDUX = {
   initialValues: { dateTime: '2016-09-19' },
   updateOrder: mockUpdateOrder,
@@ -41,66 +38,23 @@ describe('OrderAttributes dumb component', () => {
     expect(result.type).toBe('form');
   });
 
-  it('first field has a select child component with 6 options', () => {
-    const select = findInTree(result, 'select')[0];
-    expect(select).toBeDefined();
-    const options = select.props.children.filter(child =>
-      child.type === 'option'
-    );
-    expect(options.length).toEqual(6);
-  });
+  describe('within the form', () => {
+    const fields = findInTree(result, Field);
 
-  it('has an input child', () => {
-    const input = findInTree(result, 'input')[0];
-    expect(input).toBeDefined();
-  });
-
-  describe('conditional validation error messages', () => {
-    it('shows no error if touched with no error', () => {
-      const divs = findInTree(result, 'div');
-      expect(divs.length).toBe(0);
+    it('has two fields', () => {
+      expect(fields.length).toBe(2);
     });
 
-    it('shows no error if not touched', () =>{
-      const fieldsUntouched = {
-        partySize: { error: undefined, touched: false, value: '' },
-        dateTime: { error: 'error 0', touched: false, value: '' },
-      };
-      const PROPS_FROM_REDUX_FORM_UNTOUCHED = {
-        ...PROPS_FROM_REDUX_FORM, fields: fieldsUntouched,
-      };
-      const shallowRenderer1 = TestUtils.createRenderer();
-      shallowRenderer1.render(
-        <OrderAttributes
-          {...PROPS_FROM_PARENT}
-          {...PROPS_FROM_REDUX_FORM_UNTOUCHED}
-          {...PROPS_FROM_REDUX}
-        />
-      );
-      const result1 = shallowRenderer1.getRenderOutput();
-      const divs = findInTree(result1, 'div');
-      expect(divs.length).toBe(0);
+    it('first field is a select with 6 options', () => {
+      const first = fields[0];
+      expect(first.props.component).toBe(renderSelect);
+      expect(first.props.options).toBe(partySizeOptions);
     });
 
-    it('shows errors if touched and has error', () =>{
-      const fieldsTouched = {
-        partySize: { error: 'error 1', touched: true, value: '' },
-        dateTime: { error: 'error 2', touched: true, value: '' },
-      };
-      const PROPS_FROM_REDUX_FORM_TOUCHED = {
-        ...PROPS_FROM_REDUX_FORM, fields: fieldsTouched,
-      };
-      const shallowRenderer2 = TestUtils.createRenderer();
-      shallowRenderer2.render(
-        <OrderAttributes
-          {...PROPS_FROM_PARENT}
-          {...PROPS_FROM_REDUX_FORM_TOUCHED}
-          {...PROPS_FROM_REDUX}
-        />
-      );
-      const result2 = shallowRenderer2.getRenderOutput();
-      const divs = findInTree(result2, 'div');
-      expect(divs.length).toBe(2);
+    it('second field is a date picker', () => {
+      const second = fields[1];
+      expect(second.props.component).toBe(renderInput);
+      expect(second.props.type).toBe('date');
     });
   });
 
@@ -109,7 +63,6 @@ describe('OrderAttributes dumb component', () => {
 
   it('has the correct propTypes', () => {
     const expectedPropTypes = [
-      'fields',
       'handleSubmit',
       'initialValues',
       'menuId',
@@ -126,7 +79,7 @@ describe('OrderAttributes dumb component', () => {
 
 describe('OrderAttributes redux-from-wrapped component', () => {
   it('is wrapped by a redux form', () => {
-    expect(FormConnectedAttributes.name).toBe('ConnectedForm');
+    expect(FormConnectedAttributes.name).toBe('ReduxForm');
   });
 });
 
@@ -137,9 +90,7 @@ describe('OrderAttributes redux connect-wrapped component', () => {
     expect(ReduxConnectedAttributes.WrappedComponent).toBe(
       FormConnectedAttributes
     );
-    expect(ReduxConnectedAttributes.displayName).toBe(
-      'Connect(ConnectedForm)'
-    );
+    expect(ReduxConnectedAttributes.displayName).toBe('Connect(ReduxForm)');
   });
 
   it('receives props from redux', () => {
@@ -152,7 +103,7 @@ describe('OrderAttributes redux connect-wrapped component', () => {
       />
     );
     const result = shallowRenderer.getRenderOutput();
-    expect(result.props.initialValues.dateTime).toBeDefined();
+    expect(result.props.initialValues).toBeDefined();
     expect(result.props.updateOrder).toBeDefined();
   });
 });

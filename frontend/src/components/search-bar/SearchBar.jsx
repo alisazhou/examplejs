@@ -65,6 +65,7 @@ const StoreConnectedBar = connect(
 
 export default reduxForm({
   form: 'searchBar',
+  destroyOnUnmount: false,
 })(StoreConnectedBar);
 
 export { StoreConnectedBar, SearchBar };

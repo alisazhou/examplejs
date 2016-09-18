@@ -1,14 +1,13 @@
 import React from 'react';
 import R from 'ramda';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 import partySizeOptions from './orderAttributesConstants.js';
+import { renderInput, renderSelect } from '../formHelpers.js';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
-
-const fields = [ 'partySize', 'dateTime' ];
 
 const validate = values => {
   let errors = {};
@@ -23,8 +22,7 @@ const validate = values => {
 
 class OrderAttributes extends React.Component {
   render () {
-    const { fields: { partySize, dateTime }, handleSubmit } = this.props;
-
+    const { handleSubmit } = this.props;
     const onMenuNextClick = data => {
       const updates = {...data, menuId: this.props.menuId};
       this.props.updateOrder(updates);
@@ -36,24 +34,16 @@ class OrderAttributes extends React.Component {
         className='menu_page--attributes'
         onSubmit={handleSubmit(onMenuNextClick)}
       >
-        <label>How many guests?
-          <select
-            { ...partySize }
-            value={ partySize.value || '' }
-          >
-            { partySizeOptions.map(
-                size => <option key={size.value} value={size.label}>{size.label}</option>
-              )
-            }
-          </select>
-        </label>
-        { partySize.touched && partySize.error && <div>{partySize.error}</div> }
-
-        <label>When's the party?
-          <input type='date' {...dateTime} />
-        </label>
-        { dateTime.touched && dateTime.error && <div>{dateTime.error}</div> }
-
+        <Field component={renderSelect}
+          label='How many guests?'
+          name='partySize'
+          options={partySizeOptions}
+        />
+        <Field component={renderInput}
+          label="When's the party?"
+          name='dateTime'
+          type='date'
+        />
         <button type='submit'>Next</button>
       </form>
     );
@@ -61,14 +51,6 @@ class OrderAttributes extends React.Component {
 }
 
 OrderAttributes.propTypes = {
-  fields: React.PropTypes.shape({
-    partySize: React.PropTypes.shape({
-      value: React.PropTypes.string.isRequired,
-    }).isRequired,
-    dateTime: React.PropTypes.shape({
-      value: React.PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
   initialValues: React.PropTypes.shape({
     dateTime: React.PropTypes.string,
@@ -77,16 +59,17 @@ OrderAttributes.propTypes = {
   updateOrder: React.PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  initialValues: { dateTime: state.order.dateTime },
-});
+const mapStateToProps = state => {
+  const selector = formValueSelector('searchBar');
+  const dateTime = selector(state, 'searchDate');
+  return { initialValues: { dateTime }};
+};
 const mapDispatchToProps = dispatch => ({
   updateOrder: R.compose(dispatch, updateOrderActionCreator),
 });
 
 const FormConnectedAttributes = reduxForm({
   form: 'orderAttributes',
-  fields,
   destroyOnUnmount: false,
   validate,
 })(OrderAttributes);
@@ -96,4 +79,4 @@ const ReduxConnectedAttributes = connect(
 )(FormConnectedAttributes);
 
 export default ReduxConnectedAttributes;
-export { FormConnectedAttributes, fields, OrderAttributes };
+export { FormConnectedAttributes, OrderAttributes };

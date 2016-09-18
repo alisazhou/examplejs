@@ -13,6 +13,8 @@ See individual folders for their READMEs
 **TO-DO**
 - take out back button
 - wire up date input on front page. add ft for this as well
+     - date on intro page is only used to initialize the menu page forms
+     - subsequent changes have no effect
 - create react component for intro page menu items
 - turn sticky page footer into the navbar header?
 - start adding static urls for pics

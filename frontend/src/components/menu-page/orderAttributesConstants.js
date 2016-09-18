@@ -1,10 +1,10 @@
 const partySizeOptions = [
-  { label: 'Number of guests', value: 0 },
-  { label: '2 or fewer', value: 1 },
-  { label: '3 ~ 4', value: 3 },
-  { label: '5 ~ 6', value: 5 },
-  { label: '7 ~ 8', value: 7 },
-  { label: '9 or more', value: 9 },
+  { name: 'Number of guests', id: 0 },
+  { name: '2 or fewer', id: 1 },
+  { name: '3 ~ 4', id: 3 },
+  { name: '5 ~ 6', id: 5 },
+  { name: '7 ~ 8', id: 7 },
+  { name: '9 or more', id: 9 },
 ];
 
 export default partySizeOptions;
