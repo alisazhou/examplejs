@@ -7,7 +7,6 @@ import { renderInput, renderSelect } from '../formHelpers.js';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 
-
 class SearchBar extends React.Component {
   render () {
     return (

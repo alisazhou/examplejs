@@ -1,0 +1,13 @@
+
+.menu-list {
+    @extend .clearfix, .mx-auto, .pt3, .pl3;
+    @include max-width("md");
+
+    &__item-div { @extend .col, .col-12, .sm-col-6, .md-col-4, .mb1, .pr3, .pb3; }
+    &__item-border {
+        @extend .border;
+        background-color: map-get($colors, menulistitem-bg);
+        color: map-get($colors, menulistitem-bordercolor);
+    }
+    &__item-name-and-price-div { @extend .p1 }
+}

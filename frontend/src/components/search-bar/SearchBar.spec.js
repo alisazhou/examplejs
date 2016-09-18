@@ -75,6 +75,13 @@ describe('SearchBar presentational component', () => {
     });
   });
 
+  it('calls updateOrderDate on searchDate blur', () => {
+    const searchDate = findInTree(result, 'input', {type: 'date'})[0];
+    const evt = { target: { value: 'date 0' }};
+    searchDate.props.onBlur(evt);
+    expect(mockUpdateOrderDate).toBeCalledWith({dateTime: 'date 0'});
+  });
+
   it('has the correct propTypes', () => {
     const expectedPropTypes = [ 'cuisines', 'updateOrderDate' ];
     R.forEach(

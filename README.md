@@ -11,6 +11,8 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
+- take out back button
+- wire up date input on front page. add ft for this as well
 - create react component for intro page menu items
 - turn sticky page footer into the navbar header?
 - start adding static urls for pics
@@ -20,13 +22,21 @@ See individual folders for their READMEs
 - login and register pages
 - more data validation (currently just validating not empty)
     - use momentjs to validate dates
+    - have min/max dates
+    - for menu details page, will need to grey out unavailable dates on date picker
 - figure out firefox date picker (use react date picker + momentjs?)
 - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
+- use basscss font
+- move paypal button outside of reservation form component
 - update redux form to get rid of uknown props warning
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
 - consider pulling node urls out into contants.py. but it is not super easy to do because need to interpolate menu id etc. (and js doesn't have a good way to dynamically interpolate that)
     - after doing that, consider taking off trailing slashes for everything
 - [ui] make datetime captured in OrderAttributes more readable on reservation page
+- get title to change depending on react routing
+- instead of xs-hide, sm-hide, md-hide etc, maybe have a function that hides if less than lg etc
+- ask arun:
+    - login button slightly too close to right hand side
 
 
 **DOING**

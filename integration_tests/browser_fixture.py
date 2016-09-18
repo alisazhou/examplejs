@@ -8,12 +8,17 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-class BaseBrowser(webdriver.PhantomJS):
+from constants import USE_PHANTOMJS
+
+
+BASE_WEBDRIVER = webdriver.PhantomJS if USE_PHANTOMJS else webdriver.Chrome
+class BaseBrowser(BASE_WEBDRIVER):
     def __init__(self, host_address, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.implicitly_wait(5)
         self.set_page_load_timeout(5)
         self.host_address = host_address
+        self.set_window_size(1200, 800)
         self.goto('/')
 
     @property
@@ -59,6 +64,14 @@ class BaseBrowser(webdriver.PhantomJS):
                 EC.presence_of_element_located((by_method, selector))
             )
 
+    def assert_is_not_visible(self, by_method, selector):
+        # it is in the dom
+        self.find_elements(by_method, selector)
+        # but it is invisible
+        WebDriverWait(self, 3).until(
+            EC.invisibility_of_element_located((by_method, selector))
+        )
+
 
 
 def setup_pytest_browser_fixture(BrowserClass):
@@ -70,7 +83,7 @@ def setup_pytest_browser_fixture(BrowserClass):
         # todo: or can do local setting imports and have a testing one?
         settings.SESSION_COOKIE_SECURE = False
         settings.CSRF_COOKIE_SECURE = False
-        with Display(visible=0, size=(800, 600)):
+        with Display(visible=0, size=(1200, 800)):
             _browser = BrowserClass(host_address=live_server.url)
             yield _browser
             # use quit instead of close to release all resources
