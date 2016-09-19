@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+echo running pre-push hooks
+
+TOP_LEVEL=$(git rev-parse --show-toplevel)
+
+
+echo "running npm lint"
+cd "$TOP_LEVEL/frontend"
+npm run lint
+
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+    echo lint frontend js plz
+    exit 1 # push will not execute
+fi
+
+
+echo "running pyflakes"
+cd "$TOP_LEVEL/integration_tests"
+pyflakes .
+
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+    echo lint integration tests plz
+    exit 1 # push will not execute
+fi
+
+exit 0 # push will execute
