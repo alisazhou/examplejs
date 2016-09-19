@@ -29,6 +29,7 @@ See individual folders for their READMEs
 - figure out firefox date picker (use react date picker + momentjs?)
 - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
 - use basscss font
+- refreshing on reservation page will an error (menu is not saved, and js errors -> just says loading)
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
 - consider pulling node urls out into contants.py. but it is not super easy to do because need to interpolate menu id etc. (and js doesn't have a good way to dynamically interpolate that)
     - after doing that, consider taking off trailing slashes for everything
