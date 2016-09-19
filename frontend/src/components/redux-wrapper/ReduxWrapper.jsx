@@ -15,8 +15,9 @@ import StickyLayout from '../sticky-layout/StickyLayout.jsx';
 import ContactPage from '../contact-page/ContactPage.jsx';
 import IntroPage from '../intro-page/IntroPage.jsx';
 import MenuPage from '../menu-page/MenuPage.jsx';
+import NotFound from '../unknown-urls/NotFound.jsx';
 import ReservationPage from '../reservation-page/ReservationPage.jsx';
-import UnderConstruction from '../not-found/UnderConstruction.jsx';
+import UnderConstruction from '../unknown-urls/UnderConstruction.jsx';
 
 
 const rootReducer = combineReducers({
@@ -47,6 +48,7 @@ class WrappedComponent extends React.Component {
             <Route path='menus/:menuId' component={MenuPage} />
             <Route path='reservation' component={ReservationPage} />
             <Route path='login' component={UnderConstruction} />
+            <Route path='*' component={NotFound} />
           </Route>
         </Router>
       </Provider>

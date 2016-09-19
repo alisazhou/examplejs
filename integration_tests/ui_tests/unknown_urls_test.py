@@ -18,3 +18,11 @@ def test_future_links_routes_to_under_construction(browser):
     # under-construction page is shown
     assert 'This page is under construction' in browser.body_text
     assert 'iChef' in browser.body_text
+
+
+def test_unknown_urls_routes_to_not_found(browser):
+    # alisa randomly enters jibberish as url
+    browser.goto('/random-url/')
+    # not-found page is shown
+    assert 'Nothing to see here' in browser.body_text
+    assert 'iChef' in browser.body_text

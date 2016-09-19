@@ -41,7 +41,6 @@ See individual folders for their READMEs
 
 **DOING**
 - _ch_: add new user stories
-- _az_: make 404 component
 - _az_: scrape insta for menu images
 
 
@@ -62,3 +61,4 @@ See individual folders for their READMEs
 - upgrade redux form to v6
 - update redux form to get rid of uknown props warning
 - move paypal button outside of reservation form component
+- make 404 component
