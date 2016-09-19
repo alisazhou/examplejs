@@ -1,0 +1,14 @@
+.order-form {
+    @include max-width('sm');
+    @extend .mx-auto, .clearfix, .pt2, .pl2;
+    background-color: map-get($colors, menuitem-bg);
+
+    &__field {
+        @extend .col, .col-12, .md-col-6, .pr2, .pb2, .mx-auto, .field, .items-stretch;
+    }
+    &__button {
+        @include max-width('nn');
+        @extend .mx-auto, .pl1, .pb1, .pr1, .btn, .btn-primary;
+        background-color: map-get($colors, btn-bg);
+    }
+}

@@ -31,20 +31,22 @@ class OrderAttributes extends React.Component {
 
     return (
       <form
-        className='menu_page--attributes'
+        className='order-form'
         onSubmit={handleSubmit(onMenuNextClick)}
       >
         <Field component={renderSelect}
-          label='How many guests?'
           name='partySize'
           options={partySizeOptions}
+          className='order-form__field'
         />
         <Field component={renderInput}
-          label="When's the party?"
           name='dateTime'
           type='date'
+          className='order-form__field'
         />
-        <button type='submit'>Next</button>
+        <button type='submit' className='order-form__button'>
+          Order
+        </button>
       </form>
     );
   }
