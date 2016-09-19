@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
-import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
+import MenuNamePrice from './MenuNamePrice.jsx';
 import Navbar from '../navbar/Navbar.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
 
@@ -13,9 +13,14 @@ class MenuPage extends React.Component {
     return (
       <div>
         <Navbar title={this.props.menu.name}/>
-        <MenuDescription menu={this.props.menu}/>
-        <OrderAttributes menuId={this.props.menu.id} />
-        <LinkButton linkTo='/' content='Back' />
+        <div className='menudescription-div'>
+          <div className='menudescription-div__div'>
+            <img src={this.props.menu.image} alt='menu image'/>
+            <MenuNamePrice menu={this.props.menu}/>
+            <OrderAttributes menuId={this.props.menu.id} />
+            <MenuDescription menu={this.props.menu}/>
+          </div>
+        </div>
       </div>
     );
   }

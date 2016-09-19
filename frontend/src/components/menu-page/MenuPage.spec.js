@@ -7,8 +7,8 @@ jest.unmock('./MenuPage.jsx');
 import WrappedPage, { MenuPage } from './MenuPage.jsx';
 jest.unmock('../../reducers/menusReducerInitialState.js');
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
-import LinkButton from '../link-button/LinkButton.jsx';
 import MenuDescription from './MenuDescription.jsx';
+import MenuNamePrice from './MenuNamePrice.jsx';
 import Navbar from '../navbar/Navbar.jsx';
 import OrderAttributes from './OrderAttributes.jsx';
 
@@ -38,27 +38,59 @@ describe('MenuPage react component', () => {
   });
 
   it('has a Navbar child component', () => {
-    const navbar = R.find(R.propEq('type', Navbar))(result.props.children);
-    expect(navbar).toBeDefined();
+    expect(result).toHaveChild(Navbar);
   });
 
-  it('has a MenuDescription child component with the correct props', () => {
-    const menuDescriptionChildren = findChildren(result, MenuDescription);
-    expect(menuDescriptionChildren.length).toEqual(1);
-    expect(menuDescriptionChildren[0].props.menu).toBe(PROPS_FROM_REDUX.menu);
+  it('has a menu div child', () => {
+    expect(result).toHaveChild('div');
   });
 
-  it('has an OrderAttributes child component', () => {
-    expect(result).toHaveChild(OrderAttributes);
-  });
+  describe('Menu div child', () => {
+    const divs = findChildren(result, 'div', { className: 'menudescription-div' });
+    it('should have the correct className', () => {
+      expect(divs.length).toEqual(1);
+    });
 
-  it('has a Back LinkButton to IntroPage', () => {
-    const expProps = {
-      linkTo: '/',
-      content: 'Back',
-    };
-    const backLinkBtn = findChildren(result, LinkButton, expProps);
-    expect(backLinkBtn.length).toEqual(1);
+    const innerDiv = React.Children.only(divs[0].props.children);
+    it('should have one child div with border css stuff', () => {
+      expect(innerDiv.props.className).toEqual('menudescription-div__div');
+    });
+
+    it('has an img child', () => {
+      const img = findChildren(innerDiv, 'img')[0];
+      expect(img).toBeDefined();
+      expect(img.props.src).toBe('image link');
+    });
+
+    it('has a MenuNamePrice child', () => {
+      expect(
+        findChildren(
+          innerDiv,
+          MenuNamePrice,
+          { menu: PROPS_FROM_REDUX.menu }
+        ).length
+      ).toEqual(1);
+    });
+
+    it('has an OrderAttributes child', () => {
+      expect(
+        findChildren(
+          innerDiv,
+          OrderAttributes,
+          { menuId: PROPS_FROM_REDUX.menu.id }
+        ).length
+      ).toEqual(1);
+    });
+
+    it('has a MenuDescription child', () => {
+      expect(
+        findChildren(
+          innerDiv,
+          MenuDescription,
+          { menu: PROPS_FROM_REDUX.menu }
+        ).length
+      ).toEqual(1);
+    });
   });
 
   it('has the correct propTypes', () => {

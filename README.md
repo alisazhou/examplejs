@@ -38,7 +38,7 @@ See individual folders for their READMEs
 - instead of xs-hide, sm-hide, md-hide etc, maybe have a function that hides if less than lg etc
 - ask arun:
     - login button slightly too close to right hand side
-
+- maybe have ABC for name/price text left/right div (to merge the left/right divs on front page vs menu page)
 
 **DOING**
 - _ch_: add new user stories
