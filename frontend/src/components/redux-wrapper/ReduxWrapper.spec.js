@@ -40,7 +40,7 @@ describe('A wrapped component', () => {
 
       it('has three Route child components', () => {
         const routes = findChildren(baseRoute, Route);
-        expect(routes.length).toEqual(3);
+        expect(routes.length).toEqual(4);
       });
     });
   });
