@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import '../../testHelpers.js';
+import { findInTree } from '../../testHelpers.js';
 import R from 'ramda';
 
 jest.unmock('./MenuDescription.jsx');
@@ -8,9 +8,14 @@ import MenuDescription from './MenuDescription.jsx';
 
 
 const PROPS_FROM_PARENT = {
-  chef: 'chef name',
-  description: 'menu description',
-  image: 'image link',
+  menu: {
+    id: 'abc',
+    name: 'sexy menu',
+    price: '200',
+    chef: 'chef name',
+    description: 'menu description',
+    image: 'image link',
+  },
 };
 describe('MenuDescription dumb component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -25,10 +30,19 @@ describe('MenuDescription dumb component', () => {
 
   const innerDiv = React.Children.only(result.props.children);
 
-  it('has a img child', () => {
+  it('has an img child', () => {
     const img = R.find(R.propEq('type', 'img'))(innerDiv.props.children);
     expect(img).toBeDefined();
     expect(img.props.src).toBe('image link');
+  });
+
+  it('has a text div with left/right classes', () => {
+    const textDivs = findInTree(result, 'div', { className: 'menudescription-text__div' });
+    expect(textDivs.length).toEqual(1);
+    const textDiv = textDivs[0];
+    expect(textDiv.props.children.length).toEqual(2);
+    expect(textDiv.props.children[0].props.className).toEqual('menudescription-text__left');
+    expect(textDiv.props.children[1].props.className).toEqual('menudescription-text__right');
   });
 
   it('shows name of chef', () => {
@@ -44,7 +58,7 @@ describe('MenuDescription dumb component', () => {
   });
 
   it('has the correct propTypes', () => {
-    const expectedPropTypes = [ 'chef', 'description', 'image' ];
+    const expectedPropTypes = [ 'menu' ];
     R.forEach(
       prop => expect(R.has(prop)(MenuDescription.propTypes)).toBe(true),
       expectedPropTypes

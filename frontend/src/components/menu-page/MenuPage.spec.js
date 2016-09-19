@@ -17,7 +17,14 @@ const PROPS_FROM_ROUTER = {
   params: { menuId: '0' },
 };
 const PROPS_FROM_REDUX = {
-  menu: { id: '0', name: 'test menu name' },
+  menu: {
+    id: 'abc',
+    name: 'sexy menu',
+    price: '200',
+    chef: 'chef name',
+    description: 'menu description',
+    image: 'image link',
+  },
 };
 describe('MenuPage react component', () => {
   const shallowRenderer = TestUtils.createRenderer();
@@ -35,8 +42,10 @@ describe('MenuPage react component', () => {
     expect(navbar).toBeDefined();
   });
 
-  it('has a MenuDescription child component', () => {
-    expect(result).toHaveChild(MenuDescription);
+  it('has a MenuDescription child component with the correct props', () => {
+    const menuDescriptionChildren = findChildren(result, MenuDescription);
+    expect(menuDescriptionChildren.length).toEqual(1);
+    expect(menuDescriptionChildren[0].props.menu).toBe(PROPS_FROM_REDUX.menu);
   });
 
   it('has an OrderAttributes child component', () => {

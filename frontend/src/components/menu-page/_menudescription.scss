@@ -12,6 +12,17 @@
     }
 }
 
+.menudescription-text {
+    &__div {
+        // when adding in a second row of text, make it so that
+        // px2, pt3, pb2 are only applied to nth(1) of div
+        @extend .px2, .pt3, .pb2;
+        @extend .clearfix;
+    }
+    &__left { @extend .left, .m0; }
+    &__right { @extend .right, .m0; }
+}
+
 /*
 .navbar-buttons {
     @extend .mx-auto;

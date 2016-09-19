@@ -13,7 +13,7 @@ class MenuPage extends React.Component {
     return (
       <div>
         <Navbar title={this.props.menu.name}/>
-        <MenuDescription {...this.props.menu}/>
+        <MenuDescription menu={this.props.menu}/>
         <OrderAttributes menuId={this.props.menu.id} />
         <LinkButton linkTo='/' content='Back' />
       </div>
@@ -25,6 +25,10 @@ MenuPage.propTypes = {
   menu: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
+    image: React.PropTypes.string.isRequired,
+    price: React.PropTypes.string.isRequired,
+    chef: React.PropTypes.string.isRequired,
+    description: React.PropTypes.string.isRequired,
   }).isRequired,
   params: React.PropTypes.shape({
     menuId: React.PropTypes.string.isRequired,
