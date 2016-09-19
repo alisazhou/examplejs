@@ -6,6 +6,8 @@ echo running pre-push hooks
 
 cd "$(git rev-parse --show-toplevel)/frontend"
 npm run lint
+cd "$(git rev-parse --show-toplevel)/integration_tests"
+pyflakes .
 
 RESULT=$?
 

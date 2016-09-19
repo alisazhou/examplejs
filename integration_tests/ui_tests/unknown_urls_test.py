@@ -1,5 +1,3 @@
-from selenium.webdriver.support.ui import Select
-
 from ui_mixins import NavbarMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
