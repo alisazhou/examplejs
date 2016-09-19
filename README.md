@@ -41,6 +41,8 @@ See individual folders for their READMEs
 
 **DOING**
 - _ch_: add new user stories
+- _az_: make 404 component
+- _az_: scrape insta for menu images
 
 
 **DONE**
