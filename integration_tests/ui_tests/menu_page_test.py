@@ -37,23 +37,16 @@ def test_has_correct_navigation_buttons(browser):
     browser.assert_on_page('menu')
     # todo: make it so that /menus/0 (no trailing slash) also redirects to with trailing slash
 
-    # she finds and clicks a back button on the menu page
-    browser.find_element_by_xpath('//a/button[text()="Back"]').click()
-
-    # she returns to the intro page
-    browser.assert_on_page('intro')
-    assert 'How many guests?' not in browser.body_text
-
 
 def test_can_save_specified_order_attrs(browser):
     # fill order form, go to next page
     browser.from_menu_page_fill_form_and_submit('5 ~ 6', '09122016')
     # go back to menu page, order attributes are preserved
     browser.find_element_by_xpath('//a/button[text()="Back"]').click()
-    attrs = browser.find_element_by_class_name('menu_page--attributes')
+
     party_size = browser.get_order_party_size_select()
     assert '5 ~ 6' in party_size.first_selected_option.text
-    party_time = attrs.find_element_by_tag_name('input')
+    party_time = browser.get_order_date_input()
     assert party_time.get_attribute('value') == '09122016'
 
 
@@ -62,7 +55,7 @@ def test_performs_form_validation(browser):
     assert 'select the number of guests' not in browser.body_text
     assert 'specify a time' not in browser.body_text
     # not fill in form, click on next button, remain on the same page
-    next_btn = browser.find_element_by_xpath('//button[text()="Next"]')
+    next_btn = browser.find_element_by_xpath('//button[text()="Order"]')
     next_btn.click()
     browser.assert_on_page('menu')
     # sees error messages for both fields

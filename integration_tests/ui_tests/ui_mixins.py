@@ -27,12 +27,12 @@ class MenuListMixin():
 
 class OrderAttributesMixin():
     def get_order_party_size_select(self):
-        attrs = self.find_element_by_class_name('menu_page--attributes')
-        return Select(attrs.find_element_by_tag_name('select'))
+        form_fields = self.find_element_by_class_name('order-form')
+        return Select(form_fields.find_element_by_tag_name('select'))
 
-    def get_order_party_time_input(self):
-        attrs = self.find_element_by_class_name('menu_page--attributes')
-        return attrs.find_element_by_tag_name('input')
+    def get_order_date_input(self):
+        form_fields = self.find_element_by_class_name('order-form')
+        return form_fields.find_element_by_tag_name('input')
 
 class SearchBarMixin():
     def get_search_bar(self):
@@ -67,8 +67,8 @@ class NavigationMixin(SearchBarMixin, OrderAttributesMixin):
     def from_menu_page_fill_form_and_submit(self, size_option, date, expect_fail=False):
         self.assert_on_page('menu')
         self.get_order_party_size_select().select_by_visible_text(size_option)
-        self.get_order_party_time_input().send_keys(date)
-        self.find_element_by_xpath('//button[text()="Next"]').click()
+        self.get_order_date_input().send_keys(date)
+        self.find_element_by_xpath('//button[text()="Order"]').click()
         if not expect_fail:
             self.assert_on_page('reservation')
 
