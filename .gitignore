@@ -9,6 +9,7 @@ bundled*
 db.sqlite3
 npm-debut.log
 npm-debug.log
-static
+static/*.css
+static/*.js
 collected_static
 ghostdriver.log
