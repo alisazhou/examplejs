@@ -29,8 +29,6 @@ See individual folders for their READMEs
 - figure out firefox date picker (use react date picker + momentjs?)
 - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
 - use basscss font
-- move paypal button outside of reservation form component
-- update redux form to get rid of uknown props warning
 - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
 - consider pulling node urls out into contants.py. but it is not super easy to do because need to interpolate menu id etc. (and js doesn't have a good way to dynamically interpolate that)
     - after doing that, consider taking off trailing slashes for everything
@@ -43,9 +41,6 @@ See individual folders for their READMEs
 
 **DOING**
 - _ch_: add new user stories
-- _az_: upgrade redux form to v6
-    - need to use formValueSelector to access fields (introPageSelector)
-- _az_: fix order forms onSubmit callback tests
 
 
 **DONE**
@@ -61,4 +56,7 @@ See individual folders for their READMEs
 - add back buttons to pages
 - make going to hosturl/menu/0 etc redirect on the server side
 - refactor form validation
+- move paypal button outside of reservation form component
+- upgrade redux form to v6
+- update redux form to get rid of uknown props warning
 - move paypal button outside of reservation form component

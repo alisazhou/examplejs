@@ -10,9 +10,15 @@ class PaypalButton extends React.Component {
         <input
           type='image'
           src='https://www.paypalobjects.com/en_GB/HK/i/btn/btn_buynowCC_LG_wCUP.gif'
-          border='0' name='submit' alt='PayPal – The safer, easier way to pay online.'
+          style={{border: '0'}}
+          name='submit'
+          alt='PayPal – The safer, easier way to pay online.'
         />
-        <img alt='' border='0' src='https://www.paypalobjects.com/en_GB/i/scr/pixel.gif' width='1' height='1'/>
+        <img
+          alt=''
+          style={{border: 0, height: 1, width: 1}}
+          src='https://www.paypalobjects.com/en_GB/i/scr/pixel.gif'
+        />
       </form>
     );
   }

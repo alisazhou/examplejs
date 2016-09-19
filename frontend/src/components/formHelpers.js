@@ -5,7 +5,12 @@ import R from 'ramda';
 const renderInput = field => (
   <div>
     <label>{field.label}
-      <input {...field.input} {...field} />
+      <input {...field.input}
+        className={field.className}
+        placeholder={field.placeholder}
+        type={field.type}
+        onFocus={field.onFocus}
+      />
     </label>
     { field.meta.touched && field.meta.error && <div>{field.meta.error}</div> }
   </div>
@@ -14,7 +19,11 @@ const renderInput = field => (
 const renderSelect = field => (
   <div>
     <label>{field.label}
-      <select {...field.input} {...field} >
+      <select {...field.input}
+        className={field.className}
+        type={field.type}
+        onFocus={field.onFocus}    // if future forms use more listeners, add here
+      >
         {R.map(
           opt => <option key={opt.id} value={opt.name}>{opt.name}</option>,
           field.options
