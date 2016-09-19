@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 
+import { renderInput } from '../formHelpers.js';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
-
-const fields = [ 'customerName', 'customerTel', 'customerAddress' ];
 
 const validate = values => {
   let errors = {};
@@ -23,59 +22,41 @@ const validate = values => {
 
 class ReservationForm extends React.Component {
   render () {
-    const {
-      fields: { customerName, customerTel, customerAddress },
-      handleSubmit,
-    } = this.props;
+    const { handleSubmit } = this.props;
 
     return (
-      <div>
-        <form
-          className='reservation_form'
-          onSubmit={handleSubmit(this.props.updateAndMarkValid)}
-        >
-          <label>Name:
-            <input
-              type='text'
-              className='reservation_form--name'
-              {...customerName}
-              onFocus={this.props.markInvalid}
-            />
-          </label>
-          { customerName.touched && customerName.error &&
-            <div>{customerName.error}</div> }
-
-          <label>Mobile
-            <input
-              type='text'
-              className='reservation_form--tel'
-              {...customerTel}
-              onFocus={this.props.markInvalid}
-            />
-          </label>
-          { customerTel.touched && customerTel.error &&
-            <div>{customerTel.error}</div> }
-
-          <label>Address:
-            <input
-              type='text'
-              className='reservation_form--add'
-              {...customerAddress}
-              onFocus={this.props.markInvalid}
-            />
-          </label>
-          { customerAddress.touched && customerAddress.error &&
-            <div>{customerAddress.error}</div> }
-
-          <button type='submit'>Confirm</button>
-        </form>
-      </div>
+      <form
+        className='reservation_form'
+        onSubmit={handleSubmit(this.props.updateAndMarkValid)}
+      >
+        <Field component={renderInput}
+          className='reservation_form--name'
+          label='Name:'
+          name='customerName'
+          type='text'
+          onFocus={this.props.markInvalid}
+        />
+        <Field component={renderInput}
+          className='reservation_form--tel'
+          label='Mobile:'
+          name='customerTel'
+          type='text'
+          onFocus={this.props.markInvalid}
+        />
+        <Field component={renderInput}
+          className='reservation_form--add'
+          label='Address:'
+          name='customerAddress'
+          type='text'
+          onFocus={this.props.markInvalid}
+        />
+        <button type='submit'>Confirm</button>
+      </form>
     );
   }
 }
 
 ReservationForm.propTypes = {
-  fields: React.PropTypes.object.isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
   markInvalid: React.PropTypes.func.isRequired,
   updateAndMarkValid: React.PropTypes.func.isRequired,
@@ -97,9 +78,8 @@ const ConnectedForm = connect(
 
 export default reduxForm({
   form: 'reservationForm',
-  fields,
   destroyOnUnmount: false,
   validate,
 })(ConnectedForm);
 
-export { ConnectedForm, fields, ReservationForm };
+export { ConnectedForm, mapDispatchToProps, ReservationForm };

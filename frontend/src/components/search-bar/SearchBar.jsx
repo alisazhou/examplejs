@@ -17,7 +17,6 @@ class SearchBar extends React.Component {
               className='searchbar-form__search-field'
               name='searchDate'
               type='date'
-              onBlur={e => this.props.updateOrderDate({dateTime: e.target.value})}
             />
           </div>
           <div className='searchbar-form__search-field-div'>

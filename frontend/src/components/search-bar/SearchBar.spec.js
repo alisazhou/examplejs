@@ -43,11 +43,6 @@ describe('SearchBar presentational component', () => {
         expect(first.props.name).toEqual('searchDate');
         expect(first.props.type).toEqual('date');
       });
-      it('calls updateOrderDate on SearchDate blur', () => {
-        const evt = { target: { value: 'date 0' }};
-        first.props.onBlur(evt);
-        expect(mockUpdateOrderDate).toBeCalledWith({dateTime: 'date 0'});
-      });
     });
 
     describe('second Field child', () => {
@@ -73,13 +68,6 @@ describe('SearchBar presentational component', () => {
         expect(third.props.options).toBe(PROPS_FROM_STORE.cuisines);
       });
     });
-  });
-
-  it('calls updateOrderDate on searchDate blur', () => {
-    const searchDate = findInTree(result, Field, {type: 'date'})[0];
-    const evt = { target: { value: 'date 0' }};
-    searchDate.props.onBlur(evt);
-    expect(mockUpdateOrderDate).toBeCalledWith({dateTime: 'date 0'});
   });
 
   it('has the correct propTypes', () => {
