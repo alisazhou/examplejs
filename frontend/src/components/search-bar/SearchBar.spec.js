@@ -7,6 +7,7 @@ import { findInTree } from '../../testHelpers.js';
 jest.unmock('./SearchBar.jsx');
 import FormConnectedBar, { StoreConnectedBar, SearchBar } from './SearchBar.jsx';
 import SearchDate from './SearchDate.jsx';
+import SearchSize from './SearchSize.jsx';
 import { renderInput, renderSelect } from '../formHelpers.js';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
@@ -28,6 +29,13 @@ describe('SearchBar presentational component', () => {
     expect(searchDate).toBeDefined();
     expect(searchDate.props.className).toBe('searchbar-form__search-field');
     expect(searchDate.props.displayError).toBe(false);
+  });
+
+  it('has a SearchSize child with correct props', () => {
+    const searchSize = findInTree(result, SearchSize)[0];
+    expect(searchSize).toBeDefined();
+    expect(searchSize.props.className).toBe('searchbar-form__search-field');
+    expect(searchSize.props.displayError).toBe(false);
   });
 
   it('has a form child component', () => {

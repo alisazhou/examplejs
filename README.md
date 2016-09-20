@@ -11,6 +11,7 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
+- splitting search bar form messed up css
 - login and register pages
 - i18n
 - stripe + alipay button

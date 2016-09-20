@@ -15,6 +15,7 @@ def test_links_to_menu_details(browser):
     assert 'Demo Menu 0' in link_menu_details[0].text
     assert 'Demo Menu 1' in link_menu_details[1].text
 
+
 def test_displays_menus_that_go_to_menu_page(browser):
     # click on first menu detail link
     browser.click_on_nth_menu(0)
@@ -25,20 +26,27 @@ def test_displays_menus_that_go_to_menu_page(browser):
     browser.click_on_nth_menu(1)
     assert 'Demo Menu 1' in browser.body_text
 
+
 def test_there_is_search_bar(browser):
-    search_bar = browser.get_search_bar()
+    # there is a date picker
+    browser.find_element_by_xpath('//input[@name="searchDate"]')
 
-    search_bar.find_element_by_xpath('//input[@type="date"]')
+    # there is a drop down to select party size
+    size_dropdown = Select(browser.find_element_by_xpath('//select[@name="searchSize"]'))
+    size_selected = size_dropdown.all_selected_options
+    assert len(size_selected) == 1
+    assert size_selected[0].text == 'Number of guests'
 
-    text_search = browser.get_search_bar().find_element_by_xpath('//input[@type="search"]')
+    # there is an input to search for text
+    text_search = browser.find_element_by_xpath('//input[@type="search"]')
     assert text_search.get_attribute('placeholder') == 'I feel like having...'
 
-    dropdown = Select(search_bar.find_element_by_tag_name('select'))
-    selected = dropdown.all_selected_options
-    assert len(selected) == 1
-    assert selected[0].text == 'All Cuisines'
-
-    options_texts = [opt.text for opt in dropdown.options]
+    # there is a drop down to search for cuisine
+    cuisine_dropdown = Select(browser.find_element_by_xpath('//select[@name="searchCuisine"]'))
+    cuisine_selected = cuisine_dropdown.all_selected_options
+    assert len(cuisine_selected) == 1
+    assert cuisine_selected[0].text == 'All Cuisines'
+    options_texts = [opt.text for opt in cuisine_dropdown.options]
     for expected_text in ['All Cuisines', 'American', 'Chinese', 'French', 'Indian']:
         assert expected_text in options_texts
 

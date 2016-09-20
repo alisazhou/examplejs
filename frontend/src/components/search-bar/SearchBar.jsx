@@ -6,6 +6,7 @@ import R from 'ramda';
 import { renderInput, renderSelect } from '../formHelpers.js';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
 import SearchDate from './SearchDate.jsx';
+import SearchSize from './SearchSize.jsx';
 
 
 class SearchBar extends React.Component {
@@ -14,6 +15,12 @@ class SearchBar extends React.Component {
       <div className='searchbar__background'>
         <div className='searchbar-form__search-field-div'>
           <SearchDate
+            className='searchbar-form__search-field'
+            displayError={false}
+          />
+        </div>
+        <div className='searchbar-form__search-field-div'>
+          <SearchSize
             className='searchbar-form__search-field'
             displayError={false}
           />
