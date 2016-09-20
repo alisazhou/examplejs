@@ -18,6 +18,7 @@ class SearchDate extends React.Component {
       <form className='searchbar-form'>
         <Field component={renderInput}
           className={this.props.className}
+          displayError={this.props.displayError}
           name='searchDate'
           type='date'
         />
@@ -28,6 +29,7 @@ class SearchDate extends React.Component {
 
 SearchDate.propTypes = {
   className: React.PropTypes.string,
+  displayError: React.PropTypes.bool.isRequired,
 };
 
 export default reduxForm({

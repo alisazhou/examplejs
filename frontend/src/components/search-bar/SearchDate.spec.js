@@ -8,9 +8,10 @@ import FormConnectedDate, { SearchDate } from './SearchDate.jsx';
 import { renderInput } from '../formHelpers.js';
 
 
+const PROPS_FROM_PARENT = { displayError: false };
 describe('SearchDate dumb component', () => {
   const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<SearchDate />);
+  shallowRenderer.render(<SearchDate {...PROPS_FROM_PARENT} />);
   const result = shallowRenderer.getRenderOutput();
   const field = findInTree(result, Field)[0];
 

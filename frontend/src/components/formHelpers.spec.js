@@ -9,11 +9,12 @@ import { renderInput, renderSelect } from './formHelpers.js';
 describe('renderInput stateless component', () => {
   const INPUT_TEST_FIELD = {
     className: 'field className',
+    displayError: true,
     input: 'redux form provided utilities',
     label: 'field label',
     placeholder: 'field placeholder',
     type: 'field html type',
-    meta: { touched: true, error: undefined },
+    meta: { touched: true, error: 'error 0' },
   };
   const result = renderInput(INPUT_TEST_FIELD);
   const labelNode = findInTree(result, 'label')[0];
@@ -41,25 +42,36 @@ describe('renderInput stateless component', () => {
   });
 
   describe('conditional error messages', () => {
-    it('shows no errors when no error', () => {
+    it('shows error message only if all true', () => {
       const divs = findInTree(result, 'div');
+      expect(divs.length).toBe(2);  // most outer div
+    });
+
+    it('shows no errors when displayError is false', () => {
+      const TEST_FIELD_NOT_DISPLAY = {
+        ...INPUT_TEST_FIELD, displayError: false,
+      };
+      const resultNotDisplay = renderInput(TEST_FIELD_NOT_DISPLAY);
+      const divs = findInTree(resultNotDisplay, 'div');
       expect(divs.length).toBe(1);  // most outer div
     });
 
     it('shows no errors when untouched', () => {
-      const metaUntouched = { touched: false, error: 'error 0' };
-      const TEST_FIELD_UNTOUCHED = {...INPUT_TEST_FIELD, meta: metaUntouched };
+      const TEST_FIELD_UNTOUCHED = {
+        ...INPUT_TEST_FIELD, meta: { touched: false },
+      };
       const resultUntouched = renderInput(TEST_FIELD_UNTOUCHED);
       const divs = findInTree(resultUntouched, 'div');
       expect(divs.length).toBe(1);  // most outer div
     });
 
-    it('shows no errors when untouched', () => {
-      const metaTouched = { touched: true, error: 'error 1' };
-      const TEST_FIELD_TOUCHED = {...INPUT_TEST_FIELD, meta: metaTouched };
-      const resultTouched = renderInput(TEST_FIELD_TOUCHED);
-      const divs = findInTree(resultTouched, 'div');
-      expect(divs.length).toBe(2);  // most outer div
+    it('shows no errors when error is undefined', () => {
+      const TEST_FIELD_NO_ERROR = {
+        ...INPUT_TEST_FIELD, meta: { error: undefined },
+      };
+      const resultNoError = renderInput(TEST_FIELD_NO_ERROR);
+      const divs = findInTree(resultNoError, 'div');
+      expect(divs.length).toBe(1);  // most outer div
     });
   });
 });
@@ -68,10 +80,11 @@ describe('renderInput stateless component', () => {
 describe('renderSelect stateless component', () => {
   const SELECT_TEST_FIELD = {
     className: 'field className',
+    displayError: true,
     label: 'field label',
     options: [ { id: 'id 0', name: 'name 0' }, { id: 'id 1', name: 'name 1' } ],
     select: 'redux form provided utilities',
-    meta: { touched: true, error: undefined },
+    meta: { touched: true, error: 'error 1' },
   };
   const result = renderSelect(SELECT_TEST_FIELD);
   const labelNode = findInTree(result, 'label')[0];
@@ -114,25 +127,36 @@ describe('renderSelect stateless component', () => {
   });
 
   describe('conditional error messages', () => {
-    it('shows no errors when no error', () => {
+    it('shows error message only if all true', () => {
       const divs = findInTree(result, 'div');
+      expect(divs.length).toBe(2);  // most outer div
+    });
+
+    it('shows no errors when displayError is false', () => {
+      const TEST_FIELD_NOT_DISPLAY = {
+        ...SELECT_TEST_FIELD, displayError: false,
+      };
+      const resultNotDisplay = renderSelect(TEST_FIELD_NOT_DISPLAY);
+      const divs = findInTree(resultNotDisplay, 'div');
       expect(divs.length).toBe(1);  // most outer div
     });
 
     it('shows no errors when untouched', () => {
-      const metaUntouched = { touched: false, error: 'error 0' };
-      const TEST_FIELD_UNTOUCHED = {...SELECT_TEST_FIELD, meta: metaUntouched };
-      const resultUntouched = renderInput(TEST_FIELD_UNTOUCHED);
+      const TEST_FIELD_UNTOUCHED = {
+        ...SELECT_TEST_FIELD, meta: { touched: false },
+      };
+      const resultUntouched = renderSelect(TEST_FIELD_UNTOUCHED);
       const divs = findInTree(resultUntouched, 'div');
       expect(divs.length).toBe(1);  // most outer div
     });
 
-    it('shows no errors when untouched', () => {
-      const metaTouched = { touched: true, error: 'error 1' };
-      const TEST_FIELD_TOUCHED = {...SELECT_TEST_FIELD, meta: metaTouched };
-      const resultTouched = renderInput(TEST_FIELD_TOUCHED);
-      const divs = findInTree(resultTouched, 'div');
-      expect(divs.length).toBe(2);  // most outer div
+    it('shows no errors when error is undefined', () => {
+      const TEST_FIELD_NO_ERROR = {
+        ...SELECT_TEST_FIELD, meta: { error: undefined },
+      };
+      const resultNoError = renderSelect(TEST_FIELD_NO_ERROR);
+      const divs = findInTree(resultNoError, 'div');
+      expect(divs.length).toBe(1);  // most outer div
     });
   });
 });

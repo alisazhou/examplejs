@@ -13,7 +13,10 @@ class SearchBar extends React.Component {
     return (
       <div className='searchbar__background'>
         <div className='searchbar-form__search-field-div'>
-          <SearchDate className='searchbar-form__search-field'/>
+          <SearchDate
+            className='searchbar-form__search-field'
+            displayError={false}
+          />
         </div>
         <form className='searchbar-form'>
           <div className='searchbar-form__search-field-div'>

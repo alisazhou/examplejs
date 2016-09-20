@@ -12,7 +12,10 @@ const renderInput = field => (
         onFocus={field.onFocus}
       />
     </label>
-    { field.meta.touched && field.meta.error && <div>{field.meta.error}</div> }
+    { field.displayError &&
+      field.meta.touched &&
+      field.meta.error &&
+      <div>{field.meta.error}</div> }
   </div>
 );
 
@@ -21,7 +24,6 @@ const renderSelect = field => (
     <label>{field.label}
       <select {...field.input}
         className={field.className}
-        type={field.type}
         onFocus={field.onFocus}    // if future forms use more listeners, add here
       >
         {R.map(
@@ -30,7 +32,10 @@ const renderSelect = field => (
         )};
       </select>
     </label>
-    { field.meta.touched && field.meta.error && <div>{field.meta.error}</div> }
+    { field.displayError &&
+      field.meta.touched &&
+      field.meta.error &&
+      <div>{field.meta.error}</div> }
   </div>
 );
 

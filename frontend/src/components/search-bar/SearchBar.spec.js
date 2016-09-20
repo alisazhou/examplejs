@@ -23,11 +23,13 @@ describe('SearchBar presentational component', () => {
   );
   const result = shallowRenderer.getRenderOutput();
 
-  it('has a SearchDate child', () => {
+  it('has a SearchDate child with correct props', () => {
     const searchDate = findInTree(result, SearchDate)[0];
     expect(searchDate).toBeDefined();
     expect(searchDate.props.className).toBe('searchbar-form__search-field');
+    expect(searchDate.props.displayError).toBe(false);
   });
+
   it('has a form child component', () => {
     expect(findInTree(result, 'form').length).toBe(1);
   });
