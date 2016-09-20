@@ -5,7 +5,7 @@ import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./SearchSize.jsx');
 import FormConnectedSize, { SearchSize } from './SearchSize.jsx';
-import partySizeOptions from '../menu-page/orderAttributesConstants.js';
+import partySizeOptions from './orderAttributesConstants.js';
 import { renderSelect } from '../formHelpers.js';
 
 

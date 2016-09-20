@@ -10,7 +10,7 @@ import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 import MenuDescription from './MenuDescription.jsx';
 import MenuNamePrice from './MenuNamePrice.jsx';
 import Navbar from '../navbar/Navbar.jsx';
-import OrderAttributes from './OrderAttributes.jsx';
+import OrderAttributes from '../order-attributes/OrderAttributes.jsx';
 
 
 const PROPS_FROM_ROUTER = {

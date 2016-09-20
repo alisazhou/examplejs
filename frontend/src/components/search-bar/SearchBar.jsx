@@ -5,8 +5,8 @@ import R from 'ramda';
 
 import { renderInput, renderSelect } from '../formHelpers.js';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
-import SearchDate from './SearchDate.jsx';
-import SearchSize from './SearchSize.jsx';
+import SearchDate from '../order-attributes/SearchDate.jsx';
+import SearchSize from '../order-attributes/SearchSize.jsx';
 
 
 class SearchBar extends React.Component {

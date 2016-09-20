@@ -7,8 +7,8 @@ import { browserHistory } from 'react-router';
 jest.unmock('./OrderAttributes.jsx');
 jest.unmock('./orderAttributesConstants.js');
 import ReduxConnectedAttributes, { OrderAttributes } from './OrderAttributes.jsx';
-import SearchDate from '../search-bar/SearchDate.jsx';
-import SearchSize from '../search-bar/SearchSize.jsx';
+import SearchDate from './SearchDate.jsx';
+import SearchSize from './SearchSize.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 

@@ -4,8 +4,8 @@ import { formValueSelector, isValid, touch } from 'redux-form';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-import SearchDate from '../search-bar/SearchDate.jsx';
-import SearchSize from '../search-bar/SearchSize.jsx';
+import SearchDate from './SearchDate.jsx';
+import SearchSize from './SearchSize.jsx';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 

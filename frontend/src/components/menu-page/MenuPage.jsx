@@ -5,7 +5,7 @@ import R from 'ramda';
 import MenuDescription from './MenuDescription.jsx';
 import MenuNamePrice from './MenuNamePrice.jsx';
 import Navbar from '../navbar/Navbar.jsx';
-import OrderAttributes from './OrderAttributes.jsx';
+import OrderAttributes from '../order-attributes/OrderAttributes.jsx';
 
 
 class MenuPage extends React.Component {

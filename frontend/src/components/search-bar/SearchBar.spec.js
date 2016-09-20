@@ -6,8 +6,8 @@ import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./SearchBar.jsx');
 import FormConnectedBar, { StoreConnectedBar, SearchBar } from './SearchBar.jsx';
-import SearchDate from './SearchDate.jsx';
-import SearchSize from './SearchSize.jsx';
+import SearchDate from '../order-attributes/SearchDate.jsx';
+import SearchSize from '../order-attributes/SearchSize.jsx';
 import { renderInput, renderSelect } from '../formHelpers.js';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
