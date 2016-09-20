@@ -11,11 +11,6 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- splitting search bar form related refactors
-     - messed up search bar css classNames
-     - need to change NavigationMixin get_searchbar() accordingly
-     - other Mixin refactors, eg to get MenuList methods for SearchBar too
-     - get rid of SearchBarMixin? need new name for compartmentalized forms
 - login and register pages
 - i18n
 - stripe + alipay button
@@ -46,10 +41,11 @@ See individual folders for their READMEs
     - ask arun:
         - menu page order button is screwed up
 - _az_:
-    - wire up date input on front page. add ft for this as well
-        - date on intro page is only used to initialize the menu page forms
-        - subsequent changes have no effect
-    - refactor out searchbar into separate components/forms. or stripe out redux form :p
+    - splitting search bar form related refactors
+         - messed up search bar css classNames
+         - need to change NavigationMixin get_searchbar() accordingly
+         - other Mixin refactors, eg to get MenuList methods for SearchBar too
+         - get rid of SearchBarMixin? need new name for compartmentalized forms
 
 
 **DONE**
@@ -75,3 +71,5 @@ See individual folders for their READMEs
 - add date component to frontpage searchbar
 - scrape insta for menu images
 - get title to change depending on react routing
+- wire up date input on front page. add ft for this as well
+- refactor out searchbar into separate components/forms. or stripe out redux form :p
