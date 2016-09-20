@@ -11,7 +11,11 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- splitting search bar form messed up css
+- splitting search bar form related refactors
+     - messed up search bar css classNames
+     - need to change NavigationMixin get_searchbar() accordingly
+     - other Mixin refactors, eg to get MenuList methods for SearchBar too
+     - get rid of SearchBarMixin? need new name for compartmentalized forms
 - login and register pages
 - i18n
 - stripe + alipay button
@@ -33,7 +37,6 @@ See individual folders for their READMEs
         - after doing that, consider taking off trailing slashes for everything
     - instead of xs-hide, sm-hide, md-hide etc, maybe have a function that hides if less than lg etc
     - maybe have ABC for name/price text left/right div (to merge the left/right divs on front page vs menu page)
-    - refactor out searchbar into separate components/forms. or stripe out redux form :p
     - clean up reducers/initial state/`__mocks__`- it's inconsistent right now
 
 **DOING**
@@ -43,6 +46,10 @@ See individual folders for their READMEs
     - ask arun:
         - menu page order button is screwed up
 - _az_:
+    - wire up date input on front page. add ft for this as well
+        - date on intro page is only used to initialize the menu page forms
+        - subsequent changes have no effect
+    - refactor out searchbar into separate components/forms. or stripe out redux form :p
 
 
 **DONE**
