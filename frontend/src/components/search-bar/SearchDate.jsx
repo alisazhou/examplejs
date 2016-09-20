@@ -15,7 +15,7 @@ const validate = values => {
 class SearchDate extends React.Component {
   render () {
     return (
-      <form className='searchbar-form'>
+      <form className='searchbar-form' onSubmit={e => e.preventDefault()}>
         <Field component={renderInput}
           className={this.props.className}
           displayError={this.props.displayError}

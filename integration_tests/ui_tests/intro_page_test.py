@@ -107,7 +107,7 @@ def test_search_bar_updates_menu_list_by_cuisine(browser):
     assert 'Demo Menu 0' in browser.body_text
     assert 'Demo Menu 1' in browser.body_text
 
-    select = Select(browser.get_search_bar().find_element_by_tag_name('select'))
+    select = Select(browser.find_element_by_xpath('//select[@name="searchCuisine"]'))
 
     # choose American, only first menu is shown
     select.select_by_visible_text('American')
@@ -155,9 +155,64 @@ def test_navbar_works_correctly(browser):
     browser.assert_on_page('login')
 
 
-def test_search_date_is_shown_on_menu_page_form(browser):
-    date_search = browser.get_search_bar().find_element_by_xpath('//input[@type="date"]')
-    date_search.send_keys('09192016')
+def test_search_date_same_on_intro_and_menu_pages(browser):
+    # alisa finds date picker on intro page
+    search_date_intro = browser.find_element_by_xpath(
+        '//input[@name="searchDate"]')
+    # she navigates to menu page directly, sees empty datepicker
     browser.from_intro_page_select_menu('Demo Menu 0')
-    party_time = browser.find_element_by_xpath('//input[@type="date"]')
-    assert party_time.get_attribute('value') == '09192016'
+    search_date_menu = browser.find_element_by_xpath(
+        '//input[@name="searchDate"]')
+    assert search_date_menu.get_attribute('value') == ''
+
+    # she goes back to intro page, enters date into datepicker this time
+    browser.back()
+    search_date_intro = browser.find_element_by_xpath(
+        '//input[@name="searchDate"]')
+    search_date_intro.send_keys('09192016')
+    # navigate to menu page, same date is shown
+    browser.from_intro_page_select_menu('Demo Menu 0')
+    search_date_menu = browser.find_element_by_xpath(
+        '//input[@name="searchDate"]')
+    assert search_date_menu.get_attribute('value') == '09192016'
+
+    # she now changes the date on menu page
+    search_date_menu.clear()
+    search_date_menu.send_keys('09202016')
+    # when she navigates back to intro page, new date is shown
+    browser.back()
+    search_date_intro = browser.find_element_by_xpath(
+        '//input[@name="searchDate"]')
+    assert search_date_intro.get_attribute('value') == '09202016'
+
+
+def test_search_size_same_on_intro_and_menu_pages(browser):
+    # alisa finds dropdown for partySize on intro page
+    search_size_intro = Select(browser.find_element_by_xpath(
+        '//select[@name="searchSize"]'))
+    # she navigates to menu page directly, sees partySize unselected
+    browser.from_intro_page_select_menu('Demo Menu 0')
+    search_size_menu = browser.find_element_by_xpath(
+        '//select[@name="searchSize"]')
+    assert search_size_menu.get_attribute('value') == 'Number of guests'
+
+    # she goes back to intro page, selects partySize this time
+    browser.back()
+    search_size_intro = Select(browser.find_element_by_xpath(
+        '//select[@name="searchSize"]'))
+    search_size_intro.select_by_visible_text('3 ~ 4')
+    # navigate to menu page, same date is shown
+    browser.from_intro_page_select_menu('Demo Menu 0')
+    search_size_menu = browser.find_element_by_xpath(
+        '//select[@name="searchSize"]')
+    assert search_size_menu.get_attribute('value') == '3 ~ 4'
+
+    # she now changes the date on menu page
+    search_size_intro = Select(browser.find_element_by_xpath(
+        '//select[@name="searchSize"]'))
+    search_size_intro.select_by_visible_text('5 ~ 6')
+    # when she navigates back to intro page, new date is shown
+    browser.back()
+    search_size_intro = browser.find_element_by_xpath(
+        '//select[@name="searchSize"]')
+    assert search_size_intro.get_attribute('value') == '5 ~ 6'

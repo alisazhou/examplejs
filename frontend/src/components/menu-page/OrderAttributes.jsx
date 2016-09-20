@@ -25,7 +25,7 @@ class OrderAttributes extends React.Component {
       <div>
         <SearchDate displayError={true} />
         <SearchSize displayError={true} />
-        <button onClick={onNextClick}>Next</button>
+        <button onClick={onNextClick}>Order</button>
       </div>
     );
   }

@@ -31,6 +31,7 @@ class ReservationForm extends React.Component {
       >
         <Field component={renderInput}
           className='reservation_form--name'
+          displayError={true}
           label='Name:'
           name='customerName'
           type='text'
@@ -38,6 +39,7 @@ class ReservationForm extends React.Component {
         />
         <Field component={renderInput}
           className='reservation_form--tel'
+          displayError={true}
           label='Mobile:'
           name='customerTel'
           type='text'
@@ -45,6 +47,7 @@ class ReservationForm extends React.Component {
         />
         <Field component={renderInput}
           className='reservation_form--add'
+          displayError={true}
           label='Address:'
           name='customerAddress'
           type='text'

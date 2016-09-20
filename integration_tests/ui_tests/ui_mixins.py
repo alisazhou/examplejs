@@ -27,12 +27,10 @@ class MenuListMixin():
 
 class OrderAttributesMixin():
     def get_order_party_size_select(self):
-        form_fields = self.find_element_by_class_name('order-form')
-        return Select(form_fields.find_element_by_tag_name('select'))
+        return Select(self.find_element_by_xpath('//select[@name="searchSize"]'))
 
     def get_order_date_input(self):
-        form_fields = self.find_element_by_class_name('order-form')
-        return form_fields.find_element_by_tag_name('input')
+        return self.find_element_by_xpath('//input[@name="searchDate"]')
 
 class SearchBarMixin():
     def get_search_bar(self):

@@ -1,71 +1,99 @@
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { Field } from 'redux-form';
 import R from 'ramda';
 import { findInTree } from '../../testHelpers.js';
+import { browserHistory } from 'react-router';
 
 jest.unmock('./OrderAttributes.jsx');
 jest.unmock('./orderAttributesConstants.js');
-import ReduxConnectedAttributes, {
-  FormConnectedAttributes,
-  OrderAttributes,
-} from './OrderAttributes.jsx';
-import partySizeOptions from './orderAttributesConstants.js';
-import { renderInput, renderSelect } from '../formHelpers.js';
+import ReduxConnectedAttributes, { OrderAttributes } from './OrderAttributes.jsx';
+import SearchDate from '../search-bar/SearchDate.jsx';
+import SearchSize from '../search-bar/SearchSize.jsx';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
 
 const mockUpdateOrder = jest.fn();
-const mockSubmit = jest.fn();
+const mockTouch = jest.fn();
 const PROPS_FROM_PARENT = { menuId: 'test id' };
-const PROPS_FROM_REDUX_FORM = { handleSubmit: mockSubmit };
 const PROPS_FROM_REDUX = {
-  initialValues: { dateTime: '2016-09-19' },
+  dateTime: 'test date',
+  formsValid: false,
+  partySize: 'test size',
+  touchAll: mockTouch,
   updateOrder: mockUpdateOrder,
 };
 describe('OrderAttributes dumb component', () => {
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(
-    <OrderAttributes
-      {...PROPS_FROM_PARENT}
-      {...PROPS_FROM_REDUX_FORM}
-      {...PROPS_FROM_REDUX}
-    />
+    <OrderAttributes {...PROPS_FROM_PARENT} {...PROPS_FROM_REDUX} />
   );
   const result = shallowRenderer.getRenderOutput();
 
-  it('renders to a form', () => {
-    expect(result.type).toBe('form');
+  it('renders to a div', () => {
+    expect(result.type).toBe('div');
   });
 
-  describe('within the form', () => {
-    const fields = findInTree(result, Field);
-
-    it('has two fields', () => {
-      expect(fields.length).toBe(2);
-    });
-
-    it('first field is a select with 6 options', () => {
-      const first = fields[0];
-      expect(first.props.component).toBe(renderSelect);
-      expect(first.props.options).toBe(partySizeOptions);
-    });
-
-    it('second field is a date picker', () => {
-      const second = fields[1];
-      expect(second.props.component).toBe(renderInput);
-      expect(second.props.type).toBe('date');
-    });
+  it('has a SearchDate child with correct props', () => {
+    const searchDate = findInTree(result, SearchDate)[0];
+    expect(searchDate).toBeDefined();
+    expect(searchDate.props.displayError).toBe(true);
   });
 
-  xit('has the correct callback', () => {
+  it('has a SearchSize child with correct props', () => {
+    const searchSize = findInTree(result, SearchSize)[0];
+    expect(searchSize).toBeDefined();
+    expect(searchSize.props.displayError).toBe(true);
+  });
+
+  describe('order button', () => {
+    const btn = findInTree(result, 'button')[0];
+
+    it('exists', () => {
+      expect(btn).toBeDefined();
+      expect(btn.props.children).toBe('Order');
+    });
+
+    it('has the correct callback on button click', () => {
+      spyOn(browserHistory, 'push');
+
+      expect(browserHistory.push).not.toHaveBeenCalled();
+      expect(mockTouch).not.toBeCalled();
+      expect(mockUpdateOrder).not.toBeCalled();
+
+      btn.props.onClick();
+
+      expect(mockTouch).toBeCalled();
+      expect(mockUpdateOrder.mock.calls[0]).toEqual([
+        { dateTime: 'test date', partySize: 'test size', menuId: 'test id' },
+      ]);
+      expect(browserHistory.push).not.toHaveBeenCalled();
+    });
+
+    it('routes to reservation page if forms are valid', () => {
+      spyOn(browserHistory, 'push');
+      const PROPS_FROM_REDUX_VALID = {...PROPS_FROM_REDUX, formsValid: true };
+      const shallowRenderer1 = TestUtils.createRenderer();
+      shallowRenderer1.render(
+        <OrderAttributes {...PROPS_FROM_PARENT} {...PROPS_FROM_REDUX_VALID} />
+      );
+      const result1 = shallowRenderer1.getRenderOutput();
+      const btn = findInTree(result1, 'button')[0];
+
+      expect(browserHistory.push).not.toHaveBeenCalled();
+
+      btn.props.onClick();
+
+      expect(browserHistory.push).toHaveBeenCalledWith('/reservation/');
+    });
   });
 
   it('has the correct propTypes', () => {
     const expectedPropTypes = [
-      'handleSubmit',
-      'initialValues',
+      'dateTime',
+      'formsValid',
       'menuId',
+      'partySize',
+      'touchAll',
       'updateOrder',
     ];
     R.forEach(
@@ -77,33 +105,21 @@ describe('OrderAttributes dumb component', () => {
 });
 
 
-describe('OrderAttributes redux-from-wrapped component', () => {
-  it('is wrapped by a redux form', () => {
-    expect(FormConnectedAttributes.name).toBe('ReduxForm');
-  });
-});
-
-
 describe('OrderAttributes redux connect-wrapped component', () => {
   it('is wrapped by a connect', () => {
-    expect(ReduxConnectedAttributes).not.toBe(FormConnectedAttributes);
-    expect(ReduxConnectedAttributes.WrappedComponent).toBe(
-      FormConnectedAttributes
-    );
-    expect(ReduxConnectedAttributes.displayName).toBe('Connect(ReduxForm)');
+    expect(ReduxConnectedAttributes).not.toBe(OrderAttributes);
+    expect(ReduxConnectedAttributes.WrappedComponent).toBe(OrderAttributes);
+    expect(ReduxConnectedAttributes.displayName).toBe('Connect(OrderAttributes)');
   });
 
   it('receives props from redux', () => {
     const shallowRenderer = TestUtils.createRenderer();
     shallowRenderer.render(
-      <ReduxConnectedAttributes
-        store={store}
-        {...PROPS_FROM_PARENT}
-        {...PROPS_FROM_REDUX_FORM}
-      />
+      <ReduxConnectedAttributes store={store} {...PROPS_FROM_PARENT} />
     );
     const result = shallowRenderer.getRenderOutput();
-    expect(result.props.initialValues).toBeDefined();
+    expect(result.props.formsValid).toBeDefined();
+    expect(result.props.touchAll).toBeDefined();
     expect(result.props.updateOrder).toBeDefined();
   });
 });

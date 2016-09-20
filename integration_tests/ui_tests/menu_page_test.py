@@ -75,7 +75,7 @@ def test_performs_form_validation(browser):
 
 def test_disable_query_submit_on_enter_press(browser):
     # click on input, press enter
-    party_time = browser.find_element_by_tag_name('input')
+    party_time = browser.find_element_by_xpath('//input[@name="searchDate"]')
     party_time.send_keys(Keys.ENTER)
     # does not send get request to server, stays on same page
     browser.assert_on_page('menu')
