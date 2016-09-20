@@ -36,12 +36,14 @@ describe('OrderAttributes dumb component', () => {
   it('has a SearchDate child with correct props', () => {
     const searchDate = findInTree(result, SearchDate)[0];
     expect(searchDate).toBeDefined();
+    expect(searchDate.props.className).toBe('order-form__field');
     expect(searchDate.props.displayError).toBe(true);
   });
 
   it('has a SearchSize child with correct props', () => {
     const searchSize = findInTree(result, SearchSize)[0];
     expect(searchSize).toBeDefined();
+    expect(searchSize.props.className).toBe('order-form__field');
     expect(searchSize.props.displayError).toBe(true);
   });
 
@@ -51,6 +53,7 @@ describe('OrderAttributes dumb component', () => {
     it('exists', () => {
       expect(btn).toBeDefined();
       expect(btn.props.children).toBe('Order');
+      expect(btn.props.className).toBe('order-form__button');
     });
 
     it('has the correct callback on button click', () => {

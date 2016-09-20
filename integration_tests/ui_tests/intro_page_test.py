@@ -1,9 +1,9 @@
 from selenium.webdriver.support.ui import Select
 
-from ui_mixins import NavigationMixin, SearchBarMixin, NavbarMixin, MenuListMixin
+from ui_mixins import OrderAttributesMixin, NavigationMixin, NavbarMixin, MenuListMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
-class IntroPageBrowser(NavigationMixin, SearchBarMixin, MenuListMixin, NavbarMixin, BaseBrowser):
+class IntroPageBrowser(NavigationMixin, MenuListMixin, NavbarMixin, OrderAttributesMixin, BaseBrowser):
     pass
 
 browser = setup_pytest_browser_fixture(IntroPageBrowser)
@@ -157,23 +157,19 @@ def test_navbar_works_correctly(browser):
 
 def test_search_date_same_on_intro_and_menu_pages(browser):
     # alisa finds date picker on intro page
-    search_date_intro = browser.find_element_by_xpath(
-        '//input[@name="searchDate"]')
+    search_date_intro = browser.get_order_date_input()
     # she navigates to menu page directly, sees empty datepicker
     browser.from_intro_page_select_menu('Demo Menu 0')
-    search_date_menu = browser.find_element_by_xpath(
-        '//input[@name="searchDate"]')
+    search_date_menu = browser.get_order_date_input()
     assert search_date_menu.get_attribute('value') == ''
 
     # she goes back to intro page, enters date into datepicker this time
     browser.back()
-    search_date_intro = browser.find_element_by_xpath(
-        '//input[@name="searchDate"]')
+    search_date_intro = browser.get_order_date_input()
     search_date_intro.send_keys('09192016')
     # navigate to menu page, same date is shown
     browser.from_intro_page_select_menu('Demo Menu 0')
-    search_date_menu = browser.find_element_by_xpath(
-        '//input[@name="searchDate"]')
+    search_date_menu = browser.get_order_date_input()
     assert search_date_menu.get_attribute('value') == '09192016'
 
     # she now changes the date on menu page
@@ -181,38 +177,31 @@ def test_search_date_same_on_intro_and_menu_pages(browser):
     search_date_menu.send_keys('09202016')
     # when she navigates back to intro page, new date is shown
     browser.back()
-    search_date_intro = browser.find_element_by_xpath(
-        '//input[@name="searchDate"]')
+    search_date_intro = browser.get_order_date_input()
     assert search_date_intro.get_attribute('value') == '09202016'
 
 
 def test_search_size_same_on_intro_and_menu_pages(browser):
     # alisa finds dropdown for partySize on intro page
-    search_size_intro = Select(browser.find_element_by_xpath(
-        '//select[@name="searchSize"]'))
+    search_size_intro = browser.get_order_party_size_select()
     # she navigates to menu page directly, sees partySize unselected
     browser.from_intro_page_select_menu('Demo Menu 0')
-    search_size_menu = browser.find_element_by_xpath(
-        '//select[@name="searchSize"]')
-    assert search_size_menu.get_attribute('value') == 'Number of guests'
+    search_size_menu = browser.get_order_party_size_select()
+    assert search_size_menu.first_selected_option.text == 'Number of guests'
 
     # she goes back to intro page, selects partySize this time
     browser.back()
-    search_size_intro = Select(browser.find_element_by_xpath(
-        '//select[@name="searchSize"]'))
+    search_size_intro = browser.get_order_party_size_select()
     search_size_intro.select_by_visible_text('3 ~ 4')
     # navigate to menu page, same date is shown
     browser.from_intro_page_select_menu('Demo Menu 0')
-    search_size_menu = browser.find_element_by_xpath(
-        '//select[@name="searchSize"]')
-    assert search_size_menu.get_attribute('value') == '3 ~ 4'
+    search_size_menu = browser.get_order_party_size_select()
+    assert search_size_menu.first_selected_option.text == '3 ~ 4'
 
     # she now changes the date on menu page
-    search_size_intro = Select(browser.find_element_by_xpath(
-        '//select[@name="searchSize"]'))
-    search_size_intro.select_by_visible_text('5 ~ 6')
+    search_size_menu = browser.get_order_party_size_select()
+    search_size_menu.select_by_visible_text('5 ~ 6')
     # when she navigates back to intro page, new date is shown
     browser.back()
-    search_size_intro = browser.find_element_by_xpath(
-        '//select[@name="searchSize"]')
-    assert search_size_intro.get_attribute('value') == '5 ~ 6'
+    search_size_intro = browser.get_order_party_size_select()
+    assert search_size_intro.first_selected_option.text == '5 ~ 6'

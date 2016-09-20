@@ -22,10 +22,12 @@ class OrderAttributes extends React.Component {
     };
 
     return (
-      <div>
-        <SearchDate displayError={true} />
-        <SearchSize displayError={true} />
-        <button onClick={onNextClick}>Order</button>
+      <div className='order-form'>
+        <SearchDate className='order-form__field' displayError={true} />
+        <SearchSize className='order-form__field' displayError={true} />
+        <button className='order-form__button' onClick={onNextClick} >
+          Order
+        </button>
       </div>
     );
   }
