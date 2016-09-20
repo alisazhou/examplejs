@@ -5,20 +5,17 @@ import R from 'ramda';
 
 import { renderInput, renderSelect } from '../formHelpers.js';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
+import SearchDate from './SearchDate.jsx';
 
 
 class SearchBar extends React.Component {
   render () {
     return (
       <div className='searchbar__background'>
+        <div className='searchbar-form__search-field-div'>
+          <SearchDate className='searchbar-form__search-field'/>
+        </div>
         <form className='searchbar-form'>
-          <div className='searchbar-form__search-field-div'>
-            <Field component={renderInput}
-              className='searchbar-form__search-field'
-              name='searchDate'
-              type='date'
-            />
-          </div>
           <div className='searchbar-form__search-field-div'>
             <Field component={renderInput}
               className='searchbar-form__search-field'

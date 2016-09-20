@@ -6,6 +6,7 @@ import { findInTree } from '../../testHelpers.js';
 
 jest.unmock('./SearchBar.jsx');
 import FormConnectedBar, { StoreConnectedBar, SearchBar } from './SearchBar.jsx';
+import SearchDate from './SearchDate.jsx';
 import { renderInput, renderSelect } from '../formHelpers.js';
 import { store } from '../redux-wrapper/ReduxWrapper.jsx';
 
@@ -22,6 +23,11 @@ describe('SearchBar presentational component', () => {
   );
   const result = shallowRenderer.getRenderOutput();
 
+  it('has a SearchDate child', () => {
+    const searchDate = findInTree(result, SearchDate)[0];
+    expect(searchDate).toBeDefined();
+    expect(searchDate.props.className).toBe('searchbar-form__search-field');
+  });
   it('has a form child component', () => {
     expect(findInTree(result, 'form').length).toBe(1);
   });
@@ -29,8 +35,8 @@ describe('SearchBar presentational component', () => {
   describe('within the form', () => {
     const form = findInTree(result, 'form')[0];
     const fields = findInTree(form, Field);
-    it('has three Field child components', () => {
-      expect(fields.length).toBe(3);
+    it('has two Field child components', () => {
+      expect(fields.length).toBe(2);
     });
 
     describe('first Field child', () => {
@@ -40,32 +46,20 @@ describe('SearchBar presentational component', () => {
       });
       it('has the correct props', () => {
         expect(first.props.className).toEqual('searchbar-form__search-field');
-        expect(first.props.name).toEqual('searchDate');
-        expect(first.props.type).toEqual('date');
+        expect(first.props.name).toEqual('searchText');
+        expect(first.props.type).toEqual('search');
       });
     });
 
     describe('second Field child', () => {
       const second = fields[1];
-      it('renders to input field', () => {
-        expect(second.props.component).toBe(renderInput);
+      it('renders to select field', () => {
+        expect(second.props.component).toBe(renderSelect);
       });
       it('has the correct props', () => {
         expect(second.props.className).toEqual('searchbar-form__search-field');
-        expect(second.props.name).toEqual('searchText');
-        expect(second.props.type).toEqual('search');
-      });
-    });
-
-    describe('third Field child', () => {
-      const third = fields[2];
-      it('renders to select field', () => {
-        expect(third.props.component).toBe(renderSelect);
-      });
-      it('has the correct props', () => {
-        expect(third.props.className).toEqual('searchbar-form__search-field');
-        expect(third.props.name).toEqual('searchCuisine');
-        expect(third.props.options).toBe(PROPS_FROM_STORE.cuisines);
+        expect(second.props.name).toEqual('searchCuisine');
+        expect(second.props.options).toBe(PROPS_FROM_STORE.cuisines);
       });
     });
   });

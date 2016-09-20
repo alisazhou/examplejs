@@ -1,0 +1,40 @@
+import React from 'react';
+import { reduxForm, Field } from 'redux-form';
+
+import { renderInput } from '../formHelpers.js';
+
+
+const validate = values => {
+  let errors = {};
+  if (!values.searchDate) {
+    errors.searchDate = 'Please specify a time.';
+  }
+  return errors;
+};
+
+class SearchDate extends React.Component {
+  render () {
+    return (
+      <form className='searchbar-form'>
+        <Field component={renderInput}
+          className={this.props.className}
+          name='searchDate'
+          type='date'
+        />
+      </form>
+    );
+  }
+}
+
+SearchDate.propTypes = {
+  className: React.PropTypes.string,
+};
+
+export default reduxForm({
+  form: 'searchDate',
+  destroyOnUnmount: false,
+  initialValues: { searchDate: '' },
+  validate,
+})(SearchDate);
+
+export { SearchDate };
