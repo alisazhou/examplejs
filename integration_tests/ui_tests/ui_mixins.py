@@ -3,6 +3,16 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from constants import URLS
 
+
+class AuthenticationMixin():
+    def fill_in_email_and_pw(self, email, pw):
+        email_field = self.find_element_by_xpath('//input[@type="email"]')
+        email_field.send_keys(email)
+        pw_field = self.find_element_by_xpath('//input[@type="password"]')
+        pw_field.send_keys(pw)
+
+
+
 class NavbarMixin():
     def get_navbar_div(self):
         return self.find_element_by_css_selector('div.navbar')

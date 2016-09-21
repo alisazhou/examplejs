@@ -11,7 +11,7 @@ See individual folders for their READMEs
 
 #### Kanban Bananas
 **TO-DO**
-- login and register pages
+- check SearchBar classNames for css
 - i18n
 - stripe + alipay button
 - make menu page single picture into scrolling pics with all dishes in menu
@@ -41,11 +41,9 @@ See individual folders for their READMEs
     - ask arun:
         - menu page order button is screwed up
 - _az_:
-    - splitting search bar form related refactors
-         - messed up search bar css classNames
-         - need to change NavigationMixin get_searchbar() accordingly
-         - other Mixin refactors, eg to get MenuList methods for SearchBar too
-         - get rid of SearchBarMixin? need new name for compartmentalized forms
+    - login and register pages
+    - make template page component, move navbar there
+    - can remove SearchBarMixin?
 
 
 **DONE**
