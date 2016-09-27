@@ -10,7 +10,7 @@
     "lint": "eslint src --ignore-pattern 'src/scss-modules/vendors/*'",
     "retest": "jest --no-cache --watch",
     "test": "jest --noStackTrace --no-cache --bail",
-    "ncu": "ncu --error-level 2 --reject redux-form"
+    "ncu": "ncu --error-level 2"
   },
   "jest": {
     "automock": true,

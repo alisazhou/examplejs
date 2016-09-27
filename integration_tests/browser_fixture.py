@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 
 import pytest
-from pyvirtualdisplay import Display
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -83,9 +82,8 @@ def setup_pytest_browser_fixture(BrowserClass):
         # todo: or can do local setting imports and have a testing one?
         settings.SESSION_COOKIE_SECURE = False
         settings.CSRF_COOKIE_SECURE = False
-        with Display(visible=0, size=(1200, 800)):
-            _browser = BrowserClass(host_address=live_server.url)
-            yield _browser
-            # use quit instead of close to release all resources
-            _browser.quit()
+        _browser = BrowserClass(host_address=live_server.url)
+        yield _browser
+        # use quit instead of close to release all resources
+        _browser.quit()
     return pytest.fixture(browser)

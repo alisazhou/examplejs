@@ -6,7 +6,7 @@ See individual folders for their READMEs
 [Greenkeeper](https://greenkeeper.io/) is being used to automatically create pull requests.
 
 # Setup
-- be sure to symlink pre-push hook to .git/hooks/pre-push, and have it executable. won't need to do it after git 2.9
+- be sure to symlink pre-commit hook to .git/hooks/pre-commit, and have it executable. won't need to do it after git 2.9
 
 
 #### Kanban Bananas
@@ -20,12 +20,10 @@ See individual folders for their READMEs
     - have min/max dates
     - for menu details page, will need to grey out unavailable dates on date picker
     - [ui] make datetime captured in OrderAttributes more readable on reservation page
-- wire up date input on front page. add ft for this as well
-     - date on intro page is only used to initialize the menu page forms
-     - subsequent changes have no effect
 - figure out firefox date picker (use react date picker + momentjs?)
 - refreshing on reservation page will error (menu id is not saved, and so js errors -> just says loading)
     - i thought you could use local storage or something to fix this?
+    - _az_ notes: search in localStorage, hydrate store with values if found (involves not-insignificant refactor); what if nothing found, ie never filled out menu page form?
 - refactory things:
     - menupage next button vs link button. maybe let link button take in optional props for onclick to merge them?
     - consider pulling node urls out into contants.py. but it is not super easy to do because need to interpolate menu id etc. (and js doesn't have a good way to dynamically interpolate that)
