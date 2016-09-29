@@ -11,7 +11,6 @@ describe('authReducer', () => {
       errMsg: '',
       isAuthenticated: false,
       isFetching: false,
-      token: '',
     };
     const nextState = authReducer(undefined, '');
     expect(nextState).toEqual(initState);
@@ -22,7 +21,6 @@ describe('authReducer', () => {
       errMsg: 'no error',
       isAuthenticated: false,
       isFetching: true,
-      token: '',
     };
     const loginFailureAction = {
       type: LOGIN_FAILURE,
@@ -32,7 +30,6 @@ describe('authReducer', () => {
       errMsg: 'test errMsg',
       isAuthenticated: false,
       isFetching: false,
-      token: '',
     };
     const nextState = authReducer(currState, loginFailureAction);
     expect(nextState).toEqual(expState);
@@ -43,14 +40,12 @@ describe('authReducer', () => {
       errMsg: 'prev error',
       isAuthenticated: false,
       isFetching: false,
-      token: '',
     };
     const loginRequestAction = { type: LOGIN_REQUEST };
     const expState = {
       errMsg: '',
       isAuthenticated: false,
       isFetching: true,
-      token: '',
     };
     const nextState = authReducer(currState, loginRequestAction);
     expect(nextState).toEqual(expState);
@@ -61,17 +56,14 @@ describe('authReducer', () => {
       errMsg: 'prev error',
       isAuthenticated: false,
       isFetching: true,
-      token: '',
     };
     const loginSuccessAction = {
       type: LOGIN_SUCCESS,
-      token: 'test token',
     };
     const expState = {
       errMsg: '',
       isAuthenticated: true,
       isFetching: false,
-      token: 'test token',
     };
     const nextState = authReducer(currState, loginSuccessAction);
     expect(nextState).toEqual(expState);

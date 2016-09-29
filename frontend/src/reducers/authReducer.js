@@ -21,7 +21,6 @@ const authReducer = (state = initialState, action) => {
       errMsg: '',
       isAuthenticated: true,
       isFetching: false,
-      token: action.token,
     };
   }
   return state;

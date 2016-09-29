@@ -15,9 +15,8 @@ const loginRequestActionCreator = () => ({
 });
 
 
-const loginSuccessActionCreator = token => ({
+const loginSuccessActionCreator = () => ({
   type: LOGIN_SUCCESS,
-  token,
 });
 
 
@@ -41,8 +40,10 @@ const loginUserActionCreator = creds => {
 
     return fetch(`http://${window.location.host}/auth/tokens/`, config)
       .then(response => checkStatus(response))
-      .then(json => dispatch(loginSuccessActionCreator(json.token)))
-      .catch(err => dispatch(loginFailureActionCreator(err)));
+      .then(json => {
+        localStorage.setItem('user_token', json.token);
+        dispatch(loginSuccessActionCreator());
+      }).catch(err => dispatch(loginFailureActionCreator(err)));
   };
 };
 

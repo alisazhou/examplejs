@@ -5,7 +5,7 @@ import {
   loginFailureActionCreator,
   loginRequestActionCreator,
   loginSuccessActionCreator,
-    loginUserActionCreator,
+  loginUserActionCreator,
 } from './loginActions.js';
 import {
   LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS,
@@ -37,12 +37,10 @@ describe('synchronous action creators', () => {
 
   describe('loginSuccess action creator', () => {
     it('should create LOGIN_SUCCESS action', () => {
-      const token = 'token0';
       const expAction = {
         type: LOGIN_SUCCESS,
-        token: 'token0',
       };
-      const actualAction = loginSuccessActionCreator(token);
+      const actualAction = loginSuccessActionCreator();
       expect(actualAction).toEqual(expAction);
     });
   });
@@ -66,12 +64,16 @@ describe('async action creator loginUser', () => {
       ok: true,
     }));
     spyOn(window, 'fetch').and.returnValue(mockResponse);
+    window.localStorage = { setItem: jasmine.createSpy() };
     const expActions = [
       loginRequestActionCreator(),
-      loginSuccessActionCreator(mockResponseJson.token),
+      loginSuccessActionCreator(),
     ];
     return mockStore.dispatch(loginUserActionCreator(creds))
       .then(() => {
+        expect(window.localStorage.setItem).toHaveBeenCalledWith(
+          'user_token', 'token for username1'
+        );
         expect(mockStore.getActions()).toEqual(expActions);
       });
   });

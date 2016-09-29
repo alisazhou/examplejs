@@ -7,9 +7,8 @@ const localStorage = {
 
 const initialState = {
   errMsg: '',
-  isAuthenticated: localStorage.getItem('token') ? true: false,
+  isAuthenticated: localStorage.getItem('user_token') ? true: false,
   isFetching: false,
-  token: '',
 };
 
 export default initialState;
