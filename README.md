@@ -36,6 +36,7 @@ See individual folders for their READMEs
 - _ch_:
     - use basscss font
     - turn sticky page footer into the navbar header?
+    - validation errors from menu order attributes screw up placement of inputs etc
     - ask arun:
         - menu page order button is screwed up
 - _az_:
