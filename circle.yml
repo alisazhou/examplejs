@@ -2,6 +2,9 @@ machine:
   python:
     version: 3.5.2
 
+checkout:
+  post:
+    - git submodule update --recursive --init
 
 dependencies:
   pre:
@@ -9,6 +12,7 @@ dependencies:
     - pip install -r ./integration_tests/requirements.txt
   override:
     - cd frontend && npm install && npm run build
+
 
 test:
   override:
