@@ -1,6 +1,11 @@
 machine:
   python:
     version: 3.5.2
+  node:
+    version: 6.9.2
+  environment:
+    PHANTOMJS_VERSION: 2.1.1
+
 
 checkout:
   post:
@@ -11,9 +16,16 @@ dependencies:
     - pip install --upgrade pip
     - pip install -r ./integration_tests/requirements.txt
   override:
-    - cd frontend && npm install && npm run build
+    - cd frontend && npm install
+    - cd frontend && npm run build
 
 
 test:
   override:
-    - py.test ./integration_tests
+    - cd frontend && npm run ncu
+    - cd frontend && npm run lint
+    - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep $PHANTOMJS_VERSION
+    - flake8 .
+
+    - cd frontend && set -e  && ! npm run test 2>&1 | tee /dev/stderr | grep -e "Warning" -e "fail"
+    - cd integration_tests && py.test -x --strict -r w
