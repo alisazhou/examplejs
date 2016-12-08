@@ -1,10 +1,12 @@
 from ui_mixins import AuthenticationMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
+
 class LoginPageBrowser(AuthenticationMixin, BaseBrowser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.find_element_by_xpath('//button[text()="Log in"]').click()
+
 
 browser = setup_pytest_browser_fixture(LoginPageBrowser)
 

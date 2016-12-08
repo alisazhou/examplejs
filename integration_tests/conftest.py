@@ -6,6 +6,7 @@ from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 # BaseBrowser + Mixins
 browser = setup_pytest_browser_fixture(BaseBrowser)
 
+
 @pytest.yield_fixture()
 def normal_user(django_user_model):
     user = django_user_model.objects.create(username='user1')
@@ -14,4 +15,3 @@ def normal_user(django_user_model):
     yield user
     # do i need this? maybe if we don't kill db between tests?
     user.delete()
-

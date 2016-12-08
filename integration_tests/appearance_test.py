@@ -3,10 +3,13 @@ from selenium.webdriver.common.by import By
 from ui_tests.ui_mixins import NavbarMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
+
 class AppearnceTestBrowser(NavbarMixin, BaseBrowser):
     pass
 
+
 browser = setup_pytest_browser_fixture(AppearnceTestBrowser)
+
 
 def test_viewport_info_used_for_responsive_css(browser):
     # she sees the sign up button

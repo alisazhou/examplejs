@@ -3,10 +3,12 @@ from selenium.webdriver.common.keys import Keys
 from ui_mixins import NavigationMixin, NavbarMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
+
 class MenuPageBrowser(NavigationMixin, NavbarMixin, BaseBrowser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.from_intro_page_select_menu('Demo Menu 0')
+
 
 browser = setup_pytest_browser_fixture(MenuPageBrowser)
 
@@ -79,4 +81,3 @@ def test_disable_query_submit_on_enter_press(browser):
     party_time.send_keys(Keys.ENTER)
     # does not send get request to server, stays on same page
     browser.assert_on_page('menu')
-

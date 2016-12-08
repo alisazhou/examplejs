@@ -21,6 +21,5 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
 # import django.core.handlers.wsgi
 # application = django.core.handlers.wsgi.WSGIHandler()
 # serve django via WSGI in Django >= 1.7
-from django.core.wsgi import get_wsgi_application
+from django.core.wsgi import get_wsgi_application  # noqa
 application = get_wsgi_application()
-

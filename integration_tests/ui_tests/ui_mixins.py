@@ -12,7 +12,6 @@ class AuthenticationMixin():
         pw_field.send_keys(pw)
 
 
-
 class NavbarMixin():
     def get_navbar_div(self):
         return self.find_element_by_css_selector('div.navbar')
@@ -32,8 +31,8 @@ class NavbarMixin():
 
 class MenuListMixin():
     def click_on_nth_menu(self, nth):
-        ### HACK
         return self.click_link_id('menu_{}'.format(nth))
+
 
 class OrderAttributesMixin():
     def get_order_party_size_select(self):
@@ -41,6 +40,7 @@ class OrderAttributesMixin():
 
     def get_order_date_input(self):
         return self.find_element_by_xpath('//input[@name="searchDate"]')
+
 
 class SearchBarMixin():
     def get_search_bar(self):
@@ -51,14 +51,15 @@ class SearchBarMixin():
         text_search.clear()
         text_search.send_keys(text)
 
+
 class PaypalMixin():
     BUTTON_XPATH = '//input[@name="submit"][contains(@alt, "PayPal")]'
+
     def get_paypal_button(self):
         return self.get_slow_loading_clickable(By.XPATH, self.BUTTON_XPATH)
 
     def assert_paypal_button_does_not_exist(self):
         self.assert_does_not_exist(By.XPATH, self.BUTTON_XPATH)
-
 
 
 class NavigationMixin(SearchBarMixin, OrderAttributesMixin):

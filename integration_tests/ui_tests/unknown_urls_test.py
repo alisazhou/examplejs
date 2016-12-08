@@ -5,6 +5,7 @@ from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 class UnknownUrlBrowser(NavbarMixin, BaseBrowser):
     pass
 
+
 browser = setup_pytest_browser_fixture(UnknownUrlBrowser)
 
 

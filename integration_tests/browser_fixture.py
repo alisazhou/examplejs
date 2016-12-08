@@ -10,6 +10,8 @@ from constants import USE_PHANTOMJS
 
 
 BASE_WEBDRIVER = webdriver.PhantomJS if USE_PHANTOMJS else webdriver.Chrome
+
+
 class BaseBrowser(BASE_WEBDRIVER):
     def __init__(self, host_address, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -79,7 +81,6 @@ class BaseBrowser(BASE_WEBDRIVER):
         WebDriverWait(self, 3).until(
             EC.invisibility_of_element_located((by_method, selector))
         )
-
 
 
 def setup_pytest_browser_fixture(BrowserClass):

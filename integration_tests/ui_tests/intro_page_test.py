@@ -3,8 +3,10 @@ from selenium.webdriver.support.ui import Select
 from ui_mixins import OrderAttributesMixin, NavigationMixin, NavbarMixin, MenuListMixin
 from browser_fixture import BaseBrowser, setup_pytest_browser_fixture
 
+
 class IntroPageBrowser(NavigationMixin, MenuListMixin, NavbarMixin, OrderAttributesMixin, BaseBrowser):
     pass
+
 
 browser = setup_pytest_browser_fixture(IntroPageBrowser)
 
@@ -49,6 +51,7 @@ def test_there_is_search_bar(browser):
     options_texts = [opt.text for opt in cuisine_dropdown.options]
     for expected_text in ['All Cuisines', 'American', 'Chinese', 'French', 'Indian']:
         assert expected_text in options_texts
+
 
 def test_search_gives_helpful_message_if_no_results(browser):
     browser.type_into_search_input('this does not exist')
