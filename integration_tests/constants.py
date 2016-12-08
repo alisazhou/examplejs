@@ -2,13 +2,12 @@
 import requests
 
 try:
+    print('testing if there is external internet access')
     resp = requests.get('https://google.com')
-    print(resp.status_code)
-    print(resp.text)
     OFFLINE = (resp.status_code != 200)
 except Exception as e:
-    print(e)
     OFFLINE = True
+print('OFFLINE = {}'.format(OFFLINE))
 
 URLS = {
     'intro': r'/$',

@@ -1,11 +1,10 @@
 from contextlib import contextmanager
-
 import pytest
-
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+import time
 
 from constants import USE_PHANTOMJS
 
@@ -31,7 +30,17 @@ class BaseBrowser(BASE_WEBDRIVER):
 
     def goto(self, url_path):
         # self.host_address does not have a ending/trailing "/"
-        self.get(self.host_address + url_path)
+        got_page = False
+        for ii in range(3):
+            try:
+                self.get(self.host_address + url_path)
+                got_page = True
+                break
+            except TimeoutException:
+                print('pageload TimeoutException, reloading page')
+                time.sleep(1)
+        if not got_page:
+            pytest.fail('page did not load')
 
     def click_link_id(self, link_id):
         self.find_element_by_id(link_id).click()
