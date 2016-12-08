@@ -25,7 +25,7 @@ test:
     - cd frontend && npm run ncu
     - cd frontend && npm run lint
     - set -e && set -o pipefail && phantomjs --version | tee /dev/stderr | grep $PHANTOMJS_VERSION
-    - flake8 .
+    - pwd && flake8 --config .flake8 .
 
     - cd frontend && set -e  && ! npm run test 2>&1 | tee /dev/stderr | grep -e "Warning" -e "fail"
     - cd integration_tests && py.test -x --strict -r w
