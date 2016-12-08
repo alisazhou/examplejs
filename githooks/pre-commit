@@ -19,9 +19,9 @@ if [ $RESULT -ne 0 ]; then
 fi
 
 
-echo "running pyflakes"
+echo "running flake8"
 cd "$TOP_LEVEL/integration_tests"
-pyflakes .
+flake8 .
 
 RESULT=$?
 
