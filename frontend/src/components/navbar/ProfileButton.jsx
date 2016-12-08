@@ -4,7 +4,7 @@ import AuthButton from './AuthButton.jsx';
 
 
 class ProfileButton extends React.Component {
-  render () {
+  render() {
     const profileBtnProps = {
       className: 'profile_btn',
       content: 'TODO: user pic',

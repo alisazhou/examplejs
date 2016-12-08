@@ -13,7 +13,7 @@ const validate = values => {
 };
 
 class SearchDate extends React.Component {
-  render () {
+  render() {
     return (
       <form className='searchbar-form' onSubmit={e => e.preventDefault()}>
         <Field component={renderInput}

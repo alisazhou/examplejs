@@ -4,7 +4,7 @@ import Navbar from '../navbar/Navbar.jsx';
 
 
 class UnderConstruction extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <Navbar />

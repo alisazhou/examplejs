@@ -10,7 +10,7 @@ import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 
 class OrderAttributes extends React.Component {
-  render () {
+  render() {
     const onNextClick = () => {
       const { dateTime, menuId, partySize } = this.props;
       const updates = { dateTime, partySize, menuId };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 
 class ReservationSummary extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <p>{`Name: ${this.props.customerName}`}</p>

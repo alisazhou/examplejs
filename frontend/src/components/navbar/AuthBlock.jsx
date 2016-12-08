@@ -4,7 +4,7 @@ import AuthButton from './AuthButton.jsx';
 
 
 class AuthBlock extends React.Component {
-  render () {
+  render() {
     const blockName = 'navbar-buttons';
     const loginBtnProps = {
       className: `${ blockName }__user-login-btn`,

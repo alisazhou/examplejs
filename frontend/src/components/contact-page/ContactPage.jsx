@@ -1,7 +1,7 @@
 import React from 'react';
 
 class ContactPage extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <p>Contact Us: +852 12345678</p>

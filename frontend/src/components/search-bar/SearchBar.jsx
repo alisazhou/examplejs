@@ -10,7 +10,7 @@ import SearchSize from '../order-attributes/SearchSize.jsx';
 
 
 class SearchBar extends React.Component {
-  render () {
+  render() {
     return (
       <div className='searchbar__background'>
         <div className='searchbar-form__search-field-div'>

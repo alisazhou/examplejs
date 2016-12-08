@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 
 class MenuListItem extends React.Component {
-  render () {
+  render() {
     return (
       <div className='menu-list__item-div'>
         <div className='menu-list__item-border'>

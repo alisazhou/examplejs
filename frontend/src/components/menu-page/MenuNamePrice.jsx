@@ -2,7 +2,7 @@ import React from 'react';
 
 
 class MenuNamePrice extends React.Component {
-  render () {
+  render() {
     return (
       <div className='menudescription-text__div'>
         <h3 className='menudescription-text__left'>{this.props.menu.name}</h3>

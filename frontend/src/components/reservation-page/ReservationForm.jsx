@@ -21,7 +21,7 @@ const validate = values => {
 };
 
 class ReservationForm extends React.Component {
-  render () {
+  render() {
     const { handleSubmit } = this.props;
 
     return (

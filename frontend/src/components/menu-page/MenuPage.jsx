@@ -9,7 +9,7 @@ import OrderAttributes from '../order-attributes/OrderAttributes.jsx';
 
 
 class MenuPage extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <Navbar title={this.props.menu.name}/>

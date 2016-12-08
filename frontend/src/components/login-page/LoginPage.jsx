@@ -4,7 +4,7 @@ import LoginForm from './LoginForm.jsx';
 
 
 class LoginPage extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <LoginForm />

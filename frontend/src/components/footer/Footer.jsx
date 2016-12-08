@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 
 class Footer extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <Link to='/'>Main Page</Link>

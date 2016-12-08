@@ -7,7 +7,7 @@ import ProfileButton from './ProfileButton.jsx';
 
 
 class Navbar extends React.Component {
-  render () {
+  render() {
     return (
       <div className='navbar'>
         <div className='navbar-buttons'>

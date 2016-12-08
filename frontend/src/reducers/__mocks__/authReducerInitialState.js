@@ -1,6 +1,6 @@
 const _storage = {};
 const localStorage = {
-  getItem (key) {
+  getItem(key) {
     return _storage[key];
   },
 };

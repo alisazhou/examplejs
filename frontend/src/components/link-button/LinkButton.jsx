@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 class LinkButton extends React.Component {
-  render () {
+  render() {
     return (
       <Link to={this.props.linkTo}>
         <button {...this.props.btnProps}>{this.props.content}</button>

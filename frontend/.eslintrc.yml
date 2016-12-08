@@ -1,3 +1,7 @@
+# "off" or 0 - turn the rule off
+# "warn" or 1 - turn the rule on as a warning (doesn’t affect exit code)
+# "error" or 2 - turn the rule on as an error (exit code is 1 when triggered)
+
 rules:
   no-console: 0
   indent:
@@ -26,10 +30,11 @@ rules:
     - 2
   space-before-function-paren:
     - 2
+    - {'anonymous': 'always', 'named': 'never'}
   brace-style:
     - 2
     - 1tbs
-    - { 'allowSingleLine': true }
+    - {'allowSingleLine': true}
   comma-dangle:
     - 2
     - always-multiline
@@ -67,7 +72,7 @@ rules:
   no-alert: 2              # disallow the use of alert confirm and prompt
   no-caller: 2             # disallow use of arguments.caller or arguments.callee
   no-div-regex: 2          # disallow division operators explicitly at beginning of regular expression (off by default)
-  no-else-return: 1        # disallow else after a return in an if (off by default)
+  no-else-return: 2        # disallow else after a return in an if (off by default)
   no-eq-null: 2            # disallow comparisons to null without a type-checking operator (off by default)
   no-eval: 2               # disallow use of eval()
   no-extend-native: 2      # disallow adding to native types
@@ -116,3 +121,4 @@ parserOptions:
   ecmaFeatures:
     jsx: true
     experimentalObjectRestSpread: true
+    impliedStrict: true

@@ -14,7 +14,7 @@ const validate = values => {
 };
 
 class SearchSize extends React.Component {
-  render () {
+  render() {
     return (
       <form className='searchbar-form'>
         <Field component={renderSelect}

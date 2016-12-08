@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 class AuthButton extends React.Component {
-  render () {
+  render() {
     return (
       <Link to={this.props.linkTo}>
         <button className={this.props.className}>{this.props.content}</button>

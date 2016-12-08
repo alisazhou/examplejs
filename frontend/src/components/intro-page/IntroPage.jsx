@@ -10,7 +10,7 @@ import HowItWorks from '../how-it-works/HowItWorks.jsx';
 
 
 class IntroPage extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <Navbar />

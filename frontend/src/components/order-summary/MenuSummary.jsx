@@ -4,7 +4,7 @@ import R from 'ramda';
 
 
 class MenuSummary extends React.Component {
-  render () {
+  render() {
     return (
       <div className='menu_summary'>
         <p>{`Menu: ${this.props.menuName}`}</p>

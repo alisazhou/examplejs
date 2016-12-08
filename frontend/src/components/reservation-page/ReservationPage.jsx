@@ -8,7 +8,7 @@ import ReservationForm from './ReservationForm.jsx';
 
 
 class ReservationPage extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <MenuSummary />

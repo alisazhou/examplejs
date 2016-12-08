@@ -1,7 +1,7 @@
 import React from 'react';
 
 class HowItWorks extends React.Component {
-  render () {
+  render() {
     return (
       <header className='howitworks__header'>
         <div className='howitworks__div'>

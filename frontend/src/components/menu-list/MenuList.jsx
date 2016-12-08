@@ -4,7 +4,7 @@ import MenuListItem from './MenuListItem.jsx';
 
 
 class MenuList extends React.Component {
-  render () {
+  render() {
     return (
       <div className='menu-list'>
         { this.props.menus.length

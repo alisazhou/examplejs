@@ -6,7 +6,7 @@ import { renderInput } from '../formHelpers.js';
 
 
 class LoginForm extends React.Component {
-  render () {
+  render() {
     return (
       <form>
         <Field component={renderInput}

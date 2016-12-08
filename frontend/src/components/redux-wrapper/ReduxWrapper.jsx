@@ -32,14 +32,14 @@ const rootReducer = combineReducers({
 const middlewares = [ thunk ];
 
 // jest test runner node_env
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test') {  // eslint-disable-line
   const logger = createLogger();
   middlewares.push(logger);
 }
 let store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 class WrappedComponent extends React.Component {
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <Router history={browserHistory} >

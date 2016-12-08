@@ -6,11 +6,11 @@ import Footer from '../footer/Footer.jsx';
 
 class StickyLayout extends React.Component {
   // pure render
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
   }
 
-  render () {
+  render() {
     return (
       <div>
         <div className='sticky-layout--body'>
