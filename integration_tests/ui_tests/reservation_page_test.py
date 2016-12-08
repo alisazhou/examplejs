@@ -57,6 +57,7 @@ def test_saves_reservation_detail_between_pages(browser):
 
 
 @pytest.mark.skipif(OFFLINE, reason='no internet')
+@pytest.mark.timeout(60)
 def test_can_make_payment(browser):
     # when alisa first go to the page she doesn't see a paypal button
     browser.assert_paypal_button_does_not_exist()
@@ -73,7 +74,8 @@ def test_can_make_payment(browser):
     # we are redirected to paypal site
     assert 'paypal.com' in browser.current_url
 
-
+# assert_does_not_exist takes at least 3 seconds each
+@pytest.mark.timeout(60)
 def test_performs_form_validation(browser):
     # no error msg shown at first
     assert 'Please fill in your name' not in browser.body_text
