@@ -9,7 +9,7 @@
 - then the only commands to run with developing is
     - nvm run build (or to break it apart, `nvm run js` and `nvm run css`)
     - nvm test
-- to check for new updates (if greenkeeper isn't submitting pull requests):
+- to check for new updates:
     - `npm run ncu`. to actually update package.json `npm run ncu -- -u`
 
 
