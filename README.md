@@ -7,6 +7,7 @@ See individual folders for their READMEs
 
 # Setup
 - be sure to symlink pre-commit hook to .git/hooks/pre-commit, and have it executable. won't need to do it after git 2.9
+- git submodule update --recursive --init
 
 
 #### Kanban Bananas
