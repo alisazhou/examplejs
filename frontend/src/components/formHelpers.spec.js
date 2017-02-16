@@ -9,7 +9,6 @@ import { renderInput, renderSelect } from './formHelpers.js';
 describe('renderInput stateless component', () => {
   const INPUT_TEST_FIELD = {
     className: 'field className',
-    displayError: true,
     input: 'redux form provided utilities',
     label: 'field label',
     placeholder: 'field placeholder',
@@ -47,15 +46,6 @@ describe('renderInput stateless component', () => {
       expect(divs.length).toBe(2);  // most outer div
     });
 
-    it('shows no errors when displayError is false', () => {
-      const TEST_FIELD_NOT_DISPLAY = {
-        ...INPUT_TEST_FIELD, displayError: false,
-      };
-      const resultNotDisplay = renderInput(TEST_FIELD_NOT_DISPLAY);
-      const divs = findInTree(resultNotDisplay, 'div');
-      expect(divs.length).toBe(1);  // most outer div
-    });
-
     it('shows no errors when untouched', () => {
       const TEST_FIELD_UNTOUCHED = {
         ...INPUT_TEST_FIELD, meta: { touched: false },
@@ -80,7 +70,6 @@ describe('renderInput stateless component', () => {
 describe('renderSelect stateless component', () => {
   const SELECT_TEST_FIELD = {
     className: 'field className',
-    displayError: true,
     label: 'field label',
     options: [ { id: 'id 0', name: 'name 0' }, { id: 'id 1', name: 'name 1' } ],
     select: 'redux form provided utilities',
@@ -130,15 +119,6 @@ describe('renderSelect stateless component', () => {
     it('shows error message only if all true', () => {
       const divs = findInTree(result, 'div');
       expect(divs.length).toBe(2);  // most outer div
-    });
-
-    it('shows no errors when displayError is false', () => {
-      const TEST_FIELD_NOT_DISPLAY = {
-        ...SELECT_TEST_FIELD, displayError: false,
-      };
-      const resultNotDisplay = renderSelect(TEST_FIELD_NOT_DISPLAY);
-      const divs = findInTree(resultNotDisplay, 'div');
-      expect(divs.length).toBe(1);  // most outer div
     });
 
     it('shows no errors when untouched', () => {

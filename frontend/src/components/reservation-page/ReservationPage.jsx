@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { isValid } from 'redux-form';
 
 import LinkButton from '../link-button/LinkButton.jsx';
 import MenuSummary from '../order-summary/MenuSummary.jsx';
@@ -28,7 +29,7 @@ ReservationPage.propTypes = {
 
 const mapStateToProps = state => ({
   menuId: state.order.menuId,
-  orderValid: state.order.orderValid,
+  orderValid: isValid('reservationForm')(state),
 });
 
 export default connect(mapStateToProps)(ReservationPage);

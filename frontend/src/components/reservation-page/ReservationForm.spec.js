@@ -44,18 +44,11 @@ describe('ReservationForm react component', () => {
       expect(fields.length).toEqual(3);
       R.all(field => field.props.component === renderInput)(fields);
     });
-
-    it('calls markInvalid onFocus', () => {
-      expect(mockMarkInvalid).not.toBeCalled();
-      R.map(field => field.props.onFocus(), fields);
-      expect(mockMarkInvalid.mock.calls.length).toEqual(3);
-    });
   });
 
   it('has the correct propTypes', () => {
     const expectedPropTypes = [
       'handleSubmit',
-      'markInvalid',
       'updateAndMarkValid',
     ];
     R.forEach(
@@ -80,7 +73,6 @@ describe('ReservationForm redux-connected component', () => {
       <ConnectedForm store={store} {...PROPS_FROM_REDUX_FORM} />
     );
     const result = shallowRenderer.getRenderOutput();
-    expect(result.props.markInvalid).toBeDefined();
     expect(result.props.updateAndMarkValid).toBeDefined();
   });
 });
@@ -94,20 +86,11 @@ describe('ReservationForm redux form-connected component', () => {
 
 
 describe('mapDispatchToProps', () => {
-  it('markInvalid dispatches update order action', () => {
-    spyOn(store, 'dispatch');
-    const { markInvalid } = mapDispatchToProps(store.dispatch);
-    const action = updateOrderActionCreator({orderValid: false});
-    expect(store.dispatch).not.toHaveBeenCalled();
-    markInvalid();
-    expect(store.dispatch).toHaveBeenCalledWith(action);
-  });
-
   it('updateAndMarkValid dispatches update order action', () => {
     spyOn(store, 'dispatch');
     const { updateAndMarkValid } = mapDispatchToProps(store.dispatch);
     const data = { formField: 'formField 0' };
-    const action = updateOrderActionCreator({...data, orderValid: true});
+    const action = updateOrderActionCreator({...data});
     expect(store.dispatch).not.toHaveBeenCalled();
     updateAndMarkValid(data);
     expect(store.dispatch).toHaveBeenCalledWith(action);

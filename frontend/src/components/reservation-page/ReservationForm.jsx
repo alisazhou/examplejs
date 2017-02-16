@@ -6,19 +6,7 @@ import { renderInput } from '../formHelpers.js';
 import { updateOrderActionCreator } from '../../actions/orderActions.js';
 
 
-const validate = values => {
-  let errors = {};
-  if (!values.customerName) {
-    errors.customerName = 'Please fill in your name.';
-  }
-  if (!values.customerAddress) {
-    errors.customerAddress = 'Address is required.';
-  }
-  if (!values.customerTel) {
-    errors.customerTel = 'Contact info is required.';
-  }
-  return errors;
-};
+const validateRequired = value => value ? undefined : 'Required';
 
 class ReservationForm extends React.Component {
   render() {
@@ -31,27 +19,24 @@ class ReservationForm extends React.Component {
       >
         <Field component={renderInput}
           className='reservation_form--name'
-          displayError={true}
           label='Name:'
           name='customerName'
           type='text'
-          onFocus={this.props.markInvalid}
+          validate={validateRequired}
         />
         <Field component={renderInput}
           className='reservation_form--tel'
-          displayError={true}
           label='Mobile:'
           name='customerTel'
           type='text'
-          onFocus={this.props.markInvalid}
+          validate={validateRequired}
         />
         <Field component={renderInput}
           className='reservation_form--add'
-          displayError={true}
           label='Address:'
           name='customerAddress'
           type='text'
-          onFocus={this.props.markInvalid}
+          validate={validateRequired}
         />
         <button type='submit'>Confirm</button>
       </form>
@@ -61,17 +46,13 @@ class ReservationForm extends React.Component {
 
 ReservationForm.propTypes = {
   handleSubmit: React.PropTypes.func.isRequired,
-  markInvalid: React.PropTypes.func.isRequired,
   updateAndMarkValid: React.PropTypes.func.isRequired,
 };
 
 
 const mapDispatchToProps = dispatch => ({
-  markInvalid: () => {
-    dispatch(updateOrderActionCreator({orderValid: false}));
-  },
   updateAndMarkValid: data => {
-    dispatch(updateOrderActionCreator({...data, orderValid: true}));
+    dispatch(updateOrderActionCreator({...data}));
   },
 });
 
@@ -82,7 +63,6 @@ const ConnectedForm = connect(
 export default reduxForm({
   form: 'reservationForm',
   destroyOnUnmount: false,
-  validate,
 })(ConnectedForm);
 
 export { ConnectedForm, mapDispatchToProps, ReservationForm };
